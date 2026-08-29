@@ -1,0 +1,711 @@
+<title>How Adults Learn to Talk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+
+<style>
+  :root {
+    --ground: #EFF1F1;
+    --surface: #FAFBFB;
+    --surface-2: #E5E9E9;
+    --ink: #10161A;
+    --ink-soft: #56626B;
+    --ink-faint: #7C888F;
+    --rule: #D2D9DA;
+    --rule-soft: #E0E5E6;
+    --in: #0F5F76;
+    --in-wash: #E2EDF0;
+    --out: #A83258;
+    --out-wash: #F4E4E9;
+
+    --display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+    --body: "Source Serif 4", Georgia, "Times New Roman", serif;
+    --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+    --col: 72ch;
+    --s1: 0.5rem; --s2: 0.875rem; --s3: 1.5rem; --s4: 2.5rem; --s5: 4rem; --s6: 6rem;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #12171A;
+      --surface: #182024;
+      --surface-2: #1E282C;
+      --ink: #E2E8EA;
+      --ink-soft: #93A1A8;
+      --ink-faint: #74838B;
+      --rule: #29343A;
+      --rule-soft: #212B30;
+      --in: #62BBD4;
+      --in-wash: #16303A;
+      --out: #E8809F;
+      --out-wash: #38202A;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground: #12171A;
+    --surface: #182024;
+    --surface-2: #1E282C;
+    --ink: #E2E8EA;
+    --ink-soft: #93A1A8;
+    --ink-faint: #74838B;
+    --rule: #29343A;
+    --rule-soft: #212B30;
+    --in: #62BBD4;
+    --in-wash: #16303A;
+    --out: #E8809F;
+    --out-wash: #38202A;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 18px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: var(--col);
+    margin: 0 auto;
+    padding: 0 var(--s3);
+  }
+
+  /* ---------- masthead ---------- */
+
+  .masthead {
+    border-bottom: 1px solid var(--rule);
+    padding: var(--s5) 0 var(--s4);
+    margin-bottom: var(--s5);
+  }
+  .kicker {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s2);
+    margin-bottom: var(--s3);
+  }
+  .kicker span::before { content: "/ "; color: var(--rule); }
+  .kicker span:first-child::before { content: none; }
+
+  h1 {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(2.6rem, 8vw, 4.1rem);
+    line-height: 0.96;
+    letter-spacing: -0.028em;
+    text-wrap: balance;
+    margin: 0 0 var(--s3);
+  }
+  h1 em {
+    font-style: normal;
+    color: var(--out);
+  }
+  .standfirst {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    max-width: 58ch;
+    margin: 0;
+  }
+
+  /* ---------- sections ---------- */
+
+  section { margin-bottom: var(--s6); }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--in);
+    display: block;
+    margin-bottom: var(--s2);
+  }
+  .eyebrow.out { color: var(--out); }
+
+  h2 {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(1.7rem, 4.4vw, 2.25rem);
+    line-height: 1.06;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+    margin: 0 0 var(--s3);
+    padding-bottom: var(--s2);
+    border-bottom: 2px solid var(--ink);
+  }
+
+  h3 {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 1.16rem;
+    letter-spacing: -0.008em;
+    line-height: 1.25;
+    text-wrap: balance;
+    margin: var(--s4) 0 var(--s1);
+  }
+
+  h4 {
+    font-family: var(--mono);
+    font-size: 0.74rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin: var(--s3) 0 var(--s1);
+  }
+
+  p { margin: 0 0 var(--s2); }
+  p + p { margin-top: 0; }
+
+  a {
+    color: var(--in);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+  }
+  a:focus-visible, summary:focus-visible {
+    outline: 2px solid var(--out);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  strong { font-weight: 600; }
+
+  ul, ol { margin: 0 0 var(--s2); padding-left: 1.3em; }
+  li { margin-bottom: var(--s1); }
+  li::marker { color: var(--ink-faint); }
+
+  .lede {
+    font-size: 1.06rem;
+    color: var(--ink-soft);
+    margin-bottom: var(--s3);
+  }
+
+  /* ---------- confidence marks ---------- */
+
+  .claim {
+    display: flex;
+    gap: var(--s3);
+    align-items: baseline;
+    border-top: 1px solid var(--rule-soft);
+    padding-top: var(--s3);
+    margin-top: var(--s3);
+  }
+  .conf {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.05em;
+    color: var(--ink-faint);
+    white-space: nowrap;
+    flex: 0 0 auto;
+    padding-top: 0.18em;
+  }
+  .conf b { color: var(--ink); font-weight: 500; }
+  .claim-body { flex: 1 1 auto; min-width: 0; }
+  .claim-body h3 { margin-top: 0; }
+
+  /* ---------- callouts ---------- */
+
+  .bottomline {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--out);
+    padding: var(--s3) var(--s3) var(--s3) var(--s3);
+    margin: var(--s4) 0;
+  }
+  .bottomline h4 { margin-top: 0; color: var(--out); }
+  .bottomline ol { margin-bottom: 0; }
+
+  .note {
+    background: var(--surface-2);
+    padding: var(--s3);
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    margin: var(--s3) 0;
+    border-left: 3px solid var(--rule);
+  }
+  .note h4 { margin-top: 0; }
+  .note :last-child { margin-bottom: 0; }
+
+  /* ---------- tables ---------- */
+
+  .scroller {
+    overflow-x: auto;
+    margin: var(--s3) 0 var(--s4);
+    border-top: 2px solid var(--ink);
+    border-bottom: 1px solid var(--rule);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    font-variant-numeric: tabular-nums;
+  }
+  th {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-align: left;
+    color: var(--ink-soft);
+    padding: var(--s2) var(--s2) var(--s2) 0;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: bottom;
+    white-space: nowrap;
+  }
+  td {
+    padding: var(--s2) var(--s2) var(--s2) 0;
+    border-bottom: 1px solid var(--rule-soft);
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  td:first-child, th:first-child { padding-left: 0; }
+  .num {
+    font-family: var(--mono);
+    font-size: 0.84rem;
+    white-space: nowrap;
+    color: var(--in);
+    font-weight: 500;
+  }
+  .src { color: var(--ink-faint); font-size: 0.82rem; }
+
+  /* ---------- phases ---------- */
+
+  .phase {
+    display: grid;
+    grid-template-columns: 3.4rem 1fr;
+    gap: 0 var(--s3);
+    border-top: 1px solid var(--rule);
+    padding-top: var(--s3);
+    margin-top: var(--s4);
+  }
+  .phase-n {
+    font-family: var(--mono);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--out);
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+  .phase-hours {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-top: var(--s1);
+    line-height: 1.4;
+  }
+  .phase h3 { margin: 0 0 var(--s1); }
+  .phase-body > :last-child { margin-bottom: 0; }
+  @media (max-width: 560px) {
+    .phase { grid-template-columns: 1fr; gap: var(--s1) 0; }
+    .phase-hours { display: inline; margin-left: var(--s2); }
+    .phase-n { display: inline; font-size: 1.1rem; }
+  }
+
+  /* ---------- misc ---------- */
+
+  .method {
+    border-top: 1px solid var(--rule-soft);
+    padding-top: var(--s3);
+    margin-top: var(--s3);
+  }
+  .method h3 { margin-top: 0; display: flex; align-items: baseline; gap: var(--s2); flex-wrap: wrap; }
+  .tag {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.22em 0.5em;
+    border: 1px solid currentColor;
+    color: var(--ink-faint);
+    white-space: nowrap;
+  }
+  .tag.worth { color: var(--in); background: var(--in-wash); border-color: transparent; }
+  .tag.watch { color: var(--out); background: var(--out-wash); border-color: transparent; }
+
+  .kill { color: var(--ink-soft); }
+  .kill b { color: var(--ink); font-weight: 600; }
+
+  details {
+    border-top: 1px solid var(--rule);
+    padding: var(--s2) 0;
+  }
+  summary {
+    cursor: pointer;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-soft);
+  }
+  summary:hover { color: var(--ink); }
+  details[open] summary { margin-bottom: var(--s2); color: var(--ink); }
+  details ul { font-size: 0.88rem; color: var(--ink-soft); }
+
+  footer {
+    border-top: 2px solid var(--ink);
+    padding: var(--s3) 0 var(--s6);
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    line-height: 1.7;
+    color: var(--ink-faint);
+    letter-spacing: 0.02em;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    a, summary { transition: color 120ms ease; }
+  }
+</style>
+
+<div class="wrap">
+
+<header class="masthead">
+  <div class="kicker">
+    <span>Evidence review</span>
+    <span>Adult L2 acquisition</span>
+    <span>Target: spontaneous conversation</span>
+  </div>
+  <h1>How Adults Learn <em>to Talk</em></h1>
+  <p class="standfirst">Sixty years of second-language research, filtered for one goal: holding a real, unscripted conversation with a stranger. What the effect sizes actually support, which new methods are worth your time, and a protocol built from the findings that survive scrutiny.</p>
+</header>
+
+<section>
+  <span class="eyebrow">The short version</span>
+  <h2>What the evidence converges on</h2>
+
+  <p class="lede">The field's biggest arguments — input versus output, explicit versus implicit, classroom versus immersion — have mostly resolved into a boring synthesis. It works, and almost nobody does it.</p>
+
+  <div class="bottomline">
+    <h4>The six findings that carry the most weight</h4>
+    <ol>
+      <li><strong>Massive comprehensible input is necessary but not sufficient.</strong> It builds comprehension and implicit knowledge. It does not, on its own, build a mouth that moves.</li>
+      <li><strong>Interaction beats reception at equal time-on-task</strong> for speaking outcomes — turn-taking, repair, and having to be understood do work that listening cannot.</li>
+      <li><strong>Explicit instruction wins short-term; implicit exposure wins on delayed tests.</strong> Which means: use explicit teaching as a shortcut into a structure, then get thousands of encounters with it.</li>
+      <li><strong>Distribution beats volume.</strong> Spacing, retrieval, and repetition-with-variation reliably outperform the same hours spent massed.</li>
+      <li><strong>Train perception before you chase production.</strong> Sound-discrimination training has some of the largest and most durable effect sizes in the entire literature.</li>
+      <li><strong>Affect is a mechanism, not a mood.</strong> Anxiety suppresses the willingness to speak, which suppresses interaction, which is where the gains are. Reducing it is a learning intervention.</li>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <span class="eyebrow">Findings</span>
+  <h2>Eight claims, ranked by how much the evidence supports them</h2>
+
+  <p class="lede">Confidence marks reflect my read of replication, effect-size stability, and study quality — not just whether a paper exists. <span class="conf"><b>●●●</b></span> robust across multiple meta-analyses; <span class="conf"><b>●●</b>○</span> consistent but with real caveats; <span class="conf"><b>●</b>○○</span> promising, thin, or contaminated by weak designs.</p>
+
+  <div class="claim">
+    <div class="conf"><b>●●●</b></div>
+    <div class="claim-body">
+      <h3>Instruction works, and it works better than leaving adults to absorb</h3>
+      <p>Norris and Ortega's foundational synthesis of 49 studies found focused instruction produces large, durable gains, with explicit approaches outperforming implicit ones. Kang, Sok and Han's update — 54 studies, 5,051 learners — put the overall effect at <span class="num">g = 1.06</span>. This is one of the least controversial results in applied linguistics.</p>
+      <p>The twist matters more than the headline. In that same update, explicit instruction led on immediate posttests (<span class="num">g = 1.11</span> vs <span class="num">1.38</span> implicit) but <em>lost badly on delayed ones</em>: implicit <span class="num">g = 1.76</span> against explicit <span class="num">g = 0.77</span>. Explicit knowledge is a fast on-ramp that decays. Exposure is slow and sticks.</p>
+    </div>
+  </div>
+
+  <div class="claim">
+    <div class="conf"><b>●●●</b></div>
+    <div class="claim-body">
+      <h3>Comprehensible input is the foundation — and an incomplete theory</h3>
+      <p>Krashen's input hypothesis has forty years of supporting work behind it, especially from extensive reading and listening research: learners given large volumes of understandable material match or beat traditionally-taught peers on grammar and beat them decisively on vocabulary and comprehension.</p>
+      <p>But the strongest counter-evidence comes from the immersion classrooms Krashen's own theory predicted would succeed. French immersion students reached near-native comprehension and stayed conspicuously weak in production — the observation that produced Swain's output hypothesis. A 2025 neuro-ecological critique pushes further: adults given face-to-face interactive sessions with turn-taking and gesture outperformed adults given the same number of hours of non-interactive listening, on both speaking and comprehension, with greater functional connectivity in language networks.</p>
+      <p>Input is the substrate. It is not the whole mechanism, and a pure-input regime systematically under-builds the thing you actually want.</p>
+    </div>
+  </div>
+
+  <div class="claim">
+    <div class="conf"><b>●●●</b></div>
+    <div class="claim-body">
+      <h3>Perceptual training has outsized, durable returns</h3>
+      <p>High-variability phonetic training — hearing the same contrast from many different speakers, in many contexts, with immediate right/wrong feedback — is one of the best-evidenced interventions available. A meta-analysis of 79 studies found <span class="num">g = 0.92</span> pre-to-post and <span class="num">g = 0.67</span> against controls, with retention over time and partial generalization to voices and words never trained on. A separate meta-analysis found effects carrying through to <em>production</em> at <span class="num">g = 0.77</span>, largest for consonants and lexical tones.</p>
+      <p>Pronunciation instruction more broadly lands at <span class="num">d ≈ 0.80–0.89</span> (Lee, Jang &amp; Plonsky, 86 reports), with larger effects for longer interventions and, critically, for treatments that provide feedback.</p>
+      <p>The practical implication is under-appreciated: if you cannot reliably <em>hear</em> a distinction, every hour of listening input is partially wasted, and no amount of speaking practice will fix the production. Perception is upstream of everything.</p>
+    </div>
+  </div>
+
+  <div class="claim">
+    <div class="conf"><b>●●●</b></div>
+    <div class="claim-body">
+      <h3>Spacing and retrieval outperform the same hours massed</h3>
+      <p>Kim and Webb aggregated 98 effect sizes from 48 experiments (N = 3,411): spaced practice consistently beats massed for retention. Shorter intervals look competitive on immediate tests and fall apart on delayed ones — which is exactly the trap of cramming before a lesson. Repetition alone has a medium effect on incidental vocabulary uptake (<span class="num">r = 0.34</span> across 26 studies).</p>
+      <p>Retrieval practice — being made to produce the item rather than re-read it — beats restudying, and production-format retrieval (write or say the word) beats recognition-format (pick from four). Sleep does real consolidation work here: overnight sleep improves both novel word integration and the perceptual learning of non-native sound contrasts, so a session before bed is not a neutral scheduling choice.</p>
+    </div>
+  </div>
+
+  <div class="claim">
+    <div class="conf"><b>●●</b>○</div>
+    <div class="claim-body">
+      <h3>Corrective feedback works — and prompts beat recasts</h3>
+      <p>Meta-analyses of oral feedback find significant, <em>durable</em> effects on target structures. The consistent moderator: prompts (being pushed to self-correct — "sorry, again?", a clarification request, an elicitation) outperform recasts (the interlocutor smoothly reformulating what you said), and the gap is widest on measures requiring free constructed responses. Recasts land around <span class="num">d ≈ 0.35</span> and are frequently not even noticed as corrections.</p>
+      <p>This is a direct instruction for how to brief a tutor or a conversation partner: <em>don't fix my sentence for me — signal that something broke and make me repair it.</em></p>
+    </div>
+  </div>
+
+  <div class="claim">
+    <div class="conf"><b>●●</b>○</div>
+    <div class="claim-body">
+      <h3>Fluency is built by repetition under time pressure, not by new material</h3>
+      <p>The 4/3/2 technique — deliver the same short talk to three successive listeners in four, then three, then two minutes — produces measurable increases in speech rate and reductions in hesitation within a single session (Maurice; Nation; Arevart &amp; Nation). The decreasing time limit is the active ingredient; a 3/3/3 control does less.</p>
+      <p>The 2025 meta-analysis of task repetition and oral performance sharpens this: repetition most improves <em>syntactic complexity and accuracy</em>, with smaller gains for fluency and lexical range. Repeating a task doesn't just make you faster at it — it frees the attention you were spending on content, and you spend it on form instead.</p>
+      <p>Related: formulaic sequences — multi-word chunks retrieved whole rather than assembled — are the main engine of fluent-sounding speech, chiefly by eliminating mid-clause pauses. Explicit chunk instruction produces significant speaking-fluency gains over controls.</p>
+    </div>
+  </div>
+
+  <div class="claim">
+    <div class="conf"><b>●●</b>○</div>
+    <div class="claim-body">
+      <h3>Emotion gates the practice you actually get</h3>
+      <p>Foreign language anxiety negatively predicts willingness to communicate; enjoyment positively predicts it, along with participation and performance (Dewaele &amp; MacIntyre and a large following literature). Because speaking opportunities are the scarce resource for adults, anything that raises willingness to communicate compounds.</p>
+      <p>This is where several otherwise-unimpressive technologies earn their place: AI chatbots and VR environments consistently show their <em>most reliable</em> effects on anxiety reduction and willingness to communicate, whatever you think of their proficiency claims. A judgement-free interlocutor that never gets bored is not a great teacher, but it is an excellent on-ramp back into speaking.</p>
+    </div>
+  </div>
+
+  <div class="claim">
+    <div class="conf"><b>●</b>○○</div>
+    <div class="claim-body">
+      <h3>Immersion helps — but contact hours are not the mechanism</h3>
+      <p>Study-abroad research shows large advantages: in one comparison, 89% of study-abroad participants gained at least one proficiency level against 44% at home. Yet the same literature repeatedly fails to explain those gains by raw out-of-class contact. Learners who log similar exposure hours diverge sharply.</p>
+      <p>Kazuya Saito's longitudinal work points at the resolution: what predicts advanced speech gains is the <em>quality</em> of experience — naturalistic, interactive, demanding exposure — interacting with individual differences in aptitude and auditory processing. Being in the country is a proxy for interaction quality, and a leaky one. Adults who move abroad and speak English at work are the standing counterexample.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <span class="eyebrow">Reference</span>
+  <h2>Effect sizes at a glance</h2>
+
+  <p class="lede">Read these as rough magnitudes, not measurements. Effect sizes in applied linguistics run high — small samples, short interventions, immediate posttests, and publication bias all inflate them. Comparisons <em>within</em> this table are more informative than the absolute numbers.</p>
+
+  <div class="scroller">
+    <table>
+      <thead>
+        <tr><th>Intervention</th><th>Effect</th><th>Evidence base</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Focused L2 instruction, overall</td><td class="num">g = 1.06</td><td class="src">54 studies, 5,051 learners (Kang et al. 2019)</td></tr>
+        <tr><td>Implicit instruction, <em>delayed</em> posttest</td><td class="num">g = 1.76</td><td class="src">same, vs g = 0.77 explicit</td></tr>
+        <tr><td>HVPT → speech perception</td><td class="num">g = 0.92</td><td class="src">79 studies; g = 0.67 vs control</td></tr>
+        <tr><td>HVPT → production</td><td class="num">g = 0.77</td><td class="src">largest for consonants, tones</td></tr>
+        <tr><td>Pronunciation instruction</td><td class="num">d = 0.80–0.89</td><td class="src">86 reports (Lee, Jang &amp; Plonsky)</td></tr>
+        <tr><td>Spaced vs massed practice</td><td class="num">positive, durable</td><td class="src">98 effects, 48 experiments, N = 3,411</td></tr>
+        <tr><td>Repetition → incidental vocabulary</td><td class="num">r = 0.34</td><td class="src">45 effects, 26 studies</td></tr>
+        <tr><td>Oral corrective feedback (recasts)</td><td class="num">d ≈ 0.35</td><td class="src">prompts reliably higher</td></tr>
+        <tr><td>Task repetition → accuracy, complexity</td><td class="num">moderate</td><td class="src">2025 meta-analysis; fluency gains smaller</td></tr>
+        <tr><td>VR-assisted learning → speaking</td><td class="num">d ≈ 1.03</td><td class="src">small literature — treat as provisional</td></tr>
+        <tr><td>AI chatbots → L2 outcomes</td><td class="num">d ≈ 1.17</td><td class="src">15 studies, N = 2,156 — treat as provisional</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note">
+    <h4>Why the last two rows deserve suspicion</h4>
+    <p>A pooled <span class="num">d</span> above 1.0 from fifteen short studies, mostly with untreated control groups and researcher-designed outcome measures, is what a novelty effect looks like in aggregate. The AI and VR findings for <em>anxiety and willingness to communicate</em> are more credible than the findings for proficiency, because self-report measures of comfort are exactly what those tools plausibly move. Use them for the psychological function; don't assume the proficiency transfer.</p>
+  </div>
+</section>
+
+<section>
+  <span class="eyebrow out">Methods</span>
+  <h2>Novel and emerging approaches, honestly graded</h2>
+
+  <div class="method">
+    <h3>Conversational LLM partners <span class="tag worth">Use it</span></h3>
+    <p>The genuinely new capability of the last few years. An interlocutor with infinite patience, available at 6am, that will stay in the target language, adapt difficulty in real time, and never make you feel stupid. Studies through 2025 consistently report improved willingness to communicate, reduced speaking anxiety, and gains in self-perceived competence; several report oral proficiency gains against face-to-face peer conversation controls.</p>
+    <p><strong>How to use it well:</strong> the default chatbot behaviour is recasting — it silently understands your broken sentence and answers smoothly. That's the weakest feedback type in the literature. Instruct it explicitly: <em>"When I make an error, don't correct me. Signal that you didn't understand and make me try again. Every ten turns, list the three errors I repeated."</em> That converts it from a recast machine into a prompt machine.</p>
+    <p><strong>What it can't do:</strong> it doesn't get impatient, doesn't interrupt, doesn't have an accent you struggle with, and doesn't leave. Real conversation includes all four. This is a scaffold, not a substitute.</p>
+  </div>
+
+  <div class="method">
+    <h3>High-variability phonetic training <span class="tag worth">Use it</span></h3>
+    <p>The most under-adopted high-evidence method in the whole field. Almost no commercial course does it properly, because it is boring: minimal-pair discrimination drills, many talkers, immediate feedback, twenty minutes a day for a few weeks. The payoff is that you stop mis-hearing the language, which raises the yield of every subsequent hour of input. If your target language has contrasts your L1 lacks — tones, vowel length, retroflexes, voiced/voiceless distinctions your ear collapses — this is the highest-leverage thing on this page.</p>
+  </div>
+
+  <div class="method">
+    <h3>Narrow listening and narrow reading <span class="tag worth">Use it</span></h3>
+    <p>Instead of varied material, consume many hours on <em>one topic</em> or from <em>one speaker</em>. Vocabulary and structures recur naturally, cognitive load drops, and comprehension climbs fast. Learners in narrow-listening studies also showed transfer to topics they never trained on. It is the cheapest way to make input comprehensible without dumbing it down — and it maps perfectly onto the real goal, since you will actually converse about a narrow set of topics: your work, your city, your family, your opinions.</p>
+  </div>
+
+  <div class="method">
+    <h3>The comprehensible-input movement <span class="tag watch">Partly</span></h3>
+    <p>Dreaming Spanish, ALG, and the broader "thousands of hours of input, delay speaking" community have produced something the academy hasn't: a large population of adults following a specified protocol and reporting hour-stamped outcomes. Their roadmap — roughly 50 hours to follow simple content, 600 to follow normal speech, 1,000–1,500 to feel comfortable — is broadly consistent with FSI's institutional data.</p>
+    <p><strong>The caveat:</strong> this is self-selected community feedback, not controlled research, and the strong version of the doctrine (delay speaking for hundreds of hours; corrective feedback is harmful) is the part the evidence contradicts most directly — see the immersion-classroom production gap above. Take the volume prescription seriously. Don't take the speaking prohibition seriously.</p>
+  </div>
+
+  <div class="method">
+    <h3>Immersive VR <span class="tag watch">Optional</span></h3>
+    <p>Meta-analyses report large effects on speaking (<span class="num">d ≈ 1.03</span>) and on socio-emotional variables, with the most defensible finding being reduced speaking anxiety. The literature is young, the interventions are short, and the novelty confound is severe. Worth it if you already own a headset and the alternative is not practising; not worth buying hardware for.</p>
+  </div>
+
+  <div class="method">
+    <h3>Gamified apps <span class="tag watch">Limited role</span></h3>
+    <p>Duolingo's own research reports meaningful receptive gains — learners reaching roughly ACTFL Intermediate Mid overall after several months, with reading strongest. Independent work broadly agrees the receptive gains are real and notes the obvious ceiling: <em>speaking is the weakest outcome in every study, including the company's own,</em> where it lags at Intermediate Low. These are company-funded evaluations on company-designed measures.</p>
+    <p>Honest role: a habit scaffold and a vocabulary drip during dead time. Mistaking a streak for progress toward conversation is the single most common failure mode among motivated adult learners.</p>
+  </div>
+
+  <div class="method">
+    <h3>Learning in the wild <span class="tag worth">Use it</span></h3>
+    <p>Eskildsen and Wagner's programme takes adults out of the classroom on structured missions — order this, ask for that, get this information from a stranger — then brings the recordings back for analysis. The mechanism they identify is <em>self-initiated repair</em>: the moment you get stuck mid-transaction and have to fix it in real time is unusually potent for acquisition. It also collapses the gap between practice conditions and performance conditions, which is precisely where most classroom learners fail.</p>
+  </div>
+
+  <div class="method">
+    <h3>Shadowing <span class="tag watch">Narrow use</span></h3>
+    <p>Simultaneous repetition of audio, milliseconds behind the speaker. A 2025 systematic review supports gains in comprehensibility, intelligibility, accentedness and fluency; the proposed mechanism is loading the phonological loop to build motor-auditory automaticity. The literature is dominated by small studies with weak controls, so hold it loosely — but it is cheap, and it targets prosody and articulation rate, which little else does.</p>
+  </div>
+
+  <div class="method">
+    <h3>Structured audio courses (Pimsleur, Michel Thomas) <span class="tag watch">Early only</span></h3>
+    <p>Pimsleur's graduated interval recall was spaced repetition decades before the term was popularised, and the recalls are distributed and interleaved — genuinely good design. Michel Thomas trades memorisation for understanding-driven construction. Both are well built for the first weeks, and both share the disqualifying limitation identified in critical reviews: everything is pre-recorded, so there is no interaction, no negotiation of meaning, and no repair. They are a good hundred hours. They are not a path to conversation.</p>
+  </div>
+</section>
+
+<section>
+  <span class="eyebrow out">Protocol</span>
+  <h2>A programme built from the findings</h2>
+
+  <p class="lede">Four phases, defined by cumulative hours rather than months. Hour figures assume a Category I language for an English speaker (Spanish, French, Italian, Dutch); multiply by roughly 2 for German or Indonesian, 3–4 for Arabic, Chinese, Japanese or Korean. The ratios matter more than the totals.</p>
+
+  <div class="phase">
+    <div>
+      <div class="phase-n">01</div>
+      <div class="phase-hours">0–50 h</div>
+    </div>
+    <div class="phase-body">
+      <h3>Build the ear and a survival core</h3>
+      <p><strong>Split: 60% input / 20% sound work / 20% explicit study.</strong></p>
+      <ul>
+        <li><strong>Perceptual training first.</strong> 15–20 minutes daily of minimal-pair discrimination on the contrasts your L1 doesn't encode, with multiple speakers and instant feedback. This is the phase where it pays most.</li>
+        <li><strong>Explicit grammar, deliberately fast and shallow.</strong> Use the on-ramp property: read a clear explanation of the core system once, don't drill it. You are buying pattern-recognition for the input to come, not accuracy.</li>
+        <li><strong>The first 800–1,000 words by frequency,</strong> in a spaced-repetition system, with <em>production-format</em> cards (prompt in English or in an image, produce the L2 aloud). Recognition cards are the weaker format.</li>
+        <li><strong>Learn 40–60 whole chunks, not words:</strong> <em>could you say that again, I don't know how to say this, what's the word for, it depends, that makes sense, I was going to say.</em> These are the phrases that keep a conversation alive while your grammar is still assembling.</li>
+        <li><strong>Start speaking in week one</strong>, with an AI partner if a human is intimidating. The delay-speaking doctrine has the weakest support of any major claim in this space.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div>
+      <div class="phase-n">02</div>
+      <div class="phase-hours">50–300 h</div>
+    </div>
+    <div class="phase-body">
+      <h3>Volume, narrowly aimed</h3>
+      <p><strong>Split: 65% input / 25% interaction / 10% study.</strong></p>
+      <ul>
+        <li><strong>Narrow listening is the engine.</strong> Pick four or five topics you will genuinely talk about and consume dozens of hours in each. Same podcast, same creators, same subject matter until it feels easy, then move.</li>
+        <li><strong>Two conversations a week minimum</strong>, 30–50 minutes, with a human tutor or exchange partner. Brief them explicitly: <em>don't reformulate my errors — flag that you didn't understand and let me repair it.</em> Prompts beat recasts.</li>
+        <li><strong>Push vocabulary toward 2,000 word families,</strong> which buys roughly 90% coverage of spoken discourse. Below this, conversation is exhausting; above it, it starts to flow.</li>
+        <li><strong>Space it wide.</strong> Longer review intervals look worse day-to-day and better a month later. Trust the delayed-test result over how it feels.</li>
+        <li><strong>Study before sleep</strong> where you can. Overnight consolidation is doing measurable work on both vocabulary and sound categories.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div>
+      <div class="phase-n">03</div>
+      <div class="phase-hours">300–800 h</div>
+    </div>
+    <div class="phase-body">
+      <h3>Automatise what you already know</h3>
+      <p><strong>Split: 45% input / 45% output / 10% study.</strong></p>
+      <p>This is the phase most self-directed learners never enter, and it is where conversational ability is actually made. Skill-acquisition theory describes the shift from declarative knowledge ("I know the rule") through proceduralisation to automatisation, and it happens only through intensive production practice.</p>
+      <ul>
+        <li><strong>Run 4/3/2 on yourself.</strong> Record a four-minute talk on a topic, redo it in three, then two. Do it weekly. Speech rate rises and hesitations fall within the session, and the effect accumulates.</li>
+        <li><strong>Repeat tasks, don't only repeat words.</strong> Task repetition most improves accuracy and syntactic complexity — the second telling is where you upgrade the grammar because the content is free.</li>
+        <li><strong>Block, then interleave.</strong> Practise one structure to fluency, then mix it with others. Interleaving produces better accuracy and worse fluency in the short run; blocking first prevents the overload that makes interleaving counterproductive for struggling learners.</li>
+        <li><strong>Push toward 3,000 word families</strong> (≈95% coverage of speech). Shift from lists to reading and viewing, where collocation and usage get learned alongside meaning.</li>
+        <li><strong>Go into the wild.</strong> Set transactional missions with strangers — a question that requires a real answer. The moment you get stuck and repair it yourself is the highest-value second of the week.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div>
+      <div class="phase-n">04</div>
+      <div class="phase-hours">800 h +</div>
+    </div>
+    <div class="phase-body">
+      <h3>Range, register, and repair</h3>
+      <p><strong>Split: 40% input / 50% output / 10% targeted repair.</strong></p>
+      <ul>
+        <li><strong>Attack fossilised errors individually.</strong> By now the errors that remain are automatised. They need explicit noticing plus concentrated practice — the one place late-stage explicit instruction clearly earns its keep.</li>
+        <li><strong>Train pragmatics deliberately.</strong> Instruction in speech acts, politeness and register shows strong effects, particularly for learners without daily authentic exposure. Knowing how to soften a disagreement matters more socially than another 500 nouns.</li>
+        <li><strong>Diversify the input's difficulty:</strong> fast speech, regional accents, overlapping speakers, bad phone lines. Real conversation is degraded audio with interruptions.</li>
+        <li><strong>Move to group conversation.</strong> One-on-one tutoring is a protected environment; three-way conversation with native speakers who aren't accommodating you is the actual target condition.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="note">
+    <h4>Time expectations, without the marketing</h4>
+    <p>FSI needs 600–750 classroom hours plus self-study to bring full-time students to professional working proficiency (roughly B2–C1) in an easy language; the hardest languages take around 2,200. Council of Europe and Cambridge estimates put B2 in English at 600–750 guided hours. Comfortable everyday conversation — not professional proficiency — arrives considerably earlier, plausibly 300–500 hours for a close language if the output ratios above are respected. An hour a day gets you there in one to two years. Anything promising materially less is selling something.</p>
+  </div>
+</section>
+
+<section>
+  <span class="eyebrow">Costs</span>
+  <h2>What to stop doing</h2>
+
+  <p class="lede">Each of these is defensible in isolation and expensive in practice, because the binding constraint for an adult learner is hours, and these consume them at a poor exchange rate.</p>
+
+  <ul class="kill">
+    <li><b>Background listening.</b> Audio you aren't attending to is not input. Comprehensible input requires comprehension; incomprehensible noise trains nothing.</li>
+    <li><b>Grammar drilling past the on-ramp.</b> Explicit knowledge decays and doesn't convert to fluent production on its own. Learn the rule once, then spend the hours on encounters and production.</li>
+    <li><b>Recognition-only flashcards.</b> Cheaper per card, weaker per hour. Make yourself produce the form.</li>
+    <li><b>Streaks as a progress metric.</b> App engagement measures habit, not proficiency; speaking is the weakest outcome in even the most favourable app research.</li>
+    <li><b>Chasing a native accent.</b> The field moved to intelligibility and comprehensibility as targets years ago. Effort spent on residual accent past the point of easy intelligibility has a much lower return than the same effort on range or repair skills.</li>
+    <li><b>Waiting until you're ready to speak.</b> The readiness never arrives, and the delay compounds anxiety, which suppresses willingness to communicate, which removes the interaction where the gains are.</li>
+    <li><b>Method-shopping.</b> The variance between committed learners is dominated by hours and interaction quality, not by which of two reasonable methods they picked.</li>
+  </ul>
+</section>
+
+<section>
+  <span class="eyebrow">Caveats</span>
+  <h2>Where this review is weakest</h2>
+  <p>Three limits worth stating plainly. First, effect sizes in this literature are systematically inflated: interventions are short, controls are often untreated, outcome measures are frequently designed by the same researchers, and null results are under-published — so treat every number above as an upper bound. Second, most primary studies use university-age EFL students in classroom settings, and generalisation to a self-directed adult learning for travel or work is an assumption, not a finding. Third, the individual-differences literature is clear that aptitude, working memory, and auditory processing predict substantial variance in outcomes, which means the hour estimates here describe a distribution, not your trajectory.</p>
+  <p>The synthesis is still worth acting on. The ranking of methods is more robust than the magnitudes, and the ranking is what the protocol is built on.</p>
+</section>
+
+<footer>
+  <details>
+    <summary>Sources — click to expand</summary>
+    <ul>
+      <li>Norris &amp; Ortega (2000), <em>Effectiveness of L2 Instruction</em>, Language Learning — <a href="https://eric.ed.gov/?id=EJ611436">eric.ed.gov</a></li>
+      <li>Kang, Sok &amp; Han (2019), <em>Thirty-five years of ISLA on form-focused instruction</em> — <a href="https://journals.sagepub.com/doi/abs/10.1177/1362168818776671">sagepub.com</a></li>
+      <li>Kim &amp; Webb (2022), <em>The Effects of Spaced Practice on Second Language Learning</em>, Language Learning — <a href="https://onlinelibrary.wiley.com/doi/abs/10.1111/lang.12479">wiley.com</a></li>
+      <li>Uchihara &amp; Karas, <em>High variability phonetic training: a meta-analysis</em>, SSLA — <a href="https://www.cambridge.org/core/journals/studies-in-second-language-acquisition/article/high-variability-phonetic-training-hvpt-a-metaanalysis-of-l2-perceptual-training-studies/6ABB8C1F32D88D53EA8D05A4565E76F6">cambridge.org</a></li>
+      <li>Lee, Jang &amp; Plonsky (2015), <em>The Effectiveness of Second Language Pronunciation Instruction</em>, Applied Linguistics — <a href="https://academic.oup.com/applij/article/36/3/345/2422438">oup.com</a></li>
+      <li>Lyster &amp; Saito (2010), <em>Oral Feedback in Classroom SLA: A Meta-Analysis</em>, SSLA — <a href="https://eric.ed.gov/?id=EJ892626">eric.ed.gov</a></li>
+      <li><em>Task repetition and L2 oral performance: A meta-analysis</em> (2025), System — <a href="https://www.researchgate.net/publication/398171158_Task_repetition_and_L2_oral_performance_A_meta-analysis">researchgate.net</a></li>
+      <li><em>Beyond comprehensible input: a neuro-ecological critique of Krashen's hypothesis</em> (2025), Frontiers in Psychology — <a href="https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2025.1636777/full">frontiersin.org</a></li>
+      <li>Dalman &amp; Plonsky (2025), <em>The effectiveness of second-language listening strategy instruction</em> — <a href="https://journals.sagepub.com/doi/abs/10.1177/13621688211072981">sagepub.com</a></li>
+      <li><em>AI-driven chatbots in second language education: A systematic review</em> (2025) — <a href="https://www.sciencedirect.com/science/article/pii/S2215039025000086">sciencedirect.com</a></li>
+      <li><em>Investigating the role of AI-powered conversation bots in enhancing L2 speaking skills and reducing speaking anxiety</em> (2025), Humanities &amp; Social Sciences Communications — <a href="https://www.nature.com/articles/s41599-025-05550-z">nature.com</a></li>
+      <li><em>The effect of virtual reality applications on the development of productive language skills: a meta-analysis</em> — <a href="https://www.frontiersin.org/journals/education/articles/10.3389/feduc.2026.1782286/full">frontiersin.org</a></li>
+      <li>Suzuki, Yokosawa &amp; Aline (2022), <em>The role of working memory in blocked and interleaved grammar practice</em> — <a href="https://journals.sagepub.com/doi/abs/10.1177/1362168820913985">sagepub.com</a>; Hwang (2025), <em>Undesirable Difficulty of Interleaved Practice</em>, Language Learning — <a href="https://onlinelibrary.wiley.com/doi/10.1111/lang.12659">wiley.com</a></li>
+      <li>Sun &amp; Saito (2024), <em>Cognitive and Sociopsychological Individual Differences, Experience, and Naturalistic Second Language Speech Learning</em>, Language Learning — <a href="https://onlinelibrary.wiley.com/doi/10.1111/lang.12561">wiley.com</a></li>
+      <li>Dewaele &amp; MacIntyre, foreign language enjoyment and anxiety — <a href="https://journals.sagepub.com/doi/abs/10.1177/1362168817692161">sagepub.com</a></li>
+      <li>Wagner (2015), <em>Designing for Language Learning in the Wild</em> — <a href="https://findresearcher.sdu.dk/ws/files/200450468/Wagner_2015.pdf">sdu.dk</a></li>
+      <li>Nation &amp; Waring, vocabulary size and text coverage — <a href="https://www.lextutor.ca/research/nation_waring_97.html">lextutor.ca</a></li>
+      <li>Thai &amp; Boers, <em>Fluency development through repetition: 4/3/2 versus 3/3/3</em> — <a href="https://researchportal.vub.be/en/publications/fluency-development-through-repetition-432-versus-333/">vub.be</a></li>
+      <li><em>A Systematic Review of Research on the use of Shadowing for L2 Pronunciation Teaching</em> (2025) — <a href="https://www.tandfonline.com/doi/full/10.1080/29984475.2025.2546827">tandfonline.com</a></li>
+      <li>Choe, <em>A Critical Review of Pimsleur Language Learning Programs</em> — <a href="https://www.hpu.edu/research-publications/tesol-working-papers/2016/08ChoeTaiAnn.pdf">hpu.edu</a></li>
+      <li><em>The effectiveness of Duolingo in developing receptive and productive language knowledge and proficiency</em> (2024), LLT — <a href="https://scholarspace.manoa.hawaii.edu/items/140c6a0c-0035-4c87-b678-a0d74dd53de3">hawaii.edu</a></li>
+      <li>Dreaming Spanish, <em>Language Learning Roadmap</em> — <a href="https://d3usdtf030spqd.cloudfront.net/Language_Learning_Roadmap_by_Dreaming_Spanish.pdf">dreaming.com</a></li>
+    </ul>
+  </details>
+</footer>
+
+</div>

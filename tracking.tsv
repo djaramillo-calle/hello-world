@@ -1,0 +1,8 @@
+# English Signal Check — progress log
+# Append one row per session. The "Copy result row" button in the
+# diagnostic produces a line in exactly this format.
+# Re-run every 4-6 weeks. Movement smaller than the noise threshold
+# in the last column group is not progress.
+#
+# noise thresholds: ctest +/-8pts | vocab +/-500 | dict +/-10pts | wpm +/-12 | mtld +/-8
+date	ctest_pct	vocab_size	dict_pct	ei_pct	wpm	mtld	beyond_core_pct	evidence_n

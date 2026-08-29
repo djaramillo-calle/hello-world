@@ -1,0 +1,1430 @@
+<title>English Signal Check</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+
+<style>
+  :root {
+    --ground: #F1F2EF;
+    --panel: #FBFBF9;
+    --panel-2: #E7E9E4;
+    --ink: #16191A;
+    --ink-soft: #5A6360;
+    --ink-faint: #838C88;
+    --rule: #D6DAD3;
+    --rule-soft: #E4E7E1;
+    --hi: #0E6B4A;
+    --hi-wash: #DDEAE3;
+    --mid: #8A6210;
+    --mid-wash: #F0E7D2;
+    --lo: #9B3B3B;
+    --lo-wash: #F2E0DF;
+    --focus: #0E6B4A;
+
+    --display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+    --body: "Source Serif 4", Georgia, serif;
+    --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #141715;
+      --panel: #1B201D;
+      --panel-2: #232925;
+      --ink: #E4E8E4;
+      --ink-soft: #98A29C;
+      --ink-faint: #78837D;
+      --rule: #2C332E;
+      --rule-soft: #232A25;
+      --hi: #5BC095;
+      --hi-wash: #163026;
+      --mid: #D3A445;
+      --mid-wash: #322916;
+      --lo: #E08585;
+      --lo-wash: #35201F;
+      --focus: #5BC095;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground: #141715; --panel: #1B201D; --panel-2: #232925;
+    --ink: #E4E8E4; --ink-soft: #98A29C; --ink-faint: #78837D;
+    --rule: #2C332E; --rule-soft: #232A25;
+    --hi: #5BC095; --hi-wash: #163026;
+    --mid: #D3A445; --mid-wash: #322916;
+    --lo: #E08585; --lo-wash: #35201F;
+    --focus: #5BC095;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 17px;
+    line-height: 1.55;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .shell { max-width: 960px; margin: 0 auto; padding: 0 20px 80px; }
+
+  /* ---------- header ---------- */
+  header.top {
+    border-bottom: 2px solid var(--ink);
+    padding: 36px 0 18px;
+    margin-bottom: 22px;
+  }
+  .brandline {
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 12px;
+  }
+  h1 {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(2rem, 5.5vw, 3rem);
+    line-height: 0.98;
+    letter-spacing: -0.028em;
+    margin: 0 0 12px;
+  }
+  .sub {
+    color: var(--ink-soft);
+    max-width: 62ch;
+    margin: 0;
+    font-size: 1.02rem;
+  }
+
+  /* ---------- nav ---------- */
+  nav.modules {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 28px;
+    padding-bottom: 4px;
+  }
+  .tab {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 7px 11px;
+    border: 1px solid var(--rule);
+    background: var(--panel);
+    color: var(--ink-soft);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    border-radius: 2px;
+  }
+  .tab:hover { border-color: var(--ink-faint); color: var(--ink); }
+  .tab[aria-selected="true"] {
+    background: var(--ink);
+    color: var(--ground);
+    border-color: var(--ink);
+  }
+  .tab .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--rule); flex: 0 0 auto;
+  }
+  .tab[data-done="1"] .dot { background: var(--hi); }
+  .tab[aria-selected="true"] .dot { background: var(--ground); }
+  .tab[aria-selected="true"][data-done="1"] .dot { background: var(--hi); }
+
+  /* ---------- panels ---------- */
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  h2 {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 1.55rem;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin: 0 0 6px;
+  }
+  h3 {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 1.06rem;
+    margin: 26px 0 6px;
+    letter-spacing: -0.008em;
+  }
+  .meta {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 14px;
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  p { margin: 0 0 12px; }
+  .intro { color: var(--ink-soft); max-width: 66ch; }
+  ul, ol { padding-left: 1.2em; margin: 0 0 12px; }
+  li { margin-bottom: 5px; }
+  li::marker { color: var(--ink-faint); }
+  a { color: var(--hi); text-underline-offset: 2px; }
+  strong { font-weight: 600; }
+  code, .kbd {
+    font-family: var(--mono);
+    font-size: 0.86em;
+    background: var(--panel-2);
+    padding: 0.1em 0.35em;
+    border-radius: 2px;
+  }
+
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    padding: 18px;
+    margin-bottom: 16px;
+  }
+  .card > :last-child { margin-bottom: 0; }
+
+  .callout {
+    border-left: 3px solid var(--mid);
+    background: var(--mid-wash);
+    padding: 12px 14px;
+    font-size: 0.92rem;
+    margin: 14px 0;
+    color: var(--ink);
+  }
+  .callout > :last-child { margin-bottom: 0; }
+  .callout strong { color: var(--mid); }
+
+  /* ---------- buttons ---------- */
+  button {
+    font-family: var(--mono);
+    font-size: 0.76rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    padding: 9px 15px;
+    border: 1px solid var(--ink);
+    background: var(--ink);
+    color: var(--ground);
+    cursor: pointer;
+    border-radius: 2px;
+  }
+  button.ghost { background: transparent; color: var(--ink); }
+  button.ghost:hover { background: var(--panel-2); }
+  button:disabled { opacity: 0.4; cursor: not-allowed; }
+  button:focus-visible, input:focus-visible, textarea:focus-visible,
+  .tab:focus-visible, select:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+  .btnrow { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin: 14px 0; }
+
+  input[type="text"], input[type="number"], textarea, select {
+    font-family: var(--mono);
+    font-size: 0.86rem;
+    background: var(--panel);
+    color: var(--ink);
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    padding: 7px 9px;
+  }
+  textarea { width: 100%; font-size: 0.84rem; line-height: 1.6; resize: vertical; }
+  label { font-size: 0.9rem; }
+
+  /* ---------- c-test ---------- */
+  .ctext {
+    font-family: var(--body);
+    font-size: 1.05rem;
+    line-height: 2.5;
+    background: var(--panel);
+    border: 1px solid var(--rule);
+    padding: 18px;
+    border-radius: 3px;
+  }
+  .ctext input {
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    padding: 2px 4px;
+    border: none;
+    border-bottom: 1.5px solid var(--ink-faint);
+    background: transparent;
+    color: var(--hi);
+    border-radius: 0;
+  }
+  .ctext input:focus { outline: none; border-bottom-color: var(--hi); background: var(--hi-wash); }
+  .ctext input.ok { color: var(--hi); border-bottom-color: var(--hi); }
+  .ctext input.bad { color: var(--lo); border-bottom-color: var(--lo); }
+  .ctext .ans {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--lo);
+    margin-left: 2px;
+  }
+
+  /* ---------- yes/no grid ---------- */
+  .ynwrap { display: grid; grid-template-columns: repeat(auto-fill, minmax(168px, 1fr)); gap: 6px; }
+  .yn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    border: 1px solid var(--rule);
+    background: var(--panel);
+    padding: 7px 9px;
+    border-radius: 2px;
+  }
+  .yn span.w { font-family: var(--mono); font-size: 0.84rem; }
+  .yn button {
+    padding: 3px 8px; font-size: 0.66rem;
+    background: transparent; color: var(--ink-faint); border-color: var(--rule);
+  }
+  .yn button[data-on="1"] { background: var(--hi); border-color: var(--hi); color: var(--panel); }
+
+  /* ---------- items ---------- */
+  .item {
+    border-top: 1px solid var(--rule-soft);
+    padding: 14px 0;
+  }
+  .item:first-of-type { border-top: none; }
+  .itemno {
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .rate { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 8px; }
+  .rate button { padding: 5px 10px; font-size: 0.7rem; background: transparent; color: var(--ink-soft); border-color: var(--rule); }
+  .rate button[data-on="1"] { background: var(--ink); color: var(--ground); border-color: var(--ink); }
+
+  /* ---------- report ---------- */
+  .domains { display: grid; gap: 10px; margin: 18px 0; }
+  .domain {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 4px 16px;
+    align-items: baseline;
+    background: var(--panel);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--rule);
+    padding: 13px 15px;
+    border-radius: 2px;
+  }
+  .domain[data-conf="high"] { border-left-color: var(--hi); }
+  .domain[data-conf="med"] { border-left-color: var(--mid); }
+  .domain[data-conf="low"] { border-left-color: var(--lo); }
+  .domain h4 {
+    font-family: var(--display); font-weight: 600; font-size: 1rem;
+    margin: 0; letter-spacing: -0.008em;
+  }
+  .domain .val {
+    font-family: var(--mono); font-size: 1.15rem; font-weight: 600;
+    white-space: nowrap; font-variant-numeric: tabular-nums;
+  }
+  .domain .det { grid-column: 1 / -1; font-size: 0.88rem; color: var(--ink-soft); margin: 0; }
+  .domain .flag {
+    font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--ink-faint);
+  }
+
+  .scroller { overflow-x: auto; margin: 14px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; font-variant-numeric: tabular-nums; }
+  th {
+    font-family: var(--mono); font-size: 0.64rem; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase; text-align: left;
+    color: var(--ink-soft); padding: 8px 10px 8px 0;
+    border-bottom: 1px solid var(--rule); white-space: nowrap;
+  }
+  td { padding: 8px 10px 8px 0; border-bottom: 1px solid var(--rule-soft); vertical-align: top; }
+  td.n { font-family: var(--mono); white-space: nowrap; }
+
+  .prog {
+    font-family: var(--mono); font-size: 0.7rem; color: var(--ink-faint);
+    letter-spacing: 0.06em;
+  }
+  .timer {
+    font-family: var(--mono); font-size: 2.4rem; font-weight: 600;
+    letter-spacing: -0.02em; font-variant-numeric: tabular-nums;
+  }
+  .big {
+    font-family: var(--mono); font-size: 2rem; font-weight: 600;
+    letter-spacing: -0.02em; font-variant-numeric: tabular-nums;
+  }
+
+  footer {
+    border-top: 2px solid var(--ink);
+    margin-top: 50px; padding-top: 16px;
+    font-family: var(--mono); font-size: 0.68rem; line-height: 1.7;
+    color: var(--ink-faint);
+  }
+  .hide { display: none !important; }
+
+  @media (max-width: 560px) {
+    body { font-size: 16px; }
+    .ctext { line-height: 2.4; font-size: 1rem; }
+  }
+</style>
+
+<div class="shell">
+
+<header class="top">
+  <div class="brandline">Self-administered diagnostic &middot; English as L2 &middot; v1</div>
+  <h1>English Signal Check</h1>
+  <p class="sub">Six independent measures of what you can actually do in English, chosen because each one has published validity evidence and can be scored without a human examiner. Run the whole battery in about 60 minutes, or any single module in under 10.</p>
+</header>
+
+<nav class="modules" role="tablist" id="tabs"></nav>
+
+<!-- ============ OVERVIEW ============ -->
+<div class="panel active" id="p-overview" role="tabpanel">
+  <h2>What this measures, and what it can't</h2>
+  <div class="meta"><span>Read once</span><span>~4 min</span></div>
+
+  <p class="intro">No free test measures conversational English accurately. The accurate ones are proctored and cost money; the free ones are mostly reading-and-listening multiple choice, which is the part of English you are least likely to be weak in. This battery works around that by measuring six narrower things that are each individually well-evidenced, and refusing to average them into a single number.</p>
+
+  <div class="card">
+    <h3 style="margin-top:0">The six domains</h3>
+    <div class="scroller">
+      <table>
+        <thead><tr><th>Domain</th><th>Instrument</th><th>Why this one</th><th>Time</th></tr></thead>
+        <tbody>
+          <tr><td>General proficiency</td><td class="n">C-test</td><td>α ≈ .87–.92; parallel forms r ≈ .82. Highest reliability per minute of any format.</td><td class="n">15 min</td></tr>
+          <tr><td>Vocabulary breadth</td><td class="n">Yes/No + pseudowords</td><td>Estimates size in word families and corrects for over-claiming.</td><td class="n">6 min</td></tr>
+          <tr><td>Listening decode</td><td class="n">Partial dictation</td><td>Dictation was the single strongest predictor of proficiency in Oller's classic work.</td><td class="n">8 min</td></tr>
+          <tr><td>Oral encoding</td><td class="n">Elicited imitation</td><td>Validated proxy for global oral proficiency; correlates with OPI ratings.</td><td class="n">8 min</td></tr>
+          <tr><td>Speaking output</td><td class="n">Timed monologue + metrics</td><td>Speech rate is the most reliable single correlate of oral proficiency.</td><td class="n">15 min</td></tr>
+          <tr><td>Real-world use</td><td class="n">Evidence inventory</td><td>Behavioural, not confidence-based — self-rated confidence correlates poorly with tests.</td><td class="n">4 min</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="callout">
+    <p><strong>Read this before trusting any number here.</strong> The scores are calibrated against typical published values, not against a normed sample of people like you. Treat every band as provisional — <em>&plusmn;</em> one CEFR sub-level. What this battery <em>is</em> reliable for is <strong>change</strong>: because the items and the scoring are identical every time, a 10-point move on the C-test or a 15-wpm move in speech rate is real signal even if the absolute level is off.</p>
+  </div>
+
+  <h3>How to keep it honest</h3>
+  <ul>
+    <li><strong>Never look anything up mid-test</strong>, and don't retake a module the same day to improve a score.</li>
+    <li><strong>Same conditions every time</strong> — same time of day if you can, no alcohol, not exhausted. Speech rate in particular moves with fatigue.</li>
+    <li><strong>Re-run every 4–6 weeks.</strong> More often than that and you're measuring noise plus item memory; less often and you can't tell which change caused what.</li>
+    <li><strong>Item memory is the real threat.</strong> By round three you will half-remember C-test answers. The battery flags this — treat repeat runs as a floor, not a level.</li>
+  </ul>
+
+  <h3>The external anchor</h3>
+  <p class="intro">Once a quarter, take the <strong>EF SET</strong> (free, ~50 min, reading and listening, CEFR-calibrated with published correlation studies against TOEFL iBT). It is the only free test that is both standardised and CEFR-aligned. It won't tell you anything about your speaking, but it anchors the two receptive domains here to an external scale, which is exactly what a home-built instrument can't do for itself.</p>
+
+  <div class="btnrow">
+    <button onclick="go('ctest')">Start with the C-test &rarr;</button>
+    <button class="ghost" onclick="go('report')">See my results</button>
+  </div>
+</div>
+
+<!-- ============ C-TEST ============ -->
+<div class="panel" id="p-ctest" role="tabpanel">
+  <h2>Module 1 &mdash; C-test</h2>
+  <div class="meta"><span>General proficiency</span><span>~15 min</span><span id="ct-prog">0 / 80</span></div>
+  <p class="intro">Four passages of increasing difficulty. In each, the second half of every second word has been removed. Restore it. You are reconstructing from grammar, collocation and context at once — which is why this correlates with nearly every other measure of language ability.</p>
+  <div class="callout"><p><strong>Rules:</strong> exact spelling counts. Skip anything you can't get rather than stalling. Roughly 15 minutes for all four — don't let one gap eat two of them.</p></div>
+  <div id="ct-holder"></div>
+  <div class="btnrow">
+    <button onclick="scoreCtest()">Score this module</button>
+    <button class="ghost" onclick="resetCtest()">Clear</button>
+  </div>
+  <div id="ct-result"></div>
+</div>
+
+<!-- ============ VOCABULARY ============ -->
+<div class="panel" id="p-vocab" role="tabpanel">
+  <h2>Module 2 &mdash; Vocabulary size</h2>
+  <div class="meta"><span>Breadth</span><span>~6 min</span><span id="vt-prog">0 / 96</span></div>
+  <p class="intro">Mark every word you know the meaning of. Some of these words do not exist. They are there to measure how much you over-claim, and your score is corrected downward by exactly that amount — so guessing generously actively lowers your result.</p>
+  <div class="callout"><p><strong>"Know" means</strong> you could explain it or use it correctly in a sentence — not that it looks familiar. Work fast; first instinct is fine.</p></div>
+  <div id="vt-holder"></div>
+  <div class="btnrow">
+    <button onclick="scoreVocab()">Score this module</button>
+    <button class="ghost" onclick="resetVocab()">Clear</button>
+  </div>
+  <div id="vt-result"></div>
+</div>
+
+<!-- ============ DICTATION ============ -->
+<div class="panel" id="p-dict" role="tabpanel">
+  <h2>Module 3 &mdash; Dictation</h2>
+  <div class="meta"><span>Listening decode</span><span>~8 min</span><span id="dc-prog">0 / 10</span></div>
+  <p class="intro">Ten sentences, played at increasing speed. Type exactly what you hear. This tests the bottleneck that actually breaks conversations: whether you can segment a fast stream into words in real time, not whether you understood the gist.</p>
+  <div class="callout" id="tts-warn">
+    <p><strong>Synthetic voice caveat.</strong> This uses your browser's speech synthesis, which is clearer than real speech — no reductions, no overlap, no accent variety. Score high here and still struggle with a real speaker and that gap <em>is</em> the finding. Use the authentic-audio protocol in the report for the real check.</p>
+  </div>
+  <div id="dc-holder"></div>
+  <div class="btnrow">
+    <button onclick="scoreDict()">Score this module</button>
+    <button class="ghost" onclick="resetDict()">Clear</button>
+  </div>
+  <div id="dc-result"></div>
+</div>
+
+<!-- ============ ELICITED IMITATION ============ -->
+<div class="panel" id="p-ei" role="tabpanel">
+  <h2>Module 4 &mdash; Elicited imitation</h2>
+  <div class="meta"><span>Oral encoding</span><span>~8 min</span><span id="ei-prog">0 / 8</span></div>
+  <p class="intro">Listen to a sentence, decide whether it makes sense, then repeat it aloud from memory. Sentences longer than your working memory can hold verbatim can only be reproduced by <em>reconstructing</em> them from your grammar — which is why this predicts oral proficiency rather than memory span.</p>
+  <div class="callout"><p><strong>Say it out loud.</strong> Subvocalising inflates the score badly. The sense-judgement between hearing and repeating is deliberate — it stops you parroting the sound before it has been through your grammar.</p></div>
+  <div id="ei-holder"></div>
+  <div class="btnrow">
+    <button onclick="scoreEI()">Score this module</button>
+    <button class="ghost" onclick="resetEI()">Clear</button>
+  </div>
+  <div id="ei-result"></div>
+</div>
+
+<!-- ============ SPEAKING ============ -->
+<div class="panel" id="p-speak" role="tabpanel">
+  <h2>Module 5 &mdash; Speaking sample</h2>
+  <div class="meta"><span>Output</span><span>~15 min</span><span id="sp-prog">not run</span></div>
+  <p class="intro">The one that matters most and the one no free test measures. You will record two minutes of unprepared speech, transcribe it verbatim, and get objective measures back: speech rate, filler load, self-repair, lexical diversity and lexical reach.</p>
+  <div id="sp-holder"></div>
+  <div id="sp-result"></div>
+</div>
+
+<!-- ============ EVIDENCE ============ -->
+<div class="panel" id="p-eviz" role="tabpanel">
+  <h2>Module 6 &mdash; Evidence inventory</h2>
+  <div class="meta"><span>Real-world use</span><span>~4 min</span><span id="ev-prog">0 / 14</span></div>
+  <p class="intro">Not "can you" — <strong>did you</strong>. Self-rated confidence correlates poorly with actual test performance, so every item here asks about a thing that either happened in the last two weeks or didn't. This is the module that tells you whether your English is growing or just being maintained.</p>
+  <div id="ev-holder"></div>
+  <div class="btnrow">
+    <button onclick="scoreEviz()">Score this module</button>
+    <button class="ghost" onclick="resetEviz()">Clear</button>
+  </div>
+  <div id="ev-result"></div>
+</div>
+
+<!-- ============ REPORT ============ -->
+<div class="panel" id="p-report" role="tabpanel">
+  <h2>Profile</h2>
+  <div class="meta"><span id="rp-when">no session saved</span></div>
+  <div id="rp-holder"></div>
+</div>
+
+<footer>
+  <div>English Signal Check &mdash; a self-administered battery assembled from published instruments.</div>
+  <div>Instruments: C-test (Klein-Braley) &middot; Yes/No vocabulary test (Meara) &middot; Dictation (Oller) &middot; Elicited imitation (Ortega; ETS) &middot; Temporal fluency measures (Huang &amp; Gr&aacute;f; Kormos) &middot; CEFR descriptors.</div>
+  <div>Results are stored only in this browser. Nothing is transmitted.</div>
+</footer>
+
+</div>
+
+<script>
+/* ============================================================
+   ITEM BANK
+   Keep this stable across administrations. Changing an item
+   breaks comparability with every previous session.
+   ============================================================ */
+
+const BANK = {};
+
+/* ---- Module 1: C-test passages, ascending difficulty ---- */
+BANK.ctest = [
+  { id: "ct1", level: "A2–B1", text:
+    "Most mornings I leave the house before seven. The streets are still quiet, and the shops have not opened yet. I walk to the station because the bus takes longer at that hour. On the train I usually read something short, or I watch the city go past the window. When I arrive, I buy a coffee from the small place near the office and talk to the woman who works there. She always asks about my weekend. The work itself is not difficult, but it fills the whole day, and by six I am ready to go home again."
+  },
+  { id: "ct2", level: "B1–B2", text:
+    "Every team says it wants honest feedback, and almost none of them behave as if that were true. The problem is rarely the words people choose. It is the moment they pick, the audience they pick it in front of, and the amount of certainty they attach to something they have only half understood. A useful correction arrives early, in private, and leaves room for the other person to disagree without losing face. A useless one arrives late, in a meeting, wrapped in the language of process. Most managers know this in principle."
+  },
+  { id: "ct3", level: "B2–C1", text:
+    "The assumption that more information produces better decisions has survived remarkably little contact with evidence. Beyond a modest threshold, additional data tends to raise confidence far faster than it raises accuracy, and the gap between the two is where most expensive mistakes live. What actually improves judgement is narrower and less comfortable: feedback that arrives quickly enough to be attached to the decision that caused it, and an environment in which being wrong early carries no particular stigma."
+  },
+  { id: "ct4", level: "C1–C2", text:
+    "Any account of expertise that leans exclusively on accumulated exposure will struggle to explain the persistence of mediocrity among the extensively exposed. Clinicians who have seen every presentation of a common disease, and forecasters with decades behind them, plateau at levels that bear little relation to their hours. The distinguishing variable appears to be whether the domain returns unambiguous and timely verdicts on the practitioner's judgements, and whether the practitioner is obliged to attend to them."
+  }
+];
+
+/* ---- Module 2: Yes/No vocabulary, 8 words per frequency band ----
+   Band assignment is my own estimate of general-corpus frequency,
+   not a BNC-derived list. Consistent across sessions, which is what
+   matters for tracking; approximate in absolute terms.            */
+BANK.vocab = {
+  bands: {
+    1000: ["house","water","learn","family","money","night","answer","strong"],
+    2000: ["careful","forest","guard","ocean","prison","repair","silver","wonder"],
+    3000: ["anxious","bargain","cautious","glimpse","nursery","praise","tremble","stubborn"],
+    4000: ["alleged","ceramic","dilute","feeble","hinge","murky","vigorous","sceptical"],
+    5000: ["abolish","brittle","disperse","gaunt","meander","rustic","tangible","lucrative"],
+    6000: ["appraise","clamber","ferment","lurid","prodigal","sullen","wry","fastidious"],
+    7000: ["askew","cadence","effigy","gossamer","indolent","obfuscate","quagmire","truculent"],
+    8000: ["abstruse","desiccate","febrile","hirsute","obdurate","perfidy","sylvan","lachrymose"]
+  },
+  pseudo: ["plask","morative","blenter","crolling","dispolate","faltive","gorbid","hinture",
+           "jaunkle","kelmish","lonture","marlint","nurbid","opplate","prantic","quilber",
+           "rendive","spralt","tervine","unctile","vasple","welmid","yarnick","zolvent",
+           "trantle","grovish","flenting","cabrish","deltive","scrimble","thurgle","vandric"]
+};
+
+/* ---- Module 3: Dictation, ascending length and rate ---- */
+BANK.dict = [
+  { s: "The meeting was moved to Thursday afternoon.", rate: 0.95 },
+  { s: "I would have called you, but my phone was dead.", rate: 1.00 },
+  { s: "She said she would rather not talk about it right now.", rate: 1.05 },
+  { s: "If I had known the road was closed, I would have taken the train.", rate: 1.10 },
+  { s: "There is no point arguing with him once he has made up his mind.", rate: 1.15 },
+  { s: "The whole thing could have been avoided if anyone had bothered to ask.", rate: 1.20 },
+  { s: "He has been putting it off for weeks, which is exactly what I expected.", rate: 1.25 },
+  { s: "What surprised me was how little any of them seemed to care about the outcome.", rate: 1.30 },
+  { s: "By the time we got there, most of the interesting things had already been taken.", rate: 1.35 },
+  { s: "Had it not been for the delay, we would have finished the report before the deadline.", rate: 1.40 }
+];
+
+/* ---- Module 4: Elicited imitation, ascending syllable count ----
+   Half the items are semantically anomalous; the sense-judgement
+   forces processing for meaning before repetition.                */
+BANK.ei = [
+  { s: "The keys are on the kitchen table.", sense: true },
+  { s: "My brother works in a hospital downtown.", sense: true },
+  { s: "The coffee drank the tired student quickly.", sense: false },
+  { s: "I have been meaning to call her since last weekend.", sense: true },
+  { s: "If he had asked me earlier, I would have said yes.", sense: true },
+  { s: "The patient mountain apologised for the crowded silence.", sense: false },
+  { s: "What I find hardest is remembering everyone's name at a large meeting.", sense: true },
+  { s: "Having spent most of the morning rewriting it, she decided the original was better.", sense: true }
+];
+
+/* ---- Module 5: speaking prompts, tagged by use domain ---- */
+BANK.prompts = [
+  { d: "work",          t: "Explain something you did at work in the last month to someone outside your field. Why did it matter, and what went wrong along the way?" },
+  { d: "work",          t: "Describe a decision your team got wrong. What did people believe at the time, and what would you argue for now?" },
+  { d: "opinion",       t: "Something most people around you believe that you think is mistaken. Make the case." },
+  { d: "opinion",       t: "Is it better to be very good at one thing or reasonably good at several? Argue one side properly." },
+  { d: "narrative",     t: "Tell the story of a journey that went badly wrong. Keep it in the past tense throughout." },
+  { d: "narrative",     t: "Describe the last time you were genuinely surprised by someone." },
+  { d: "social",        t: "You are meeting your partner's family for the first time. Talk for two minutes about yourself the way you actually would." },
+  { d: "social",        t: "A friend asks why you have been quiet lately. Answer honestly and at length." },
+  { d: "transactional", t: "Explain to a landlord, in detail, what is wrong with the apartment and what you want done about it." },
+  { d: "transactional", t: "Talk a colleague through how to do a routine part of your job, step by step, assuming they have never done it." },
+  { d: "abstract",      t: "What makes someone good at their job, beyond technical skill?" },
+  { d: "abstract",      t: "How has the way you use technology changed in the last five years, and was it an improvement?" }
+];
+
+/* ---- Module 6: behavioural evidence items ---- */
+BANK.eviz = [
+  "Held a conversation over 10 minutes with a proficient speaker, in English, that neither of us could have had in another language.",
+  "Spoke English with someone who did not adjust their speed or vocabulary for me.",
+  "Took part in a conversation with three or more people at once and contributed more than one sentence.",
+  "Disagreed with someone in English and defended the position.",
+  "Made a phone or video call in English where I could not see the person's face clearly.",
+  "Understood a native-speed podcast, show or meeting without subtitles and without rewinding.",
+  "Told a story or an anecdote in English longer than a minute, unprepared.",
+  "Repaired a breakdown — asked for a repeat, rephrased myself, or clarified — without switching languages.",
+  "Used English for something with a real consequence (work, money, a booking, an appointment).",
+  "Wrote something in English longer than a paragraph that another person read.",
+  "Learned a word or expression from a conversation, not from a list or an app.",
+  "Was corrected by someone and changed what I said as a result.",
+  "Spoke English when I could have avoided it and used another language instead.",
+  "Said something in English that got the reaction I intended — a laugh, agreement, a change of mind."
+];
+
+/* ---- Approximate top-1000 general-frequency word list ----
+   Used for the lexical-reach measure ("beyond-1k ratio"). This is
+   an approximation, not a corpus extract. It is identical on every
+   run, so the measure is stable for tracking even where the list
+   itself is imperfect.                                            */
+BANK.k1 = ("the be to of and a in that have i it for not on with he as you do at this but his by from they we say her she or an will my one all would there their what so up out if about who get which go me when make can like time no just him know take people into year your good some could them see other than then now look only come its over think also back after use two how our work first well way even new want because any these give day most us is are was were been has had said did made get got go went come came take took see saw know knew think thought find found tell told become became leave left feel felt put bring began keep hold write stand hear let mean set meet run pay sit speak lie lead read grow open walk win offer remember love consider appear buy wait serve die send expect build stay fall cut reach kill remain suggest raise pass sell require report decide pull man woman child world school state family student group country problem hand part place case week company system program question government number night point home water room mother area money story fact month lot right study book eye job word business issue side kind head house service friend father power hour game line end member law car city community name president team minute idea kid body information back parent face others level office door health person art war history party result change morning reason research girl guy moment air teacher force education foot boy age policy process music market sense nation plan college interest death experience effect use class control care field development role effort rate heart drug show leader light voice wife police mind price report decision son bank oil picture activity industry blood image street effort future action size course paper space ground half form event official matter center couple site project hope engine position century book rest behavior million medical hospital challenge box computer thing figure return father summer message news floor town dog difference resource ability sound office window dinner glass mountain movement south north east west green red blue black white long little own other old great big high small large next early young important few public bad same able best better sure free true certain recent past strong possible whole common serious ready simple hard clear special difficult available likely short single medical current wrong private past foreign fine main similar poor rich natural physical political social national international personal professional financial economic environmental cultural traditional modern popular successful careful safe dangerous quiet loud fast slow heavy light warm cold hot cool dry wet clean dirty full empty rich cheap expensive quick busy tired happy sad angry afraid glad proud sorry sick well ill fit thin fat tall deep wide narrow thick flat round sharp soft smooth rough bright dark loud silent very really quite too so much many more less least always never often sometimes usually rarely again still yet already soon later ever once twice together alone here there where why how what when who which whose whom while until since before after during between among against through across around behind below above under over inside outside near far away back forward down up off along toward beyond within without despite instead however therefore although unless whether either neither both each every another such same other several enough almost nearly perhaps maybe probably certainly obviously actually finally simply exactly especially particularly generally usually recently currently immediately suddenly quickly slowly carefully clearly easily hardly directly completely totally entirely fully partly mainly mostly rather quite pretty somewhat extremely absolutely definitely certainly indeed anyway besides otherwise moreover furthermore meanwhile nevertheless ago able across act add afraid age ago agree ahead allow alone along already although always among amount ancient anger animal announce answer anybody anyone anything apart apartment apply approach argue arm army arrive art article ask asleep attack attempt attend attention available avoid award aware baby bad bag ball band bank bar base basic bath battle beach bear beat beautiful bed beer begin behavior belief believe bell belong below belt bend benefit best bet better beyond bicycle big bill bird birth bit bite black blame blank blind block blood blow blue board boat body boil bone book boot border born borrow boss both bottle bottom bowl box boy brain branch brave bread break breakfast breath breathe bridge brief bright bring broad broken brother brown brush build burn bury bus bush business busy butter button buy cake call calm camera camp can cancel candidate cap capital captain car card care career careful carry case cash cat catch cause ceiling celebrate cell center central century certain chain chair challenge chance change chapter character charge chart cheap check cheese chest chicken chief child choice choose church circle citizen city civil claim class clean clear clerk climb clock close cloth cloud club coach coast coat coffee coin cold collect college color column combine come comfort command comment commit common community company compare compete complain complete computer concern concert condition confirm connect consider contain continue contract control cook cool copy corner correct cost cotton count country couple courage course court cover crash crazy cream create credit crime cross crowd cry culture cup curious current customer cut damage dance danger dark date daughter day dead deal dear debate debt decade decide deep defeat defend degree delay deliver demand deny depend describe desert design desire desk destroy detail develop device dictionary die diet differ difficult dinner direct dirty discover discuss disease dish distance divide doctor dog dollar door double doubt down draw dream dress drink drive drop drug dry duck due dust duty each ear early earn earth ease east easy eat edge edit effect effort egg eight either elect electric element else empty encourage end enemy energy engine english enjoy enough enter entire equal error escape especially essay even evening event ever every evidence exact example excellent except exchange excite excuse exercise exist exit expect expensive experience expert explain express extra eye face fact factory fail fair fall false familiar famous fan far farm fashion fast fat father fault favor fear feature federal fee feed feel female fence few field fight figure file fill film final finance find fine finger finish fire firm first fish fit fix flag flat floor flow flower fly focus fold follow food foot football force foreign forest forget forgive form former forward found frame free freedom fresh friend front fruit full fun function fund funny future gain game garden gas gate gather general gentle gift girl give glad glass global goal god gold golf good govern grade grand grant grass gray great green grocery ground group grow guard guess guest guide gun guy habit hair half hall hand handle hang happen happy hard hardly hat hate head health hear heart heat heavy height hello help her here hero hide high hill hire history hit hold hole holiday home honest hope horse hospital hot hotel hour house how however huge human hundred hungry hunt hurry hurt husband ice idea identify ignore ill image imagine impact important improve include increase indeed indicate individual industry influence inform initial injury inside insist instead institution insurance intend interest internal international interview introduce invest invite involve iron island issue item jacket job join joke journey joy judge juice jump just keep key kick kid kill kind king kitchen knee knife knock know knowledge lack lady lake land language large last late laugh law lawyer lay lead leaf learn least leave left leg legal lemon length less lesson let letter level library lie life lift light like limit line lip list listen little live load loan local lock long look lose loss lot loud love low luck lunch machine mad magazine mail main maintain major make male man manage manner many map march mark market marry mass master match material matter may maybe meal mean measure meat media medical medicine meet member memory mention menu mess message metal method middle might mile military milk mind mine minute mirror miss mistake mix model modern moment money month moon moral more morning most mother motor mountain mouth move movie much music must myself nail name narrow nation native natural nature near necessary neck need neighbor neither nerve net never new news next nice night nobody noise none noon nor normal north nose note nothing notice novel now number nurse object observe occur ocean odd off offer office officer official often oil okay old once one only open operate opinion opportunity oppose option orange order organize origin other ought out outside over own pack page pain paint pair panel paper parent park part particular partner party pass past path patient pattern pay peace pen people percent perfect perform perhaps period permit person phone photo physical pick picture piece pilot pink pipe place plan plane plant plastic plate play please pleasure plenty pocket poem point police policy polite pool poor popular population port position possible post pot potato pound pour power practice prefer prepare present president press pressure pretty prevent price pride primary print prior prison private prize probably problem process produce product professor profit program progress project promise proper protect proud prove provide public pull punish purpose push put quality quarter question quick quiet quit quite race radio rain raise range rapid rare rate rather reach read ready real reason receive recent recognize record red reduce refer reflect refuse regard region regular reject relate release relief remain remember remind remove rent repeat replace reply report represent request require rescue research resource respect respond rest result retire return reveal review rice rich ride right ring rise risk river road rock role roll roof room root rope rough round route row rule run rush sad safe sail salt same sample sand save say scale scene schedule scheme school science score screen sea search season seat second secret section secure see seed seek seem sell send sense sentence separate series serious serve service set settle several severe shake shall shape share sharp she sheet shelf shell shift shine ship shirt shock shoe shoot shop short should shoulder shout show shut sick side sign signal silence silver similar simple since sing single sink sir sister sit site situation six size skill skin sky sleep slight slip slow small smart smell smile smoke smooth snow social society soft soil soldier solid solve some son song soon sorry sort soul sound soup source south space speak special speed spell spend spirit split sport spot spread spring square stage stair stamp stand standard star start state station stay steal steel step stick still stock stomach stone stop store storm story straight strange street stress strike string strong structure struggle student study stuff stupid style subject succeed such sudden suffer sugar suggest suit summer sun supply support suppose sure surface surprise survey survive sweet swim switch symbol system table take talk tall tape target task taste tax tea teach team tear technology telephone tell temperature ten term terrible test than thank that theory there these thick thin thing think third this though thought thousand threat throat through throw thus ticket tie tight time tiny tip tire title today together tomorrow tone tonight too tool tooth top topic total touch tough tour toward town track trade tradition traffic train travel treat tree trial trip trouble truck true trust truth try tube turn twice type typical ugly uncle under understand union unit unless until upon upper urge use useful usual valley value variety various vast vegetable vehicle version very victim video view village visit voice volume vote wage wait wake walk wall want war warm warn wash waste watch water wave way weak wear weather wedding week weight welcome well west wet what wheel when where whether which while white who whole whose why wide wife wild will win wind window wine wing winter wire wise wish with within without witness woman wonder wood word work world worry worth would wound wrap write wrong yard year yellow yes yesterday yet young your yourself youth zone").split(/\s+/).filter(Boolean);
+
+BANK.k1 = [...new Set(BANK.k1)];
+BANK.k1set = new Set(BANK.k1);
+BANK.k1label = Math.round(BANK.k1.length / 100) * 100;
+</script>
+
+<script>
+/* ============================================================
+   ENGINE
+   ============================================================ */
+
+const KEY = "engsig.v1";
+let S = { current: {}, history: [] };
+
+function load() {
+  try { const raw = localStorage.getItem(KEY); if (raw) S = JSON.parse(raw); }
+  catch (e) { /* private mode / blocked storage — run without history */ }
+  if (!S.current) S.current = {};
+  if (!S.history) S.history = [];
+}
+function save() {
+  try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {}
+}
+
+const MODULES = [
+  { id: "overview", label: "Overview" },
+  { id: "ctest",    label: "1 C-test" },
+  { id: "vocab",    label: "2 Vocab" },
+  { id: "dict",     label: "3 Dictation" },
+  { id: "ei",       label: "4 Repetition" },
+  { id: "speak",    label: "5 Speaking" },
+  { id: "eviz",     label: "6 Evidence" },
+  { id: "report",   label: "Profile" }
+];
+
+function buildTabs() {
+  const nav = document.getElementById("tabs");
+  nav.innerHTML = "";
+  MODULES.forEach(m => {
+    const b = document.createElement("button");
+    b.className = "tab";
+    b.type = "button";
+    b.setAttribute("role", "tab");
+    b.setAttribute("aria-selected", m.id === "overview" ? "true" : "false");
+    b.dataset.mod = m.id;
+    b.dataset.done = S.current[m.id] ? "1" : "0";
+    b.innerHTML = '<span class="dot"></span>' + m.label;
+    b.onclick = () => go(m.id);
+    nav.appendChild(b);
+  });
+}
+
+function go(id) {
+  document.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
+  const el = document.getElementById("p-" + id);
+  if (el) el.classList.add("active");
+  document.querySelectorAll(".tab").forEach(t =>
+    t.setAttribute("aria-selected", t.dataset.mod === id ? "true" : "false"));
+  if (id === "report") renderReport();
+  window.scrollTo({ top: 0, behavior: "instant" });
+}
+
+function markDone(id) {
+  const t = document.querySelector('.tab[data-mod="' + id + '"]');
+  if (t) t.dataset.done = "1";
+  save();
+}
+
+const esc = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+const pct = n => Math.round(n * 100);
+
+/* ------------------------------------------------------------
+   MODULE 1 — C-TEST
+   ------------------------------------------------------------ */
+
+function gapText(text, maxGaps) {
+  const sentences = text.match(/[^.!?]+[.!?]+/g) || [text];
+  const parts = [], answers = [];
+  let eligibleSeen = 0;
+  sentences.forEach((sent, si) => {
+    sent.split(/(\s+)/).forEach(tok => {
+      if (tok === "") return;
+      if (/^\s+$/.test(tok)) { parts.push({ t: "ws", v: tok }); return; }
+      const m = tok.match(/^([A-Za-z'’]+)([^A-Za-z'’]*)$/);
+      if (!m) { parts.push({ t: "w", v: tok }); return; }
+      const word = m[1], tail = m[2];
+      if (si > 0 && word.length >= 3 && answers.length < maxGaps) {
+        eligibleSeen++;
+        if (eligibleSeen % 2 === 0) {
+          const keep = Math.ceil(word.length / 2);
+          const stem = word.slice(0, keep), miss = word.slice(keep);
+          parts.push({ t: "gap", stem, miss, gi: answers.length, tail });
+          answers.push(miss.toLowerCase());
+          return;
+        }
+      }
+      parts.push({ t: "w", v: tok });
+    });
+  });
+  return { parts, answers };
+}
+
+const CT = [];
+
+function buildCtest() {
+  const holder = document.getElementById("ct-holder");
+  holder.innerHTML = "";
+  CT.length = 0;
+  BANK.ctest.forEach((psg, pi) => {
+    const g = gapText(psg.text, 20);
+    CT.push(g);
+    let html = '<h3>Passage ' + (pi + 1) + ' <span class="itemno">&nbsp;' + psg.level + '</span></h3><div class="ctext" id="ct-' + pi + '">';
+    g.parts.forEach(p => {
+      if (p.t === "ws") html += p.v;
+      else if (p.t === "w") html += esc(p.v);
+      else {
+        const n = p.miss.length;
+        html += esc(p.stem) + '<input type="text" autocomplete="off" autocapitalize="off" spellcheck="false" data-p="' + pi + '" data-g="' + p.gi + '" size="' + Math.max(n, 2) + '" maxlength="' + (n + 3) + '">' + esc(p.tail);
+      }
+    });
+    html += "</div>";
+    holder.insertAdjacentHTML("beforeend", html);
+  });
+  holder.querySelectorAll("input").forEach(inp => {
+    inp.addEventListener("input", ctProgress);
+    inp.addEventListener("keydown", e => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        const all = [...holder.querySelectorAll("input")];
+        const i = all.indexOf(e.target);
+        if (all[i + 1]) all[i + 1].focus();
+      }
+    });
+  });
+  ctProgress();
+}
+
+function ctProgress() {
+  const all = [...document.querySelectorAll("#ct-holder input")];
+  const filled = all.filter(i => i.value.trim() !== "").length;
+  document.getElementById("ct-prog").textContent = filled + " / " + all.length;
+}
+
+function scoreCtest() {
+  let correct = 0, total = 0;
+  const perPassage = [];
+  CT.forEach((g, pi) => {
+    let c = 0;
+    g.answers.forEach((ans, gi) => {
+      const inp = document.querySelector('#ct-holder input[data-p="' + pi + '"][data-g="' + gi + '"]');
+      const val = (inp.value || "").trim().toLowerCase().replace(/’/g, "'");
+      const ok = val === ans;
+      inp.classList.toggle("ok", ok);
+      inp.classList.toggle("bad", !ok);
+      if (ok) c++;
+      else if (!inp.nextElementSibling || !inp.nextElementSibling.classList.contains("ans")) {
+        inp.insertAdjacentHTML("afterend", '<span class="ans">' + esc(ans) + "</span>");
+      }
+      total++;
+    });
+    correct += c;
+    perPassage.push({ level: BANK.ctest[pi].level, score: c, of: g.answers.length });
+  });
+  document.querySelectorAll("#ct-holder input").forEach(i => i.disabled = true);
+  const p = correct / total;
+  const ceiling = perPassage.filter(x => x.score / x.of >= 0.6).pop();
+  S.current.ctest = { pct: p, correct, total, perPassage, ceiling: ceiling ? ceiling.level : "below A2–B1", at: Date.now() };
+  markDone("ctest");
+  document.getElementById("ct-result").innerHTML =
+    '<div class="card"><div class="big">' + pct(p) + '%</div>' +
+    '<p class="intro">' + correct + " of " + total + ' gaps restored. Provisional band: <strong>' + ctBand(p) + "</strong>.</p>" +
+    '<p class="intro">Highest passage held at 60%+: <strong>' + (ceiling ? ceiling.level : "none") + "</strong>. That ceiling is more diagnostic than the overall percentage — it tells you the text difficulty at which your automatic processing starts failing.</p>" +
+    '<div class="scroller"><table><thead><tr><th>Passage</th><th>Score</th><th>%</th></tr></thead><tbody>' +
+    perPassage.map(x => "<tr><td>" + x.level + '</td><td class="n">' + x.score + " / " + x.of + '</td><td class="n">' + pct(x.score / x.of) + "%</td></tr>").join("") +
+    "</tbody></table></div></div>";
+}
+
+function ctBand(p) {
+  const v = p * 100;
+  if (v < 25) return "A1–A2";
+  if (v < 40) return "A2";
+  if (v < 55) return "A2–B1";
+  if (v < 68) return "B1";
+  if (v < 78) return "B1–B2";
+  if (v < 86) return "B2";
+  if (v < 93) return "B2–C1";
+  return "C1–C2";
+}
+
+function resetCtest() {
+  delete S.current.ctest; save();
+  document.getElementById("ct-result").innerHTML = "";
+  buildCtest();
+  const t = document.querySelector('.tab[data-mod="ctest"]'); if (t) t.dataset.done = "0";
+}
+
+/* ------------------------------------------------------------
+   MODULE 2 — YES/NO VOCABULARY
+   ------------------------------------------------------------ */
+
+let VT = [];
+
+function buildVocab() {
+  VT = [];
+  Object.keys(BANK.vocab.bands).forEach(band => {
+    BANK.vocab.bands[band].forEach(w => VT.push({ w, band: +band, real: true }));
+  });
+  BANK.vocab.pseudo.forEach(w => VT.push({ w, band: 0, real: false }));
+  // Deterministic shuffle so item order is identical on every run.
+  let seed = 20260829;
+  const rnd = () => { seed = (seed * 1103515245 + 12345) % 2147483648; return seed / 2147483648; };
+  for (let i = VT.length - 1; i > 0; i--) {
+    const j = Math.floor(rnd() * (i + 1));
+    [VT[i], VT[j]] = [VT[j], VT[i]];
+  }
+  const holder = document.getElementById("vt-holder");
+  holder.innerHTML = '<div class="ynwrap">' + VT.map((it, i) =>
+    '<div class="yn"><span class="w">' + esc(it.w) + '</span>' +
+    '<button type="button" data-i="' + i + '" data-on="0" onclick="toggleYN(this)">know</button></div>'
+  ).join("") + "</div>";
+  vtProgress();
+}
+
+function toggleYN(btn) {
+  btn.dataset.on = btn.dataset.on === "1" ? "0" : "1";
+  vtProgress();
+}
+
+function vtProgress() {
+  const n = document.querySelectorAll('#vt-holder button[data-on="1"]').length;
+  document.getElementById("vt-prog").textContent = n + " marked / " + VT.length;
+}
+
+function scoreVocab() {
+  const marked = new Set([...document.querySelectorAll('#vt-holder button[data-on="1"]')].map(b => +b.dataset.i));
+  const pseudoTotal = VT.filter(x => !x.real).length;
+  const falseAlarms = VT.filter((x, i) => !x.real && marked.has(i)).length;
+  const f = falseAlarms / pseudoTotal;
+  const bandRows = [];
+  let size = 0;
+  Object.keys(BANK.vocab.bands).map(Number).sort((a, b) => a - b).forEach(band => {
+    const items = VT.map((x, i) => ({ x, i })).filter(o => o.x.real && o.x.band === band);
+    const hits = items.filter(o => marked.has(o.i)).length;
+    const h = hits / items.length;
+    const corrected = f >= 1 ? 0 : Math.max(0, (h - f) / (1 - f));
+    size += corrected * 1000;
+    bandRows.push({ band, hits, of: items.length, h, corrected });
+  });
+  size = Math.round(size / 100) * 100;
+  // The (h-f)/(1-f) correction cannot recover a usable estimate once the
+  // false-alarm rate is high: a test-taker marking "know" on most non-words
+  // can still score near ceiling. Past 30% the run is void, not merely noisy.
+  const valid = f <= 0.30;
+  const conf = !valid ? "low" : (f > 0.12 ? "med" : "high");
+  S.current.vocab = { size, f, bandRows, conf, valid, at: Date.now() };
+  markDone("vocab");
+
+  const firstGap = bandRows.find(r => r.corrected < 0.5);
+  document.getElementById("vt-result").innerHTML =
+    '<div class="card"><div class="big">' + (valid ? '~' + size.toLocaleString() + ' word families' : 'VOID') + '</div>' +
+    '<p class="intro">False-alarm rate on non-words: <strong>' + pct(f) + "%</strong>" +
+    (!valid ? ' — above the 30% ceiling at which no correction can recover a real estimate. Someone marking "know" on most non-words scores near the top whatever they actually know, so this run is discarded rather than reported. Redo it, marking a word only if you could use it in a sentence.' :
+     f > 0.12 ? " — moderate. The correction has absorbed it, but be stricter next time." :
+     " — good discipline; the estimate is trustworthy.") + "</p>" +
+    (!valid ? "" : "<p class=\"intro\">Coverage this buys you: <strong>" + coverageNote(size) + "</strong>") +
+    (firstGap ? " Knowledge starts thinning at the <strong>" + firstGap.band.toLocaleString() + "</strong> band — that is where deliberate vocabulary work has the most room." : " No clear drop-off inside the tested range; extend the test upward.") + "</p>" +
+    '<div class="scroller"><table><thead><tr><th>Band</th><th>Raw</th><th>Corrected</th></tr></thead><tbody>' +
+    bandRows.map(r => "<tr><td>" + r.band.toLocaleString() + '</td><td class="n">' + r.hits + " / " + r.of + '</td><td class="n">' + pct(r.corrected) + "%</td></tr>").join("") +
+    "</tbody></table></div></div>";
+}
+
+function coverageNote(size) {
+  if (size >= 6000) return "~98% of everyday speech — the level at which unfamiliar words stop interrupting you.";
+  if (size >= 3000) return "~95% of everyday speech — conversation flows, but dense or specialist talk still bites.";
+  if (size >= 2000) return "~90% of everyday speech — enough to converse, but effortfully; roughly one word in ten is unknown.";
+  return "below the ~2,000 families that make ordinary conversation comfortable.";
+}
+
+function resetVocab() {
+  delete S.current.vocab; save();
+  document.getElementById("vt-result").innerHTML = "";
+  buildVocab();
+  const t = document.querySelector('.tab[data-mod="vocab"]'); if (t) t.dataset.done = "0";
+}
+
+/* ------------------------------------------------------------
+   SPEECH SYNTHESIS
+   ------------------------------------------------------------ */
+
+function speak(text, rate) {
+  if (!("speechSynthesis" in window)) { alert("This browser has no speech synthesis. Use the authentic-audio protocol in the Profile tab instead."); return; }
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.rate = rate || 1;
+  u.lang = "en-US";
+  const vs = window.speechSynthesis.getVoices().filter(v => /^en/i.test(v.lang));
+  if (vs.length) u.voice = vs[0];
+  window.speechSynthesis.speak(u);
+}
+
+/* ------------------------------------------------------------
+   MODULE 3 — DICTATION
+   ------------------------------------------------------------ */
+
+function buildDict() {
+  const holder = document.getElementById("dc-holder");
+  holder.innerHTML = BANK.dict.map((d, i) =>
+    '<div class="item"><div class="itemno">Sentence ' + (i + 1) + ' &middot; speed ' + d.rate.toFixed(2) + '&times; &middot; plays left <span id="dp-' + i + '">2</span></div>' +
+    '<div class="btnrow"><button class="ghost" type="button" onclick="playDict(' + i + ')">Play</button>' +
+    '<input type="text" id="dt-' + i + '" size="52" autocomplete="off" spellcheck="false" placeholder="type what you hear" oninput="dcProgress()"></div></div>'
+  ).join("");
+  dcProgress();
+}
+
+const dictPlays = {};
+
+function playDict(i) {
+  const left = dictPlays[i] === undefined ? 2 : dictPlays[i];
+  if (left <= 0) return;
+  dictPlays[i] = left - 1;
+  document.getElementById("dp-" + i).textContent = dictPlays[i];
+  speak(BANK.dict[i].s, BANK.dict[i].rate);
+}
+
+function dcProgress() {
+  const n = [...document.querySelectorAll('#dc-holder input[type="text"]')].filter(i => i.value.trim() !== "").length;
+  document.getElementById("dc-prog").textContent = n + " / " + BANK.dict.length;
+}
+
+const norm = s => s.toLowerCase().replace(/[^a-z0-9'\s]/g, " ").replace(/\s+/g, " ").trim();
+
+function tokenOverlap(target, given) {
+  const t = norm(target).split(" ").filter(Boolean);
+  const g = norm(given).split(" ").filter(Boolean);
+  const pool = [...g];
+  let hit = 0;
+  t.forEach(w => { const k = pool.indexOf(w); if (k > -1) { hit++; pool.splice(k, 1); } });
+  return { hit, of: t.length };
+}
+
+function scoreDict() {
+  let hit = 0, of = 0;
+  const rows = [];
+  BANK.dict.forEach((d, i) => {
+    const given = document.getElementById("dt-" + i).value || "";
+    const r = tokenOverlap(d.s, given);
+    hit += r.hit; of += r.of;
+    rows.push({ i, rate: d.rate, r, target: d.s, given });
+  });
+  const p = hit / of;
+  const fast = rows.filter(x => x.r.hit / x.r.of >= 0.8).pop();
+  S.current.dict = { pct: p, hit, of, ceilingRate: fast ? fast.rate : null, at: Date.now() };
+  markDone("dict");
+  document.getElementById("dc-result").innerHTML =
+    '<div class="card"><div class="big">' + pct(p) + "%</div>" +
+    '<p class="intro">' + hit + " of " + of + " words recovered. Speed ceiling (last sentence held at 80%+): <strong>" +
+    (fast ? fast.rate.toFixed(2) + "&times;" : "not reached") + "</strong>. Below 1.15&times; means normal conversational speed is still outrunning your decoding.</p>" +
+    '<div class="scroller"><table><thead><tr><th>#</th><th>Speed</th><th>Score</th><th>Target</th></tr></thead><tbody>' +
+    rows.map(x => "<tr><td>" + (x.i + 1) + '</td><td class="n">' + x.rate.toFixed(2) + '</td><td class="n">' + x.r.hit + " / " + x.r.of +
+      "</td><td>" + esc(x.target) + (norm(x.given) !== norm(x.target) ? '<br><span class="itemno">you: ' + esc(x.given || "—") + "</span>" : "") + "</td></tr>").join("") +
+    "</tbody></table></div></div>";
+}
+
+function resetDict() {
+  delete S.current.dict; save();
+  Object.keys(dictPlays).forEach(k => delete dictPlays[k]);
+  document.getElementById("dc-result").innerHTML = "";
+  buildDict();
+  const t = document.querySelector('.tab[data-mod="dict"]'); if (t) t.dataset.done = "0";
+}
+
+/* ------------------------------------------------------------
+   MODULE 4 — ELICITED IMITATION
+   ------------------------------------------------------------ */
+
+const RUBRIC = [
+  "0 — nothing, or a few disconnected words",
+  "1 — about half the content, form broken",
+  "2 — most content, several grammatical changes",
+  "3 — full content, one or two small changes",
+  "4 — exact"
+];
+
+function buildEI() {
+  const holder = document.getElementById("ei-holder");
+  holder.innerHTML = BANK.ei.map((it, i) =>
+    '<div class="item"><div class="itemno">Sentence ' + (i + 1) + ' &middot; plays left <span id="ep-' + i + '">1</span></div>' +
+    '<div class="btnrow"><button class="ghost" type="button" onclick="playEI(' + i + ')">Play</button>' +
+    '<span class="prog">then judge, then repeat aloud</span></div>' +
+    '<div class="rate" id="es-' + i + '"><span class="prog" style="align-self:center;margin-right:6px">Makes sense?</span>' +
+    '<button type="button" data-v="1" data-on="0" onclick="pickSense(' + i + ',1,this)">yes</button>' +
+    '<button type="button" data-v="0" data-on="0" onclick="pickSense(' + i + ',0,this)">no</button></div>' +
+    '<div class="rate" id="er-' + i + '">' + RUBRIC.map((lab, v) =>
+      '<button type="button" data-v="' + v + '" data-on="0" onclick="pickEI(' + i + ',' + v + ',this)">' + esc(lab) + "</button>").join("") + "</div></div>"
+  ).join("");
+  eiProgress();
+}
+
+const eiPlays = {}, eiScore = {}, eiSense = {};
+
+function playEI(i) {
+  const left = eiPlays[i] === undefined ? 1 : eiPlays[i];
+  if (left <= 0) return;
+  eiPlays[i] = left - 1;
+  document.getElementById("ep-" + i).textContent = eiPlays[i];
+  speak(BANK.ei[i].s, 1.0);
+}
+function pickSense(i, v, btn) {
+  eiSense[i] = v;
+  [...btn.parentElement.querySelectorAll("button")].forEach(b => b.dataset.on = "0");
+  btn.dataset.on = "1";
+}
+function pickEI(i, v, btn) {
+  eiScore[i] = v;
+  [...btn.parentElement.querySelectorAll("button")].forEach(b => b.dataset.on = "0");
+  btn.dataset.on = "1";
+  eiProgress();
+}
+function eiProgress() {
+  document.getElementById("ei-prog").textContent = Object.keys(eiScore).length + " / " + BANK.ei.length;
+}
+
+function scoreEI() {
+  let sum = 0, max = BANK.ei.length * 4, senseOk = 0;
+  BANK.ei.forEach((it, i) => {
+    sum += eiScore[i] === undefined ? 0 : eiScore[i];
+    if (eiSense[i] !== undefined && (eiSense[i] === 1) === it.sense) senseOk++;
+  });
+  const p = sum / max;
+  S.current.ei = { pct: p, sum, max, senseOk, senseOf: BANK.ei.length, at: Date.now() };
+  markDone("ei");
+  document.getElementById("ei-result").innerHTML =
+    '<div class="card"><div class="big">' + pct(p) + "%</div>" +
+    '<p class="intro">' + sum + " of " + max + " rubric points. Meaning judgements correct: <strong>" + senseOk + " / " + BANK.ei.length + "</strong>.</p>" +
+    '<p class="intro">Self-rated, so treat it as the softest number in the battery — people are generous about their own repetitions. It is still useful for tracking, because you are generous by roughly the same amount every time. Where it earns its place: a sharp drop on the last three items (the long ones) means you are holding sentences as sound rather than rebuilding them from grammar.</p></div>';
+}
+
+function resetEI() {
+  delete S.current.ei; save();
+  [eiPlays, eiScore, eiSense].forEach(o => Object.keys(o).forEach(k => delete o[k]));
+  document.getElementById("ei-result").innerHTML = "";
+  buildEI();
+  const t = document.querySelector('.tab[data-mod="ei"]'); if (t) t.dataset.done = "0";
+}
+
+/* ------------------------------------------------------------
+   MODULE 5 — SPEAKING SAMPLE
+   ------------------------------------------------------------ */
+
+const FILLERS = new Set(["um","uh","erm","er","ah","eh","hmm","mmm","mm"]);
+let spTimer = null, spLeft = 120, spPrompt = null;
+
+function buildSpeak() {
+  const holder = document.getElementById("sp-holder");
+  holder.innerHTML =
+    '<div class="card"><h3 style="margin-top:0">Step 1 &mdash; draw a prompt</h3>' +
+    '<div class="btnrow"><select id="sp-domain">' +
+    '<option value="any">any domain</option><option value="work">work</option><option value="opinion">opinion</option>' +
+    '<option value="narrative">narrative</option><option value="social">social</option>' +
+    '<option value="transactional">transactional</option><option value="abstract">abstract</option></select>' +
+    '<button type="button" onclick="drawPrompt()">Draw prompt</button></div>' +
+    '<p id="sp-prompt" class="intro" style="font-size:1.1rem;color:var(--ink)">Draw a prompt when you are ready to speak. Do not plan. Reading it and starting within five seconds is part of the measurement.</p></div>' +
+
+    '<div class="card"><h3 style="margin-top:0">Step 2 &mdash; speak for two minutes</h3>' +
+    '<p class="intro">Record on your phone’s voice memo app. Speak continuously; do not restart, do not edit, do not stop when you get stuck &mdash; getting stuck and recovering is exactly what is being measured.</p>' +
+    '<div class="timer" id="sp-timer">2:00</div>' +
+    '<div class="btnrow"><button type="button" onclick="startTimer()">Start timer</button>' +
+    '<button class="ghost" type="button" onclick="stopTimer()">Reset</button></div></div>' +
+
+    '<div class="card"><h3 style="margin-top:0">Step 3 &mdash; transcribe it verbatim</h3>' +
+    '<p class="intro"><strong>Verbatim means verbatim.</strong> Every "um", every false start, every repeated word, every abandoned sentence. If you tidy it up you are measuring your writing, not your speech. Phone keyboard dictation or any free transcription tool works &mdash; then go back over it and put the disfluencies back in.</p>' +
+    '<textarea id="sp-text" rows="10" placeholder="paste the verbatim transcript here"></textarea>' +
+    '<div class="btnrow"><label>Duration in seconds <input type="number" id="sp-secs" value="120" min="20" max="600" style="width:90px"></label>' +
+    '<button type="button" onclick="scoreSpeak()">Analyse</button></div></div>';
+}
+
+function drawPrompt() {
+  const d = document.getElementById("sp-domain").value;
+  const pool = d === "any" ? BANK.prompts : BANK.prompts.filter(p => p.d === d);
+  spPrompt = pool[Math.floor(Math.random() * pool.length)];
+  document.getElementById("sp-prompt").innerHTML = "<strong>" + esc(spPrompt.d) + ".</strong> " + esc(spPrompt.t);
+}
+
+function startTimer() {
+  stopTimer();
+  spLeft = 120;
+  spTimer = setInterval(() => {
+    spLeft--;
+    const m = Math.floor(spLeft / 60), s = spLeft % 60;
+    document.getElementById("sp-timer").textContent = m + ":" + String(s).padStart(2, "0");
+    if (spLeft <= 0) { clearInterval(spTimer); spTimer = null; }
+  }, 1000);
+}
+function stopTimer() {
+  if (spTimer) clearInterval(spTimer);
+  spTimer = null; spLeft = 120;
+  document.getElementById("sp-timer").textContent = "2:00";
+}
+
+function mtld(tokens, thresh) {
+  thresh = thresh || 0.72;
+  function run(toks) {
+    let factors = 0, types = new Set(), n = 0;
+    for (const t of toks) {
+      types.add(t); n++;
+      if (types.size / n <= thresh) { factors++; types = new Set(); n = 0; }
+    }
+    if (n > 0) { const ttr = types.size / n; factors += (1 - ttr) / (1 - thresh); }
+    return factors > 0 ? toks.length / factors : toks.length;
+  }
+  if (tokens.length < 20) return null;
+  return (run(tokens) + run([...tokens].reverse())) / 2;
+}
+
+function scoreSpeak() {
+  const raw = document.getElementById("sp-text").value || "";
+  const secs = +document.getElementById("sp-secs").value || 120;
+  const all = norm(raw).split(" ").filter(Boolean);
+  if (all.length < 40) { alert("Transcript is too short to analyse. Aim for at least a minute of speech."); return; }
+
+  const fillers = all.filter(w => FILLERS.has(w)).length;
+  const content = all.filter(w => !FILLERS.has(w));
+  let reps = 0;
+  for (let i = 1; i < content.length; i++) if (content[i] === content[i - 1]) reps++;
+  for (let i = 3; i < content.length; i++) if (content[i] === content[i - 2] && content[i - 1] === content[i - 3]) reps++;
+
+  const wpm = content.length / secs * 60;
+  const fillerRatio = fillers / all.length;
+  const repRatio = reps / content.length;
+  const types = new Set(content);
+  const ttr = types.size / content.length;
+  const md = mtld(content);
+  const beyond = content.filter(w => !BANK.k1set.has(w));
+  const beyondRatio = beyond.length / content.length;
+  const beyondTypes = [...new Set(beyond)];
+
+  S.current.speak = {
+    wpm, fillerRatio, repRatio, ttr, mtld: md, beyondRatio,
+    words: content.length, secs, domain: spPrompt ? spPrompt.d : "unspecified", at: Date.now()
+  };
+  markDone("speak");
+  document.getElementById("sp-prog").textContent = Math.round(wpm) + " wpm";
+
+  const rateNote =
+    wpm >= 150 ? "at or above typical C1 delivery." :
+    wpm >= 135 ? "around the C1 range (~142 wpm in corpus studies)." :
+    wpm >= 118 ? "between the B2 (~118) and C1 (~142) reference points." :
+    wpm >= 100 ? "below the ~118 wpm typical of B2 speakers." :
+                 "well below conversational pace; retrieval, not knowledge, is the bottleneck.";
+
+  document.getElementById("sp-result").innerHTML =
+    '<div class="card"><h3 style="margin-top:0">Results</h3>' +
+    '<div class="domains">' +
+    metric("Speech rate", Math.round(wpm) + " wpm", rateNote, wpm >= 118 ? "high" : wpm >= 100 ? "med" : "low") +
+    metric("Filler load", pct(fillerRatio) + "%", fillerRatio > 0.08 ? "High. Fillers are buying you planning time you should be buying with chunks." : "Within normal range for spontaneous speech.", fillerRatio > 0.08 ? "low" : "high") +
+    metric("Self-repair", pct(repRatio) + "%", repRatio > 0.05 ? "Frequent restarts — you are composing mid-sentence rather than retrieving whole phrases." : "Low restart rate; phrases are coming out assembled.", repRatio > 0.05 ? "med" : "high") +
+    metric("Lexical diversity (MTLD)", md ? md.toFixed(1) : "n/a", md === null ? "Sample too short." : md >= 70 ? "Wide range, little repetition of the same words." : md >= 45 ? "Moderate — some circling back to the same vocabulary." : "Narrow; you are re-using a small working set.", md === null ? "low" : md >= 70 ? "high" : md >= 45 ? "med" : "low") +
+    metric("Lexical reach", pct(beyondRatio) + "%", "Share of words outside the ~" + BANK.k1label.toLocaleString() + " most frequent. Higher means you are reaching past the core; very low means you are paraphrasing around words you know but cannot retrieve fast enough.", beyondRatio >= 0.22 ? "high" : beyondRatio >= 0.14 ? "med" : "low") +
+    "</div>" +
+    '<p class="intro"><strong>' + content.length + "</strong> words in <strong>" + secs + "</strong> seconds &middot; " + types.size + " distinct &middot; TTR " + ttr.toFixed(2) + "</p>" +
+    '<h3>Words you reached for beyond the core ' + BANK.k1label.toLocaleString() + '</h3><p class="intro" style="font-family:var(--mono);font-size:0.78rem;line-height:1.9">' +
+    (beyondTypes.length ? beyondTypes.slice(0, 120).map(esc).join(" &middot; ") : "none") + "</p></div>";
+}
+
+function metric(name, val, det, conf) {
+  return '<div class="domain" data-conf="' + conf + '"><h4>' + esc(name) + '</h4><div class="val">' + val + '</div><p class="det">' + det + "</p></div>";
+}
+
+/* ------------------------------------------------------------
+   MODULE 6 — EVIDENCE INVENTORY
+   ------------------------------------------------------------ */
+
+const evAns = {};
+
+function buildEviz() {
+  document.getElementById("ev-holder").innerHTML = BANK.eviz.map((t, i) =>
+    '<div class="item"><div style="display:flex;gap:14px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap">' +
+    '<div style="flex:1 1 320px;min-width:0">' + esc(t) + "</div>" +
+    '<div class="rate" style="margin-top:0">' +
+    '<button type="button" data-v="1" data-on="0" onclick="pickEv(' + i + ',1,this)">did it</button>' +
+    '<button type="button" data-v="0" data-on="0" onclick="pickEv(' + i + ',0,this)">no</button>' +
+    "</div></div></div>").join("");
+  evProgress();
+}
+function pickEv(i, v, btn) {
+  evAns[i] = v;
+  [...btn.parentElement.querySelectorAll("button")].forEach(b => b.dataset.on = "0");
+  btn.dataset.on = "1";
+  evProgress();
+}
+function evProgress() {
+  document.getElementById("ev-prog").textContent = Object.keys(evAns).length + " / " + BANK.eviz.length;
+}
+
+function scoreEviz() {
+  const yes = Object.keys(evAns).filter(k => evAns[k] === 1).length;
+  const p = yes / BANK.eviz.length;
+  const missed = BANK.eviz.filter((t, i) => evAns[i] !== 1);
+  S.current.eviz = { pct: p, yes, of: BANK.eviz.length, at: Date.now() };
+  markDone("eviz");
+  document.getElementById("ev-result").innerHTML =
+    '<div class="card"><div class="big">' + yes + " / " + BANK.eviz.length + "</div>" +
+    '<p class="intro">' + (p >= 0.7 ? "Your English is in active use and under real load. Test scores will follow this, not the other way round." :
+      p >= 0.4 ? "Partial use. You are maintaining English more than stretching it — the unticked items below are where growth is currently blocked." :
+      "Your English is mostly being studied rather than used. This is the single strongest predictor here that scores will stall regardless of study hours.") + "</p>" +
+    (missed.length ? "<h3>Not done in the last two weeks</h3><ul>" + missed.map(t => "<li>" + esc(t) + "</li>").join("") + "</ul><p class=\"intro\">Each of these is a task you can deliberately schedule. They are ordered roughly by how much interactional pressure they apply.</p>" : "") +
+    "</div>";
+}
+
+function resetEviz() {
+  delete S.current.eviz; save();
+  Object.keys(evAns).forEach(k => delete evAns[k]);
+  document.getElementById("ev-result").innerHTML = "";
+  buildEviz();
+  const t = document.querySelector('.tab[data-mod="eviz"]'); if (t) t.dataset.done = "0";
+}
+
+/* ------------------------------------------------------------
+   REPORT
+   ------------------------------------------------------------ */
+
+function renderReport() {
+  const c = S.current;
+  const done = ["ctest","vocab","dict","ei","speak","eviz"].filter(k => c[k]);
+  const holder = document.getElementById("rp-holder");
+  document.getElementById("rp-when").textContent =
+    done.length ? done.length + " of 6 modules complete" : "no modules run yet";
+
+  if (!done.length) {
+    holder.innerHTML = '<div class="card"><p class="intro">Nothing measured yet. Run at least the C-test and the speaking sample &mdash; between them they cover the two things that matter most and disagree most often.</p></div>';
+    return;
+  }
+
+  let html = '<div class="domains">';
+  if (c.ctest) html += metric("General proficiency", pct(c.ctest.pct) + "%",
+    "C-test, " + c.ctest.correct + "/" + c.ctest.total + " gaps. Provisional band <strong>" + ctBand(c.ctest.pct) + "</strong>; ceiling at " + c.ctest.ceiling + ".",
+    c.ctest.pct >= 0.68 ? "high" : c.ctest.pct >= 0.45 ? "med" : "low");
+  if (c.vocab) html += metric("Vocabulary breadth",
+    c.vocab.valid ? "~" + c.vocab.size.toLocaleString() : "void",
+    c.vocab.valid
+      ? "Word families, corrected for a " + pct(c.vocab.f) + "% false-alarm rate. " + coverageNote(c.vocab.size)
+      : "Discarded: " + pct(c.vocab.f) + "% false-alarm rate on non-words is past the point where the correction can recover an estimate.",
+    c.vocab.conf);
+  if (c.dict) html += metric("Listening decode", pct(c.dict.pct) + "%",
+    "Partial dictation. Speed ceiling " + (c.dict.ceilingRate ? c.dict.ceilingRate.toFixed(2) + "&times;" : "not reached") + ". Synthetic voice — read as an upper bound on real-speech decoding.",
+    c.dict.pct >= 0.85 ? "high" : c.dict.pct >= 0.65 ? "med" : "low");
+  if (c.ei) html += metric("Oral encoding", pct(c.ei.pct) + "%",
+    "Elicited imitation, " + c.ei.sum + "/" + c.ei.max + " rubric points; " + c.ei.senseOk + "/" + c.ei.senseOf + " meaning judgements correct. Self-rated — lowest-confidence measure here.",
+    "low");
+  if (c.speak) html += metric("Speaking output", Math.round(c.speak.wpm) + " wpm",
+    "MTLD " + (c.speak.mtld ? c.speak.mtld.toFixed(1) : "n/a") + " &middot; fillers " + pct(c.speak.fillerRatio) + "% &middot; beyond-core " + pct(c.speak.beyondRatio) + "% &middot; domain: " + esc(c.speak.domain) + ". Reference points: B2 ≈ 118 wpm, C1 ≈ 142 wpm.",
+    c.speak.wpm >= 118 ? "high" : c.speak.wpm >= 100 ? "med" : "low");
+  if (c.eviz) html += metric("Real-world use", c.eviz.yes + " / " + c.eviz.of,
+    "Behavioural evidence in the last 14 days. The leading indicator — this moves before the test scores do.",
+    c.eviz.pct >= 0.7 ? "high" : c.eviz.pct >= 0.4 ? "med" : "low");
+  html += "</div>";
+
+  html += diagnose(c);
+
+  html += '<div class="btnrow"><button type="button" onclick="saveSession()">Save this session to history</button>' +
+          '<button class="ghost" type="button" onclick="copyRow()">Copy result row</button>' +
+          '<button class="ghost" type="button" onclick="clearAll()">Clear everything</button></div>';
+
+  if (S.history.length) {
+    html += "<h3>History</h3><div class=\"scroller\"><table><thead><tr><th>Date</th><th>C-test</th><th>Vocab</th><th>Dictation</th><th>Repetition</th><th>wpm</th><th>MTLD</th><th>Evidence</th></tr></thead><tbody>" +
+      S.history.slice().reverse().map(h =>
+        "<tr><td>" + new Date(h.at).toISOString().slice(0, 10) + "</td>" +
+        '<td class="n">' + (h.ctest != null ? pct(h.ctest) + "%" : "—") + "</td>" +
+        '<td class="n">' + (h.vocab != null ? h.vocab.toLocaleString() : "—") + "</td>" +
+        '<td class="n">' + (h.dict != null ? pct(h.dict) + "%" : "—") + "</td>" +
+        '<td class="n">' + (h.ei != null ? pct(h.ei) + "%" : "—") + "</td>" +
+        '<td class="n">' + (h.wpm != null ? Math.round(h.wpm) : "—") + "</td>" +
+        '<td class="n">' + (h.mtld != null ? h.mtld.toFixed(1) : "—") + "</td>" +
+        '<td class="n">' + (h.eviz != null ? pct(h.eviz) + "%" : "—") + "</td></tr>").join("") +
+      "</tbody></table></div>";
+    if (S.history.length >= 2) html += deltaNote();
+  }
+
+  html += protocolBlock();
+  holder.innerHTML = html;
+}
+
+function diagnose(c) {
+  const notes = [];
+  if (c.ctest && c.speak) {
+    const knows = c.ctest.pct >= 0.65, says = c.speak.wpm >= 118;
+    if (knows && !says) notes.push("<strong>Knowledge–access gap.</strong> Your C-test says the system is there; your speech rate says you cannot get at it in real time. This is the most common adult profile and it is not fixed by more input or more grammar. It is fixed by production under time pressure — task repetition, 4/3/2, and enough conversation that retrieval becomes automatic.");
+    if (!knows && says) notes.push("<strong>Fluent but thin.</strong> You speak at pace on a narrow base. The risk is a durable plateau: fluency without range hardens into a comfortable set of phrases. Deliberate vocabulary and structure work will pay more here than more speaking time.");
+    if (knows && says) notes.push("<strong>Balanced upper profile.</strong> The remaining gains are in range, register and repair rather than in core proficiency. Push into harder conditions: group conversation, degraded audio, unfamiliar accents, topics you have no script for.");
+  }
+  if (c.dict && c.speak && c.dict.pct >= 0.85 && c.speak.wpm < 110)
+    notes.push("<strong>Receptive–productive split.</strong> You decode well above what you can produce. Expect conversations where you understand everything and contribute little; the fix is output volume, not more listening.");
+  if (c.vocab && c.speak && c.vocab.size >= 5000 && c.speak.beyondRatio < 0.15)
+    notes.push("<strong>Passive vocabulary.</strong> You recognise a large vocabulary but speak from a small one. The words are known, not retrievable. Production-format retrieval practice — producing the word, not recognising it — is the specific remedy.");
+  if (c.eviz && c.eviz.pct < 0.4)
+    notes.push("<strong>Use is the binding constraint.</strong> Whatever the other scores say, the evidence inventory says English is not under real load in your week. No study protocol compensates for that.");
+  if (c.vocab && c.vocab.f > 0.25)
+    notes.push("<strong>Vocabulary estimate unreliable.</strong> A false-alarm rate above 25% means the correction is doing too much work. Redo that module with a stricter definition of “know”.");
+  if (!notes.length) return "";
+  return "<h3>Reading across the domains</h3>" + notes.map(n => '<div class="callout"><p>' + n + "</p></div>").join("");
+}
+
+function deltaNote() {
+  const a = S.history[S.history.length - 2], b = S.history[S.history.length - 1];
+  const rows = [];
+  const cmp = (label, ka, kb, fmt, minMove) => {
+    if (a[ka] == null || b[kb] == null) return;
+    const d = b[kb] - a[ka];
+    const real = Math.abs(d) >= minMove;
+    rows.push("<tr><td>" + label + '</td><td class="n">' + fmt(a[ka]) + '</td><td class="n">' + fmt(b[kb]) + '</td><td class="n">' + (d > 0 ? "+" : "") + fmt(d) + "</td><td>" + (real ? "real movement" : "inside noise") + "</td></tr>");
+  };
+  cmp("C-test", "ctest", "ctest", v => pct(v) + "%", 0.08);
+  cmp("Vocabulary", "vocab", "vocab", v => Math.round(v).toLocaleString(), 500);
+  cmp("Dictation", "dict", "dict", v => pct(v) + "%", 0.10);
+  cmp("Speech rate", "wpm", "wpm", v => Math.round(v) + "", 12);
+  cmp("MTLD", "mtld", "mtld", v => v.toFixed(1), 8);
+  if (!rows.length) return "";
+  return "<h3>Change since last session</h3><div class=\"scroller\"><table><thead><tr><th>Measure</th><th>Then</th><th>Now</th><th>Δ</th><th>Verdict</th></tr></thead><tbody>" +
+    rows.join("") + "</tbody></table></div><p class=\"intro\">Thresholds are set at roughly the measurement error of each instrument. A move inside noise is not progress and should not change your plan.</p>";
+}
+
+function protocolBlock() {
+  return "<h3>The authentic-audio check</h3>" +
+    '<div class="card"><p class="intro">The dictation module uses a synthetic voice, which is the one place this battery flatters you. Once a month, do this instead and record the score by hand:</p><ol>' +
+    "<li>Pick a podcast or interview with a published transcript, on a topic you have no expertise in.</li>" +
+    "<li>Take a 60-second stretch you have never heard. Transcribe it. Two listens maximum.</li>" +
+    "<li>Score: words correct ÷ words in the reference transcript.</li>" +
+    "<li>Below 85% is where real conversation starts failing. Track this number alongside the synthetic one; the gap between them is the size of your real-speech penalty.</li></ol></div>" +
+    "<h3>External anchor</h3>" +
+    '<div class="card"><p class="intro">Once a quarter, take the free <strong>EF SET</strong> (~50 minutes, reading and listening, CEFR-calibrated against TOEFL iBT in published correlation studies). It is the only free standardised test worth the time. Record the CEFR level it returns next to your C-test percentage — over three or four rounds that gives you a personal conversion between this battery and an external scale, which is the one thing a home-built instrument cannot supply for itself.</p></div>';
+}
+
+function saveSession() {
+  const c = S.current;
+  const row = {
+    at: Date.now(),
+    ctest: c.ctest ? c.ctest.pct : null,
+    vocab: (c.vocab && c.vocab.valid) ? c.vocab.size : null,
+    dict: c.dict ? c.dict.pct : null,
+    ei: c.ei ? c.ei.pct : null,
+    wpm: c.speak ? c.speak.wpm : null,
+    mtld: c.speak && c.speak.mtld ? c.speak.mtld : null,
+    eviz: c.eviz ? c.eviz.pct : null
+  };
+  S.history.push(row);
+  S.current = {};
+  save();
+  document.querySelectorAll(".tab").forEach(t => t.dataset.done = "0");
+  buildAll();
+  renderReport();
+}
+
+function copyRow() {
+  const c = S.current;
+  const line = [
+    new Date().toISOString().slice(0, 10),
+    c.ctest ? pct(c.ctest.pct) : "",
+    (c.vocab && c.vocab.valid) ? c.vocab.size : "",
+    c.dict ? pct(c.dict.pct) : "",
+    c.ei ? pct(c.ei.pct) : "",
+    c.speak ? Math.round(c.speak.wpm) : "",
+    c.speak && c.speak.mtld ? c.speak.mtld.toFixed(1) : "",
+    c.speak ? pct(c.speak.beyondRatio) : "",
+    c.eviz ? c.eviz.yes : ""
+  ].join("\t");
+  navigator.clipboard.writeText(line).then(
+    () => alert("Copied:\n\n" + line + "\n\nPaste this into tracking.tsv in the repo."),
+    () => prompt("Copy this line:", line)
+  );
+}
+
+function clearAll() {
+  if (!confirm("Delete the current session and all saved history? This cannot be undone.")) return;
+  S = { current: {}, history: [] };
+  save();
+  buildAll();
+  document.querySelectorAll(".tab").forEach(t => t.dataset.done = "0");
+  renderReport();
+}
+
+/* ------------------------------------------------------------
+   INIT
+   ------------------------------------------------------------ */
+
+function buildAll() {
+  buildCtest(); buildVocab(); buildDict(); buildEI(); buildSpeak(); buildEviz();
+}
+
+load();
+buildTabs();
+buildAll();
+if ("speechSynthesis" in window) window.speechSynthesis.getVoices();
+</script>
