@@ -21,13 +21,17 @@ conversational use. Hence this battery.
 
 ### 1. C-test — general proficiency
 Four passages of ascending difficulty. First sentence intact; thereafter the
-second half of every second word is deleted (`Math.ceil(len/2)` retained),
-20 gaps per passage, 80 total. Exact-match scoring.
+second half of every second word **of three or more letters** is deleted
+(`Math.ceil(len/2)` retained; shorter words are skipped), 20 gaps per
+passage, 80 total. Scoring accepts the deleted original plus a keyed list of
+alternative completions that read grammatically in context (`BANK.ctestAlts`).
 
-**Why:** C-tests report Cronbach's α ≈ .87–.92, parallel-forms r ≈ .82,
-test–retest r ≈ .76, and load on a general language factor alongside listening
-and speaking measures. Highest reliability per minute of any format, which is
-what makes it the right instrument for frequent tracking.
+**Why:** the C-test *format* reports Cronbach's α ≈ .87–.92, parallel-forms
+r ≈ .82 and test–retest r ≈ .76 in published, piloted versions, and loads on
+a general language factor alongside listening and speaking measures. **These
+four passages are home-made and unpiloted: they inherit the format, not those
+figures.** The format's reliability-per-minute is still the reason it anchors
+this battery for frequent tracking.
 
 **Read the ceiling, not the total.** The hardest passage held at ≥60% localises
 where automatic processing fails.
@@ -64,12 +68,16 @@ Eight sentences of ascending length. Hear → judge whether it makes sense →
 repeat aloud. Self-rated 0–4.
 
 **Why:** sentences beyond verbatim memory span can only be reproduced by
-reconstruction from grammar, which is why EIT correlates with OPI ratings
-rather than with memory span. The sense-judgement blocks acoustic parroting.
+reconstruction from grammar, which is why EIT correlates with OPI ratings —
+**in rater-scored versions; this module is self-rated**, so that validity
+chain does not transfer whole. After rating, the target sentence is revealed
+so the judgement is anchored to the actual text rather than to the memory
+channel being measured.
 
-**Caveat:** self-rating makes this the softest number in the battery. It is
-still useful for tracking, because the rater's generosity is roughly constant
-across sessions.
+**Caveat:** self-rating makes this the softest number in the battery, and the
+eight sentences are fixed — by the second or third run you will partly
+remember them, which defeats the reconstruction requirement. Treat repeat EI
+scores as a floor, more than in any other module.
 
 ### 5. Speaking sample — output
 Unprepared 2-minute monologue on a drawn prompt (tagged: work, opinion,
@@ -77,13 +85,20 @@ narrative, social, transactional, abstract), transcribed **verbatim**, then
 analysed for:
 
 - **Speech rate (wpm)** — the most reliable single correlate of oral
-  proficiency. Corpus reference points: B2 ≈ 118 wpm, C1 ≈ 142 wpm.
+  proficiency. Corpus reference points: B2 ≈ 118 wpm, C1 ≈ 142 wpm — group
+  means from interview corpora, timed from audio with fillers included. This
+  tool's filler-pruned, self-timed wpm is a related but different measure;
+  treat the figures as reference points, never cutoffs.
 - **Filler ratio** and **self-repair rate** — planning pressure.
 - **MTLD** (both directions, TTR threshold 0.72) — lexical diversity.
 - **Beyond-core ratio** — share of tokens outside an embedded ~1,500-word
-  high-frequency list. The list is an approximation, not a corpus extract;
-  it is identical on every run, so the measure is stable even where the list
-  is imperfect.
+  high-frequency list, after suffix-stripping so regular inflections
+  (walked, friends, things) count as core. The list is an approximation, not
+  a corpus extract; it is identical on every run, so the measure is stable
+  even where the list is imperfect. Known limitations: proper nouns are not
+  excluded (the tokenizer lowercases first), and the filler set covers
+  hesitation vocalizations only (um/uh/er) — lexical fillers such as "like"
+  and "you know" count as content words.
 
 ### 6. Evidence inventory — real-world use
 Fourteen **behavioural** items ("did you, in the last 14 days"), not
@@ -109,10 +124,18 @@ Thresholds used in the delta table:
 | Measure | Noise threshold |
 |---|---|
 | C-test | ±8 points |
-| Vocabulary | ±500 families |
+| Vocabulary | ±1,100 families |
 | Dictation | ±10 points |
 | Speech rate | ±12 wpm |
 | MTLD | ±8 |
+
+The vocabulary threshold is derived, not asserted: with 8 items per band the
+single-administration SD is roughly 250–400 families (binomial sampling), so a
+between-session *difference* has SD ≈ 350–570; ±1,100 sits at ~2σ. (An earlier
+±500 figure was ~1σ of a no-change retest difference and flagged pure noise as
+"real movement" about 40% of the time — audit finding U08.) The other
+thresholds remain author estimates. Movement **at or above** a threshold
+counts as signal (matching the `>=` in the code).
 
 **Item memory is the main threat to repeat validity.** By the third run you
 will half-remember C-test answers. Treat repeat scores as a floor.
@@ -136,8 +159,32 @@ instrument cannot supply for itself.
 ## Running the tests
 
 ```
-python3 scripts/extract-scripts.py && node scripts/run-tests.js
+npm install   # once — jsdom
+node scripts/test.js
 ```
 
-Checks gap counts, item-bank integrity, the validity gate, MTLD behaviour and
-dictation scoring. See `logs/` for recorded runs.
+The suite drives the shipped page in jsdom and asserts (non-zero exit on any
+failure): gap counts and full-key scoring; C-test alternates and monotone
+ceilings; the vocabulary validity gate at its reachable boundary (9/32 valid,
+10/32 void) on the shipped `scoreVocab`; band-2000+/core-list disjointness;
+pseudoword hygiene; deterministic shuffle and mixing; dictation token-overlap
+scoring including curly-apostrophe normalization; MTLD against an independent
+implementation; and regressions for the audit's critical findings (save/copy/
+delta flow, stale-state clearing, duration and degenerate-transcript guards,
+dictation freeze, corrupted-storage recovery, no-TTS play protection). Its
+failure-detection is itself verified by sabotage runs recorded in `logs/`.
+
+## Form history
+
+- **v2 (2026-08-29)** — post-audit revision; not comparable with v1 scores
+  (none were recorded). C-test: alternates keyed, letter-count hint removed.
+  Vocabulary: seven 2000-band words replaced to remove overlap with the core
+  list; pseudowords `zolvent`/`prantic` replaced. Speaking: apostrophe
+  normalization, inflection-aware beyond-core. Threshold: vocabulary ±1,100.
+- **v1 (2026-08-29)** — initial battery. Superseded same day by the audit.
+
+## Spelling note
+
+Item spellings are BrE (`sceptical`, `apologised`, `judgement`) while the
+synthetic voice is en-US; `apologised` is therefore spoken with US
+pronunciation. Below the harm threshold per the audit; documented here.

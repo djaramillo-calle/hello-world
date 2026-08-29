@@ -13,8 +13,9 @@ where you actually are and whether you are moving.
 | `docs/adult-language-learning.html` | Evidence review of adult L2 methods, aimed at conversational ability. |
 | `docs/SOURCES.md` | Reference list for both. |
 | `tracking.tsv` | Progress log. One row per session. |
-| `scripts/` | Test tooling for the instrument's scoring code. |
+| `scripts/` | Assertion-based test suite driving the shipped page in jsdom. |
 | `logs/` | Recorded verification runs. |
+| `docs/audit/` | Double-blind audit: two independent reports and the binding reconciliation verdict. |
 
 ## Using it
 
@@ -37,8 +38,8 @@ noise thresholds in `docs/METHOD.md` is real signal.
 ## Development
 
 ```bash
-python3 scripts/extract-scripts.py   # pull JS out of the HTML
-node scripts/run-tests.js            # check gap counts, scoring, validity gate
+npm install          # once — jsdom for the DOM-driven suite
+node scripts/test.js # asserts scoring, guards, and item-bank invariants; non-zero exit on failure
 ```
 
-`scripts/.build/` is generated and gitignored.
+`node_modules/` is gitignored.

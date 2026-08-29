@@ -1,7 +1,8 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>English Signal Check</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
 
 <style>
   :root {
@@ -10,7 +11,7 @@
     --panel-2: #E7E9E4;
     --ink: #16191A;
     --ink-soft: #5A6360;
-    --ink-faint: #838C88;
+    --ink-faint: #6C7570;
     --rule: #D6DAD3;
     --rule-soft: #E4E7E1;
     --hi: #0E6B4A;
@@ -352,6 +353,11 @@
     font-family: var(--mono); font-size: 2.4rem; font-weight: 600;
     letter-spacing: -0.02em; font-variant-numeric: tabular-nums;
   }
+  @keyframes tflash { 0%, 100% { color: var(--ink); } 50% { color: var(--lo); } }
+  @media (prefers-reduced-motion: no-preference) {
+    .timer-done { animation: tflash 0.8s ease 4; }
+  }
+  .timer-done { color: var(--lo); }
   .big {
     font-family: var(--mono); font-size: 2rem; font-weight: 600;
     letter-spacing: -0.02em; font-variant-numeric: tabular-nums;
@@ -394,10 +400,10 @@
       <table>
         <thead><tr><th>Domain</th><th>Instrument</th><th>Why this one</th><th>Time</th></tr></thead>
         <tbody>
-          <tr><td>General proficiency</td><td class="n">C-test</td><td>α ≈ .87–.92; parallel forms r ≈ .82. Highest reliability per minute of any format.</td><td class="n">15 min</td></tr>
+          <tr><td>General proficiency</td><td class="n">C-test</td><td>The <em>format</em> reports α ≈ .87–.92 and parallel-forms r ≈ .82 in published, piloted versions; these home-made passages inherit the format, not those figures.</td><td class="n">15 min</td></tr>
           <tr><td>Vocabulary breadth</td><td class="n">Yes/No + pseudowords</td><td>Estimates size in word families and corrects for over-claiming.</td><td class="n">6 min</td></tr>
           <tr><td>Listening decode</td><td class="n">Partial dictation</td><td>Dictation was the single strongest predictor of proficiency in Oller's classic work.</td><td class="n">8 min</td></tr>
-          <tr><td>Oral encoding</td><td class="n">Elicited imitation</td><td>Validated proxy for global oral proficiency; correlates with OPI ratings.</td><td class="n">8 min</td></tr>
+          <tr><td>Oral encoding</td><td class="n">Elicited imitation</td><td>Validated proxy for global oral proficiency in rater-scored versions; this module is self-rated.</td><td class="n">8 min</td></tr>
           <tr><td>Speaking output</td><td class="n">Timed monologue + metrics</td><td>Speech rate is the most reliable single correlate of oral proficiency.</td><td class="n">15 min</td></tr>
           <tr><td>Real-world use</td><td class="n">Evidence inventory</td><td>Behavioural, not confidence-based — self-rated confidence correlates poorly with tests.</td><td class="n">4 min</td></tr>
         </tbody>
@@ -553,7 +559,7 @@ BANK.ctest = [
 BANK.vocab = {
   bands: {
     1000: ["house","water","learn","family","money","night","answer","strong"],
-    2000: ["careful","forest","guard","ocean","prison","repair","silver","wonder"],
+    2000: ["blanket","ladder","pigeon","cellar","gravel","spade","drown","repair"],
     3000: ["anxious","bargain","cautious","glimpse","nursery","praise","tremble","stubborn"],
     4000: ["alleged","ceramic","dilute","feeble","hinge","murky","vigorous","sceptical"],
     5000: ["abolish","brittle","disperse","gaunt","meander","rustic","tangible","lucrative"],
@@ -562,12 +568,12 @@ BANK.vocab = {
     8000: ["abstruse","desiccate","febrile","hirsute","obdurate","perfidy","sylvan","lachrymose"]
   },
   pseudo: ["plask","morative","blenter","crolling","dispolate","faltive","gorbid","hinture",
-           "jaunkle","kelmish","lonture","marlint","nurbid","opplate","prantic","quilber",
-           "rendive","spralt","tervine","unctile","vasple","welmid","yarnick","zolvent",
+           "jaunkle","kelmish","lonture","marlint","nurbid","opplate","prundic","quilber",
+           "rendive","spralt","tervine","unctile","vasple","welmid","yarnick","zorvale",
            "trantle","grovish","flenting","cabrish","deltive","scrimble","thurgle","vandric"]
 };
 
-/* ---- Module 3: Dictation, ascending length and rate ---- */
+/* ---- Module 3: Dictation, ascending rate; length roughly ascending ---- */
 BANK.dict = [
   { s: "The meeting was moved to Thursday afternoon.", rate: 0.95 },
   { s: "I would have called you, but my phone was dead.", rate: 1.00 },
@@ -582,8 +588,8 @@ BANK.dict = [
 ];
 
 /* ---- Module 4: Elicited imitation, ascending syllable count ----
-   Half the items are semantically anomalous; the sense-judgement
-   forces processing for meaning before repetition.                */
+   Two of the eight items are semantically anomalous; the
+   sense-judgement forces processing for meaning before repetition. */
 BANK.ei = [
   { s: "The keys are on the kitchen table.", sense: true },
   { s: "My brother works in a hospital downtown.", sense: true },
@@ -629,15 +635,46 @@ BANK.eviz = [
   "Said something in English that got the reaction I intended — a laugh, agreement, a change of mind."
 ];
 
-/* ---- Approximate top-1000 general-frequency word list ----
-   Used for the lexical-reach measure ("beyond-1k ratio"). This is
-   an approximation, not a corpus extract. It is identical on every
-   run, so the measure is stable for tracking even where the list
-   itself is imperfect.                                            */
+/* ---- ~1,500-word high-frequency core list (deduplicated from a
+   longer seed list). Used for the lexical-reach measure. An
+   approximation, not a corpus extract; identical on every run, so
+   the measure is stable for tracking even where the list itself is
+   imperfect. No vocabulary-band item may appear in this list — the
+   test suite asserts that.                                        */
 BANK.k1 = ("the be to of and a in that have i it for not on with he as you do at this but his by from they we say her she or an will my one all would there their what so up out if about who get which go me when make can like time no just him know take people into year your good some could them see other than then now look only come its over think also back after use two how our work first well way even new want because any these give day most us is are was were been has had said did made get got go went come came take took see saw know knew think thought find found tell told become became leave left feel felt put bring began keep hold write stand hear let mean set meet run pay sit speak lie lead read grow open walk win offer remember love consider appear buy wait serve die send expect build stay fall cut reach kill remain suggest raise pass sell require report decide pull man woman child world school state family student group country problem hand part place case week company system program question government number night point home water room mother area money story fact month lot right study book eye job word business issue side kind head house service friend father power hour game line end member law car city community name president team minute idea kid body information back parent face others level office door health person art war history party result change morning reason research girl guy moment air teacher force education foot boy age policy process music market sense nation plan college interest death experience effect use class control care field development role effort rate heart drug show leader light voice wife police mind price report decision son bank oil picture activity industry blood image street effort future action size course paper space ground half form event official matter center couple site project hope engine position century book rest behavior million medical hospital challenge box computer thing figure return father summer message news floor town dog difference resource ability sound office window dinner glass mountain movement south north east west green red blue black white long little own other old great big high small large next early young important few public bad same able best better sure free true certain recent past strong possible whole common serious ready simple hard clear special difficult available likely short single medical current wrong private past foreign fine main similar poor rich natural physical political social national international personal professional financial economic environmental cultural traditional modern popular successful careful safe dangerous quiet loud fast slow heavy light warm cold hot cool dry wet clean dirty full empty rich cheap expensive quick busy tired happy sad angry afraid glad proud sorry sick well ill fit thin fat tall deep wide narrow thick flat round sharp soft smooth rough bright dark loud silent very really quite too so much many more less least always never often sometimes usually rarely again still yet already soon later ever once twice together alone here there where why how what when who which whose whom while until since before after during between among against through across around behind below above under over inside outside near far away back forward down up off along toward beyond within without despite instead however therefore although unless whether either neither both each every another such same other several enough almost nearly perhaps maybe probably certainly obviously actually finally simply exactly especially particularly generally usually recently currently immediately suddenly quickly slowly carefully clearly easily hardly directly completely totally entirely fully partly mainly mostly rather quite pretty somewhat extremely absolutely definitely certainly indeed anyway besides otherwise moreover furthermore meanwhile nevertheless ago able across act add afraid age ago agree ahead allow alone along already although always among amount ancient anger animal announce answer anybody anyone anything apart apartment apply approach argue arm army arrive art article ask asleep attack attempt attend attention available avoid award aware baby bad bag ball band bank bar base basic bath battle beach bear beat beautiful bed beer begin behavior belief believe bell belong below belt bend benefit best bet better beyond bicycle big bill bird birth bit bite black blame blank blind block blood blow blue board boat body boil bone book boot border born borrow boss both bottle bottom bowl box boy brain branch brave bread break breakfast breath breathe bridge brief bright bring broad broken brother brown brush build burn bury bus bush business busy butter button buy cake call calm camera camp can cancel candidate cap capital captain car card care career careful carry case cash cat catch cause ceiling celebrate cell center central century certain chain chair challenge chance change chapter character charge chart cheap check cheese chest chicken chief child choice choose church circle citizen city civil claim class clean clear clerk climb clock close cloth cloud club coach coast coat coffee coin cold collect college color column combine come comfort command comment commit common community company compare compete complain complete computer concern concert condition confirm connect consider contain continue contract control cook cool copy corner correct cost cotton count country couple courage course court cover crash crazy cream create credit crime cross crowd cry culture cup curious current customer cut damage dance danger dark date daughter day dead deal dear debate debt decade decide deep defeat defend degree delay deliver demand deny depend describe desert design desire desk destroy detail develop device dictionary die diet differ difficult dinner direct dirty discover discuss disease dish distance divide doctor dog dollar door double doubt down draw dream dress drink drive drop drug dry duck due dust duty each ear early earn earth ease east easy eat edge edit effect effort egg eight either elect electric element else empty encourage end enemy energy engine english enjoy enough enter entire equal error escape especially essay even evening event ever every evidence exact example excellent except exchange excite excuse exercise exist exit expect expensive experience expert explain express extra eye face fact factory fail fair fall false familiar famous fan far farm fashion fast fat father fault favor fear feature federal fee feed feel female fence few field fight figure file fill film final finance find fine finger finish fire firm first fish fit fix flag flat floor flow flower fly focus fold follow food foot football force foreign forest forget forgive form former forward found frame free freedom fresh friend front fruit full fun function fund funny future gain game garden gas gate gather general gentle gift girl give glad glass global goal god gold golf good govern grade grand grant grass gray great green grocery ground group grow guard guess guest guide gun guy habit hair half hall hand handle hang happen happy hard hardly hat hate head health hear heart heat heavy height hello help her here hero hide high hill hire history hit hold hole holiday home honest hope horse hospital hot hotel hour house how however huge human hundred hungry hunt hurry hurt husband ice idea identify ignore ill image imagine impact important improve include increase indeed indicate individual industry influence inform initial injury inside insist instead institution insurance intend interest internal international interview introduce invest invite involve iron island issue item jacket job join joke journey joy judge juice jump just keep key kick kid kill kind king kitchen knee knife knock know knowledge lack lady lake land language large last late laugh law lawyer lay lead leaf learn least leave left leg legal lemon length less lesson let letter level library lie life lift light like limit line lip list listen little live load loan local lock long look lose loss lot loud love low luck lunch machine mad magazine mail main maintain major make male man manage manner many map march mark market marry mass master match material matter may maybe meal mean measure meat media medical medicine meet member memory mention menu mess message metal method middle might mile military milk mind mine minute mirror miss mistake mix model modern moment money month moon moral more morning most mother motor mountain mouth move movie much music must myself nail name narrow nation native natural nature near necessary neck need neighbor neither nerve net never new news next nice night nobody noise none noon nor normal north nose note nothing notice novel now number nurse object observe occur ocean odd off offer office officer official often oil okay old once one only open operate opinion opportunity oppose option orange order organize origin other ought out outside over own pack page pain paint pair panel paper parent park part particular partner party pass past path patient pattern pay peace pen people percent perfect perform perhaps period permit person phone photo physical pick picture piece pilot pink pipe place plan plane plant plastic plate play please pleasure plenty pocket poem point police policy polite pool poor popular population port position possible post pot potato pound pour power practice prefer prepare present president press pressure pretty prevent price pride primary print prior prison private prize probably problem process produce product professor profit program progress project promise proper protect proud prove provide public pull punish purpose push put quality quarter question quick quiet quit quite race radio rain raise range rapid rare rate rather reach read ready real reason receive recent recognize record red reduce refer reflect refuse regard region regular reject relate release relief remain remember remind remove rent repeat replace reply report represent request require rescue research resource respect respond rest result retire return reveal review rice rich ride right ring rise risk river road rock role roll roof room root rope rough round route row rule run rush sad safe sail salt same sample sand save say scale scene schedule scheme school science score screen sea search season seat second secret section secure see seed seek seem sell send sense sentence separate series serious serve service set settle several severe shake shall shape share sharp she sheet shelf shell shift shine ship shirt shock shoe shoot shop short should shoulder shout show shut sick side sign signal silence silver similar simple since sing single sink sir sister sit site situation six size skill skin sky sleep slight slip slow small smart smell smile smoke smooth snow social society soft soil soldier solid solve some son song soon sorry sort soul sound soup source south space speak special speed spell spend spirit split sport spot spread spring square stage stair stamp stand standard star start state station stay steal steel step stick still stock stomach stone stop store storm story straight strange street stress strike string strong structure struggle student study stuff stupid style subject succeed such sudden suffer sugar suggest suit summer sun supply support suppose sure surface surprise survey survive sweet swim switch symbol system table take talk tall tape target task taste tax tea teach team tear technology telephone tell temperature ten term terrible test than thank that theory there these thick thin thing think third this though thought thousand threat throat through throw thus ticket tie tight time tiny tip tire title today together tomorrow tone tonight too tool tooth top topic total touch tough tour toward town track trade tradition traffic train travel treat tree trial trip trouble truck true trust truth try tube turn twice type typical ugly uncle under understand union unit unless until upon upper urge use useful usual valley value variety various vast vegetable vehicle version very victim video view village visit voice volume vote wage wait wake walk wall want war warm warn wash waste watch water wave way weak wear weather wedding week weight welcome well west wet what wheel when where whether which while white who whole whose why wide wife wild will win wind window wine wing winter wire wise wish with within without witness woman wonder wood word work world worry worth would wound wrap write wrong yard year yellow yes yesterday yet young your yourself youth zone").split(/\s+/).filter(Boolean);
 
 BANK.k1 = [...new Set(BANK.k1)];
 BANK.k1set = new Set(BANK.k1);
+
+/* ---- C-test alternates (form v2) ----
+   Gap keys "passage:gap". Any listed completion scores as correct in
+   addition to the deleted original. Policy per the audit verdict:
+   err toward accepting any completion that reads grammatically in
+   context. */
+BANK.ctestAlts = {
+  "0:0":  ["ams"],
+  "0:6":  ["is", "at"],
+  "0:9":  ["g"],
+  "0:11": ["m"],
+  "0:12": ["view"],
+  "0:13": ["cking"],
+  "0:14": ["is", "at"],
+  "0:19": ["is", "at"],
+  "1:1":  ["ese", "ose"],
+  "1:3":  ["at", "is"],
+  "1:5":  ["at", "is"],
+  "1:8":  ["at", "is"],
+  "1:10": ["ribute"],
+  "1:15": ["lier"],
+  "1:18": ["at", "is"],
+  "2:0":  ["erate"],
+  "2:2":  ["d"],
+  "2:8":  ["ese", "ose"],
+  "2:11": ["e"],
+  "2:15": ["ting"],
+  "3:13": ["at", "is"],
+  "3:19": ["at", "is"]
+};
 BANK.k1label = Math.round(BANK.k1.length / 100) * 100;
 </script>
 
@@ -652,6 +689,7 @@ let S = { current: {}, history: [] };
 function load() {
   try { const raw = localStorage.getItem(KEY); if (raw) S = JSON.parse(raw); }
   catch (e) { /* private mode / blocked storage — run without history */ }
+  if (typeof S !== "object" || S === null || Array.isArray(S)) S = { current: {}, history: [] };
   if (!S.current) S.current = {};
   if (!S.history) S.history = [];
 }
@@ -677,13 +715,34 @@ function buildTabs() {
     const b = document.createElement("button");
     b.className = "tab";
     b.type = "button";
+    b.id = "tab-" + m.id;
     b.setAttribute("role", "tab");
     b.setAttribute("aria-selected", m.id === "overview" ? "true" : "false");
+    b.setAttribute("aria-controls", "p-" + m.id);
+    b.tabIndex = m.id === "overview" ? 0 : -1;
     b.dataset.mod = m.id;
     b.dataset.done = S.current[m.id] ? "1" : "0";
     b.innerHTML = '<span class="dot"></span>' + m.label;
     b.onclick = () => go(m.id);
     nav.appendChild(b);
+    const panel = document.getElementById("p-" + m.id);
+    if (panel) panel.setAttribute("aria-labelledby", "tab-" + m.id);
+  });
+  nav.addEventListener("keydown", e => {
+    const keys = ["ArrowLeft", "ArrowRight", "Home", "End"];
+    if (!keys.includes(e.key)) return;
+    e.preventDefault();
+    const tabs = [...nav.querySelectorAll(".tab")];
+    let i = tabs.findIndex(t => t === document.activeElement);
+    if (i < 0) i = 0;
+    if (e.key === "ArrowLeft") i = (i - 1 + tabs.length) % tabs.length;
+    else if (e.key === "ArrowRight") i = (i + 1) % tabs.length;
+    else if (e.key === "Home") i = 0;
+    else i = tabs.length - 1;
+    tabs.forEach(t => t.tabIndex = -1);
+    tabs[i].tabIndex = 0;
+    tabs[i].focus();
+    go(tabs[i].dataset.mod);
   });
 }
 
@@ -752,7 +811,7 @@ function buildCtest() {
       else if (p.t === "w") html += esc(p.v);
       else {
         const n = p.miss.length;
-        html += esc(p.stem) + '<input type="text" autocomplete="off" autocapitalize="off" spellcheck="false" data-p="' + pi + '" data-g="' + p.gi + '" size="' + Math.max(n, 2) + '" maxlength="' + (n + 3) + '">' + esc(p.tail);
+        html += esc(p.stem) + '<input type="text" autocomplete="off" autocapitalize="off" spellcheck="false" data-p="' + pi + '" data-g="' + p.gi + '" size="8" maxlength="12">' + esc(p.tail);
       }
     });
     html += "</div>";
@@ -779,6 +838,10 @@ function ctProgress() {
 }
 
 function scoreCtest() {
+  if (S.current.ctest) {
+    const untouched = [...document.querySelectorAll("#ct-holder input")].every(i => !i.value.trim());
+    if (untouched && !confirm("A saved score exists for this module but the form is empty (page reloaded?). Scoring now overwrites it with 0. Continue?")) return;
+  }
   let correct = 0, total = 0;
   const perPassage = [];
   CT.forEach((g, pi) => {
@@ -786,9 +849,10 @@ function scoreCtest() {
     g.answers.forEach((ans, gi) => {
       const inp = document.querySelector('#ct-holder input[data-p="' + pi + '"][data-g="' + gi + '"]');
       const val = (inp.value || "").trim().toLowerCase().replace(/’/g, "'");
-      const ok = val === ans;
+      const ok = val === ans || (BANK.ctestAlts[pi + ":" + gi] || []).includes(val);
       inp.classList.toggle("ok", ok);
       inp.classList.toggle("bad", !ok);
+      if (ok) inp.removeAttribute("aria-invalid"); else inp.setAttribute("aria-invalid", "true");
       if (ok) c++;
       else if (!inp.nextElementSibling || !inp.nextElementSibling.classList.contains("ans")) {
         inp.insertAdjacentHTML("afterend", '<span class="ans">' + esc(ans) + "</span>");
@@ -800,12 +864,13 @@ function scoreCtest() {
   });
   document.querySelectorAll("#ct-holder input").forEach(i => i.disabled = true);
   const p = correct / total;
-  const ceiling = perPassage.filter(x => x.score / x.of >= 0.6).pop();
+  let ceiling = null;
+  for (const x of perPassage) { if (x.score / x.of >= 0.6) ceiling = x; else break; }
   S.current.ctest = { pct: p, correct, total, perPassage, ceiling: ceiling ? ceiling.level : "below A2–B1", at: Date.now() };
   markDone("ctest");
   document.getElementById("ct-result").innerHTML =
     '<div class="card"><div class="big">' + pct(p) + '%</div>' +
-    '<p class="intro">' + correct + " of " + total + ' gaps restored. Provisional band: <strong>' + ctBand(p) + "</strong>.</p>" +
+    '<p class="intro">' + correct + " of " + total + ' gaps restored. Provisional band: <strong>' + ctBand(p) + "</strong> (uncalibrated author mapping — &plusmn;1 CEFR sub-level at best).</p>" +
     '<p class="intro">Highest passage held at 60%+: <strong>' + (ceiling ? ceiling.level : "none") + "</strong>. That ceiling is more diagnostic than the overall percentage — it tells you the text difficulty at which your automatic processing starts failing.</p>" +
     '<div class="scroller"><table><thead><tr><th>Passage</th><th>Score</th><th>%</th></tr></thead><tbody>' +
     perPassage.map(x => "<tr><td>" + x.level + '</td><td class="n">' + x.score + " / " + x.of + '</td><td class="n">' + pct(x.score / x.of) + "%</td></tr>").join("") +
@@ -843,7 +908,9 @@ function buildVocab() {
     BANK.vocab.bands[band].forEach(w => VT.push({ w, band: +band, real: true }));
   });
   BANK.vocab.pseudo.forEach(w => VT.push({ w, band: 0, real: false }));
-  // Deterministic shuffle so item order is identical on every run.
+  // Deterministic float-recurrence shuffle (not a modular LCG — the
+  // products exceed 2^53 — but stable across IEEE-754 platforms;
+  // mixing verified in the test suite). Item order identical every run.
   let seed = 20260829;
   const rnd = () => { seed = (seed * 1103515245 + 12345) % 2147483648; return seed / 2147483648; };
   for (let i = VT.length - 1; i > 0; i--) {
@@ -853,13 +920,14 @@ function buildVocab() {
   const holder = document.getElementById("vt-holder");
   holder.innerHTML = '<div class="ynwrap">' + VT.map((it, i) =>
     '<div class="yn"><span class="w">' + esc(it.w) + '</span>' +
-    '<button type="button" data-i="' + i + '" data-on="0" onclick="toggleYN(this)">know</button></div>'
+    '<button type="button" data-i="' + i + '" data-on="0" aria-pressed="false" aria-label="know: ' + esc(it.w) + '" onclick="toggleYN(this)">know</button></div>'
   ).join("") + "</div>";
   vtProgress();
 }
 
 function toggleYN(btn) {
   btn.dataset.on = btn.dataset.on === "1" ? "0" : "1";
+  btn.setAttribute("aria-pressed", btn.dataset.on === "1" ? "true" : "false");
   vtProgress();
 }
 
@@ -869,9 +937,13 @@ function vtProgress() {
 }
 
 function scoreVocab() {
+  if (document.querySelectorAll('#vt-holder button[data-on="1"]').length === 0) {
+    alert("Mark the words you know first."); return;
+  }
   const marked = new Set([...document.querySelectorAll('#vt-holder button[data-on="1"]')].map(b => +b.dataset.i));
   const pseudoTotal = VT.filter(x => !x.real).length;
   const falseAlarms = VT.filter((x, i) => !x.real && marked.has(i)).length;
+  const markedRealCount = VT.filter((x, i) => x.real && marked.has(i)).length;
   const f = falseAlarms / pseudoTotal;
   const bandRows = [];
   let size = 0;
@@ -898,9 +970,9 @@ function scoreVocab() {
     '<p class="intro">False-alarm rate on non-words: <strong>' + pct(f) + "%</strong>" +
     (!valid ? ' — above the 30% ceiling at which no correction can recover a real estimate. Someone marking "know" on most non-words scores near the top whatever they actually know, so this run is discarded rather than reported. Redo it, marking a word only if you could use it in a sentence.' :
      f > 0.12 ? " — moderate. The correction has absorbed it, but be stricter next time." :
-     " — good discipline; the estimate is trustworthy.") + "</p>" +
-    (!valid ? "" : "<p class=\"intro\">Coverage this buys you: <strong>" + coverageNote(size) + "</strong>") +
-    (firstGap ? " Knowledge starts thinning at the <strong>" + firstGap.band.toLocaleString() + "</strong> band — that is where deliberate vocabulary work has the most room." : " No clear drop-off inside the tested range; extend the test upward.") + "</p>" +
+     markedRealCount < 8 ? " — but very little was marked; read the estimate as a floor, not a level." : " — good discipline; the estimate is trustworthy.") + "</p>" +
+    (!valid ? "" : "<p class=\"intro\">Coverage this buys you: <strong>" + coverageNote(size) + "</strong>" +
+      (firstGap ? " Knowledge starts thinning at the <strong>" + firstGap.band.toLocaleString() + "</strong> band — that is where deliberate vocabulary work has the most room." : " No clear drop-off inside the tested range; extend the test upward.") + "</p>") +
     '<div class="scroller"><table><thead><tr><th>Band</th><th>Raw</th><th>Corrected</th></tr></thead><tbody>' +
     bandRows.map(r => "<tr><td>" + r.band.toLocaleString() + '</td><td class="n">' + r.hits + " / " + r.of + '</td><td class="n">' + pct(r.corrected) + "%</td></tr>").join("") +
     "</tbody></table></div></div>";
@@ -924,15 +996,19 @@ function resetVocab() {
    SPEECH SYNTHESIS
    ------------------------------------------------------------ */
 
+let lastVoiceName = null;
+
 function speak(text, rate) {
-  if (!("speechSynthesis" in window)) { alert("This browser has no speech synthesis. Use the authentic-audio protocol in the Profile tab instead."); return; }
+  if (!("speechSynthesis" in window)) { alert("This browser has no speech synthesis. Use the authentic-audio protocol in the Profile tab instead."); return false; }
   window.speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(text);
   u.rate = rate || 1;
   u.lang = "en-US";
   const vs = window.speechSynthesis.getVoices().filter(v => /^en/i.test(v.lang));
   if (vs.length) u.voice = vs[0];
+  lastVoiceName = u.voice ? u.voice.name : "system-default";
   window.speechSynthesis.speak(u);
+  return true;
 }
 
 /* ------------------------------------------------------------
@@ -944,7 +1020,7 @@ function buildDict() {
   holder.innerHTML = BANK.dict.map((d, i) =>
     '<div class="item"><div class="itemno">Sentence ' + (i + 1) + ' &middot; speed ' + d.rate.toFixed(2) + '&times; &middot; plays left <span id="dp-' + i + '">2</span></div>' +
     '<div class="btnrow"><button class="ghost" type="button" onclick="playDict(' + i + ')">Play</button>' +
-    '<input type="text" id="dt-' + i + '" size="52" autocomplete="off" spellcheck="false" placeholder="type what you hear" oninput="dcProgress()"></div></div>'
+    '<input type="text" id="dt-' + i + '" style="flex:1 1 200px;min-width:0;max-width:460px" autocomplete="off" spellcheck="false" placeholder="type what you hear" oninput="dcProgress()"></div></div>'
   ).join("");
   dcProgress();
 }
@@ -954,9 +1030,9 @@ const dictPlays = {};
 function playDict(i) {
   const left = dictPlays[i] === undefined ? 2 : dictPlays[i];
   if (left <= 0) return;
+  if (!speak(BANK.dict[i].s, BANK.dict[i].rate)) return;
   dictPlays[i] = left - 1;
   document.getElementById("dp-" + i).textContent = dictPlays[i];
-  speak(BANK.dict[i].s, BANK.dict[i].rate);
 }
 
 function dcProgress() {
@@ -964,7 +1040,7 @@ function dcProgress() {
   document.getElementById("dc-prog").textContent = n + " / " + BANK.dict.length;
 }
 
-const norm = s => s.toLowerCase().replace(/[^a-z0-9'\s]/g, " ").replace(/\s+/g, " ").trim();
+const norm = s => s.toLowerCase().replace(/[\u2019\u2018]/g, "'").replace(/[^a-z0-9'\s]/g, " ").replace(/\s+/g, " ").trim();
 
 function tokenOverlap(target, given) {
   const t = norm(target).split(" ").filter(Boolean);
@@ -976,6 +1052,10 @@ function tokenOverlap(target, given) {
 }
 
 function scoreDict() {
+  if (S.current.dict) return;
+  const dcInputs = [...document.querySelectorAll('#dc-holder input[type="text"]')];
+  if (dcInputs.every(i => !i.value.trim()) &&
+      !confirm("No answers entered. Score anyway? (Targets will be revealed and inputs locked.)")) return;
   let hit = 0, of = 0;
   const rows = [];
   BANK.dict.forEach((d, i) => {
@@ -984,14 +1064,17 @@ function scoreDict() {
     hit += r.hit; of += r.of;
     rows.push({ i, rate: d.rate, r, target: d.s, given });
   });
+  dcInputs.forEach(i => i.disabled = true);
   const p = hit / of;
-  const fast = rows.filter(x => x.r.hit / x.r.of >= 0.8).pop();
-  S.current.dict = { pct: p, hit, of, ceilingRate: fast ? fast.rate : null, at: Date.now() };
+  let fast = null;
+  for (const x of rows) { if (x.r.hit / x.r.of >= 0.8) fast = x; else break; }
+  S.current.dict = { pct: p, hit, of, ceilingRate: fast ? fast.rate : null, voice: lastVoiceName, at: Date.now() };
   markDone("dict");
   document.getElementById("dc-result").innerHTML =
     '<div class="card"><div class="big">' + pct(p) + "%</div>" +
-    '<p class="intro">' + hit + " of " + of + " words recovered. Speed ceiling (last sentence held at 80%+): <strong>" +
-    (fast ? fast.rate.toFixed(2) + "&times;" : "not reached") + "</strong>. Below 1.15&times; means normal conversational speed is still outrunning your decoding.</p>" +
+    '<p class="intro">' + hit + " of " + of + " words recovered. Speed ceiling (fastest rate held at 80%+ with everything below it also passing): <strong>" +
+    (fast ? fast.rate.toFixed(2) + "&times;" : "not reached") + "</strong>. Rates are multiples of this device's synthetic voice — comparable across your own sessions on the same device and voice, not across devices.</p>" +
+    '<p class="intro">Scored by word overlap, ignoring order and punctuation.</p>' +
     '<div class="scroller"><table><thead><tr><th>#</th><th>Speed</th><th>Score</th><th>Target</th></tr></thead><tbody>' +
     rows.map(x => "<tr><td>" + (x.i + 1) + '</td><td class="n">' + x.rate.toFixed(2) + '</td><td class="n">' + x.r.hit + " / " + x.r.of +
       "</td><td>" + esc(x.target) + (norm(x.given) !== norm(x.target) ? '<br><span class="itemno">you: ' + esc(x.given || "—") + "</span>" : "") + "</td></tr>").join("") +
@@ -1038,19 +1121,26 @@ const eiPlays = {}, eiScore = {}, eiSense = {};
 function playEI(i) {
   const left = eiPlays[i] === undefined ? 1 : eiPlays[i];
   if (left <= 0) return;
+  if (!speak(BANK.ei[i].s, 1.0)) return;
   eiPlays[i] = left - 1;
   document.getElementById("ep-" + i).textContent = eiPlays[i];
-  speak(BANK.ei[i].s, 1.0);
 }
 function pickSense(i, v, btn) {
   eiSense[i] = v;
-  [...btn.parentElement.querySelectorAll("button")].forEach(b => b.dataset.on = "0");
-  btn.dataset.on = "1";
+  [...btn.parentElement.querySelectorAll("button")].forEach(b => { b.dataset.on = "0"; b.setAttribute("aria-pressed", "false"); });
+  btn.dataset.on = "1"; btn.setAttribute("aria-pressed", "true");
 }
 function pickEI(i, v, btn) {
   eiScore[i] = v;
-  [...btn.parentElement.querySelectorAll("button")].forEach(b => b.dataset.on = "0");
-  btn.dataset.on = "1";
+  [...btn.parentElement.querySelectorAll("button")].forEach(b => { b.dataset.on = "0"; b.setAttribute("aria-pressed", "false"); });
+  btn.dataset.on = "1"; btn.setAttribute("aria-pressed", "true");
+  if (!document.getElementById("et-" + i)) {
+    const d = document.createElement("div");
+    d.className = "itemno";
+    d.id = "et-" + i;
+    d.textContent = "target: " + BANK.ei[i].s;
+    document.getElementById("er-" + i).insertAdjacentElement("afterend", d);
+  }
   eiProgress();
 }
 function eiProgress() {
@@ -1058,18 +1148,20 @@ function eiProgress() {
 }
 
 function scoreEI() {
+  if (Object.keys(eiScore).length === 0) { alert("Rate at least one repetition first."); return; }
   let sum = 0, max = BANK.ei.length * 4, senseOk = 0;
   BANK.ei.forEach((it, i) => {
     sum += eiScore[i] === undefined ? 0 : eiScore[i];
     if (eiSense[i] !== undefined && (eiSense[i] === 1) === it.sense) senseOk++;
   });
   const p = sum / max;
-  S.current.ei = { pct: p, sum, max, senseOk, senseOf: BANK.ei.length, at: Date.now() };
+  S.current.ei = { pct: p, sum, max, senseOk, senseOf: BANK.ei.length, voice: lastVoiceName, at: Date.now() };
   markDone("ei");
   document.getElementById("ei-result").innerHTML =
     '<div class="card"><div class="big">' + pct(p) + "%</div>" +
     '<p class="intro">' + sum + " of " + max + " rubric points. Meaning judgements correct: <strong>" + senseOk + " / " + BANK.ei.length + "</strong>.</p>" +
-    '<p class="intro">Self-rated, so treat it as the softest number in the battery — people are generous about their own repetitions. It is still useful for tracking, because you are generous by roughly the same amount every time. Where it earns its place: a sharp drop on the last three items (the long ones) means you are holding sentences as sound rather than rebuilding them from grammar.</p></div>';
+    '<p class="intro">Self-rated, so treat it as the softest number in the battery — people are generous about their own repetitions. It is still useful for tracking, because you are generous by roughly the same amount every time. Where it earns its place: a sharp drop on the last three items (the long ones) means you are holding sentences as sound rather than rebuilding them from grammar.</p>' +
+    '<p class="intro">The eight sentences are fixed; by the second or third run you will partly remember them &mdash; treat repeat scores here as a floor, more than in any other module.</p></div>';
 }
 
 function resetEI() {
@@ -1084,10 +1176,27 @@ function resetEI() {
    MODULE 5 — SPEAKING SAMPLE
    ------------------------------------------------------------ */
 
+/* Suffix-stripping lookup against the core list, so regular inflections
+   (walked, friends, things, working) do not count as "lexical reach".
+   Proper nouns cannot be excluded here: norm() lowercases before this
+   point — documented as a limitation in METHOD.md. */
+function coreHas(w) {
+  if (BANK.k1set.has(w)) return true;
+  const cands = [
+    w.replace(/'s$/, ""), w.replace(/ies$/, "y"), w.replace(/es$/, ""),
+    w.replace(/s$/, ""), w.replace(/ed$/, ""), w.replace(/ed$/, "e"),
+    w.replace(/ing$/, ""), w.replace(/ing$/, "e"),
+    w.replace(/([a-z])\1(ed|ing)$/, "$1")
+  ];
+  return cands.some(b => b !== w && BANK.k1set.has(b));
+}
+
 const FILLERS = new Set(["um","uh","erm","er","ah","eh","hmm","mmm","mm"]);
-let spTimer = null, spLeft = 120, spPrompt = null;
+let spTimer = null, spLeft = 120, spPrompt = null, spDraws = 0;
 
 function buildSpeak() {
+  spDraws = 0;
+  spElapsed = 0;
   const holder = document.getElementById("sp-holder");
   holder.innerHTML =
     '<div class="card"><h3 style="margin-top:0">Step 1 &mdash; draw a prompt</h3>' +
@@ -1112,20 +1221,41 @@ function buildSpeak() {
 }
 
 function drawPrompt() {
+  spDraws++;
   const d = document.getElementById("sp-domain").value;
   const pool = d === "any" ? BANK.prompts : BANK.prompts.filter(p => p.d === d);
   spPrompt = pool[Math.floor(Math.random() * pool.length)];
   document.getElementById("sp-prompt").innerHTML = "<strong>" + esc(spPrompt.d) + ".</strong> " + esc(spPrompt.t);
 }
 
+let spElapsed = 0;
+
+function timerAlarm() {
+  const el = document.getElementById("sp-timer");
+  el.textContent = "0:00";
+  el.classList.add("timer-done");
+  try { if (navigator.vibrate) navigator.vibrate(200); } catch (e) {}
+  try {
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (AC) {
+      const actx = new AC(), o = actx.createOscillator(), g = actx.createGain();
+      o.frequency.value = 880; g.gain.value = 0.15;
+      o.connect(g); g.connect(actx.destination);
+      o.start(); o.stop(actx.currentTime + 0.2);
+    }
+  } catch (e) {}
+}
+
 function startTimer() {
   stopTimer();
   spLeft = 120;
+  document.getElementById("sp-timer").classList.remove("timer-done");
   spTimer = setInterval(() => {
     spLeft--;
+    spElapsed = 120 - spLeft;
     const m = Math.floor(spLeft / 60), s = spLeft % 60;
     document.getElementById("sp-timer").textContent = m + ":" + String(s).padStart(2, "0");
-    if (spLeft <= 0) { clearInterval(spTimer); spTimer = null; }
+    if (spLeft <= 0) { clearInterval(spTimer); spTimer = null; timerAlarm(); }
   }, 1000);
 }
 function stopTimer() {
@@ -1143,23 +1273,33 @@ function mtld(tokens, thresh) {
       if (types.size / n <= thresh) { factors++; types = new Set(); n = 0; }
     }
     if (n > 0) { const ttr = types.size / n; factors += (1 - ttr) / (1 - thresh); }
-    return factors > 0 ? toks.length / factors : toks.length;
+    return factors > 0 ? toks.length / factors : null;
   }
   if (tokens.length < 20) return null;
-  return (run(tokens) + run([...tokens].reverse())) / 2;
+  const fwd = run(tokens), bwd = run([...tokens].reverse());
+  if (fwd === null || bwd === null) return null;
+  return (fwd + bwd) / 2;
 }
 
 function scoreSpeak() {
+  if (S.current.speak && !(document.getElementById("sp-text").value || "").trim() &&
+      !confirm("A saved score exists for this module but the transcript box is empty (page reloaded?). Scoring now overwrites it. Continue?")) return;
   const raw = document.getElementById("sp-text").value || "";
-  const secs = +document.getElementById("sp-secs").value || 120;
+  const secs = Math.round(+document.getElementById("sp-secs").value);
+  if (!Number.isFinite(secs) || secs < 20 || secs > 600) { alert("Enter the real duration in seconds (20\u2013600)."); return; }
   const all = norm(raw).split(" ").filter(Boolean);
   if (all.length < 40) { alert("Transcript is too short to analyse. Aim for at least a minute of speech."); return; }
 
   const fillers = all.filter(w => FILLERS.has(w)).length;
   const content = all.filter(w => !FILLERS.has(w));
+  if (content.length < 20) { alert("Too little content after removing fillers \u2014 record a fuller sample."); return; }
   let reps = 0;
-  for (let i = 1; i < content.length; i++) if (content[i] === content[i - 1]) reps++;
-  for (let i = 3; i < content.length; i++) if (content[i] === content[i - 2] && content[i - 1] === content[i - 3]) reps++;
+  const counted = new Set();
+  for (let i = 1; i < content.length; i++)
+    if (content[i] === content[i - 1]) { reps++; counted.add(i); }
+  for (let i = 3; i < content.length; i++)
+    if (content[i] === content[i - 2] && content[i - 1] === content[i - 3] &&
+        !counted.has(i) && !counted.has(i - 1)) { reps++; counted.add(i); counted.add(i - 1); }
 
   const wpm = content.length / secs * 60;
   const fillerRatio = fillers / all.length;
@@ -1167,23 +1307,25 @@ function scoreSpeak() {
   const types = new Set(content);
   const ttr = types.size / content.length;
   const md = mtld(content);
-  const beyond = content.filter(w => !BANK.k1set.has(w));
+  const beyond = content.filter(w => !coreHas(w));
   const beyondRatio = beyond.length / content.length;
   const beyondTypes = [...new Set(beyond)];
 
   S.current.speak = {
     wpm, fillerRatio, repRatio, ttr, mtld: md, beyondRatio,
-    words: content.length, secs, domain: spPrompt ? spPrompt.d : "unspecified", at: Date.now()
+    words: content.length, secs, draws: spDraws,
+    domain: spPrompt ? spPrompt.d : "unspecified", at: Date.now()
   };
   markDone("speak");
   document.getElementById("sp-prog").textContent = Math.round(wpm) + " wpm";
 
   const rateNote =
-    wpm >= 150 ? "at or above typical C1 delivery." :
-    wpm >= 135 ? "around the C1 range (~142 wpm in corpus studies)." :
-    wpm >= 118 ? "between the B2 (~118) and C1 (~142) reference points." :
-    wpm >= 100 ? "below the ~118 wpm typical of B2 speakers." :
-                 "well below conversational pace; retrieval, not knowledge, is the bottleneck.";
+    (wpm >= 150 ? "at or above the C1 corpus reference point." :
+    wpm >= 135 ? "around the C1 reference point (~142 wpm)." :
+    wpm >= 118 ? "between the B2 (~118) and C1 (~142) corpus reference points." :
+    wpm >= 100 ? "below the ~118 wpm B2 corpus reference point." :
+                 "well below conversational pace; retrieval, not knowledge, is the bottleneck.") +
+    " The 118/142 figures are group means from interview corpora (fillers included, timed from audio); this tool's filler-pruned, self-timed wpm is a related but different measure — reference points, not cutoffs.";
 
   document.getElementById("sp-result").innerHTML =
     '<div class="card"><h3 style="margin-top:0">Results</h3>' +
@@ -1194,7 +1336,10 @@ function scoreSpeak() {
     metric("Lexical diversity (MTLD)", md ? md.toFixed(1) : "n/a", md === null ? "Sample too short." : md >= 70 ? "Wide range, little repetition of the same words." : md >= 45 ? "Moderate — some circling back to the same vocabulary." : "Narrow; you are re-using a small working set.", md === null ? "low" : md >= 70 ? "high" : md >= 45 ? "med" : "low") +
     metric("Lexical reach", pct(beyondRatio) + "%", "Share of words outside the ~" + BANK.k1label.toLocaleString() + " most frequent. Higher means you are reaching past the core; very low means you are paraphrasing around words you know but cannot retrieve fast enough.", beyondRatio >= 0.22 ? "high" : beyondRatio >= 0.14 ? "med" : "low") +
     "</div>" +
-    '<p class="intro"><strong>' + content.length + "</strong> words in <strong>" + secs + "</strong> seconds &middot; " + types.size + " distinct &middot; TTR " + ttr.toFixed(2) + "</p>" +
+    '<p class="intro">Metric bands here (wpm bands, MTLD 70/45, filler 8%, self-repair 5%, beyond-core 22%/14%) are author guesses, untested against any external sample.</p>' +
+    '<p class="intro"><strong>' + content.length + "</strong> words in <strong>" + secs + "</strong> seconds &middot; " + types.size + " distinct &middot; TTR " + ttr.toFixed(2) +
+    " &middot; prompt draws: " + spDraws +
+    (spElapsed >= 20 && Math.abs(secs - spElapsed) > 15 ? " &middot; <strong>entered duration differs from the timed run (" + spElapsed + "s)</strong>" : "") + "</p>" +
     '<h3>Words you reached for beyond the core ' + BANK.k1label.toLocaleString() + '</h3><p class="intro" style="font-family:var(--mono);font-size:0.78rem;line-height:1.9">' +
     (beyondTypes.length ? beyondTypes.slice(0, 120).map(esc).join(" &middot; ") : "none") + "</p></div>";
 }
@@ -1221,8 +1366,8 @@ function buildEviz() {
 }
 function pickEv(i, v, btn) {
   evAns[i] = v;
-  [...btn.parentElement.querySelectorAll("button")].forEach(b => b.dataset.on = "0");
-  btn.dataset.on = "1";
+  [...btn.parentElement.querySelectorAll("button")].forEach(b => { b.dataset.on = "0"; b.setAttribute("aria-pressed", "false"); });
+  btn.dataset.on = "1"; btn.setAttribute("aria-pressed", "true");
   evProgress();
 }
 function evProgress() {
@@ -1230,6 +1375,7 @@ function evProgress() {
 }
 
 function scoreEviz() {
+  if (Object.keys(evAns).length === 0) { alert("Answer the items first."); return; }
   const yes = Object.keys(evAns).filter(k => evAns[k] === 1).length;
   const p = yes / BANK.eviz.length;
   const missed = BANK.eviz.filter((t, i) => evAns[i] !== 1);
@@ -1240,7 +1386,7 @@ function scoreEviz() {
     '<p class="intro">' + (p >= 0.7 ? "Your English is in active use and under real load. Test scores will follow this, not the other way round." :
       p >= 0.4 ? "Partial use. You are maintaining English more than stretching it — the unticked items below are where growth is currently blocked." :
       "Your English is mostly being studied rather than used. This is the single strongest predictor here that scores will stall regardless of study hours.") + "</p>" +
-    (missed.length ? "<h3>Not done in the last two weeks</h3><ul>" + missed.map(t => "<li>" + esc(t) + "</li>").join("") + "</ul><p class=\"intro\">Each of these is a task you can deliberately schedule. They are ordered roughly by how much interactional pressure they apply.</p>" : "") +
+    (missed.length ? "<h3>Not done in the last two weeks</h3><ul>" + missed.map(t => "<li>" + esc(t) + "</li>").join("") + "</ul><p class=\"intro\">Each of these is a task you can deliberately schedule.</p>" : "") +
     "</div>";
 }
 
@@ -1263,14 +1409,14 @@ function renderReport() {
   document.getElementById("rp-when").textContent =
     done.length ? done.length + " of 6 modules complete" : "no modules run yet";
 
+  let html = "";
   if (!done.length) {
-    holder.innerHTML = '<div class="card"><p class="intro">Nothing measured yet. Run at least the C-test and the speaking sample &mdash; between them they cover the two things that matter most and disagree most often.</p></div>';
-    return;
+    html += '<div class="card"><p class="intro">Nothing measured yet this session. Run at least the C-test and the speaking sample &mdash; between them they cover the two things that matter most and disagree most often.</p></div>';
   }
 
-  let html = '<div class="domains">';
+  if (done.length) html += '<div class="domains">';
   if (c.ctest) html += metric("General proficiency", pct(c.ctest.pct) + "%",
-    "C-test, " + c.ctest.correct + "/" + c.ctest.total + " gaps. Provisional band <strong>" + ctBand(c.ctest.pct) + "</strong>; ceiling at " + c.ctest.ceiling + ".",
+    "C-test, " + c.ctest.correct + "/" + c.ctest.total + " gaps. Provisional band <strong>" + ctBand(c.ctest.pct) + "</strong> (uncalibrated author mapping); ceiling at " + c.ctest.ceiling + ".",
     c.ctest.pct >= 0.68 ? "high" : c.ctest.pct >= 0.45 ? "med" : "low");
   if (c.vocab) html += metric("Vocabulary breadth",
     c.vocab.valid ? "~" + c.vocab.size.toLocaleString() : "void",
@@ -1285,16 +1431,16 @@ function renderReport() {
     "Elicited imitation, " + c.ei.sum + "/" + c.ei.max + " rubric points; " + c.ei.senseOk + "/" + c.ei.senseOf + " meaning judgements correct. Self-rated — lowest-confidence measure here.",
     "low");
   if (c.speak) html += metric("Speaking output", Math.round(c.speak.wpm) + " wpm",
-    "MTLD " + (c.speak.mtld ? c.speak.mtld.toFixed(1) : "n/a") + " &middot; fillers " + pct(c.speak.fillerRatio) + "% &middot; beyond-core " + pct(c.speak.beyondRatio) + "% &middot; domain: " + esc(c.speak.domain) + ". Reference points: B2 ≈ 118 wpm, C1 ≈ 142 wpm.",
+    "MTLD " + (c.speak.mtld ? c.speak.mtld.toFixed(1) : "n/a") + " &middot; fillers " + pct(c.speak.fillerRatio) + "% &middot; beyond-core " + pct(c.speak.beyondRatio) + "% &middot; domain: " + esc(c.speak.domain) + ". Reference points (corpus group means, not cutoffs): B2 ≈ 118 wpm, C1 ≈ 142 wpm.",
     c.speak.wpm >= 118 ? "high" : c.speak.wpm >= 100 ? "med" : "low");
   if (c.eviz) html += metric("Real-world use", c.eviz.yes + " / " + c.eviz.of,
     "Behavioural evidence in the last 14 days. The leading indicator — this moves before the test scores do.",
     c.eviz.pct >= 0.7 ? "high" : c.eviz.pct >= 0.4 ? "med" : "low");
-  html += "</div>";
+  if (done.length) html += "</div>";
 
   html += diagnose(c);
 
-  html += '<div class="btnrow"><button type="button" onclick="saveSession()">Save this session to history</button>' +
+  html += '<div class="btnrow"><button type="button" onclick="saveSession()"' + (done.length ? "" : " disabled") + '>Save this session to history</button>' +
           '<button class="ghost" type="button" onclick="copyRow()">Copy result row</button>' +
           '<button class="ghost" type="button" onclick="clearAll()">Clear everything</button></div>';
 
@@ -1310,7 +1456,7 @@ function renderReport() {
         '<td class="n">' + (h.mtld != null ? h.mtld.toFixed(1) : "—") + "</td>" +
         '<td class="n">' + (h.eviz != null ? pct(h.eviz) + "%" : "—") + "</td></tr>").join("") +
       "</tbody></table></div>";
-    if (S.history.length >= 2) html += deltaNote();
+    html += deltaNote();
   }
 
   html += protocolBlock();
@@ -1327,7 +1473,7 @@ function diagnose(c) {
   }
   if (c.dict && c.speak && c.dict.pct >= 0.85 && c.speak.wpm < 110)
     notes.push("<strong>Receptive–productive split.</strong> You decode well above what you can produce. Expect conversations where you understand everything and contribute little; the fix is output volume, not more listening.");
-  if (c.vocab && c.speak && c.vocab.size >= 5000 && c.speak.beyondRatio < 0.15)
+  if (c.vocab && c.vocab.valid && c.speak && c.vocab.size >= 5000 && c.speak.beyondRatio < 0.15)
     notes.push("<strong>Passive vocabulary.</strong> You recognise a large vocabulary but speak from a small one. The words are known, not retrievable. Production-format retrieval practice — producing the word, not recognising it — is the specific remedy.");
   if (c.eviz && c.eviz.pct < 0.4)
     notes.push("<strong>Use is the binding constraint.</strong> Whatever the other scores say, the evidence inventory says English is not under real load in your week. No study protocol compensates for that.");
@@ -1338,7 +1484,10 @@ function diagnose(c) {
 }
 
 function deltaNote() {
-  const a = S.history[S.history.length - 2], b = S.history[S.history.length - 1];
+  const cur = hasModules(S.current) ? sessionRow(S.current) : null;
+  const b = cur || S.history[S.history.length - 1];
+  const a = cur ? S.history[S.history.length - 1] : S.history[S.history.length - 2];
+  if (!a || !b) return "";
   const rows = [];
   const cmp = (label, ka, kb, fmt, minMove) => {
     if (a[ka] == null || b[kb] == null) return;
@@ -1347,12 +1496,15 @@ function deltaNote() {
     rows.push("<tr><td>" + label + '</td><td class="n">' + fmt(a[ka]) + '</td><td class="n">' + fmt(b[kb]) + '</td><td class="n">' + (d > 0 ? "+" : "") + fmt(d) + "</td><td>" + (real ? "real movement" : "inside noise") + "</td></tr>");
   };
   cmp("C-test", "ctest", "ctest", v => pct(v) + "%", 0.08);
-  cmp("Vocabulary", "vocab", "vocab", v => Math.round(v).toLocaleString(), 500);
+  cmp("Vocabulary", "vocab", "vocab", v => Math.round(v).toLocaleString(), 1100);
   cmp("Dictation", "dict", "dict", v => pct(v) + "%", 0.10);
   cmp("Speech rate", "wpm", "wpm", v => Math.round(v) + "", 12);
   cmp("MTLD", "mtld", "mtld", v => v.toFixed(1), 8);
   if (!rows.length) return "";
-  return "<h3>Change since last session</h3><div class=\"scroller\"><table><thead><tr><th>Measure</th><th>Then</th><th>Now</th><th>Δ</th><th>Verdict</th></tr></thead><tbody>" +
+  let voiceNote = "";
+  if (a.voice && b.voice && a.voice !== b.voice)
+    voiceNote = '<p class="intro">Audio voice changed (' + esc(a.voice) + " &rarr; " + esc(b.voice) + ") &mdash; dictation/repetition deltas are not comparable this round.</p>";
+  return "<h3>Change since last session" + (cur ? " (current, unsaved)" : "") + "</h3>" + voiceNote + "<div class=\"scroller\"><table><thead><tr><th>Measure</th><th>Then</th><th>Now</th><th>Δ</th><th>Verdict</th></tr></thead><tbody>" +
     rows.join("") + "</tbody></table></div><p class=\"intro\">Thresholds are set at roughly the measurement error of each instrument. A move inside noise is not progress and should not change your plan.</p>";
 }
 
@@ -1367,9 +1519,11 @@ function protocolBlock() {
     '<div class="card"><p class="intro">Once a quarter, take the free <strong>EF SET</strong> (~50 minutes, reading and listening, CEFR-calibrated against TOEFL iBT in published correlation studies). It is the only free standardised test worth the time. Record the CEFR level it returns next to your C-test percentage — over three or four rounds that gives you a personal conversion between this battery and an external scale, which is the one thing a home-built instrument cannot supply for itself.</p></div>';
 }
 
-function saveSession() {
-  const c = S.current;
-  const row = {
+const MODKEYS = ["ctest","vocab","dict","ei","speak","eviz"];
+const hasModules = c => MODKEYS.some(k => c && c[k]);
+
+function sessionRow(c) {
+  return {
     at: Date.now(),
     ctest: c.ctest ? c.ctest.pct : null,
     vocab: (c.vocab && c.vocab.valid) ? c.vocab.size : null,
@@ -1377,29 +1531,46 @@ function saveSession() {
     ei: c.ei ? c.ei.pct : null,
     wpm: c.speak ? c.speak.wpm : null,
     mtld: c.speak && c.speak.mtld ? c.speak.mtld : null,
-    eviz: c.eviz ? c.eviz.pct : null
+    beyond: c.speak ? c.speak.beyondRatio : null,
+    eviz: c.eviz ? c.eviz.pct : null,
+    evyes: c.eviz ? c.eviz.yes : null,
+    voice: c.dict ? c.dict.voice : (c.ei ? c.ei.voice : null)
   };
-  S.history.push(row);
+}
+
+function saveSession() {
+  if (!hasModules(S.current)) { alert("Nothing to save yet."); return; }
+  S.history.push(sessionRow(S.current));
   S.current = {};
   save();
   document.querySelectorAll(".tab").forEach(t => t.dataset.done = "0");
+  [dictPlays, eiPlays, eiScore, eiSense, evAns].forEach(o => Object.keys(o).forEach(k => delete o[k]));
   buildAll();
   renderReport();
 }
 
-function copyRow() {
-  const c = S.current;
-  const line = [
-    new Date().toISOString().slice(0, 10),
-    c.ctest ? pct(c.ctest.pct) : "",
-    (c.vocab && c.vocab.valid) ? c.vocab.size : "",
-    c.dict ? pct(c.dict.pct) : "",
-    c.ei ? pct(c.ei.pct) : "",
-    c.speak ? Math.round(c.speak.wpm) : "",
-    c.speak && c.speak.mtld ? c.speak.mtld.toFixed(1) : "",
-    c.speak ? pct(c.speak.beyondRatio) : "",
-    c.eviz ? c.eviz.yes : ""
+function finiteField(v, fmt) {
+  return (v === null || v === undefined || !Number.isFinite(+v)) ? "" : fmt(+v);
+}
+
+function formatRow(row) {
+  return [
+    new Date(row.at || Date.now()).toISOString().slice(0, 10),
+    finiteField(row.ctest, v => pct(v)),
+    finiteField(row.vocab, v => v),
+    finiteField(row.dict, v => pct(v)),
+    finiteField(row.ei, v => pct(v)),
+    finiteField(row.wpm, v => Math.round(v)),
+    finiteField(row.mtld, v => v.toFixed(1)),
+    finiteField(row.beyond, v => pct(v)),
+    finiteField(row.evyes, v => v)
   ].join("\t");
+}
+
+function copyRow() {
+  const row = hasModules(S.current) ? sessionRow(S.current) : S.history[S.history.length - 1];
+  if (!row) { alert("Nothing to copy — run at least one module first."); return; }
+  const line = formatRow(row);
   navigator.clipboard.writeText(line).then(
     () => alert("Copied:\n\n" + line + "\n\nPaste this into tracking.tsv in the repo."),
     () => prompt("Copy this line:", line)
@@ -1428,3 +1599,4 @@ buildTabs();
 buildAll();
 if ("speechSynthesis" in window) window.speechSynthesis.getVoices();
 </script>
+</html>
