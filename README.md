@@ -9,6 +9,8 @@ where you actually are and whether you are moving.
 | Path | What it is |
 |---|---|
 | `diagnostic.html` | **English Signal Check** — the diagnostic battery. Open it in a browser; nothing is transmitted, results stay in local storage. |
+| `routine.html` | **English Runbook** — the daily routine card: weekly template, minimum-viable day, channel briefs, focus dial. |
+| `docs/plan/` | The three candidate routine plans (interaction-first, input-engine, periodized) and the adjudicated final merge. |
 | `docs/METHOD.md` | Instrument specification: what each module measures, how it is scored, validity evidence, calibration caveats. |
 | `docs/adult-language-learning.html` | Evidence review of adult L2 methods, aimed at conversational ability. |
 | `docs/SOURCES.md` | Reference list for both. |

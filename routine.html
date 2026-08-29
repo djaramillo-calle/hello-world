@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>English Runbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;500;600&family=Public+Sans:wght@400;600&display=swap">
+
+<style>
+  :root {
+    --ground: #F1F2EF;
+    --panel: #FBFBF9;
+    --panel-2: #E7E9E4;
+    --ink: #16191A;
+    --ink-soft: #57605C;
+    --ink-faint: #6C7570;
+    --rule: #D6DAD3;
+    --rule-soft: #E4E7E1;
+    --go: #0E6B4A;
+    --go-wash: #DDEAE3;
+    --talk: #8A3B5E;
+    --talk-wash: #F1E1E8;
+    --dial: #8A6210;
+    --dial-wash: #F0E7D2;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #141715; --panel: #1B201D; --panel-2: #232925;
+      --ink: #E4E8E4; --ink-soft: #9AA49E; --ink-faint: #7B857F;
+      --rule: #2C332E; --rule-soft: #232A25;
+      --go: #5BC095; --go-wash: #163026;
+      --talk: #E087AC; --talk-wash: #362028;
+      --dial: #D3A445; --dial-wash: #322916;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #141715; --panel: #1B201D; --panel-2: #232925;
+    --ink: #E4E8E4; --ink-soft: #9AA49E; --ink-faint: #7B857F;
+    --rule: #2C332E; --rule-soft: #232A25;
+    --go: #5BC095; --go-wash: #163026;
+    --talk: #E087AC; --talk-wash: #362028;
+    --dial: #D3A445; --dial-wash: #322916;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--ground); color: var(--ink);
+    font-family: "Public Sans", "Helvetica Neue", Arial, sans-serif;
+    font-size: 15.5px; line-height: 1.5; margin: 0;
+    -webkit-font-smoothing: antialiased;
+  }
+  .shell { max-width: 1020px; margin: 0 auto; padding: 0 18px 70px; }
+
+  header {
+    display: flex; flex-wrap: wrap; gap: 10px 24px;
+    align-items: baseline; justify-content: space-between;
+    border-bottom: 2px solid var(--ink);
+    padding: 26px 0 12px; margin-bottom: 18px;
+  }
+  h1 {
+    font-family: "Bricolage Grotesque", "Helvetica Neue", sans-serif;
+    font-weight: 800; font-size: clamp(1.6rem, 4.5vw, 2.1rem);
+    letter-spacing: -0.025em; margin: 0; line-height: 1;
+  }
+  .metaline {
+    font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+    font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  h2 {
+    font-family: "Bricolage Grotesque", sans-serif;
+    font-weight: 700; font-size: 1.1rem; letter-spacing: -0.01em;
+    margin: 26px 0 8px;
+  }
+  p { margin: 0 0 10px; }
+  .soft { color: var(--ink-soft); }
+  a { color: var(--go); text-underline-offset: 2px; }
+
+  /* dial */
+  .dialbar {
+    display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+    background: var(--dial-wash); border-left: 3px solid var(--dial);
+    padding: 10px 12px; margin-bottom: 16px;
+    font-size: 0.86rem;
+  }
+  .dialbar label { font-weight: 600; font-family: "IBM Plex Mono", monospace; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dial); }
+  .dialbar select {
+    font-family: "IBM Plex Mono", monospace; font-size: 0.8rem;
+    background: var(--panel); color: var(--ink);
+    border: 1px solid var(--rule); border-radius: 2px; padding: 5px 8px;
+  }
+  .dialbar .note { flex: 1 1 260px; min-width: 0; color: var(--ink-soft); font-size: 0.8rem; }
+
+  /* week grid */
+  .scroller { overflow-x: auto; }
+  table.week { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
+  table.week th {
+    font-family: "IBM Plex Mono", monospace; font-size: 0.64rem; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase; text-align: left;
+    color: var(--ink-soft); padding: 7px 10px 7px 0;
+    border-bottom: 2px solid var(--ink); white-space: nowrap;
+  }
+  table.week td {
+    padding: 9px 12px 9px 0; border-bottom: 1px solid var(--rule-soft);
+    vertical-align: top; min-width: 150px;
+  }
+  table.week td.day {
+    font-family: "IBM Plex Mono", monospace; font-weight: 600; font-size: 0.78rem;
+    white-space: nowrap; min-width: 0; color: var(--ink);
+  }
+  table.week td.tot { font-family: "IBM Plex Mono", monospace; white-space: nowrap; min-width: 0; color: var(--ink-faint); font-size: 0.76rem; }
+  tr.today td { background: var(--go-wash); }
+  tr.today td.day::after { content: " ← today"; color: var(--go); font-weight: 600; }
+  .min { font-family: "IBM Plex Mono", monospace; font-size: 0.72rem; color: var(--ink-faint); }
+  .talk { color: var(--talk); font-weight: 600; }
+  .dialslot { background: var(--dial-wash); padding: 1px 4px; border-radius: 2px; }
+
+  /* cards */
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 12px; margin: 14px 0; }
+  .card {
+    background: var(--panel); border: 1px solid var(--rule); border-radius: 3px;
+    padding: 14px; font-size: 0.88rem;
+  }
+  .card h3 {
+    font-family: "IBM Plex Mono", monospace; font-size: 0.68rem; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase; margin: 0 0 8px;
+    color: var(--ink-soft); display: flex; justify-content: space-between; gap: 8px; align-items: baseline;
+  }
+  .card.mvd { border-left: 3px solid var(--go); }
+  .card.mvd h3 { color: var(--go); }
+  .card ul, .card ol { margin: 0; padding-left: 1.15em; }
+  .card li { margin-bottom: 5px; }
+  .card > :last-child { margin-bottom: 0; }
+
+  blockquote {
+    margin: 8px 0; padding: 8px 10px;
+    background: var(--panel-2); border-left: 3px solid var(--rule);
+    font-size: 0.82rem; line-height: 1.55; font-style: italic;
+  }
+  button.copy {
+    font-family: "IBM Plex Mono", monospace; font-size: 0.62rem; letter-spacing: 0.06em;
+    padding: 3px 8px; border: 1px solid var(--rule); background: transparent;
+    color: var(--ink-soft); cursor: pointer; border-radius: 2px;
+  }
+  button.copy:hover { color: var(--ink); border-color: var(--ink-faint); }
+  button.copy:focus-visible, .dialbar select:focus-visible, summary:focus-visible { outline: 2px solid var(--go); outline-offset: 2px; }
+
+  details { border-top: 1px solid var(--rule); padding: 10px 0; }
+  summary {
+    cursor: pointer; font-family: "IBM Plex Mono", monospace;
+    font-size: 0.76rem; letter-spacing: 0.04em; color: var(--ink-soft);
+  }
+  summary:hover, details[open] summary { color: var(--ink); }
+  details table { width: 100%; border-collapse: collapse; font-size: 0.82rem; margin-top: 8px; }
+  details th { font-family: "IBM Plex Mono", monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; text-align: left; color: var(--ink-soft); padding: 6px 10px 6px 0; border-bottom: 1px solid var(--rule); }
+  details td { padding: 6px 10px 6px 0; border-bottom: 1px solid var(--rule-soft); vertical-align: top; }
+
+  .rules { font-size: 0.86rem; }
+  .rules b { font-family: "IBM Plex Mono", monospace; font-size: 0.78rem; }
+
+  footer {
+    border-top: 2px solid var(--ink); margin-top: 34px; padding-top: 12px;
+    font-family: "IBM Plex Mono", monospace; font-size: 0.66rem; line-height: 1.7;
+    color: var(--ink-faint);
+  }
+</style>
+
+<div class="shell">
+
+<header>
+  <h1>English Runbook</h1>
+  <div class="metaline">2 conversations/wk floor &middot; 47&ndash;57 min/day &middot; diagnostic every 5 wks</div>
+</header>
+
+<div class="dialbar">
+  <label for="dial">Focus dial</label>
+  <select id="dial">
+    <option value="DEFAULT">DEFAULT</option>
+    <option value="DECODE">DECODE</option>
+    <option value="AUTOMATIZE">AUTOMATIZE</option>
+    <option value="RANGE">RANGE</option>
+    <option value="USE">USE</option>
+  </select>
+  <span class="note" id="dial-note">Set once per 5-week cycle from the diagnostic profile. Changes one slot and the tutor brief — nothing else.</span>
+</div>
+
+<h2>The week</h2>
+<div class="scroller">
+<table class="week" id="week">
+  <thead><tr><th></th><th>Morning ~12&prime;</th><th>Lunch 10&ndash;20&prime;</th><th>Evening 20&ndash;35&prime;</th><th></th></tr></thead>
+  <tbody>
+    <tr data-day="1"><td class="day">Mon</td>
+      <td>SRS aloud <span class="min">10</span> + write today's work mission <span class="min">2</span></td>
+      <td>Narrow listening, current topic <span class="min">20</span></td>
+      <td>Narrow reading, same topic <span class="min">15</span> + harvest 3&ndash;5 items into SRS, aloud <span class="min">5</span></td>
+      <td class="tot">52&prime;</td></tr>
+    <tr data-day="2"><td class="day">Tue</td>
+      <td>SRS aloud <span class="min">10</span> + mission <span class="min">2</span></td>
+      <td>Narrow listening <span class="min">20</span></td>
+      <td><span class="talk">AI voice conversation</span>, standing brief, week's topic <span class="min">20</span> + error harvest <span class="min">5</span></td>
+      <td class="tot">57&prime;</td></tr>
+    <tr data-day="3"><td class="day">Wed</td>
+      <td>SRS aloud <span class="min">10</span> + mission <span class="min">2</span></td>
+      <td>Narrow listening <span class="min">20</span></td>
+      <td><span class="dialslot" id="wed-slot">Read-aloud / shadow sandwich on this week's transcript <span class="min">15</span></span> + harvest <span class="min">5</span></td>
+      <td class="tot">52&prime;</td></tr>
+    <tr data-day="4"><td class="day">Thu</td>
+      <td>SRS aloud <span class="min">10</span> + mission <span class="min">2</span></td>
+      <td>Narrow listening <span class="min">10</span></td>
+      <td>Read-aloud warm-up &times;3 <span class="min">5</span> + <span class="talk">tutor session</span>, standing booking <span class="min">30</span></td>
+      <td class="tot">57&prime;</td></tr>
+    <tr data-day="5"><td class="day">Fri</td>
+      <td>SRS aloud <span class="min">10</span> + mission <span class="min">2</span></td>
+      <td>Narrow listening <span class="min">15</span></td>
+      <td>Recorded 4/3/2 on a week topic <span class="min">12</span> + week close: log line, playlist check <span class="min">8</span></td>
+      <td class="tot">47&prime;</td></tr>
+    <tr data-day="0"><td class="day">Wknd</td>
+      <td class="soft" colspan="3">Optional, never required: one personal-circle conversation &middot; monthly authentic-audio check &middot; diagnostic on cycle weekends</td>
+      <td class="tot">0&ndash;75&prime;</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="cards">
+  <div class="card mvd">
+    <h3>Terrible day? &le;15 minutes keeps the chain</h3>
+    <ul>
+      <li><b>~7&prime;</b> SRS reviews aloud — reviews only, no new cards.</li>
+      <li><b>~8&prime;</b> Press play and attend, <em>or</em> an 8&prime; AI conversation.</li>
+      <li><b>Rule:</b> two days with no speaking beyond SRS &rarr; the AI option is mandatory.</li>
+    </ul>
+    <p class="soft" style="margin-top:8px">An MVD is a full green day. Two in a row is fine. A zero day is not.</p>
+  </div>
+  <div class="card">
+    <h3>The five standing rules</h3>
+    <ol class="rules">
+      <li><b>2 conversations/wk</b> is the floor, &ge;1 human. Cancelled tutor &rarr; 20&prime; AI the same evening. AI substitutes at most one week in a row.</li>
+      <li>The week is scored by <b>conversations completed</b>, not minutes.</li>
+      <li>Background audio never counts. Attended only.</li>
+      <li>All new learning sits in the evening slot — sleep does the consolidation.</li>
+      <li>Missed sessions are skipped or converted, never doubled.</li>
+    </ol>
+  </div>
+</div>
+
+<h2>Briefs — how everyone should push you</h2>
+<p class="soft">Prompts beat recasts: the interlocutor signals the breakdown and you repair it. Log "pushed to self-repair? y/n" per session; two n's in a row on any channel &rarr; re-send the brief.</p>
+<div class="cards">
+  <div class="card">
+    <h3>AI voice — paste every session <button class="copy" data-copy="ai">copy</button></h3>
+    <blockquote id="brief-ai">Voice conversation only. When I make an error, do NOT correct or reformulate me. Say "sorry — what do you mean?" and make me repair it myself. Every ten turns, list the three errors I repeated most. Stay on [this week's topic]. Push back on my opinions so I must defend them.</blockquote>
+  </div>
+  <div class="card">
+    <h3>Tutor — send with booking, re-send monthly <button class="copy" data-copy="tutor">copy</button></h3>
+    <blockquote id="brief-tutor">Don't reformulate my sentences. When something breaks, signal it — "again?" — and let me self-correct. Save necessary corrections for a written list in the last 5 minutes. Each session: free conversation, then I retell one prepared story twice — interrupt the second telling only with prompts.</blockquote>
+    <p class="soft" id="tutor-variant" hidden></p>
+  </div>
+  <div class="card">
+    <h3>Colleagues — convert yourself</h3>
+    <p>One scripted micro-mission per workday, written as one sentence in the morning: ask a real clarification question, volunteer the meeting summary, disagree once with a softener. Three misses in a week &rarr; make the mission smaller, never drop it.</p>
+  </div>
+  <div class="card">
+    <h3>Friends — said once</h3>
+    <blockquote>Don't finish my sentences; when I'm unclear, ask me to say it again rather than fixing it. If you notice a repeated mistake, tell me at the end, not during.</blockquote>
+  </div>
+</div>
+
+<h2>Every 5 weeks</h2>
+<p class="rules">Mon&ndash;Wed of diagnostic week: MVDs only (rehearses the fallback). Weekend, rested: run the <a href="https://claude.ai/code/artifact/823a99e1-14f7-4633-9654-970630efcc42">Signal Check diagnostic</a>, append the row to <code style="font-family:'IBM Plex Mono',monospace;font-size:0.8em">tracking.tsv</code>. Read the delta against noise thresholds. Move the dial <strong>only</strong> if the current position's target metric failed its threshold — and turn at most <strong>one lever per cycle</strong>, in writing. Monthly: authentic-audio check on a never-heard episode. Quarterly: EF SET anchor.</p>
+
+<details>
+  <summary>Focus dial reference — what each position changes</summary>
+  <table>
+    <thead><tr><th>Diagnostic profile</th><th>Dial</th><th>The one lever</th></tr></thead>
+    <tbody>
+      <tr><td>Decode-limited (dict ceiling &lt; 1.2&times; or authentic-audio &lt; 85%)</td><td>DECODE</td><td>Wed slot &rarr; 15&prime; minimal-pair/HVPT on your own dictation errors (&ge;4 voices, instant feedback, Friday probe); tutor brief adds: natural speed, never slow down, summarize-back checks.</td></tr>
+      <tr><td>Knowledge&ndash;access gap / receptive&ndash;productive split</td><td>AUTOMATIZE</td><td>4/3/2 goes twice-weekly (Wed slot = second run); Thursday retell becomes attempt 3 of a task rehearsed Tue (AI) and Wed; tutor pushes with follow-ups and time pressure.</td></tr>
+      <tr><td>Passive vocabulary / fluent-but-thin</td><td>RANGE</td><td>Harvest raised to 5/day with forced use — each harvested item must appear in the next AI session; tutor bans your crutch words and prompts paraphrase.</td></tr>
+      <tr><td>Use-constrained (evidence_n low)</td><td>USE</td><td>Work missions upgraded in stakes; the optional third conversation becomes expected-and-logged.</td></tr>
+      <tr><td>Flat / no dominant weakness</td><td>DEFAULT</td><td>Template as written.</td></tr>
+    </tbody>
+  </table>
+  <p class="soft">Priority when several apply: decode &rarr; automatize &rarr; range &rarr; use. A position that fails its metric twice (10 weeks) is abandoned for the next.</p>
+</details>
+
+<details>
+  <summary>Onboarding — weeks 1 and 2</summary>
+  <table>
+    <thead><tr><th>When</th><th>Do</th></tr></thead>
+    <tbody>
+      <tr><td>Day 1, evening (~30&prime;)</td><td>Choose 4 topics you genuinely talk about (work, a hobby, your city, everyday life); subscribe 2&ndash;3 shows per active topic; build the auto-download playlist; save the AI brief.</td></tr>
+      <tr><td>Day 2, evening (~25&prime;)</td><td>Create the SRS deck (production-aloud cards); seed 25 conversation-management chunks; then a first 10&prime; AI conversation — speaking starts in week one.</td></tr>
+      <tr><td>Day 3</td><td>Book the standing Thursday tutor — recurring, same person, prepaid if possible — with the brief in the booking message.</td></tr>
+      <tr><td>Days 2&ndash;5</td><td>Run only morning SRS + lunch listening (~35&prime;/day). Habit first, load second.</td></tr>
+      <tr><td>Weekend</td><td>Run the diagnostic (~60&prime;, rested); log the row; keep the speaking transcript and dictation errors (they feed HVPT contrasts and crutch-word lists). Set the dial in writing; calendar the 5-week re-run.</td></tr>
+      <tr><td>Week 2</td><td>Full template at the dial position the baseline chose. Fri: first recorded 4/3/2 — archive it.</td></tr>
+    </tbody>
+  </table>
+</details>
+
+<details>
+  <summary>Why this plan — the adjudication in one paragraph</summary>
+  <p class="soft" style="margin-top:8px">Three independent designs (interaction-first, friction-minimal input engine, periodized deliberate practice) were merged by an adjudicator against the evidence review. The input engine's chassis won because adherence is the binding constraint; its known weakness — under-trained speaking — was repaired with the interaction plan's briefs, work missions and drift monitor at a sustainable 2-conversation floor, plus an immediate weekly 4/3/2. The periodized plan's 5-week mesocycle state machine was rejected as unevidenced for L2, but its diagnostic-driven adaptation survives as the one-lever focus dial, and its measurement discipline is kept whole: cycle-1 changes attribute to the plan as a whole, later changes to the single lever turned. Full documents: <code style="font-family:'IBM Plex Mono',monospace;font-size:0.85em">docs/plan/</code> in the repo.</p>
+</details>
+
+<footer>
+  <div>English Runbook &mdash; merged plan, adjudicated 2026-08-29. Companion to the English Signal Check diagnostic.</div>
+  <div>Dial position is stored only in this browser.</div>
+</footer>
+
+</div>
+
+<script>
+(function () {
+  // today highlight
+  var d = new Date().getDay(); // 0 Sun .. 6 Sat
+  var rows = document.querySelectorAll("#week tbody tr");
+  rows.forEach(function (r) {
+    var v = +r.dataset.day;
+    if ((d >= 1 && d <= 5 && v === d) || ((d === 0 || d === 6) && v === 0)) r.classList.add("today");
+  });
+
+  // dial persistence + effects
+  var DIAL_KEY = "engrun.dial";
+  var sel = document.getElementById("dial");
+  var wed = document.getElementById("wed-slot");
+  var variant = document.getElementById("tutor-variant");
+  var note = document.getElementById("dial-note");
+  var wedDefault = wed.innerHTML;
+
+  var effects = {
+    DEFAULT: { wed: null, tutor: "", note: "Set once per 5-week cycle from the diagnostic profile. Changes one slot and the tutor brief — nothing else." },
+    DECODE: {
+      wed: 'Minimal-pair / HVPT drill on your own dictation errors — ≥4 voices, instant feedback <span class="min">15</span>',
+      tutor: "Tutor variant in force: “Speak at natural speed, never slow down; I summarize back every few minutes, you confirm or repeat once at the same speed.”",
+      note: "DECODE: Wednesday becomes perception training; Friday 4/3/2 unchanged."
+    },
+    AUTOMATIZE: {
+      wed: 'Second 4/3/2 run — same topic as Monday’s task, recorded <span class="min">15</span>',
+      tutor: "Tutor variant in force: “First 15 min I re-do a task I’ve rehearsed twice this week — push me with follow-ups and time pressure.”",
+      note: "AUTOMATIZE: 4/3/2 twice weekly; Thursday retell = attempt 3 of the week’s task."
+    },
+    RANGE: {
+      wed: 'Sandwich as default, but harvest rises to 5/day and each harvested item must appear in the next AI session <span class="min">15</span>',
+      tutor: "Tutor variant in force: “Ban my crutch words [list]; when I use one, prompt me to paraphrase; give me the natural collocation after I’ve struggled.”",
+      note: "RANGE: forced use of harvested lexis; crutch-word ban with the tutor."
+    },
+    USE: {
+      wed: null,
+      tutor: "Tutor variant in force: “Rehearse my real upcoming interaction [meeting/call/errand], play the difficult version, then debrief where I got stuck.”",
+      note: "USE: work missions upgraded in stakes; the optional third conversation is now expected and logged."
+    }
+  };
+
+  function apply(pos) {
+    var e = effects[pos] || effects.DEFAULT;
+    wed.innerHTML = e.wed || wedDefault;
+    variant.hidden = !e.tutor;
+    variant.textContent = e.tutor;
+    note.textContent = e.note;
+  }
+
+  var saved = null;
+  try { saved = localStorage.getItem(DIAL_KEY); } catch (err) {}
+  if (saved && effects[saved]) sel.value = saved;
+  apply(sel.value);
+  sel.addEventListener("change", function () {
+    try { localStorage.setItem(DIAL_KEY, sel.value); } catch (err) {}
+    apply(sel.value);
+  });
+
+  // copy buttons
+  document.querySelectorAll("button.copy").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var txt = document.getElementById("brief-" + b.dataset.copy).textContent.trim();
+      function done() { b.textContent = "copied"; setTimeout(function () { b.textContent = "copy"; }, 1500); }
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(done, function () { window.prompt("Copy this brief:", txt); });
+      else window.prompt("Copy this brief:", txt);
+    });
+  });
+})();
+</script>
+</html>
