@@ -25,6 +25,11 @@
 - **DIALANG 2.0** — Lancaster Language Testing Research Group: https://wp.lancs.ac.uk/ltrg/projects/dialang-2-0/
 - **Text Inspector** — English Vocabulary Profile CEFR levels: https://textinspector.com/help/lexis-evp/
 
+- **Production effect** — MacLeod & Bodner (2017), *Current Directions in Psychological Science*: https://journals.sagepub.com/doi/10.1177/0963721417691356 ; L2/bilingual replication: https://pmc.ncbi.nlm.nih.gov/articles/PMC11111515/ ; durability for text: https://pubmed.ncbi.nlm.nih.gov/22827717/
+- **Reading aloud in L2 pedagogy** — Gibson (2008), *ELT Journal*: https://www.researchgate.net/publication/249252655_Reading_aloud_A_useful_learning_tool
+- **Task repetition and L2 speech processing** — Lambert, Kormos & Minn (2017), *SSLA*: https://www.cambridge.org/core/journals/studies-in-second-language-acquisition/article/abs/task-repetition-and-second-language-speech-processing/0EA95A4C7D9E90CD2AB30043F84A4635
+- **Shadowing and reading aloud, neural/working-memory effects** — *Brain Imaging and Behavior* (2020): https://link.springer.com/article/10.1007/s11682-020-00324-4
+
 ## Learning-method evidence
 
 See `adult-language-learning.html` in this directory; its full source list is in
