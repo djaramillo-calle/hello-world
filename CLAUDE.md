@@ -82,6 +82,14 @@ bridge. When the user plugs the Kindle in during a local session:
 - Lookups are harvest, never a metric: frequency of dictionary lookups is
   reading-difficulty data, not a proficiency score.
 
+## Data hub (local sessions)
+
+`scripts/coach-sync.sh` is the single entry point for all data ingestion:
+practice recordings + Anki stats (when Anki is open) + Kindle vocab (when
+plugged in), one "observations: data sync" commit. Run it at the START of
+every local session and before Friday reviews; each path skips gracefully
+when its source is absent.
+
 ## Practice feedback loop (local sessions)
 
 Recorded speaking practice flows to the coach automatically. Built 2026-08-30
