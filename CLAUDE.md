@@ -66,6 +66,22 @@ the bridge. Conventions for any LOCAL session with the Anki MCP attached:
   patterns' cards) are harvest-level actions: allowed any time, no
   one-lever gate. Never change the scheduler settings without the user.
 
+## Kindle (local sessions only)
+
+Kindle has no API; the e-reader's Vocabulary Builder database is the
+bridge. When the user plugs the Kindle in during a local session:
+
+- Run `python3 scripts/kindle-vocab.py <kindle>/system/vocabulary/vocab.db`.
+  It merges new lookups (word + usage sentence + book) into
+  `logs/kindle-vocab.json`, deduplicated and idempotent.
+- Turn the best new lookups into production cards in the English Runbook
+  deck — front = the user's own usage sentence with the word blanked, said
+  aloud — respecting the 25-new-cards/week cap (Kindle + chat harvests
+  share the cap). Mark used entries `"carded": true`. Commit with prefix
+  "observations:". The cloud Friday review reads this file from git.
+- Lookups are harvest, never a metric: frequency of dictionary lookups is
+  reading-difficulty data, not a proficiency score.
+
 ## Repo conventions
 
 - Branch: `claude/adult-language-learning-gnk7i1`. Commit and push after
