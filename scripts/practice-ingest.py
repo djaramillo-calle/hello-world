@@ -28,7 +28,8 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parent.parent
 PRAAT_SCRIPT = REPO / "scripts" / "syllable-nuclei-v2.praat"
 OUT_DEFAULT = REPO / "logs" / "practice"
-AUDIO_EXT = {".m4a", ".mp3", ".wav", ".aiff", ".aif", ".flac", ".ogg", ".webm"}
+AUDIO_EXT = {".m4a", ".mp3", ".wav", ".aiff", ".aif", ".flac", ".ogg", ".webm",
+             ".mp4", ".mkv", ".opus", ".amr", ".3gp"}  # video containers: audio track extracted via ffmpeg
 FILLERS = {"um", "uh", "erm", "er", "ah", "eh", "hmm", "mm", "mmm"}
 LOW_CONF = 0.50
 
