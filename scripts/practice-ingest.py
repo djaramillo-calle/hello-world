@@ -34,11 +34,16 @@ LOW_CONF = 0.50
 
 def sources():
     home = Path.home()
-    return [
+    fixed = [
         (home / "EnglishPractice", False),
         (home / "Library/Group Containers/group.com.apple.VoiceMemos.shared/Recordings", True),
         (home / "Library/Mobile Documents/com~apple~CloudDocs/EnglishPractice", True),
     ]
+    # Google Drive desktop mounts (any signed-in account): a dedicated
+    # EnglishPractice folder in My Drive is ingested wholesale
+    for mount in (home / "Library/CloudStorage").glob("GoogleDrive-*"):
+        fixed.append((mount / "My Drive" / "EnglishPractice", False))
+    return fixed
 
 def sha256(path):
     h = hashlib.sha256()

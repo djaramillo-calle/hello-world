@@ -87,10 +87,19 @@ bridge. When the user plugs the Kindle in during a local session:
 Recorded speaking practice flows to the coach automatically. Built 2026-08-30
 from an adversarially-verified tool investigation (workflow, 12 agents).
 
-- **Capture:** any audio in `~/EnglishPractice/` is ingested; files named
-  `eng*` in the Voice Memos iCloud folder or iCloud Drive `EnglishPractice/`
-  are too (those sources activate automatically once the user enables sync).
-  Naming: "eng 432", "eng ai", "eng warmup", "eng debrief".
+- **Capture:** any audio in `~/EnglishPractice/`, or in an `EnglishPractice`
+  folder under any Google Drive desktop mount (`~/Library/CloudStorage/
+  GoogleDrive-*/My Drive/EnglishPractice`), is ingested wholesale; files
+  named `eng*` in the Voice Memos iCloud folder or iCloud Drive
+  `EnglishPractice/` are too. All sources activate automatically once they
+  exist. Naming convention for typing: "eng 432", "eng ai", "eng warmup",
+  "eng debrief". The user's chosen upload target is the Drive folder
+  `EnglishPractice` (id `1oPS4iDVAY4MD8oZBQvX0zIarTwQbvEnQ`) in the
+  udea.isabella2028@gmail.com account — the account the session's Google
+  Drive connector reaches, so cloud sessions can LIST it for unprocessed
+  recordings (metadata only; avoid pulling audio via connector except as a
+  one-off — base64 through context is expensive). Local ingestion of that
+  folder requires the account added to the Google Drive desktop app.
 - **Ingest:** `.venv-practice/bin/python scripts/practice-ingest.py --commit`
   (venv from `scripts/practice-setup.sh`; the Python 3.13 + pinned-wheel
   choices are load-bearing on this Intel mac — never bump pins without
