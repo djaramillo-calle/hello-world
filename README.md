@@ -20,6 +20,7 @@ where you actually are and whether you are moving.
 | `tracking.tsv` | Progress log. One row per session. |
 | `scripts/` | Assertion-based test suite driving the shipped page in jsdom, plus the Kindle vocab.db merge script. |
 | `logs/` | Recorded verification runs; local sessions also drop Anki/Kindle bridge stats here. |
+| `logs/practice/` | Per-recording practice telemetry (transcript, fluency metrics, pronunciation suspects) from `scripts/practice-ingest.py`. |
 | `docs/audit/` | Double-blind audit: two independent reports and the binding reconciliation verdict. |
 
 ## Using it

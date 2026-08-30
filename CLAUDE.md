@@ -82,6 +82,36 @@ bridge. When the user plugs the Kindle in during a local session:
 - Lookups are harvest, never a metric: frequency of dictionary lookups is
   reading-difficulty data, not a proficiency score.
 
+## Practice feedback loop (local sessions)
+
+Recorded speaking practice flows to the coach automatically. Built 2026-08-30
+from an adversarially-verified tool investigation (workflow, 12 agents).
+
+- **Capture:** any audio in `~/EnglishPractice/` is ingested; files named
+  `eng*` in the Voice Memos iCloud folder or iCloud Drive `EnglishPractice/`
+  are too (those sources activate automatically once the user enables sync).
+  Naming: "eng 432", "eng ai", "eng warmup", "eng debrief".
+- **Ingest:** `.venv-practice/bin/python scripts/practice-ingest.py --commit`
+  (venv from `scripts/practice-setup.sh`; the Python 3.13 + pinned-wheel
+  choices are load-bearing on this Intel mac — never bump pins without
+  re-verifying x86_64 wheels exist). Output per recording in
+  `logs/practice/`: whisper transcript with per-word confidence, wpm/fillers,
+  de Jong & Wempe pause/rate metrics, pitch stats, low-confidence
+  pronunciation suspects. Idempotent (content-hash state file).
+- **Azure pronunciation assessment** (`scripts/azure_pa.py`) activates when
+  `AZURE_SPEECH_KEY` + `AZURE_SPEECH_REGION` are set. Dual-locale by design:
+  en-GB is the real score; the en-US pass exists ONLY to extract phoneme
+  identities/prosody for the L1-Spanish confusion set (US reference model —
+  never read it as an overall score). Uploads audio to Azure; no-retention
+  terms verified 2026-08. First run must check: PA works on the F0 free
+  tier, and whether prosody needs the paid tier.
+- **Feedback rules:** telemetry is FORMATIVE only — nothing feeds
+  tracking.tsv. Patterns in practice transcripts follow the observation-log
+  discipline (2+ occurrences → PATTERN, production cards, shared 25/wk cap).
+  ASR suspicion is a screen, not a verdict — have the tutor confirm the top
+  suspects monthly. Session-start coach check: read new `logs/practice/`
+  files; the Friday review digests the week.
+
 ## Repo conventions
 
 - Branch: `claude/adult-language-learning-gnk7i1`. Commit and push after
