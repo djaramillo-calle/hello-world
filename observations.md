@@ -19,7 +19,7 @@ recurrence across 4+ weeks).
 
 ## 2026-08-30 — initial entries (session 1)
 
-### PATTERN — article omission with abstract/deverbal nouns
+### PROMOTED — article omission with abstract/deverbal nouns
 Classic L1-Spanish transfer. Evidence:
 - "launch **∅** double blind audit of the tool" → *launch **a** double-blind audit*
 - "goal is conversation" → *the goal is conversation*
@@ -30,7 +30,10 @@ Suggested cards (production-format, spoken):
 - "We need to run ___ full audit before release." → **a**
 - "___ goal of this phase is fluency." → **The**
 
-### PATTERN — phrasal-verb avoidance (formal-register monoculture)
+*Promoted 2026-08-30: both cards are in `seed-deck.csv` (rows 26–27).
+Still an open pattern in production — watch for recurrence to gauge RETIRED.*
+
+### PROMOTED — phrasal-verb avoidance (formal-register monoculture)
 Near-zero phrasal verbs across all messages; consistently Latinate:
 *launch, incorporate, remove, identify, implement, evaluate, recommend*.
 Grammatical — but in conversation this register reads stiff, and the
@@ -40,6 +43,9 @@ Suggested chunk cards: *set up* (≈ implement/establish), *find out*
 (≈ identify/determine), *come up with* (≈ generate/devise), *sort out*
 (≈ resolve), *work out* (≈ calculate/figure out), *build in* (≈ incorporate).
 Tutor note: prompt paraphrase when only Latinate verbs appear in speech.
+
+*Promoted 2026-08-30: all six chunk cards are in `seed-deck.csv`
+(rows 28–33). Tutor note carries forward to the next brief refresh.*
 
 ### WATCHING — subject–verb agreement
 - "our chat **are** a source" → *our chats are* / *our chat is*.
