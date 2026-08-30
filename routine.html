@@ -298,7 +298,7 @@
 
 <details>
   <summary>Why this plan — the adjudication in one paragraph</summary>
-  <p class="soft" style="margin-top:8px">Three independent designs (interaction-first, friction-minimal input engine, periodized deliberate practice) were merged by an adjudicator against the evidence review. The input engine's chassis won because adherence is the binding constraint; its known weakness — under-trained speaking — was repaired with the interaction plan's briefs, work missions and drift monitor at a sustainable 2-conversation floor, plus an immediate weekly 4/3/2. The periodized plan's 5-week mesocycle state machine was rejected as unevidenced for L2, but its diagnostic-driven adaptation survives as the one-lever focus dial, and its measurement discipline is kept whole: cycle-1 changes attribute to the plan as a whole, later changes to the single lever turned. Full documents: <code style="font-family:'IBM Plex Mono',monospace;font-size:0.85em">docs/plan/</code> in the repo.</p>
+  <p class="soft" style="margin-top:8px">Three independent designs (interaction-first, friction-minimal input engine, periodized deliberate practice) were merged by an adjudicator against the evidence review. The input engine's chassis won because adherence is the binding constraint; its known weakness — under-trained speaking — was repaired with the interaction plan's briefs and drift monitor at a sustainable 2-conversation floor, plus an immediate weekly 4/3/2 (the interaction plan's work missions were also adopted, then removed at the user's request on 2026-08-30). The periodized plan's 5-week mesocycle state machine was rejected as unevidenced for L2, but its diagnostic-driven adaptation survives as the one-lever focus dial, and its measurement discipline is kept whole: cycle-1 changes attribute to the plan as a whole, later changes to the single lever turned. Full documents: <code style="font-family:'IBM Plex Mono',monospace;font-size:0.85em">docs/plan/</code> in the repo.</p>
 </details>
 
 <footer>
@@ -310,13 +310,19 @@
 
 <script>
 (function () {
-  // today highlight
-  var d = new Date().getDay(); // 0 Sun .. 6 Sat
-  var rows = document.querySelectorAll("#week tbody tr");
-  rows.forEach(function (r) {
-    var v = +r.dataset.day;
-    if ((d >= 1 && d <= 5 && v === d) || ((d === 0 || d === 6) && v === 0)) r.classList.add("today");
-  });
+  // today highlight — recomputed when the tab wakes, so a tab left open
+  // across midnight doesn't keep highlighting yesterday
+  function markToday() {
+    var d = new Date().getDay(); // 0 Sun .. 6 Sat
+    var rows = document.querySelectorAll("#week tbody tr");
+    rows.forEach(function (r) {
+      var v = +r.dataset.day;
+      r.classList.toggle("today", (d >= 1 && d <= 5 && v === d) || ((d === 0 || d === 6) && v === 0));
+    });
+  }
+  markToday();
+  document.addEventListener("visibilitychange", function () { if (!document.hidden) markToday(); });
+  window.addEventListener("pageshow", markToday);
 
   // dial persistence + effects
   var DIAL_KEY = "engrun.dial";
@@ -334,7 +340,7 @@
       note: "DECODE: Wednesday becomes perception training; Friday 4/3/2 unchanged."
     },
     AUTOMATIZE: {
-      wed: 'Second 4/3/2 run — same topic as Monday’s task, recorded <span class="min">15</span>',
+      wed: 'Second 4/3/2 run — same task as Tuesday’s AI session, recorded <span class="min">15</span>',
       tutor: "Tutor variant in force: “First 15 min I re-do a task I’ve rehearsed twice this week — push me with follow-ups and time pressure.”",
       note: "AUTOMATIZE: 4/3/2 twice weekly; Thursday retell = attempt 3 of the week’s task."
     },
@@ -345,7 +351,7 @@
     },
     USE: {
       wed: null,
-      tutor: "Tutor variant in force: “Rehearse my real upcoming interaction [meeting/call/errand], play the difficult version, then debrief where I got stuck.”",
+      tutor: "",
       note: "USE: the optional third personal-circle conversation is now expected and logged weekly."
     }
   };
@@ -371,6 +377,7 @@
   document.querySelectorAll("button.copy").forEach(function (b) {
     b.addEventListener("click", function () {
       var txt = document.getElementById("brief-" + b.dataset.copy).textContent.trim();
+      if (b.dataset.copy === "tutor" && !variant.hidden && variant.textContent) txt += "\n\n" + variant.textContent.trim();
       function done() { b.textContent = "copied"; setTimeout(function () { b.textContent = "copy"; }, 1500); }
       if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(done, function () { window.prompt("Copy this brief:", txt); });
       else window.prompt("Copy this brief:", txt);

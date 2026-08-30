@@ -1,6 +1,6 @@
 # FINAL MERGED PLAN — Daily English Routine (Adjudicated)
 
-Merged from Plan A (interaction-first), Plan B (friction-minimal input engine), Plan C (periodized deliberate practice), judged against `docs/adult-language-learning.html` and `docs/METHOD.md`. This document is the deliverable; it runs as written.
+Merged from Plan A (interaction-first), Plan B (friction-minimal input engine), Plan C (periodized deliberate practice), judged against `docs/adult-language-learning.html` and `docs/METHOD.md`. This document is the deliverable; it runs as written, subject to the dated amendments at the end.
 
 ---
 
@@ -132,3 +132,18 @@ C's block selector is kept in simplified form: **the template never changes; one
 | Work English | Scripted daily missions, logged | Uncounted free bonus | Missions in Block D only | **Scripted daily micro-mission, logged, never counted toward quota** | Evidence (in-the-wild self-initiated repair is the highest-yield free second) + constraint fit (quota can't depend on the employer's calendar) |
 | Diagnostic cadence | 4–6 wks | 5 wks | 5-wk cycle w/ deload week | **5 weeks, diagnostic-weekend weekdays run as MVDs** | Measurement integrity: C's rested-measurement argument is correct and costs nothing |
 | Who brief-polices feedback | Per-session re-paste + y/n log + replace tutor | Brief once | Per-block briefs | **A's full drift monitor + C's brief variants folded into one tutor brief with 3 dial variants** | Evidence (prompts d-gap over recasts is the strongest feedback finding; drift is silent without the log) |
+
+---
+
+## AMENDMENTS
+
+**2026-08-30 — work missions removed (user request).** The scripted daily
+work micro-missions (§3b morning slots and totals, §3c channel 3, §3f
+Friday log "missions done /5" and the "Missions + conversations →
+`evidence_n`" prediction, §3h risk-1 mitigation, and the Part-4 rulings
+that reference them) no longer run. `routine.html` reflects the removal.
+This amendment records a decision already taken by the user; it is not a
+dial-lever change. Consequential re-adjudication — whether the USE dial
+row, the Friday log-line spec, or the `evidence_n` prediction need
+redesign now that missions are gone — is deferred to a diagnostic
+week-close under the one-lever rule.

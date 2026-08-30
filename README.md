@@ -10,13 +10,16 @@ where you actually are and whether you are moving.
 |---|---|
 | `diagnostic.html` | **English Signal Check** — the diagnostic battery. Open it in a browser; nothing is transmitted, results stay in local storage. |
 | `routine.html` | **English Runbook** — the daily routine card: weekly template, minimum-viable day, channel briefs, focus dial. |
+| `observations.md` | Chat-harvested English observation log: patterns → SRS cards and tutor briefs; never a scored metric. |
+| `seed-deck.csv` | Seed SRS deck — 33 production-format cards for the Anki "English Runbook" deck. |
 | `docs/plan/` | The three candidate routine plans (interaction-first, input-engine, periodized) and the adjudicated final merge. |
 | `docs/METHOD.md` | Instrument specification: what each module measures, how it is scored, validity evidence, calibration caveats. |
 | `docs/adult-language-learning.html` | Evidence review of adult L2 methods, aimed at conversational ability. |
 | `docs/SOURCES.md` | Reference list for both. |
+| `docs/kindle-integration.md` | Kindle Vocabulary Builder research + the vocab.db → repo bridge workflow. |
 | `tracking.tsv` | Progress log. One row per session. |
-| `scripts/` | Assertion-based test suite driving the shipped page in jsdom. |
-| `logs/` | Recorded verification runs. |
+| `scripts/` | Assertion-based test suite driving the shipped page in jsdom, plus the Kindle vocab.db merge script. |
+| `logs/` | Recorded verification runs; local sessions also drop Anki/Kindle bridge stats here. |
 | `docs/audit/` | Double-blind audit: two independent reports and the binding reconciliation verdict. |
 
 ## Using it
@@ -24,7 +27,7 @@ where you actually are and whether you are moving.
 1. **Baseline.** Open `diagnostic.html`, run all six modules in one sitting
    (~60 min). Hit *Save this session to history*, then *Copy result row* and
    append the line to `tracking.tsv`.
-2. **Re-run every 4–6 weeks.** More often measures noise plus item memory.
+2. **Re-run every 5 weeks** — the adjudicated cadence (`docs/plan/final-plan.md`). More often measures noise plus item memory.
 3. **Monthly:** the authentic-audio dictation check (see `docs/METHOD.md`) —
    the synthetic voice in module 3 flatters you.
 4. **Quarterly:** take the free [EF SET](https://www.efset.org/) as an

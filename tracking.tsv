@@ -1,7 +1,8 @@
 # English Signal Check — progress log
 # Append one row per session. The "Copy result row" button in the
 # diagnostic produces a line in exactly this format.
-# Re-run every 4-6 weeks. Movement below the noise thresholds is not progress.
+# Re-run every 5 weeks (adjudicated cadence, docs/plan/final-plan.md).
+# Movement below the noise thresholds is not progress.
 # Form v2 as of 2026-08-29 (post-audit); see docs/METHOD.md form history.
 #
 # noise thresholds (movement at or above = signal): ctest +/-8pts | vocab +/-1100 | dict +/-10pts | wpm +/-12 | mtld +/-8

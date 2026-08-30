@@ -4,7 +4,7 @@
    assertion and any failure makes the process exit non-zero.
    Run: node scripts/test.js */
 
-const { JSDOM } = require("jsdom");
+const { JSDOM, VirtualConsole } = require("jsdom");
 const fs = require("fs");
 const path = require("path");
 
@@ -20,13 +20,21 @@ function assertEq(got, want, label) {
 }
 
 function makePage(opts = {}) {
+  // capture page script errors — jsdom swallows a throw during parse, so
+  // without this the gate can pass against a page that dies on load
+  const pageErrors = [];
+  const vc = new VirtualConsole();
+  vc.on("jsdomError", e => pageErrors.push(e && e.message ? e.message : String(e)));
   const dom = new JSDOM(HTML, {
     runScripts: "dangerously",
     url: "https://signalcheck.test/",
     pretendToBeVisual: true,
+    virtualConsole: vc,
     beforeParse(w) {
-      w.__alerts = []; w.__confirms = []; w.__clip = null;
+      w.__pageErrors = pageErrors;
+      w.__alerts = []; w.__confirms = []; w.__clip = null; w.__prompts = [];
       w.alert = m => w.__alerts.push(String(m));
+      w.prompt = (m, v) => { w.__prompts.push(v !== undefined ? String(v) : String(m)); return null; };
       w.confirm = m => { w.__confirms.push(String(m)); return opts.confirmAnswer !== undefined ? opts.confirmAnswer : true; };
       if (!opts.noTTS) {
         w.__spoken = [];
@@ -44,11 +52,13 @@ function makePage(opts = {}) {
           removeItem: k => { delete store[k]; }
         }});
       }
-      try {
-        Object.defineProperty(w.navigator, "clipboard", {
-          value: { writeText: t => { w.__clip = t; return Promise.resolve(); } }
-        });
-      } catch (e) {}
+      if (!opts.noClipboard) {
+        try {
+          Object.defineProperty(w.navigator, "clipboard", {
+            value: { writeText: t => { w.__clip = t; return Promise.resolve(); } }
+          });
+        } catch (e) {}
+      }
     }
   });
   return dom.window;
@@ -69,12 +79,30 @@ function fillCtest(w, passages) {
   `);
 }
 
+console.log("== T0: page loads clean ==");
+{
+  const w = makePage();
+  assertEq(w.__pageErrors.length, 0, "no script errors during page load" +
+    (w.__pageErrors.length ? " — " + w.__pageErrors.join(" | ") : ""));
+  assert(ev(w, `document.querySelector(".brandline").textContent`).includes("form v2"),
+    "page stamps form v2 (matches METHOD.md form history)");
+}
+
 console.log("== T1: C-test construction ==");
 {
   const w = makePage();
   for (let i = 0; i < 4; i++)
     assertEq(ev(w, `gapText(BANK.ctest[${i}].text, 20).answers.length`), 20, `passage ${i + 1} has 20 gaps`);
-  assert(ev(w, `BANK.ctest.every(p => { const g = gapText(p.text, 20); const firstSentEnd = p.text.search(/[.!?]/); return g.parts.filter(x => x.t === "gap").length === 20; })`), "gap structure intact");
+  assert(ev(w, `BANK.ctest.every(p => {
+    const g = gapText(p.text, 20);
+    const end = p.text.search(/[.!?]/);
+    let off = 0;
+    for (const part of g.parts) {
+      if (part.t === "ws" || part.t === "w") { off += part.v.length; continue; }
+      return off > end; // first gap must start after the first sentence ends
+    }
+    return false;
+  })`), "first sentence of every passage is never gapped");
 }
 
 console.log("== T2: item-bank integrity (locks FIX-15) ==");
@@ -268,6 +296,58 @@ console.log("== T12: unattempted-module guards (FIX-18) ==");
   assert(ev(w, `S.current.ei === undefined`), "empty EI refused");
   ev(w, `scoreEviz();`);
   assert(ev(w, `S.current.eviz === undefined`), "empty evidence refused");
+}
+
+console.log("== T13: clearAll resets module state ==");
+{
+  const w = makePage();
+  ev(w, `BANK.ei.forEach((_, i) => { eiScore[i] = 4; }); scoreEI(); clearAll();`);
+  ev(w, `scoreEI();`);
+  assert(ev(w, `S.current.ei === undefined`), "EI cannot re-score stale answers after clearAll");
+  const w2 = makePage();
+  ev(w2, `playDict(0); playDict(0); clearAll();`);
+  assertEq(ev(w2, `document.getElementById("dp-0").textContent`), "2", "play counter restored after clearAll");
+  ev(w2, `playDict(0);`);
+  assertEq(ev(w2, `document.getElementById("dp-0").textContent`), "1", "play button live again after clearAll");
+  const w3 = makePage({ confirmAnswer: false });
+  fillCtest(w3); ev(w3, `scoreCtest(); saveSession();`);
+  ev(w3, `clearAll();`);
+  assertEq(ev(w3, `S.history.length`), 1, "cancelled clearAll keeps history");
+}
+
+console.log("== T14: tracking.tsv row contract + copy fallback ==");
+{
+  const TSV = fs.readFileSync(path.join(__dirname, "..", "tracking.tsv"), "utf8");
+  const header = TSV.split("\n").filter(l => l.trim() && !l.startsWith("#"))[0].split("\t");
+  assertEq(header.join("|"), "date|ctest_pct|vocab_size|dict_pct|ei_pct|wpm|mtld|beyond_core_pct|evidence_n",
+    "tracking.tsv header intact");
+  const w = makePage();
+  const row = ev(w, `formatRow({ at: Date.UTC(2026, 7, 30), ctest: 0.85, vocab: 5200, dict: 0.8, ei: 0.75, wpm: 111.4, mtld: 55.23, beyond: 0.18, evyes: 9 })`);
+  const cells = row.split("\t");
+  assertEq(cells.length, header.length, "formatRow emits one field per tracking.tsv column");
+  assertEq(cells.join("|"), "2026-08-30|85|5200|80|75|111|55.2|18|9", "values land in tracking.tsv column order");
+  const w2 = makePage({ noClipboard: true });
+  fillCtest(w2); ev(w2, `scoreCtest(); copyRow();`);
+  assert(ev(w2, `__prompts.length === 1 && __prompts[0].split("\\t").length === 9`),
+    "clipboard-absent copyRow falls back to prompt with the full row (no crash)");
+}
+
+console.log("== T15: storage restore + lifecycle guards ==");
+{
+  const seed = JSON.stringify({ current: {}, history: [{ at: 1756500000000, ctest: 0.9 }, { bogus: true }] });
+  const w = makePage({ seedStorage: seed });
+  assertEq(ev(w, `S.history.length`), 1, "history entry without timestamp dropped on load");
+  ev(w, `renderReport();`);
+  assert(ev(w, `document.getElementById("rp-holder").innerHTML`).includes("History"),
+    "profile renders with restored history (no Invalid-time crash)");
+  const w2 = makePage({ seedStorage: '{"current":5,"history":[]}' });
+  assert(ev(w2, `typeof S.current === "object" && S.current !== null`), "primitive current reset to object");
+  const w3 = makePage();
+  ev(w3, `document.getElementById("dt-0").value = "the meeting was moved to thursday afternoon"; scoreDict(); scoreDict();`);
+  assert(ev(w3, `__alerts.some(a => a.includes("already scored"))`), "dictation re-score attempt explains itself");
+  const w4 = makePage();
+  ev(w4, `drawPrompt(); buildSpeak();`);
+  assert(ev(w4, `spPrompt === null`), "speaking prompt cleared on module rebuild (no stale domain)");
 }
 
 console.log(`\n${passes} passed, ${failures} failed`);

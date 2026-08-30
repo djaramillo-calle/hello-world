@@ -35,7 +35,7 @@ def main():
 
     store = {"lookups": []}
     if OUT.exists():
-        store = json.loads(OUT.read_text())
+        store = json.loads(OUT.read_text(encoding="utf-8"))
     known = {x["id"] for x in store["lookups"]}
 
     new = []
@@ -51,7 +51,11 @@ def main():
         new.append(entry)
 
     OUT.parent.mkdir(exist_ok=True)
-    OUT.write_text(json.dumps(store, indent=1, ensure_ascii=False))
+    # atomic replace: a failure mid-write must never truncate the store
+    # (carded flags live only in this file)
+    tmp = OUT.with_suffix(".json.tmp")
+    tmp.write_text(json.dumps(store, indent=1, ensure_ascii=False), encoding="utf-8")
+    tmp.replace(OUT)
     print(f"total lookups: {len(store['lookups'])}  |  new this sync: {len(new)}")
     for e in new:
         print(f"  {e['word']}  ({e['book']})")

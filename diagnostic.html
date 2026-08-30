@@ -380,7 +380,7 @@
 <div class="shell">
 
 <header class="top">
-  <div class="brandline">Self-administered diagnostic &middot; English as L2 &middot; v1</div>
+  <div class="brandline">Self-administered diagnostic &middot; English as L2 &middot; form v2</div>
   <h1>English Signal Check</h1>
   <p class="sub">Six independent measures of what you can actually do in English, chosen because each one has published validity evidence and can be scored without a human examiner. Run the whole battery in about 60 minutes, or any single module in under 10.</p>
 </header>
@@ -419,7 +419,7 @@
   <ul>
     <li><strong>Never look anything up mid-test</strong>, and don't retake a module the same day to improve a score.</li>
     <li><strong>Same conditions every time</strong> — same time of day if you can, no alcohol, not exhausted. Speech rate in particular moves with fatigue.</li>
-    <li><strong>Re-run every 4–6 weeks.</strong> More often than that and you're measuring noise plus item memory; less often and you can't tell which change caused what.</li>
+    <li><strong>Re-run every 5 weeks</strong> — the plan's adjudicated cadence. More often than that and you're measuring noise plus item memory; less often and you can't tell which change caused what.</li>
     <li><strong>Item memory is the real threat.</strong> By round three you will half-remember C-test answers. The battery flags this — treat repeat runs as a floor, not a level.</li>
   </ul>
 
@@ -690,8 +690,9 @@ function load() {
   try { const raw = localStorage.getItem(KEY); if (raw) S = JSON.parse(raw); }
   catch (e) { /* private mode / blocked storage — run without history */ }
   if (typeof S !== "object" || S === null || Array.isArray(S)) S = { current: {}, history: [] };
-  if (!S.current) S.current = {};
-  if (!S.history) S.history = [];
+  if (typeof S.current !== "object" || S.current === null || Array.isArray(S.current)) S.current = {};
+  if (!Array.isArray(S.history)) S.history = [];
+  S.history = S.history.filter(h => h && typeof h === "object" && !Array.isArray(h) && Number.isFinite(+h.at));
 }
 function save() {
   try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {}
@@ -810,8 +811,7 @@ function buildCtest() {
       if (p.t === "ws") html += p.v;
       else if (p.t === "w") html += esc(p.v);
       else {
-        const n = p.miss.length;
-        html += esc(p.stem) + '<input type="text" autocomplete="off" autocapitalize="off" spellcheck="false" data-p="' + pi + '" data-g="' + p.gi + '" size="8" maxlength="12">' + esc(p.tail);
+        html += esc(p.stem) + '<input type="text" autocomplete="off" autocapitalize="off" spellcheck="false" data-p="' + pi + '" data-g="' + p.gi + '" size="8" maxlength="12" aria-label="passage ' + (pi + 1) + ', gap ' + (p.gi + 1) + '">' + esc(p.tail);
       }
     });
     html += "</div>";
@@ -1052,7 +1052,7 @@ function tokenOverlap(target, given) {
 }
 
 function scoreDict() {
-  if (S.current.dict) return;
+  if (S.current.dict) { alert("Dictation is already scored for this session — its plays are burned. Save or clear the session before re-running it."); return; }
   const dcInputs = [...document.querySelectorAll('#dc-holder input[type="text"]')];
   if (dcInputs.every(i => !i.value.trim()) &&
       !confirm("No answers entered. Score anyway? (Targets will be revealed and inputs locked.)")) return;
@@ -1192,11 +1192,12 @@ function coreHas(w) {
 }
 
 const FILLERS = new Set(["um","uh","erm","er","ah","eh","hmm","mmm","mm"]);
-let spTimer = null, spLeft = 120, spPrompt = null, spDraws = 0;
+let spTimer = null, spLeft = 120, spPrompt = null, spDraws = 0, spStart = 0;
 
 function buildSpeak() {
   spDraws = 0;
   spElapsed = 0;
+  spPrompt = null;
   const holder = document.getElementById("sp-holder");
   holder.innerHTML =
     '<div class="card"><h3 style="margin-top:0">Step 1 &mdash; draw a prompt</h3>' +
@@ -1249,18 +1250,21 @@ function timerAlarm() {
 function startTimer() {
   stopTimer();
   spLeft = 120;
+  spStart = Date.now();
   document.getElementById("sp-timer").classList.remove("timer-done");
+  // wall-clock based: background-tab throttling delays ticks but cannot
+  // stretch the countdown — each tick recomputes from the start time
   spTimer = setInterval(() => {
-    spLeft--;
-    spElapsed = 120 - spLeft;
+    spElapsed = Math.min(120, Math.round((Date.now() - spStart) / 1000));
+    spLeft = 120 - spElapsed;
     const m = Math.floor(spLeft / 60), s = spLeft % 60;
     document.getElementById("sp-timer").textContent = m + ":" + String(s).padStart(2, "0");
     if (spLeft <= 0) { clearInterval(spTimer); spTimer = null; timerAlarm(); }
-  }, 1000);
+  }, 500);
 }
 function stopTimer() {
   if (spTimer) clearInterval(spTimer);
-  spTimer = null; spLeft = 120;
+  spTimer = null; spLeft = 120; spElapsed = 0;
   document.getElementById("sp-timer").textContent = "2:00";
 }
 
@@ -1571,16 +1575,21 @@ function copyRow() {
   const row = hasModules(S.current) ? sessionRow(S.current) : S.history[S.history.length - 1];
   if (!row) { alert("Nothing to copy — run at least one module first."); return; }
   const line = formatRow(row);
-  navigator.clipboard.writeText(line).then(
-    () => alert("Copied:\n\n" + line + "\n\nPaste this into tracking.tsv in the repo."),
-    () => prompt("Copy this line:", line)
-  );
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(line).then(
+      () => alert("Copied:\n\n" + line + "\n\nPaste this into tracking.tsv in the repo."),
+      () => prompt("Copy this line:", line)
+    );
+  } else {
+    prompt("Copy this line:", line);
+  }
 }
 
 function clearAll() {
   if (!confirm("Delete the current session and all saved history? This cannot be undone.")) return;
   S = { current: {}, history: [] };
   save();
+  [dictPlays, eiPlays, eiScore, eiSense, evAns].forEach(o => Object.keys(o).forEach(k => delete o[k]));
   buildAll();
   document.querySelectorAll(".tab").forEach(t => t.dataset.done = "0");
   renderReport();
