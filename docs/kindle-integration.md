@@ -63,3 +63,42 @@ no documented breaking variant found.
 *(Full source list in the session record; key links: wzyboy/kindle_vocab_anki,
 prz3m/kind2anki, readwise.io/mcp, code.claude.com/docs/en/chrome,
 kindlemodding.org.)*
+
+## 5. Addendum 2026-08-30 — l3a0 kindle-highlights skill examined (HN 49424758)
+
+Deep-read of github.com/l3a0/claude-plugins (the skill §4 flagged as
+untested) plus its HN thread. Mechanism, previously uncatalogued here:
+(1) JS scrape of the user's own read.amazon.com/notebook session via a
+browser-control MCP; (2) character-precise highlight extents — including
+export-hidden ones — from the Mac Kindle app's synced annotation SQLite
+(com.amazon.Lassen, ksdk_annotation_v1.db); (3) Cloud Reader page canvases
+OCR'd locally (Apple Vision), cut to the known extents by position
+arithmetic. No DRM decryption anywhere; recovery figures (815/815
+export-blocked recovered, 0–2 char residuals) are the author's own,
+self-reported. Shipped code reads clean (no third-party endpoints, no
+credential handling, no injection-style SKILL.md instructions).
+
+**Verdict: reject the mechanism, adopt the signal.** Rejection factors:
+automated scraping of a logged-in Amazon session and deliberate defeat of
+the publisher clipping allowance collide with this doc's no-credential/
+no-ToS bar; the prerequisite "Allow JavaScript from Apple Events" Chrome
+setting is a machine-wide downgrade its docs never revert; repo is a week
+old, single-author, flagged submission on HN; and the pipeline needs the
+Mac Kindle app + Cloud Reader (already failing for newer titles per
+commenters), not the physical device this project reads on.
+
+**Gap this exposed in §2's landscape table: `documents/My Clippings.txt`**
+— the device's own plain-text highlight log, readable over the SAME USB
+mount as vocab.db, zero credentials, zero scraping. Highlights are a
+complementary harvest channel to lookups (deliberately-chosen multi-word
+chunks — exactly the phrasal-verb/collocation material the observation
+log hunts — vs involuntary single-word gaps). Plan: a
+scripts/kindle-highlights.py mirroring kindle-vocab.py conventions
+(dedupe/supersede edited-highlight duplicates, flag clipping-limit
+truncations, carded flags, shared 25-cards/week cap). Known limits:
+device-made highlights only; per-book clipping cap can truncate text on
+DRM titles; deletions on-device never remove records. Highlight counts
+are engagement data, never a metric — nothing here feeds tracking.tsv.
+For full-book highlight ARCHIVAL (the problem l3a0's skill actually
+solves) the fallback remains §2's Claude-in-Chrome notebook route, not
+the third-party skill.
