@@ -92,7 +92,8 @@ from an adversarially-verified tool investigation (workflow, 12 agents).
   GoogleDrive-*/My Drive/EnglishPractice`), is ingested wholesale; files
   named `eng*` in the Voice Memos iCloud folder or iCloud Drive
   `EnglishPractice/` are too. All sources activate automatically once they
-  exist. Naming convention for typing: "eng 432", "eng ai", "eng warmup",
+  exist (the Apple sources are vestigial — the user's phone is an Android
+  Poco F7 Pro; phone recordings arrive via the Drive folder). Naming convention for typing: "eng 432", "eng ai", "eng warmup",
   "eng debrief". The user's chosen upload target is the Drive folder
   `EnglishPractice` (id `1oPS4iDVAY4MD8oZBQvX0zIarTwQbvEnQ`) in the
   udea.isabella2028@gmail.com account — the account the session's Google
