@@ -1,0 +1,16 @@
+{
+ "exported": "2026-08-30T15:16:17Z",
+ "deck": "English Runbook",
+ "counts": {
+  "total": 33,
+  "new": 33,
+  "young": 0,
+  "mature": 0,
+  "suspended": 0
+ },
+ "reviews_per_day": {
+  "2026-08-30": 0
+ },
+ "leech_candidates": [],
+ "note": "first export - deck created and seeded from seed-deck.csv (33 cards) this session"
+}
