@@ -44,6 +44,28 @@ fires into the long-running session to write the digest. If working in a
 fresh session, append observations with dated entries in the established
 format and commit with message prefix "observations:".
 
+## Anki (local sessions only)
+
+The user's SRS lives in desktop Anki, controlled via an Anki MCP server +
+AnkiConnect on their local machine. Cloud sessions cannot reach it; git is
+the bridge. Conventions for any LOCAL session with the Anki MCP attached:
+
+- Deck name: **English Runbook**. Card format: production — front = cue
+  ("Say it: ...", "Complete aloud: ...", "Phrasal (instead of X): ..."),
+  back = the target chunk. The user says the answer ALOUD before flipping.
+- Seed deck: `seed-deck.csv` (33 cards). Import it once via MCP on first
+  setup; thereafter add cards directly from `observations.md` suggestions
+  and conversation harvests. Cap ~25 new cards/week; deck cap ~120 live.
+- **Stats export (feeds the cloud Friday review):** when working locally,
+  export a compact summary to `logs/anki-stats.json` — date, reviews done
+  per day since last export, mature/young/new counts, cards with lapses
+  ≥4 (leech candidates) — commit and push ("observations: anki stats").
+  The weekly Routine reads this file from git; without it, the review
+  evaluates chat patterns only.
+- Adjustments (suspend leeches, reformulate cards, retire RETIRED-status
+  patterns' cards) are harvest-level actions: allowed any time, no
+  one-lever gate. Never change the scheduler settings without the user.
+
 ## Repo conventions
 
 - Branch: `claude/adult-language-learning-gnk7i1`. Commit and push after
