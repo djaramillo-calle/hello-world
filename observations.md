@@ -73,3 +73,31 @@ narrative, social softeners, and spoken repair are **unsampled** — expect
 those gaps to surface in the diagnostic's speaking module, not here.
 
 ---
+
+## 2026-09-04 — weekly digest 1
+
+**Status changes**
+- Article omission: **reinforced** (3rd independent occurrence: "launch
+  **∅** investigation about claude kindle integration" → *launch **an**
+  investigation into...*). Stays PROMOTED/open.
+- NEW `WATCHING` — adjective-for-adverb: "clone this repo **local**" →
+  *clone this repo **locally*** (L1 transfer; Spanish marks adverbs less).
+- NEW `WATCHING` — dangling connector: "**before** do we need any tools" →
+  *before that, do we need...* / *do we need... first?*
+- Typo bucket (not counted): "implementarion", "phrasel", "sentece".
+- No recurrence (week 1 of ~4 toward RETIRED): subject–verb agreement,
+  uncountable *time*, demonstrative reduction.
+
+**Strengths this week**: perfect present-perfect use ("have you committed
+and pushed?"); good discourse connector ("similarly, can you...").
+
+**Cards suggested** (only 2 — the deck's 33 seeds are still unreviewed):
+- "We should launch ___ investigation into the failure." → **an**
+- "Can we clone the repo ___ so I can test it? (on this machine)" → **locally**
+
+**Data state**: anki-stats.json exported 2026-08-30 shows 33/33 cards
+still new, no reviews recorded — refresh via coach-sync at the desktop to
+make review data visible. tracking.tsv: still no baseline row.
+
+**Register note**: all evidence remains written/technical; still no
+past-tense or social sample.
