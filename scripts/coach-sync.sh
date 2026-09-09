@@ -19,12 +19,13 @@
 set -uo pipefail
 cd "$(dirname "$0")/.."
 MODE="${1:-}"
+mkdir -p logs cards drills   # git add below fails (exit 128, stages nothing) if any pathspec dir is absent
 [ -f "$HOME/.config/english-runbook/env" ] && set -a && . "$HOME/.config/english-runbook/env" && set +a
 
 echo "== coach-sync $(date '+%Y-%m-%d %H:%M') ${MODE} =="
 
 if [ "$MODE" = "--unattended" ] || [ "$MODE" = "--on-recording" ]; then
-  git pull --rebase --quiet origin "$(git rev-parse --abbrev-ref HEAD)" || echo "pull failed — continuing with local state"
+  git pull --rebase --autostash --quiet origin "$(git rev-parse --abbrev-ref HEAD)" || echo "pull failed — continuing with local state"
 fi
 [ "$MODE" = "--on-recording" ] && sleep 45   # let Google Drive finish writing the file
 
