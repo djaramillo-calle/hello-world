@@ -370,10 +370,12 @@ def run(practice=PRACTICE, llm="auto", ledger_path=LEDGER, queue_path=QUEUE, dri
         ledger_path.parent.mkdir(parents=True, exist_ok=True)
         ledger_path.write_text(json.dumps(ledger, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
         d = build_drill(ledger, P)
-        if d:
-            drills.mkdir(parents=True, exist_ok=True)
-            (drills / "latest.md").write_text(d[0], encoding="utf-8")
-            (drills / "latest.json").write_text(json.dumps(d[1], indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+        if not d:   # no confusion class in the ledger: say so, never leave a stale drill behind
+            d = ("# Pronunciation drill — from the ledger\n\nNo confusion class flagged yet. Record a read-aloud (`eng read A00`) and the drill builds itself from the words Azure flags.\n",
+                 {"generated": dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"), "classes": []})
+        drills.mkdir(parents=True, exist_ok=True)
+        (drills / "latest.md").write_text(d[0], encoding="utf-8")
+        (drills / "latest.json").write_text(json.dumps(d[1], indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
     return done
 
 def selftest():
