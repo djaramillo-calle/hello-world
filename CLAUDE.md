@@ -194,7 +194,8 @@ is the same architecture for English. Read it before touching ingestion.
 
 ## The recording loop — added 2026-09-09
 
-A recording landing in the `EnglishPractice` Drive folder is the trigger;
+A recording landing in the `EnglishPractice/Recordings` Drive folder (any
+subfolder of `EnglishPractice` is scanned; the watcher lists each subfolder) is the trigger;
 everything after it is automated (`docs/PRACTICE.md`). Read that file before
 touching `practice-*.py`, the ledger, the cards queue or the passages.
 

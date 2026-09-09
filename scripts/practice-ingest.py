@@ -205,7 +205,9 @@ def main():
     for folder, need_prefix in src:
         if not folder.is_dir():
             continue
-        for p in folder.iterdir():
+        for p in folder.rglob("*"):   # subfolders too: the phone uploads into EnglishPractice/Recordings
+            if not p.is_file() or any(part.startswith(".") for part in p.relative_to(folder).parts):
+                continue
             if p.suffix.lower() in AUDIO_EXT and (not need_prefix or p.name.lower().startswith("eng")):
                 candidates.append(p)
     candidates.sort(key=lambda p: p.stat().st_mtime)

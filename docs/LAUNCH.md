@@ -16,7 +16,7 @@ and one Mac session), **me** (in chat or by the daily/Friday Routines), or
 | A1 | Open the Hub link on the Poco (Chrome), add it to the home screen. Open Read: today's passage shows. | Read tab shows a passage and a filename | you |
 | A2 | Hub → Log → Season settings: tutor day. Save. (Baseline date comes at C4.) | "saved" | you |
 | A3 | Install **AntennaPod**; create a gpodder.net account (or note if registration is closed → tell me, we self-host oPodSync); Settings → Synchronization → log in, device `poco`. Subscribe the 2–3 shows of the week's topic. | one episode played ≥1 min shows in the gpodder web UI | you |
-| A4 | Recorder app saving to a fixed folder + **Autosync for Google Drive** folder pair → `My Drive/EnglishPractice` in the udea account, upload-only, instant. | a test file `eng read A00` appears in the Drive folder within a minute | you |
+| A4 | Recorder app saving to a fixed folder + **Autosync for Google Drive** folder pair → `My Drive/EnglishPractice/Recordings` in the udea account, upload-only, instant. | a test file `eng read A00` appears in the Drive folder within a minute | you |
 | A5 | Tap "Read out this morning" once and, on Tuesday, "Start a 20-minute AI conversation": allow Claude and the microphone when asked. | a readout renders; a Talk session ends with a harvest | you |
 
 ## B · Mac, one local session (~40 min)

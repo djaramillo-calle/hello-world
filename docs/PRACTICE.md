@@ -1,7 +1,7 @@
 # The recording loop — read, record, and the rest happens by itself
 
-The unit of training is a recording. It lands in the `EnglishPractice`
-Drive folder from the phone; from that moment nothing needs a hand. This
+The unit of training is a recording. It lands in the `EnglishPractice/Recordings`
+Drive folder from the phone (any subfolder of `EnglishPractice` is scanned); from that moment nothing needs a hand. This
 file is the evaluation framework and the pipeline that runs it.
 
 ## Why recordings, and why reading first
@@ -81,7 +81,7 @@ cap, deduplicated by front; `cards/queue.tsv` is the audit trail.
    at save time. Names: `eng read A00`, `eng read R03`, `eng ai`, `eng 432`,
    `eng debrief`, `eng drill`. Case and separators do not matter.
 2. **Autosync for Google Drive** (MetaCtrl): one folder pair from that folder
-   to `My Drive/EnglishPractice` in the udea account, upload-only, instant
+   to `My Drive/EnglishPractice/Recordings` in the udea account, upload-only, instant
    sync on Wi-Fi and mobile. Free tier caps files at 10 MB — fine for reads
    (3 min ≈ 2–3 MB); the Pro upgrade is needed for 20-minute conversations.
    Easy Voice Recorder Pro's built-in Drive upload is the alternative.
@@ -91,7 +91,8 @@ cap, deduplicated by front; `cards/queue.tsv` is the audit trail.
 
 `bash scripts/install-automation.sh` installs the recording watcher alongside
 the nightly job. It watches `~/EnglishPractice` and every
-`GoogleDrive-*/My Drive/EnglishPractice` mount that exists at install time;
+`GoogleDrive-*/My Drive/EnglishPractice` mount, plus their immediate subfolders
+(`Recordings`), as they exist at install time;
 re-run it after adding the Drive account. Set `AZURE_SPEECH_KEY` and
 `AZURE_SPEECH_REGION` in `~/.config/english-runbook/env` to turn on the
 pronunciation assessment. First run: check that scripted assessment returns

@@ -37,7 +37,11 @@ mkdir -p "$AGENTS" "$HOME/.config/english-runbook"
 
 WATCH=""
 for d in "$HOME/EnglishPractice" "$HOME"/Library/CloudStorage/GoogleDrive-*/"My Drive/EnglishPractice"; do
-  [ -d "$d" ] && WATCH="$WATCH    <string>$d</string>\n"
+  [ -d "$d" ] || continue
+  WATCH="$WATCH    <string>$d</string>\n"
+  for sub in "$d"/*/; do   # WatchPaths does not recurse: watch each subfolder (Recordings, …) explicitly
+    [ -d "$sub" ] && WATCH="$WATCH    <string>${sub%/}</string>\n"
+  done
 done
 [ -n "$WATCH" ] || echo "warning: no EnglishPractice folder found yet (create ~/EnglishPractice or add the Drive account) — the recording watcher will have nothing to watch until you re-run this"
 
