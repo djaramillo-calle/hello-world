@@ -56,10 +56,12 @@ takes conversations, listening days and talk minutes from the sensors; a
 
 ## Mac automation (one-off setup, ~10 minutes)
 
-1. `bash scripts/install-automation.sh` — installs two LaunchAgents:
-   `com.english.nightly` (21:40, `coach-sync.sh --unattended`) and
-   `com.english.kindle` (on mount, Kindle-only sync). Logs in
-   `/tmp/english-nightly.log`, `/tmp/english-kindle.log`.
+1. `bash scripts/install-automation.sh` — installs three LaunchAgents:
+   `com.english.nightly` (21:40, `coach-sync.sh --unattended`),
+   `com.english.kindle` (on mount, Kindle-only sync) and
+   `com.english.recording` (on a change in the EnglishPractice folders; skipped
+   until such a folder exists — re-run after adding the Drive account). Logs in
+   `/tmp/english-nightly.log`, `/tmp/english-kindle.log`, `/tmp/english-recording.log`.
 2. Make `git push` prompt-free: `gh auth setup-git` (token in the keychain)
    or an SSH deploy key without passphrase.
 3. Secrets in `~/.config/english-runbook/env` (chmod 600, never in git):

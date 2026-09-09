@@ -50,7 +50,7 @@ def load_data(repo=REPO, today=None):
             if k != "date": r[k] = num(r[k])
     weekly = read_tsv(repo / "logs" / "weekly.tsv")
     dial_rows = read_tsv(repo / "logs" / "dial-log.tsv")
-    dial = dial_rows[-1]["dial"] if dial_rows else "DEFAULT"
+    dial = (dial_rows[-1].get("dial") or "DEFAULT") if dial_rows else "DEFAULT"
 
     anki = None
     p = repo / "logs" / "anki-stats.json"

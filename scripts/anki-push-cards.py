@@ -34,13 +34,24 @@ def added_last_week(rows, now):
     for r in rows:
         if r.get("status") == "added":
             try:
-                if dt.datetime.fromisoformat(str(r.get("added_at") or r.get("created")).replace("Z", "+00:00")) >= cutoff: n += 1
-            except ValueError: pass
+                t = dt.datetime.fromisoformat(str(r.get("added_at") or r.get("created")).replace("Z", "+00:00"))
+                if t.tzinfo is None: t = t.replace(tzinfo=dt.timezone.utc)   # naive rows count as UTC instead of crashing the push
+                if t >= cutoff: n += 1
+            except (ValueError, TypeError): pass
     return n
+
+def deck_added_last_week(call):
+    """What Anki itself says was added to the deck in the last 7 days (cards added by hand, by the MCP, or the seed import
+    are invisible to queue.tsv). None when AnkiConnect is unreachable."""
+    try: return len(call("findNotes", query=f'"deck:{DECK}" added:7') or [])
+    except Exception: return None
 
 def push(rows, call, now=None, dry=False):
     now = now or dt.datetime.now(dt.timezone.utc)
-    room = max(0, CAP - added_last_week(rows, now))
+    used = added_last_week(rows, now)
+    deck_n = deck_added_last_week(call)
+    if deck_n is not None: used = max(used, deck_n)   # the cap is on the deck, not on this script's own bookkeeping
+    room = max(0, CAP - used)
     todo = [r for r in rows if r.get("status") == "queued"][:room]
     if not todo: return 0, room
     if not dry:
@@ -69,15 +80,18 @@ def selftest():
         if action == "deckNames": return ["Default"]
         if action == "canAddNotes": return [True, False, True]
         if action == "addNotes": return [1001, 1002]
+        if action == "findNotes": return list(range(24))   # Anki knows one more add than queue.tsv does
         return None
     now = dt.datetime(2026, 9, 15, 21, 40, tzinfo=dt.timezone.utc)
     rows = [{"id": "c1", "created": "2026-09-10T00:00:00Z", "front": "Say it: a", "back": "a", "tags": "auto ai", "status": "queued"},
             {"id": "c2", "created": "2026-09-10T00:00:00Z", "front": "Say it: b", "back": "b", "tags": "auto", "status": "queued"},
             {"id": "c3", "created": "2026-09-10T00:00:00Z", "front": "Say it: c", "back": "c", "tags": "auto", "status": "queued"}]
     rows += [{"id": f"o{i}", "created": "2026-09-12T00:00:00Z", "added_at": "2026-09-12T00:00:00Z", "front": f"old {i}", "back": "x", "status": "added"} for i in range(23)]
+    rows.append({"id": "n1", "created": "2026-09-12 00:00:00", "added_at": "2026-09-12 00:00:00", "front": "naive", "back": "x", "status": "added"})   # naive timestamp: must not crash
+    assert added_last_week(rows, now) == 24
     added, room = push(rows, fake, now)
-    assert room == 2 and added == 1, (added, room)   # 23 added this week → room for 2; one of the two is a duplicate
-    assert rows[0]["status"] == "added" and rows[0]["note_id"] == "1001" and rows[1]["status"] == "skipped" and rows[2]["status"] == "queued", rows[:3]
+    assert room == 1 and added == 1, (added, room)   # deck says 24 this week → room for 1
+    assert rows[0]["status"] == "added" and rows[0]["note_id"] == "1001" and rows[1]["status"] == "queued" and rows[2]["status"] == "queued", rows[:3]
     assert "createDeck" in calls
     print("anki-push-cards.py selftest: OK")
 

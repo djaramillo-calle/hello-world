@@ -57,11 +57,11 @@ def gather(repo, today):
     trials = read_tsv(repo / "tracking.tsv")
     dial_rows = read_tsv(repo / "logs/dial-log.tsv")
     return {"hub": hub, "listen": listen, "per_day": per_day, "anki": anki, "practice": practice, "sessions": sessions,
-            "trials": trials, "dial": dial_rows[-1]["dial"] if dial_rows else "DEFAULT"}
+            "trials": trials, "dial": (dial_rows[-1].get("dial") or "DEFAULT") if dial_rows else "DEFAULT"}
 
 def day_load(D, k):
     h = D["hub"].get(k, {}); c = h.get("conversations") or {}
-    listen_min = D["listen"][k]["min"] if k in D["listen"] else h.get("listen_min")
+    listen_min = (D["listen"].get(k) or {}).get("min") if k in D["listen"] else h.get("listen_min")
     srs = D["per_day"].get(k)
     if srs is None and h.get("srs") is not None: srs = "done" if h["srs"] else 0
     conv = sum(int(c.get(x) or 0) for x in ("ai", "tutor", "circle", "work"))
@@ -124,7 +124,7 @@ def readout(repo=REPO, today=None):
 
 def fmt(R):
     s = R["season"]; out = []
-    head = f"{R['weekday']} {R['date']} · " + (f"season week {s['week']}/12, next time trial {s['next_date']}" if s and 1 <= s["week"] <= 12 else "PRE-SEASON") + f" · dial {R['dial']}"
+    head = f"{R['weekday']} {R['date']} · " + (f"season week {s['week']}/12, next time trial {s['next_date']}" if s and 1 <= s["week"] <= 12 else ("POST-SEASON" if s and s["week"] > 12 else "PRE-SEASON")) + f" · dial {R['dial']}"
     out.append(head)
     y = R["yesterday"]
     ybits = []

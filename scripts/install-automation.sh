@@ -35,23 +35,20 @@ fi
 mkdir -p "$AGENTS" "$HOME/.config/english-runbook"
 [ -f "$HOME/.config/english-runbook/env" ] || { touch "$HOME/.config/english-runbook/env"; chmod 600 "$HOME/.config/english-runbook/env"; }
 
-WATCH=""
+WATCH=()
 for d in "$HOME/EnglishPractice" "$HOME"/Library/CloudStorage/GoogleDrive-*/"My Drive/EnglishPractice"; do
   [ -d "$d" ] || continue
-  WATCH="$WATCH    <string>$d</string>\n"
+  WATCH+=("$d")
   for sub in "$d"/*/; do   # WatchPaths does not recurse: watch each subfolder (Recordings, …) explicitly
-    [ -d "$sub" ] && WATCH="$WATCH    <string>${sub%/}</string>\n"
+    [ -d "$sub" ] && WATCH+=("${sub%/}")
   done
 done
-[ -n "$WATCH" ] || echo "warning: no EnglishPractice folder found yet (create ~/EnglishPractice or add the Drive account) — the recording watcher will have nothing to watch until you re-run this"
+[ "${#WATCH[@]}" -gt 0 ] || echo "warning: no EnglishPractice folder found yet (create ~/EnglishPractice or add the Drive account) — the recording watcher is NOT installed until you re-run this"
 
 for label in com.english.nightly com.english.kindle com.english.recording; do
   remove_agent "$label"
-  python3 - "$REPO/scripts/launchd/$label.plist" "$AGENTS/$label.plist" "$REPO" "$WATCH" <<'PY'
-import sys; src, dst, repo, watch = sys.argv[1:5]
-s = open(src, encoding="utf-8").read().replace("__REPO__", repo).replace("__WATCH__\n", watch.replace("\\n", "\n"))
-open(dst, "w", encoding="utf-8").write(s)
-PY
+  if [ "$label" = com.english.recording ] && [ "${#WATCH[@]}" -eq 0 ]; then continue; fi   # a WatchPaths agent with no paths is useless
+  python3 "$REPO/scripts/launchd/render.py" "$REPO/scripts/launchd/$label.plist" "$AGENTS/$label.plist" "$REPO" "${WATCH[@]}"
   plutil -lint "$AGENTS/$label.plist" >/dev/null
   launchctl bootstrap "gui/$UID_" "$AGENTS/$label.plist"
   echo "installed $label"

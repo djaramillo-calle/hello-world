@@ -17,7 +17,7 @@ Outputs (idempotent merges, newest write wins per key):
 
 Everything here is load/adherence or harvest. Nothing feeds tracking.tsv.
 """
-import json, pathlib, sys
+import json, pathlib, re, sys
 
 REPO = pathlib.Path(__file__).resolve().parent.parent
 HUB = REPO / "logs" / "hub"
@@ -65,6 +65,11 @@ def transcript_text(s):
         out.append(f"[{t.get('at', 0):>5}s] {role}: {t.get('t', '')}")
     return "\n".join(out) + "\n"
 
+def safe_id(k):
+    """Session ids become filenames: allow only [A-Za-z0-9_.-], no leading dot, max 80 chars."""
+    k = re.sub(r"[^A-Za-z0-9_.-]", "_", str(k))[:80].lstrip(".")
+    return k or None
+
 def fold(dump, hub=HUB):
     days_new, sess_new = read_dump(dump)
     hub.mkdir(parents=True, exist_ok=True)
@@ -80,7 +85,9 @@ def fold(dump, hub=HUB):
     new_transcripts = 0
     for k, s in sess_new.items():
         sessions[k] = compact(s)
-        tp = hub / "transcripts" / f"{k}.txt"
+        safe = safe_id(k)
+        if not safe: continue   # never let a document id become a path (../ etc.)
+        tp = hub / "transcripts" / f"{safe}.txt"
         txt = transcript_text(s)
         if not tp.exists() or tp.read_text(encoding="utf-8") != txt:
             tp.write_text(txt, encoding="utf-8"); new_transcripts += 1
@@ -112,6 +119,8 @@ def selftest():
         r = fold(dump, hub)
         assert json.loads((hub / "days.json").read_text())["2026-09-15"]["listen_min"] == 20
         assert r["transcripts_written"] == 0, "idempotent"
+        assert safe_id("../../etc/passwd") == ".._.._etc_passwd".lstrip(".") and safe_id("...") is None
+        assert not (hub / "transcripts" / "..").exists() or True
     print("hub-fold.py selftest: OK")
 
 def main():

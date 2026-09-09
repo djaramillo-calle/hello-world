@@ -143,7 +143,8 @@ from an adversarially-verified tool investigation (workflow, 12 agents).
 - `scripts/weekly-rollup.py` — Friday training log → `logs/weekly.tsv`
   (SRS days/reviews from Anki stats, recordings + wpm/filler from
   logs/practice, dial, floor check). Self-report via
-  `--set conversations=N listening_days=N notes="..."`. Load ≠ ability.
+  `--set conversations=N human_conversations=N listening_days=N notes="..."`
+  (a total without the human split leaves floor_ok "partial"). Load ≠ ability.
 - `scripts/build-progress.py` → `progress.html` — the Season Board (pace
   chart). Rebuild after every diagnostic and every Friday review; publish
   the wrapper-stripped copy to the existing artifact URL:

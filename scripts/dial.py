@@ -17,7 +17,7 @@ TRACKING = REPO / "tracking.tsv"
 DIAL_LOG = REPO / "logs" / "dial-log.tsv"
 
 # Noise thresholds (docs/METHOD.md) — movement at or above = signal
-NOISE = {"ctest_pct": 8, "vocab_size": 1100, "dict_pct": 10, "wpm": 12, "mtld": 8}
+NOISE = {"ctest_pct": 8, "vocab_size": 1100, "dict_pct": 10, "wpm": 12, "mtld": 8, "evidence_n": 3}   # evidence_n: docs/TARGET.md and build-progress.py use +3
 # Which metric each dial position is accountable for
 TARGET_METRIC = {"DEFAULT": "wpm", "DECODE": "dict_pct", "AUTOMATIZE": "wpm",
                  "RANGE": "mtld", "USE": "evidence_n"}
@@ -102,13 +102,29 @@ def recommend(rows, dial="DEFAULT"):
     prev = rows[-2]
     metric = TARGET_METRIC.get(dial, "wpm")
     a, b = prev.get(metric), latest.get(metric)
-    if a is None or b is None:
-        moved, delta = None, None
-    else:
-        delta = b - a
-        thr = NOISE.get(metric, 0)
-        moved = delta >= thr if thr else delta > 0
     cycle = n  # row n closes cycle n-1
+    if a is None or b is None:
+        # absent data is not a failed threshold: never spend a lever on a blank
+        return {"state": "INCOMPLETE", "dial": dial, "cycle": cycle, "metric": metric, "delta": None,
+                "reason": f"{dial}'s target metric {metric} is missing in the {'previous' if a is None else 'latest'} tracking row. "
+                          f"Hold the dial; complete the module (or the export) before any adjustment."}
+    delta = b - a
+    thr = NOISE.get(metric, 0)
+    moved = delta >= thr if thr else delta > 0
+    if n == 2:
+        # first time trial: cycle-1 deltas belong to the plan as a whole (docs/TARGET.md);
+        # the dial moves only on an unambiguous profile — exactly one applies and it is not the current one
+        if len(profs) == 1 and profs[0][0] != dial:
+            p, why = profs[0]
+            return {"state": "TIME-TRIAL", "dial": p, "cycle": cycle, "metric": metric, "delta": delta,
+                    "reason": f"First time trial: cycle-1 delta ({metric} {delta:+.0f}) is credited to the plan as a whole, "
+                              f"but the profile is unambiguous → {p}: {why}. One lever changes."}
+        why_hold = ("no profile applies" if not profs else
+                    f"{len(profs)} profiles apply ({', '.join(a for a, _ in profs)}) — ambiguous" if len(profs) > 1 else
+                    f"the only profile is the current dial")
+        return {"state": "TIME-TRIAL", "dial": dial, "cycle": cycle, "metric": metric, "delta": delta,
+                "reason": f"First time trial: {metric} {delta:+.0f} (threshold {thr}) is credited to the plan as a whole; {why_hold}. "
+                          f"Hold {dial}; the threshold rule applies from cycle 2."}
     if moved:
         return {"state": "TIME-TRIAL", "dial": dial, "cycle": cycle, "metric": metric, "delta": delta,
                 "reason": f"{dial} held: its target metric {metric} moved {delta:+.0f} (≥ threshold {NOISE.get(metric, 0)}). Keep the lever where it is."}
@@ -137,15 +153,30 @@ def selftest():
     assert recommend([row(dict_pct=70, wpm=100)])["dial"] == "DECODE", "decode outranks automatize"
     assert recommend([row(beyond_core_pct=10)])["dial"] == "RANGE"
     assert recommend([row(evidence_n=3)])["dial"] == "USE"
-    # cycle: held when target moved
-    r = recommend([row(wpm=100), row(wpm=113)], dial="AUTOMATIZE")
-    assert r["dial"] == "AUTOMATIZE" and "held" in r["reason"], r
-    # cycle: not moved -> next profile
-    r = recommend([row(wpm=100), row(wpm=104, evidence_n=3)], dial="AUTOMATIZE")
-    assert r["dial"] == "USE", r
-    # cycle: not moved, no other profile -> hold with warning
+    # first time trial (n == 2): deltas belong to the plan; move only on an unambiguous profile
     r = recommend([row(wpm=100), row(wpm=104)], dial="AUTOMATIZE")
+    assert r["dial"] == "AUTOMATIZE" and "First time trial" in r["reason"], r          # only profile == current dial → hold
+    r = recommend([row(wpm=100), row(wpm=104, evidence_n=3)], dial="AUTOMATIZE")
+    assert r["dial"] == "AUTOMATIZE" and "ambiguous" in r["reason"], r                 # two profiles → hold
+    r = recommend([row(), row(evidence_n=3)], dial="DEFAULT")
+    assert r["dial"] == "USE" and "unambiguous" in r["reason"], r                      # one profile, not current → move
+    # cycle 2+: held when target moved
+    r = recommend([row(wpm=95), row(wpm=100), row(wpm=113)], dial="AUTOMATIZE")
+    assert r["dial"] == "AUTOMATIZE" and "held" in r["reason"], r
+    # cycle 2+: not moved -> next profile
+    r = recommend([row(wpm=95), row(wpm=100), row(wpm=104, evidence_n=3)], dial="AUTOMATIZE")
+    assert r["dial"] == "USE", r
+    # cycle 2+: not moved, no other profile -> hold with warning
+    r = recommend([row(wpm=95), row(wpm=100), row(wpm=104)], dial="AUTOMATIZE")
     assert r["dial"] == "AUTOMATIZE" and "twice-failed" in r["reason"], r
+    # USE is judged on evidence_n with its own threshold (+3), not on +1
+    r = recommend([row(evidence_n=2), row(evidence_n=3), row(evidence_n=4)], dial="USE")
+    assert r["dial"] != "USE" or "held" not in r["reason"], r
+    r = recommend([row(evidence_n=2), row(evidence_n=3), row(evidence_n=6)], dial="USE")
+    assert r["dial"] == "USE" and "held" in r["reason"], r
+    # a blank target metric is INCOMPLETE, never a lever change
+    r = recommend([row(wpm=95), row(wpm=100), row(wpm=None, evidence_n=3)], dial="AUTOMATIZE")
+    assert r["state"] == "INCOMPLETE" and r["dial"] == "AUTOMATIZE", r
     print("dial.py selftest: OK")
 
 def main():

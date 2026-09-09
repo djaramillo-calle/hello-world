@@ -25,7 +25,9 @@ DAYS = 60
 
 def anki_running():
     try:
-        return subprocess.run(["pgrep", "-x", "Anki"], capture_output=True).returncode == 0
+        # process name may differ in case ("anki", "Anki"); also match the app bundle path
+        if subprocess.run(["pgrep", "-x", "-i", "anki"], capture_output=True).returncode == 0: return True
+        return subprocess.run(["pgrep", "-f", "-i", "Anki.app/Contents/MacOS"], capture_output=True).returncode == 0
     except FileNotFoundError:
         return False
 
@@ -61,6 +63,9 @@ def stats(db_path, deck=DECK, today=None, rollover_h=ROLLOVER_H):
             shutil.copy2(wal, str(snap) + "-wal")
         con = sqlite3.connect(f"file:{snap}?mode=ro", uri=True)
         try:
+            qc = con.execute("pragma quick_check").fetchone()[0]
+            if qc != "ok":
+                raise SystemExit(f"snapshot of {db_path} failed quick_check ({qc}) — Anki probably writing; try again with Anki closed")
             dids = deck_ids(con, deck)
             if not dids:
                 raise SystemExit(f"deck {deck!r} not found")

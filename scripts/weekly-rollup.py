@@ -3,7 +3,8 @@
 
     python3 scripts/weekly-rollup.py                 # current ISO week
     python3 scripts/weekly-rollup.py --week 2026-09-07
-    python3 scripts/weekly-rollup.py --set conversations=2 listening_days=5 notes="tutor cancelled Thu -> AI"
+    python3 scripts/weekly-rollup.py --set conversations=2 human_conversations=1 listening_days=5 notes="tutor cancelled Thu -> AI"
+    (set conversations together with human_conversations: a total alone leaves the split unknown and floor_ok "partial")
     python3 scripts/weekly-rollup.py --selftest
 
 Automatable columns come from repo data (Anki stats, practice logs,
@@ -107,7 +108,8 @@ def hub_week(week_start, hub_path=HUB, listen_path=LISTEN):
         n = sum(int(c.get(x) or 0) for x in ("ai", "tutor", "circle", "work"))
         out["conversations"] += n
         out["human"] += sum(int(c.get(x) or 0) for x in ("tutor", "circle", "work"))
-        mins = listen[k]["min"] if k in listen else (h.get("listen_min") or 0)
+        try: mins = float((listen.get(k) or {}).get("min") if isinstance(listen.get(k), dict) else None) if k in listen else float(h.get("listen_min") or 0)
+        except (TypeError, ValueError): mins = 0.0
         if mins >= 10: out["listening_days"] += 1
         if h.get("srs"): out["srs_checkin_days"] += 1
         out["talk_min"] += int(h.get("talk_min") or 0)
@@ -132,7 +134,9 @@ def floor_ok(r):
         v = num(r.get(k))
         checks.append(None if v is None else v >= f)
     human = num(r.get("human_conversations"))
+    conv = num(r.get("conversations"))
     if human is not None: checks.append(human >= 1)   # the conversation floor is 2 with at least one human
+    elif conv is not None and conv >= 2: checks.append(None)   # split unknown: the floor cannot be called met
     if any(c is False for c in checks): return "no"
     if all(c is True for c in checks): return "yes"
     return "partial"
@@ -157,6 +161,8 @@ def rollup(week_start, sets=None, rows=None, anki_path=ANKI, practice_dir=PRACTI
         r["human_conversations"] = hub["human"]
     for k, v in (sets or {}).items():
         if k in COLS: r[k] = v
+    if "conversations" in (sets or {}) and "human_conversations" not in (sets or {}):
+        r["human_conversations"] = ""   # a self-reported total says nothing about the human/AI split: unknown, not zero
     r["floor_ok"] = floor_ok(r)
     rows[key] = r
     return rows, r
@@ -178,6 +184,8 @@ def selftest():
         rows, r = rollup(wk, {"conversations": "2", "listening_days": "5"}, rows={}, anki_path=anki, practice_dir=pr, dial_log=td / "none.tsv", hub_path=nohub, listen_path=nolisten)
         assert r["srs_days"] == 5 and r["reviews"] == 44, r
         assert r["recordings"] == 1 and r["rec_wpm_mean"] == 118.5 and r["rec_filler_pct"] == 5.0, r
+        assert r["floor_ok"] == "partial" and r["human_conversations"] == "", "a total without the human split cannot meet the floor: %r" % r
+        rows, r = rollup(wk, {"human_conversations": "1"}, rows=rows, anki_path=anki, practice_dir=pr, dial_log=td / "none.tsv", hub_path=nohub, listen_path=nolisten)
         assert r["floor_ok"] == "yes", r
         rows, r = rollup(wk, {"conversations": "1"}, rows=rows, anki_path=anki, practice_dir=pr, dial_log=td / "none.tsv", hub_path=nohub, listen_path=nolisten)
         assert r["floor_ok"] == "no" and r["listening_days"] == "5", "self-report preserved, floor re-evaluated"
@@ -201,7 +209,9 @@ def selftest():
             "2026-09-16": {"date": "2026-09-16", "srs": True, "conversations": {}}}))
         assert r["srs_days"] == 3, "check-in fallback when the Anki export has nothing for the week: %r" % r
         rows, r = rollup(dt.date(2026, 9, 14), {"conversations": "3"}, rows=rows, anki_path=anki, practice_dir=pr, dial_log=td / "none.tsv", hub_path=hub, listen_path=listen)
-        assert r["conversations"] == "3", "--set overrides sensors"
+        assert r["conversations"] == "3" and r["human_conversations"] == "" and r["floor_ok"] != "yes", "--set overrides sensors; the split becomes unknown: %r" % r
+        rows, r = rollup(dt.date(2026, 9, 14), {"conversations": "3", "human_conversations": "2"}, rows=rows, anki_path=anki, practice_dir=pr, dial_log=td / "none.tsv", hub_path=hub, listen_path=listen)
+        assert r["human_conversations"] == "2", "the split set in writing wins over the sensors: %r" % r
     print("weekly-rollup.py selftest: OK")
 
 def main():

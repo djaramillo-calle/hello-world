@@ -70,9 +70,16 @@ cloud (this session, daily Routine 18:30 UTC + Friday review)
 ```
 
 The harvest backend on the Mac is the Claude Code CLI you already have
-(`claude -p`, logged in; no API key). If it is unavailable the review is
-written with the harvest marked pending and the cloud coach completes it the
-same day. Cards reach Anki through AnkiConnect with the 25-new-cards-per-week
+(`claude -p`, logged in; no API key). It runs with **no tools** and the
+transcript goes in as fenced data on stdin: whatever was said (or played)
+near the microphone is judged, never obeyed. The reply is not trusted
+wholesale either — counts are capped (6 errors, 4 vocabulary, 4 cards),
+strings are cleaned and length-capped, and every card front is forced into
+the production cue format before it reaches the queue. If the CLI is
+unavailable the review is written with the harvest marked pending and the
+cloud coach completes it the same day. A file that cannot be ingested (empty,
+half-synced, not audio) is quarantined by content hash and skipped, so it
+never blocks newer recordings. Cards reach Anki through AnkiConnect with the 25-new-cards-per-week
 cap, deduplicated by front; `cards/queue.tsv` is the audit trail.
 
 ## Phone setup (one-off)

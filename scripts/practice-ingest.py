@@ -183,6 +183,11 @@ def ingest_one(path, out_dir, azure):
     final.with_suffix(".txt").write_text(transcript + "\n", encoding="utf-8")
     return final.with_suffix(".json"), record
 
+def save_state(state_path, state):
+    tmp = state_path.with_suffix(".json.tmp")
+    tmp.write_text(json.dumps(state, indent=1), encoding="utf-8")
+    tmp.replace(state_path)
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--commit", action="store_true", help="git add+commit+push new practice logs")
@@ -218,11 +223,18 @@ def main():
         if digest in state:
             continue
         print(f"ingesting {p.name} ...", flush=True)
-        out_file, record = ingest_one(p, args.out, azure)
+        try:
+            if p.stat().st_size == 0:
+                raise ValueError("empty file (still syncing?)")
+            out_file, record = ingest_one(p, args.out, azure)
+        except Exception as e:   # one bad file must never block newer recordings (oldest-first + state-on-success would re-crash forever)
+            state[digest] = {"file": p.name, "error": f"{type(e).__name__}: {str(e)[:200]}",
+                             "at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")}
+            save_state(state_path, state)
+            print(f"  !! skipped {p.name}: {state[digest]['error']} (quarantined by content hash; a re-synced file has a new hash)", flush=True)
+            continue
         state[digest] = {"file": p.name, "output": out_file.name, "at": record["ingested"]}
-        tmp = state_path.with_suffix(".json.tmp")
-        tmp.write_text(json.dumps(state, indent=1), encoding="utf-8")
-        tmp.replace(state_path)
+        save_state(state_path, state)
         new.append((p.name, out_file, record))
         print(f"  -> {out_file.name}: {record['words']} words, "
               f"{record['wpm']} wpm, {record['fillers']} fillers, "

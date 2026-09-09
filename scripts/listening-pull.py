@@ -55,7 +55,7 @@ def bucket(actions, zone=None):
             t = dt.datetime.fromisoformat(str(a["timestamp"]).replace("Z", ""))
         except (KeyError, ValueError):
             continue
-        t = t.replace(tzinfo=dt.timezone.utc)
+        if t.tzinfo is None: t = t.replace(tzinfo=dt.timezone.utc)   # gpodder timestamps are naive UTC; keep a real offset if one is given
         if zone:
             t = t.astimezone(zone)
         try:
