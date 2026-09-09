@@ -1,37 +1,15 @@
 {
- "phonemes": {
-  "th": {
-   "count": 1,
-   "words": {
-    "this": 1
-   },
-   "last": "2026-09-09"
-  }
- },
+ "phonemes": {},
  "words": {
-  "two": {
+  "world": {
    "count": 1,
    "last": "2026-09-09",
    "kinds": [
-    "free"
-   ]
-  },
-  "remaining": {
-   "count": 1,
-   "last": "2026-09-09",
-   "kinds": [
-    "free"
-   ]
-  },
-  "this": {
-   "count": 1,
-   "last": "2026-09-09",
-   "kinds": [
-    "free"
+    "read"
    ]
   }
  },
  "anchor": [],
  "recordings": 1,
- "updated": "2026-09-09T21:31:05Z"
+ "updated": "2026-09-09T21:36:14Z"
 }

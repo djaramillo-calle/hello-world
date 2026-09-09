@@ -1,42 +1,128 @@
 {
- "generated": "2026-09-09T21:31:05Z",
+ "generated": "2026-09-09T21:34:52Z",
  "classes": [
   {
-   "class": "th",
-   "count": 1,
+   "class": "schwa",
+   "count": 6,
    "words": [
-    "this"
+    "and",
+    "the",
+    "of",
+    "to",
+    "vegetables"
    ],
    "pairs": [
     [
-     "think",
-     "sink"
+     "about",
+     "a bout"
     ],
     [
-     "thin",
-     "tin"
+     "support",
+     "sport"
     ],
     [
-     "three",
-     "tree"
+     "banana",
+     "banner"
     ],
     [
-     "they",
-     "day"
+     "today",
+     "to day"
     ],
     [
-     "bath",
-     "bat"
+     "photograph",
+     "photographer"
     ],
     [
-     "worth",
-     "wort"
+     "comfortable",
+     "comfort"
     ]
    ],
    "sentences": [
-    "This week the plan says easy, so I keep the effort low and let the watch complain.",
-    "Hello, this is Daniel from the flat on the third floor.",
-    "I would like someone to look at it this week, please, because the temperature has dropped and my flatmate has been ill."
+    "Every Thursday I finish work a little early and walk to the station.",
+    "The streets are already busy, and the sky is usually grey.",
+    "I think about the week: what went well, what I should have done differently, and what I still want to build."
+   ]
+  },
+  {
+   "class": "s/z",
+   "count": 5,
+   "words": [
+    "was",
+    "busy",
+    "rice",
+    "station"
+   ],
+   "pairs": [
+    [
+     "ice",
+     "eyes"
+    ],
+    [
+     "price",
+     "prize"
+    ],
+    [
+     "bus",
+     "buzz"
+    ],
+    [
+     "race",
+     "raise"
+    ],
+    [
+     "peace",
+     "peas"
+    ],
+    [
+     "loose",
+     "lose"
+    ]
+   ],
+   "sentences": [
+    "Every Thursday I finish work a little early and walk to the station.",
+    "The streets are already busy, and the sky is usually grey.",
+    "Later, at home, I cook something simple: rice, vegetables, a bit of fish."
+   ]
+  },
+  {
+   "class": "i/ii",
+   "count": 4,
+   "words": [
+    "dinner",
+    "streets",
+    "bit",
+    "each"
+   ],
+   "pairs": [
+    [
+     "ship",
+     "sheep"
+    ],
+    [
+     "live",
+     "leave"
+    ],
+    [
+     "fill",
+     "feel"
+    ],
+    [
+     "bit",
+     "beat"
+    ],
+    [
+     "sit",
+     "seat"
+    ],
+    [
+     "hit",
+     "heat"
+    ]
+   ],
+   "sentences": [
+    "The streets are already busy, and the sky is usually grey.",
+    "Later, at home, I cook something simple: rice, vegetables, a bit of fish.",
+    "I used to skip dinner when I was tired; now I know that recovery starts at the table."
    ]
   }
  ]
