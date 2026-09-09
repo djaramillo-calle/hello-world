@@ -102,8 +102,12 @@ the nightly job. It watches `~/EnglishPractice` and every
 (`Recordings`), as they exist at install time;
 re-run it after adding the Drive account. Set `AZURE_SPEECH_KEY` and
 `AZURE_SPEECH_REGION` in `~/.config/english-runbook/env` to turn on the
-pronunciation assessment. First run: check that scripted assessment returns
-`completeness` on the F0 tier and whether prosody needs the paid tier.
+pronunciation assessment. First run: `python3 scripts/azure-check.py` (stock
+python3, no venv) synthesises one sentence with Azure TTS, assesses it in
+scripted en-GB and phoneme/prosody en-US mode, and writes
+`logs/azure-check.json`: it says whether assessment works on your tier,
+whether scripted mode returns `completeness`, and whether prosody is
+available (optional — the en-US pass is only for phoneme identities).
 
 ## Rules
 

@@ -25,11 +25,11 @@ and one Mac session), **me** (in chat or by the daily/Friday Routines), or
 |---|---|---|---|
 | B1 | `git pull`. If `.venv-practice` is missing: `bash scripts/practice-setup.sh` (Python 3.13 pins are load-bearing). | `.venv-practice/bin/python -c "import faster_whisper"` prints nothing | you |
 | B2 | Google Drive desktop: add the udea account so `~/Library/CloudStorage/GoogleDrive-udea…/My Drive/EnglishPractice` exists. | folder visible in Finder | you |
-| B3 | Secrets in `~/.config/english-runbook/env` (chmod 600): `AZURE_SPEECH_KEY` + `AZURE_SPEECH_REGION=uksouth` (free F0 Speech resource in the Azure portal), `GPODDER_USER` / `GPODDER_PASS`, `INTERVALS_API_KEY` (Intervals → Settings → Developer). Optional: `ELEVENLABS_*`. | file exists, not in git | you |
+| B3 | Secrets in `~/.config/english-runbook/env` (chmod 600): `AZURE_SPEECH_KEY` + `AZURE_SPEECH_REGION=uksouth` (free F0 Speech resource in the Azure portal), `GPODDER_USER` / `GPODDER_PASS`, `INTERVALS_API_KEY` (Intervals → Settings → Developer). Optional: `ELEVENLABS_*`. Then `set -a; source ~/.config/english-runbook/env; set +a; python3 scripts/azure-check.py` — the first-run questions answered without the venv. | `azure-check` verdict says assessment OK and completeness OK | you |
 | B4 | Make `git push` prompt-free: `gh auth setup-git` (or an SSH deploy key without passphrase). | `git push` from a terminal asks nothing | you |
 | B5 | `bash scripts/install-automation.sh` — installs the nightly job, the Kindle watcher and the recording watcher (re-run after B2 so the Drive path is watched). | prints the three `installed …` lines | you |
 | B6 | Dry run by hand: `bash scripts/coach-sync.sh --unattended`. | log shows practice/anki/listening/intervals lines, one commit, "pushed" | you |
-| B7 | **First recording end to end:** record `eng read A00` on the phone (A4). Watch `/tmp/english-recording.log`. | `logs/practice/<date>-eng-read-a00.review.md` appears in git with scripted Azure scores incl. `completeness`; if `prosody` is missing, note it (paid tier) | you → me |
+| B7 | **First recording end to end:** record `eng read A00` on the phone (A4). Watch `/tmp/english-recording.log`. | `logs/practice/<date>-eng-read-a00.review.md` appears in git with scripted Azure scores incl. `completeness` (prosody as `azure-check` reported) | you → me |
 | B8 | Leave Anki open one evening across 21:40. | queued cards appear in the English Runbook deck; `logs/anki-stats.json` re-exported | you |
 | B9 | Intervals.icu → wellness page: add the `Eng*` fields to the fitness chart. | fields visible after the first push | you |
 
