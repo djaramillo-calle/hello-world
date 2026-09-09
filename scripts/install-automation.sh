@@ -27,17 +27,27 @@ remove_agent() {
 }
 
 if [ "${1:-}" = "--remove" ]; then
-  remove_agent com.english.nightly; remove_agent com.english.kindle
-  echo "removed com.english.nightly and com.english.kindle"; exit 0
+  remove_agent com.english.nightly; remove_agent com.english.kindle; remove_agent com.english.recording
+  echo "removed com.english.nightly, com.english.kindle and com.english.recording"; exit 0
 fi
 
 [ "$(uname)" = "Darwin" ] || { echo "install-automation: macOS only (launchd)"; exit 1; }
 mkdir -p "$AGENTS" "$HOME/.config/english-runbook"
 [ -f "$HOME/.config/english-runbook/env" ] || { touch "$HOME/.config/english-runbook/env"; chmod 600 "$HOME/.config/english-runbook/env"; }
 
-for label in com.english.nightly com.english.kindle; do
+WATCH=""
+for d in "$HOME/EnglishPractice" "$HOME"/Library/CloudStorage/GoogleDrive-*/"My Drive/EnglishPractice"; do
+  [ -d "$d" ] && WATCH="$WATCH    <string>$d</string>\n"
+done
+[ -n "$WATCH" ] || echo "warning: no EnglishPractice folder found yet (create ~/EnglishPractice or add the Drive account) — the recording watcher will have nothing to watch until you re-run this"
+
+for label in com.english.nightly com.english.kindle com.english.recording; do
   remove_agent "$label"
-  sed "s|__REPO__|$REPO|g" "$REPO/scripts/launchd/$label.plist" > "$AGENTS/$label.plist"
+  python3 - "$REPO/scripts/launchd/$label.plist" "$AGENTS/$label.plist" "$REPO" "$WATCH" <<'PY'
+import sys; src, dst, repo, watch = sys.argv[1:5]
+s = open(src, encoding="utf-8").read().replace("__REPO__", repo).replace("__WATCH__\n", watch.replace("\\n", "\n"))
+open(dst, "w", encoding="utf-8").write(s)
+PY
   plutil -lint "$AGENTS/$label.plist" >/dev/null
   launchctl bootstrap "gui/$UID_" "$AGENTS/$label.plist"
   echo "installed $label"
@@ -48,4 +58,4 @@ if [ "${1:-}" = "--run-now" ]; then
   launchctl kickstart -k "gui/$UID_/com.english.nightly"
   sleep 3; echo "--- /tmp/english-nightly.log ---"; tail -n 20 /tmp/english-nightly.log || true
 fi
-echo "nightly sync: 21:40 daily → /tmp/english-nightly.log · kindle: on mount → /tmp/english-kindle.log"
+echo "nightly sync: 21:40 daily → /tmp/english-nightly.log · kindle: on mount → /tmp/english-kindle.log · recording: on folder change → /tmp/english-recording.log"

@@ -121,7 +121,32 @@ def analyse(words, duration):
         "pronunciation_suspects": suspects,
     }
 
+def recording_kind(name):
+    """'eng read A03.m4a' → ('read', 'A03'); 'eng ai' → ('ai', None); anything else → ('free', None)."""
+    s = re.sub(r"\.[a-z0-9]+$", "", name.lower()).replace("_", " ").replace("-", " ")
+    m = re.search(r"\bread\b\s*([a-z]\d{2})?", s)
+    if m:
+        return "read", (m.group(1) or "").upper() or None
+    for k in ("432", "ai", "debrief", "warmup", "drill", "tutor"):
+        if re.search(r"\b%s\b" % k, s):
+            return k, None
+    return "free", None
+
+def passage_text(pid):
+    """Reference text for a read-aloud, from passages/passages.json (None when unknown)."""
+    if not pid:
+        return None
+    try:
+        P = json.loads((REPO / "passages" / "passages.json").read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return None
+    if P.get("anchor", {}).get("id") == pid:
+        return P["anchor"]["text"]
+    return next((p["text"] for p in P.get("passages", []) if p.get("id") == pid), None)
+
 def ingest_one(path, out_dir, azure):
+    kind, pid = recording_kind(path.name)
+    reference = passage_text(pid) if kind == "read" else None
     with tempfile.TemporaryDirectory() as td:
         wav = Path(td) / "rec.wav"
         to_wav(path, wav)
@@ -131,6 +156,9 @@ def ingest_one(path, out_dir, azure):
             "recorded": datetime.fromtimestamp(path.stat().st_mtime).strftime("%Y-%m-%d %H:%M"),
             "ingested": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
             "duration_s": round(duration, 1),
+            "kind": kind,
+            "passage": pid,
+            "scripted": bool(reference),
             **analyse(words, duration),
             "praat": praat_metrics(wav),
             "word_confidences": words,
@@ -139,7 +167,7 @@ def ingest_one(path, out_dir, azure):
         if azure:
             try:
                 from azure_pa import dual_locale_assessment
-                record["azure"] = dual_locale_assessment(wav)
+                record["azure"] = dual_locale_assessment(wav, reference_text=reference)
             except Exception as e:
                 record["azure"] = {"error": str(e)}
     date = datetime.fromtimestamp(path.stat().st_mtime).strftime("%Y-%m-%d")

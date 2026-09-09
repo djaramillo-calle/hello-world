@@ -192,6 +192,35 @@ is the same architecture for English. Read it before touching ingestion.
   `logs/ai-sessions`, Intervals.icu fields never feed `tracking.tsv`.
   Transcripts feed `observations.md` under the 2-occurrence rule.
 
+## The recording loop — added 2026-09-09
+
+A recording landing in the `EnglishPractice` Drive folder is the trigger;
+everything after it is automated (`docs/PRACTICE.md`). Read that file before
+touching `practice-*.py`, the ledger, the cards queue or the passages.
+
+- Kinds from the filename: `eng read <id>` (read-aloud, scored SCRIPTED
+  against `passages/passages.json`; `A00` is the weekly anchor, Mondays),
+  `eng ai`, `eng 432`, `eng debrief`, `eng drill`, else `free`.
+- Mac: `com.english.recording` LaunchAgent (WatchPaths on the folder) →
+  `coach-sync.sh --on-recording` → `practice-ingest.py` (Whisper + Azure PA,
+  scripted for reads) → `practice-review.py` (checklist per kind → `.review.json/.md`,
+  `logs/pronunciation-ledger.json`, `cards/queue.tsv`, `drills/latest.*`;
+  harvest via `claude -p`, else left `pending`) → `anki-push-cards.py`
+  (AnkiConnect, 25/week cap, dedupe by front) → commit + push.
+- Cloud (daily Routine 18:30 UTC + Friday): finish pending harvests from the
+  transcripts, queue cards from Hub Talk harvests, then `write_db` on the Hub:
+  `meta/drills` ← `drills/latest.json`, `meta/ledger` ← `logs/pronunciation-ledger.json`
+  (the Read tab shows the drill and the anchor trend). `meta/passages` ← `passages/passages.json`
+  whenever the passages change.
+- The checklist: fluency for every kind; pronunciation = scripted Azure for
+  reads (confusion classes th, b/v, i/ii, j/y, s/z, -ed, schwa, s-cluster, h,
+  cat/cut), unscripted screen otherwise; grammar/vocabulary harvest only for
+  conversation kinds (a read-aloud's grammar is the text's). Words flagged on
+  2+ recordings become "Say it (pronunciation)" cards. Stage 1 = reading
+  daily; stage 2 adds recorded conversations once reading holds ~3 weeks.
+- Never a score: the anchor series is formative; nothing feeds tracking.tsv.
+  The daily read-aloud entered the plan in pre-season (no lever spent).
+
 ## Repo conventions
 
 - Branch: `claude/adult-language-learning-gnk7i1`. Commit and push after

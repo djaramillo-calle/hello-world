@@ -20,17 +20,17 @@ import json, os, threading
 # (i:/ɪ, b/v, dʒ/j, θ/ð, schwa, word-final d/t for -ed endings, z/s)
 TARGET_PHONEMES = {"i", "ɪ", "b", "v", "d͡ʒ", "dʒ", "j", "θ", "ð", "ə", "z", "s", "d", "t"}
 
-def _assess(wav, locale, phoneme_pass):
+def _assess(wav, locale, phoneme_pass, reference_text=""):
     import azure.cognitiveservices.speech as speechsdk
     cfg = speechsdk.SpeechConfig(
         subscription=os.environ["AZURE_SPEECH_KEY"],
         region=os.environ["AZURE_SPEECH_REGION"])
     audio = speechsdk.audio.AudioConfig(filename=str(wav))
     pa = speechsdk.PronunciationAssessmentConfig(
-        reference_text="",
+        reference_text=reference_text or "",
         grading_system=speechsdk.PronunciationAssessmentGradingSystem.HundredMark,
         granularity=speechsdk.PronunciationAssessmentGranularity.Phoneme,
-        enable_miscue=False)
+        enable_miscue=bool(reference_text))   # scripted (read-aloud): omissions/insertions count
     if phoneme_pass:
         pa.phoneme_alphabet = "IPA"
         pa.nbest_phoneme_count = 3
@@ -56,7 +56,7 @@ def _assess(wav, locale, phoneme_pass):
     return utterances
 
 def _aggregate(utterances, phoneme_pass):
-    words, scores = [], {"AccuracyScore": [], "FluencyScore": [], "ProsodyScore": [], "PronScore": []}
+    words, scores = [], {"AccuracyScore": [], "FluencyScore": [], "CompletenessScore": [], "ProsodyScore": [], "PronScore": []}
     weights = []
     for utt in utterances:
         best = (utt.get("NBest") or [{}])[0]
@@ -95,11 +95,15 @@ def _aggregate(utterances, phoneme_pass):
                or w.get("phonemes")]
     return {"overall": overall, "flagged_words": flagged[:40], "word_count": len(words)}
 
-def dual_locale_assessment(wav):
-    """en-GB everyday pass + en-US phoneme-target pass. Serial (free tier concurrency = 1)."""
-    gb = _aggregate(_assess(wav, "en-GB", phoneme_pass=False), phoneme_pass=False)
-    us = _aggregate(_assess(wav, "en-US", phoneme_pass=True), phoneme_pass=True)
+def dual_locale_assessment(wav, reference_text=None):
+    """en-GB everyday pass + en-US phoneme-target pass. Serial (free tier concurrency = 1).
+    With reference_text (a read-aloud passage) both passes run SCRIPTED: accuracy is judged
+    against the known words and CompletenessScore + Omission/Insertion errors become meaningful.
+    Without it (conversation, 4/3/2) the assessment is unscripted — a rougher screen."""
+    gb = _aggregate(_assess(wav, "en-GB", phoneme_pass=False, reference_text=reference_text), phoneme_pass=False)
+    us = _aggregate(_assess(wav, "en-US", phoneme_pass=True, reference_text=reference_text), phoneme_pass=True)
     return {
+        "scripted": bool(reference_text),
         "en_gb": gb,
         "en_us_targets": {
             "overall_prosody": us["overall"].get("prosody"),

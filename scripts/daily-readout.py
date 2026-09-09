@@ -19,11 +19,11 @@ REPO = pathlib.Path(__file__).resolve().parent.parent
 FLOOR = {"conversations": 2, "srs_days": 5, "listening_days": 5, "recordings": 1}
 DAYN = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 PLAN = {
-    0: "06:45 SRS aloud · 13:00 narrow listening 20′ · 17:20 narrow reading + harvest",
-    1: "06:45 SRS aloud · 13:00 narrow listening 20′ · 17:20 AI voice conversation (Hub → Talk) 20′ + harvest",
-    2: "06:45 SRS aloud · 13:00 narrow listening 20′ · 17:20 read-aloud / shadow sandwich (dial slot)",
-    3: "06:45 SRS aloud · 13:00 narrow listening 10′ · 17:20 warm-up ×3 + tutor 30′",
-    4: "06:45 SRS aloud · 13:00 narrow listening 15′ · 18:15 recorded 4/3/2 + week close (Hub → Log)",
+    0: "06:45 SRS aloud + read the ANCHOR (record: eng read A00) · 13:00 narrow listening 20′ · 17:20 narrow reading + harvest",
+    1: "06:45 SRS aloud + 3′ read-aloud (Hub → Read) · 13:00 narrow listening 20′ · 17:20 AI voice conversation (Hub → Talk) 20′ + harvest",
+    2: "06:45 SRS aloud + 3′ read-aloud (Hub → Read) · 13:00 narrow listening 20′ · 17:20 read-aloud / shadow sandwich (dial slot)",
+    3: "06:45 SRS aloud + 3′ read-aloud (Hub → Read) · 13:00 narrow listening 10′ · 17:20 warm-up ×3 + tutor 30′",
+    4: "06:45 SRS aloud + 3′ read-aloud (Hub → Read) · 13:00 narrow listening 15′ · 18:15 recorded 4/3/2 + week close (Hub → Log)",
     5: "rest · optional personal-circle conversation · time-trial Saturdays: Signal Check 09:30",
     6: "rest · optional personal-circle conversation",
 }

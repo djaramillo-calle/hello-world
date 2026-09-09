@@ -156,6 +156,10 @@
   .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
   @media (max-width: 460px) { .grid2 { grid-template-columns: 1fr; } }
 
+  /* read */
+  .passage { font-size: 1.12rem; line-height: 1.8; margin: 0; }
+  .slot .readc { color: var(--go); font-weight: 600; }
+
   /* talk */
   .transcript { display: grid; gap: 8px; max-height: 46vh; overflow-y: auto; padding: 2px; }
   .turn { padding: 8px 11px; border-radius: 3px; font-size: 0.92rem; max-width: 92%; }
@@ -266,6 +270,22 @@
   </div>
 </section>
 
+<!-- ============ READ ============ -->
+<section id="tab-read" role="tabpanel">
+  <div class="strip"><b>READ ALOUD</b><span id="read-when">Three minutes after SRS. Read at a natural pace; do not restart if you stumble.</span></div>
+  <h2>Today's passage</h2>
+  <div class="panel stack">
+    <div class="row" style="justify-content:space-between"><span class="mono small" id="read-id"></span><span class="mono small faint" id="read-words"></span></div>
+    <p class="passage" id="read-text"></p>
+    <div class="strip"><b>RECORD AS</b><span class="mono" id="read-filename"></span><span class="small soft">then let it upload to EnglishPractice. The file is the check-in; the review, the ledger and the cards follow by themselves.</span></div>
+    <div class="row"><button class="btn ghost" id="read-other">Another passage</button><button class="btn ghost" id="read-anchor">Show the anchor</button></div>
+  </div>
+  <h2>Today's drill</h2>
+  <div class="panel small" id="drill">No drill yet. The first scored recording builds the pronunciation ledger; the drill is generated from its top three confusion classes.</div>
+  <h2>Anchor trend</h2>
+  <div class="panel small" id="anchor-trend">The anchor passage is the pronunciation time trial: same text every Monday, scored against the reference. Its scores appear here after the first one.</div>
+</section>
+
 <!-- ============ LOG ============ -->
 <section id="tab-log" role="tabpanel">
   <div class="panel stack">
@@ -325,6 +345,7 @@
 
 <nav class="tabs" role="tablist">
   <button role="tab" aria-selected="true" data-tab="today">Today</button>
+  <button role="tab" aria-selected="false" data-tab="read">Read</button>
   <button role="tab" aria-selected="false" data-tab="talk">Talk</button>
   <button role="tab" aria-selected="false" data-tab="log">Log</button>
   <button role="tab" aria-selected="false" data-tab="week">Week</button>
@@ -348,11 +369,11 @@
   /* ---------- the runbook, as data ---------- */
   var FLOOR = { conversations: 2, srs_days: 5, listening_days: 5, recordings: 1 };
   var WEEK = {
-    1: [["06:45", "SRS reviews, spoken aloud", 10], ["13:00", "Narrow listening, current topic", 20], ["17:20", "Narrow reading, same topic + harvest 3–5 items into SRS, aloud", 20]],
-    2: [["06:45", "SRS reviews, spoken aloud", 10], ["13:00", "Narrow listening", 20], ["17:20", "AI voice conversation, standing brief, week's topic + error harvest", 25, "talk"]],
-    3: [["06:45", "SRS reviews, spoken aloud", 10], ["13:00", "Narrow listening", 20], ["17:20", "Read-aloud / shadow sandwich on this week's transcript + harvest", 20, "dial"]],
-    4: [["06:45", "SRS reviews, spoken aloud", 10], ["13:00", "Narrow listening", 10], ["17:20", "Read-aloud warm-up ×3 + tutor session, standing booking", 35, "talk"]],
-    5: [["06:45", "SRS reviews, spoken aloud", 10], ["13:00", "Narrow listening", 15], ["18:15", "Recorded 4/3/2 on a week topic + week close (check-in here)", 20]],
+    1: [["06:45", "SRS aloud + read the ANCHOR passage, recorded (Read tab)", 13, "read"], ["13:00", "Narrow listening, current topic", 20], ["17:20", "Narrow reading, same topic + harvest 3–5 items into SRS, aloud", 20]],
+    2: [["06:45", "SRS aloud + 3′ read-aloud, recorded (Read tab)", 13, "read"], ["13:00", "Narrow listening", 20], ["17:20", "AI voice conversation, standing brief, week's topic + error harvest", 25, "talk"]],
+    3: [["06:45", "SRS aloud + 3′ read-aloud, recorded (Read tab)", 13, "read"], ["13:00", "Narrow listening", 20], ["17:20", "Read-aloud / shadow sandwich on this week's transcript + harvest", 20, "dial"]],
+    4: [["06:45", "SRS aloud + 3′ read-aloud, recorded (Read tab)", 13, "read"], ["13:00", "Narrow listening", 10], ["17:20", "Read-aloud warm-up ×3 + tutor session, standing booking", 35, "talk"]],
+    5: [["06:45", "SRS aloud + 3′ read-aloud, recorded (Read tab)", 13, "read"], ["13:00", "Narrow listening", 15], ["18:15", "Recorded 4/3/2 on a week topic + week close (check-in here)", 20]],
     6: [["09:30", "Time-trial Saturdays only: Signal Check, rested", 60], ["—", "Optional: one personal-circle conversation", 0]],
     0: [["—", "Optional: personal-circle conversation · monthly authentic-audio check", 0]]
   };
@@ -420,7 +441,7 @@
     if (wd === 3 && WED_DIAL[cfg.dial]) slots[2] = ["17:20", WED_DIAL[cfg.dial] + " + harvest", 20, "dial"];
     if (wd === 0 && cfg.dial === "USE") slots = [["—", "USE dial: the personal-circle conversation is expected and logged this week", 0]];
     $("today-slots").innerHTML = slots.map(function (s) {
-      var cls = s[3] === "talk" ? "talkc" : s[3] === "dial" ? "dialc" : "";
+      var cls = s[3] === "talk" ? "talkc" : s[3] === "dial" ? "dialc" : s[3] === "read" ? "readc" : "";
       return '<div class="slot"><span class="t">' + s[0] + '</span><span class="' + cls + '">' + s[1] + "</span><span class=\"m\">" + (s[2] ? s[2] + "′" : "") + "</span></div>";
     }).join("") + '<div class="slot"><span class="t">20:45</span><span>Before-bed cards, aloud</span><span class="m">5′</span></div>';
 
@@ -519,6 +540,39 @@
   }
   function dot(v) { return '<span class="dot' + (v ? " y" : "") + '"></span>'; }
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+
+  /* ---------- read tab ---------- */
+  var passagesDoc = null, drillDoc = null, ledgerDoc = null, readOffset = 0, showAnchor = false;
+  var ANCHOR_FALLBACK = {"id": "A00", "title": "Thursday", "text": "Every Thursday I finish work a little early and walk to the station. The streets are already busy, and the sky is usually grey. I think about the week: what went well, what I should have done differently, and what I still want to build. At the gym I stretch, then I lift for an hour. My legs feel heavy after the intervals, but I have learned to trust the plan and not to judge a single session. Later, at home, I cook something simple: rice, vegetables, a bit of fish. I used to skip dinner when I was tired; now I know that recovery starts at the table. Before bed I review thirty cards aloud, very slowly, and I try to say each phrase the way a friend would say it. Then I switch off the light and let the day go."};
+  function todaysPassage() {
+    var P = passagesDoc || { anchor: ANCHOR_FALLBACK, passages: [] };
+    var list = P.passages || [];
+    if (showAnchor || (today.getDay() === 1 && readOffset === 0) || !list.length) return { p: P.anchor || ANCHOR_FALLBACK, anchor: true };
+    var idx = (Math.floor(today.getTime() / 864e5) + readOffset) % list.length;
+    return { p: list[idx], anchor: false };
+  }
+  function renderRead() {
+    var t = todaysPassage(), p = t.p || ANCHOR_FALLBACK;
+    var n = (p.text || "").split(/\s+/).filter(Boolean).length;
+    $("read-id").textContent = p.id + " · " + (p.title || "") + (t.anchor ? " · ANCHOR" : "");
+    $("read-words").textContent = n + " words · about " + Math.max(1, Math.round(n / 130 * 60)) + "s";
+    $("read-text").textContent = p.text || "";
+    $("read-filename").textContent = "eng read " + p.id;
+    $("read-when").textContent = t.anchor ? "The anchor: the same text every Monday. This is the pronunciation time trial — read it as you would any other day." : "Three minutes after SRS. Read at a natural pace; do not restart if you stumble.";
+    if (drillDoc && drillDoc.classes && drillDoc.classes.length) {
+      $("drill").innerHTML = drillDoc.classes.map(function (c) {
+        return "<p><b>" + esc(c["class"]) + "</b> <span class=\"faint\">×" + esc(c.count) + "</span> — your words: " + esc((c.words || []).join(", ")) +
+          "<br><span class=\"mono small\">" + (c.pairs || []).map(function (pr) { return esc(pr[0]) + " / " + esc(pr[1]); }).join(" · ") + "</span></p>";
+      }).join("") + "<p class=\"faint small\" style=\"margin:0\">Say each pair three times, slowly then at speed. Record it as <span class=\"mono\">eng drill</span>.</p>";
+    }
+    if (ledgerDoc && ledgerDoc.anchor && ledgerDoc.anchor.length) {
+      var rows = ledgerDoc.anchor.slice(-8);
+      $("anchor-trend").innerHTML = '<table class="load"><thead><tr><th>Date</th><th>Accuracy</th><th>Fluency</th><th>Complete</th></tr></thead><tbody>' +
+        rows.map(function (r) { return "<tr><td class=\"day\">" + esc(r.date) + "</td><td>" + esc(r.accuracy == null ? "" : r.accuracy) + "</td><td>" + esc(r.fluency == null ? "" : r.fluency) + "</td><td>" + esc(r.completeness == null ? "" : r.completeness) + "</td></tr>"; }).join("") + "</tbody></table>";
+    }
+  }
+  $("read-other").addEventListener("click", function () { showAnchor = false; readOffset++; renderRead(); });
+  $("read-anchor").addEventListener("click", function () { showAnchor = !showAnchor; this.textContent = showAnchor ? "Back to today's passage" : "Show the anchor"; renderRead(); });
 
   /* ---------- log tab ---------- */
   var L = { listen: null, srs: null, read: null, conv: {}, repair: null, rec: null };
@@ -768,7 +822,7 @@
   });
 
   /* ---------- render all ---------- */
-  function renderAll() { renderSeason(); renderToday(); renderWeek(); renderHistory(); }
+  function renderAll() { renderSeason(); renderToday(); renderWeek(); renderHistory(); renderRead(); }
   fillCfg(); renderAll(); loadDayForm();
 
   /* ---------- connect ---------- */
@@ -779,6 +833,9 @@
     d.doc("meta/config").onSnapshot(function (snap) {
       if (snap.exists) { cfg = Object.assign(cfg, snap.data()); fillCfg(); renderAll(); }
     }, function (e) { console.warn("config", e); });
+    [["meta/passages", function (v) { passagesDoc = v; }], ["meta/drills", function (v) { drillDoc = v; }], ["meta/ledger", function (v) { ledgerDoc = v; }]].forEach(function (pair) {
+      d.doc(pair[0]).onSnapshot(function (snap) { if (snap.exists) { pair[1](snap.data()); renderRead(); } }, function (e) { console.warn(pair[0], e); });
+    });
     var since = iso(addDays(today, -35));
     d.collection("days").where("date", ">=", since).onSnapshot(function (snap) {
       days = {}; snap.docs.forEach(function (x) { var v = x.data(); days[v.date || x.id] = v; });

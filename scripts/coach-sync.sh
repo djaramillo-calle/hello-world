@@ -10,6 +10,8 @@
 #                                       #   gpodder listening pull + Intervals.icu push when keys are set;
 #                                       #   pull --rebase before push; never force
 #   scripts/coach-sync.sh --kindle-only # StartOnMount LaunchAgent when the Kindle is plugged in
+#   scripts/coach-sync.sh --on-recording # WatchPaths LaunchAgent: a recording landed → ingest → review →
+#                                       #   ledger/cards/drill → Anki (if open) → commit → push
 #
 # Secrets live in ~/.config/english-runbook/env (chmod 600), never in git:
 #   GPODDER_USER / GPODDER_PASS [/ GPODDER_BASE]   INTERVALS_API_KEY [/ INTERVALS_ATHLETE_ID]
@@ -21,8 +23,25 @@ MODE="${1:-}"
 
 echo "== coach-sync $(date '+%Y-%m-%d %H:%M') ${MODE} =="
 
-if [ "$MODE" = "--unattended" ]; then
+if [ "$MODE" = "--unattended" ] || [ "$MODE" = "--on-recording" ]; then
   git pull --rebase --quiet origin "$(git rev-parse --abbrev-ref HEAD)" || echo "pull failed — continuing with local state"
+fi
+[ "$MODE" = "--on-recording" ] && sleep 45   # let Google Drive finish writing the file
+
+if [ "$MODE" = "--on-recording" ]; then
+  # 0. The recording trigger: only the practice paths, as fast as possible
+  if [ -x .venv-practice/bin/python ]; then
+    .venv-practice/bin/python scripts/practice-ingest.py || echo "practice ingest FAILED"
+  else
+    echo "practice: venv missing (run scripts/practice-setup.sh)"
+  fi
+  python3 scripts/practice-review.py || echo "practice review FAILED"
+  python3 scripts/anki-push-cards.py || echo "anki cards FAILED"
+  git add logs/ cards/ drills/
+  if git diff --cached --quiet; then echo "nothing new — no commit"; else
+    git commit -q -m "observations: recording reviewed (coach-sync --on-recording)" && git push -q origin HEAD && echo "committed + pushed" || echo "push failed — nightly job will retry"
+  fi
+  exit 0
 fi
 
 if [ "$MODE" != "--kindle-only" ]; then
@@ -32,6 +51,10 @@ if [ "$MODE" != "--kindle-only" ]; then
   else
     echo "practice: venv missing (run scripts/practice-setup.sh) — skipped"
   fi
+
+  # 1b. Review every new recording (checklist, ledger, cards queue, drill); harvest via `claude -p` when present
+  python3 scripts/practice-review.py || echo "practice review FAILED"
+  python3 scripts/anki-push-cards.py || echo "anki cards FAILED"
 
   # 2. Anki stats: AnkiConnect when Anki is open (sync first so phone reviews are in), else the collection file directly
   if curl -s -m 2 -X POST http://127.0.0.1:8765 -d '{"action":"version","version":6}' >/dev/null 2>&1; then
@@ -64,7 +87,7 @@ if [ "$MODE" != "--kindle-only" ]; then
 fi
 
 # 7. One commit for everything that changed — never force, never empty
-git add logs/
+git add logs/ cards/ drills/
 if git diff --cached --quiet; then
   echo "nothing new — no commit"
 else
