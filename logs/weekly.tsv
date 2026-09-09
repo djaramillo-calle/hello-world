@@ -1,0 +1,5 @@
+# Weekly training log — load/adherence, one row per ISO week (Monday).
+# Floors: conversations>=2 (>=1 human) | srs_days>=5 | recordings>=1 | listening_days>=5
+# Auto columns from repo data; conversations/listening_days/notes are self-report (--set).
+week_start	srs_days	reviews	recordings	rec_wpm_mean	rec_filler_pct	conversations	listening_days	dial	floor_ok	notes
+2026-09-07	0	0	0					DEFAULT	no	

@@ -130,6 +130,32 @@ from an adversarially-verified tool investigation (workflow, 12 agents).
   suspects monthly. Session-start coach check: read new `logs/practice/`
   files; the Friday review digests the week.
 
+## Season (the sport frame) — added 2026-09-09 audit
+
+- `docs/TARGET.md` — the race and the 12-week season: baseline (week 0),
+  time trials weeks 5/10/12, road race in week 12 (30-min conversation with
+  a stranger, comprehensibility ≤3/9), targets = baseline + one noise
+  threshold per domain with absolute floors. Read it before any plan talk.
+- `scripts/dial.py` — mechanical dial recommendation (profile → dial,
+  noise thresholds, held/moved/abandoned). Run at every time-trial
+  week-close; log to `logs/dial-log.tsv`; overrides go in the `reason`
+  column. PRE-SEASON until tracking.tsv has a row.
+- `scripts/weekly-rollup.py` — Friday training log → `logs/weekly.tsv`
+  (SRS days/reviews from Anki stats, recordings + wpm/filler from
+  logs/practice, dial, floor check). Self-report via
+  `--set conversations=N listening_days=N notes="..."`. Load ≠ ability.
+- `scripts/build-progress.py` → `progress.html` — the Season Board (pace
+  chart). Rebuild after every diagnostic and every Friday review; publish
+  the wrapper-stripped copy to the existing artifact URL:
+  https://claude.ai/code/artifact/43e3b4e1-75f6-45d4-b1e5-ba4b04a0c1ef
+- `scripts/check.sh` — one command: jsdom suite + all Python self-tests.
+  Run before committing tooling changes.
+- Friday Routine (trig_01Quw9v6zvapu6kkvperUVPL) now: pull → digest →
+  rollup → dial → rebuild board → republish → push → short reply asking for
+  the two self-report numbers.
+- Calendar events for the four fixed sessions remain user-gated (never
+  created without explicit confirmation).
+
 ## Repo conventions
 
 - Branch: `claude/adult-language-learning-gnk7i1`. Commit and push after
