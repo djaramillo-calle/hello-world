@@ -121,8 +121,12 @@ from an adversarially-verified tool investigation (workflow, 12 agents).
   en-GB is the real score; the en-US pass exists ONLY to extract phoneme
   identities/prosody for the L1-Spanish confusion set (US reference model —
   never read it as an overall score). Uploads audio to Azure; no-retention
-  terms verified 2026-08. First run must check: PA works on the F0 free
-  tier, and whether prosody needs the paid tier.
+  terms verified 2026-08. Verified 2026-09-09 on the F0 free tier from the
+  cloud (`scripts/azure-check.py`, report in `logs/azure-check.json`):
+  scripted assessment, completeness, IPA phonemes and prosody all work.
+  The key also lives as `AZURE_SPEECH_KEY`/`AZURE_SPEECH_REGION` environment
+  variables of the Default Cloud Environment; the Mac still needs them in
+  its env file for the recording loop.
 - **Feedback rules:** telemetry is FORMATIVE only — nothing feeds
   tracking.tsv. Patterns in practice transcripts follow the observation-log
   discipline (2+ occurrences → PATTERN, production cards, shared 25/wk cap).

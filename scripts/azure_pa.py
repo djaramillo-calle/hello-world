@@ -11,8 +11,10 @@ Locale facts (verified against Azure docs, 2026-08):
 
 Requires AZURE_SPEECH_KEY + AZURE_SPEECH_REGION (expect 'uksouth').
 Audio is uploaded to Azure; per Microsoft docs it is processed in memory and
-not retained. First-run checks (free F0 tier): confirm assessment returns
-results at all, and whether prosody works or needs the paid tier.
+not retained. Verified 2026-09-09 on the F0 free tier (scripts/azure-check.py):
+scripted assessment, CompletenessScore, IPA phoneme names and ProsodyScore all
+returned. Note the SDK nests scores under "PronunciationAssessment"; the REST
+endpoint returns them flat — _aggregate reads the SDK shape.
 """
 import json, os, threading
 
