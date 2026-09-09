@@ -156,6 +156,42 @@ from an adversarially-verified tool investigation (workflow, 12 agents).
 - Calendar events for the four fixed sessions remain user-gated (never
   created without explicit confirmation).
 
+## The Hub (sensor layer) — added 2026-09-09
+
+Intervals.icu is the user's hub for running/gym/anthropometry; `docs/HUB.md`
+is the same architecture for English. Read it before touching ingestion.
+
+- `hub.html` → artifact https://claude.ai/code/artifact/81ce98f7-d1a4-4904-b268-84245e8fabe9
+  (capabilities `db` + `sample`; republish the stripped copy at that URL,
+  never as a new artifact — the database belongs to the URL). Tabs: Talk (AI
+  voice conversation under the standing brief; transcript + telemetry +
+  harvest → `sessions/<id>`), Log (one-tap check-ins → `days/<date>`), Today
+  (prescription, floors, morning readout), Week. `meta/config` holds dial,
+  topic, crutch words, baseline date.
+- **Pulling the Hub from the cloud** (any session, and the Friday Routine):
+  Artifact `read_db` on collections `days` and `sessions` with `out_dir`,
+  then `python3 scripts/hub-fold.py <dump>` → `logs/hub/`. The diagnostic
+  artifact (823a99e1…) now stores each saved run in its own DB, collection
+  `runs` (field `tsv` is the tracking row) — pull it before appending to
+  `tracking.tsv`; the paste path still works.
+- **Morning check** ("how is my recovery?" for English): `python3
+  scripts/daily-readout.py` — mechanical readout from git; add judgement,
+  never a score. The Hub's readout button is the self-serve version.
+- `scripts/weekly-rollup.py` now takes conversations, listening days and
+  talk minutes from sensors (hub + `logs/listening/daily.json`); `--set`
+  still overrides in writing. SRS days fall back to check-ins only when no
+  Anki export covers the week.
+- **Mac nightly job** (`scripts/install-automation.sh`, 21:40, LaunchAgent):
+  `coach-sync.sh --unattended` = pull → practice ingest → Anki (AnkiConnect
+  with sync when open, else `anki-revlog.py` direct read — never read the
+  collection while Anki runs) → `listening-pull.py` (AntennaPod → gpodder) →
+  optional `elevenlabs-pull.py` → Kindle if mounted → `intervals-push.py`
+  (custom wellness fields `Eng*`, idempotent merge) → one commit, push,
+  never force. Secrets in `~/.config/english-runbook/env`, never in git.
+- Sensor data is load or harvest: `logs/hub`, `logs/listening`,
+  `logs/ai-sessions`, Intervals.icu fields never feed `tracking.tsv`.
+  Transcripts feed `observations.md` under the 2-occurrence rule.
+
 ## Repo conventions
 
 - Branch: `claude/adult-language-learning-gnk7i1`. Commit and push after

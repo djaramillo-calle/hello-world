@@ -1545,12 +1545,28 @@ function sessionRow(c) {
 function saveSession() {
   if (!hasModules(S.current)) { alert("Nothing to save yet."); return; }
   S.history.push(sessionRow(S.current));
+  hubSave(S.history[S.history.length - 1]);
   S.current = {};
   save();
   document.querySelectorAll(".tab").forEach(t => t.dataset.done = "0");
   [dictPlays, eiPlays, eiScore, eiSense, evAns].forEach(o => Object.keys(o).forEach(k => delete o[k]));
   buildAll();
   renderReport();
+}
+
+/* Signal Check → this artifact's database: one document per saved run
+   (runs/<date>), so the coach reads rows without a paste. Silent no-op
+   outside the Claude viewer (file://, jsdom). Items and scoring untouched. */
+function hubSave(row) {
+  try {
+    if (!window.claude || typeof window.claude.use !== "function") return;
+    window.claude.use("db").then(function (db) {
+      if (!db) return;
+      var id = new Date(row.at || Date.now()).toISOString().slice(0, 10);
+      var doc = Object.assign({ date: id, form: "v2", tsv: formatRow(row), saved: new Date().toISOString() }, row);
+      db.doc("runs/" + id).set(doc).catch(function () {});
+    }).catch(function () {});
+  } catch (e) { /* never block saving */ }
 }
 
 function finiteField(v, fmt) {

@@ -18,9 +18,11 @@ WEEKLY = REPO / "logs" / "weekly.tsv"
 ANKI = REPO / "logs" / "anki-stats.json"
 PRACTICE = REPO / "logs" / "practice"
 DIAL_LOG = REPO / "logs" / "dial-log.tsv"
+HUB = REPO / "logs" / "hub" / "days.json"            # English Hub check-ins + Talk sessions (scripts/hub-fold.py)
+LISTEN = REPO / "logs" / "listening" / "daily.json"  # gpodder pull (scripts/listening-pull.py)
 
 COLS = ["week_start", "srs_days", "reviews", "recordings", "rec_wpm_mean",
-        "rec_filler_pct", "conversations", "listening_days", "dial", "floor_ok", "notes"]
+        "rec_filler_pct", "conversations", "listening_days", "talk_min", "dial", "floor_ok", "notes"]
 FLOOR = {"conversations": 2, "srs_days": 5, "recordings": 1, "listening_days": 5}
 
 def monday(d):
@@ -86,6 +88,31 @@ def practice_stats(week_start, practice_dir=PRACTICE):
     mean = lambda xs: round(sum(xs) / len(xs), 1) if xs else ""
     return n, mean(wpms), mean(fill)
 
+def hub_week(week_start, hub_path=HUB, listen_path=LISTEN):
+    """Sensor-derived load for the week: conversations (hub check-ins + Talk sessions),
+    listening days (gpodder minutes, else hub check-in minutes; >=10' counts), SRS
+    check-in days (fallback when no Anki export covers the week), AI talk minutes."""
+    def load(p):
+        try: return json.loads(p.read_text(encoding="utf-8"))
+        except (OSError, ValueError): return {}
+    hub, listen = load(hub_path), load(listen_path)
+    if not hub and not listen:
+        return None
+    out = {"conversations": 0, "human": 0, "listening_days": 0, "srs_checkin_days": 0, "talk_min": 0, "days_logged": 0}
+    for i in range(7):
+        k = (week_start + dt.timedelta(days=i)).isoformat()
+        h = hub.get(k) or {}
+        if h: out["days_logged"] += 1
+        c = h.get("conversations") or {}
+        n = sum(int(c.get(x) or 0) for x in ("ai", "tutor", "circle", "work"))
+        out["conversations"] += n
+        out["human"] += sum(int(c.get(x) or 0) for x in ("tutor", "circle", "work"))
+        mins = listen[k]["min"] if k in listen else (h.get("listen_min") or 0)
+        if mins >= 10: out["listening_days"] += 1
+        if h.get("srs"): out["srs_checkin_days"] += 1
+        out["talk_min"] += int(h.get("talk_min") or 0)
+    return out
+
 def current_dial(dial_log=DIAL_LOG):
     last = "DEFAULT"
     if dial_log.exists():
@@ -108,7 +135,8 @@ def floor_ok(r):
     if all(c is True for c in checks): return "yes"
     return "partial"
 
-def rollup(week_start, sets=None, rows=None, anki_path=ANKI, practice_dir=PRACTICE, dial_log=DIAL_LOG):
+def rollup(week_start, sets=None, rows=None, anki_path=ANKI, practice_dir=PRACTICE, dial_log=DIAL_LOG,
+           hub_path=HUB, listen_path=LISTEN):
     rows = load_weekly() if rows is None else rows
     key = week_start.isoformat()
     r = rows.get(key, {"week_start": key})
@@ -116,6 +144,15 @@ def rollup(week_start, sets=None, rows=None, anki_path=ANKI, practice_dir=PRACTI
     n, wpm, fill = practice_stats(week_start, practice_dir)
     r.update({"srs_days": days, "reviews": total, "recordings": n,
               "rec_wpm_mean": wpm, "rec_filler_pct": fill, "dial": current_dial(dial_log)})
+    hub = hub_week(week_start, hub_path, listen_path)
+    if hub:
+        # sensors replace self-report; --set still wins below (a correction in writing)
+        r["conversations"] = hub["conversations"]
+        r["listening_days"] = hub["listening_days"]
+        r["talk_min"] = hub["talk_min"]
+        if not days and not total and hub["srs_checkin_days"]:
+            r["srs_days"] = hub["srs_checkin_days"]   # check-in fallback: no Anki export covers this week
+        r["human_conversations"] = hub["human"]
     for k, v in (sets or {}).items():
         if k in COLS: r[k] = v
     r["floor_ok"] = floor_ok(r)
@@ -141,6 +178,18 @@ def selftest():
         assert r["floor_ok"] == "no" and r["listening_days"] == "5", "self-report preserved, floor re-evaluated"
         rows, r = rollup(dt.date(2026, 9, 14), None, rows=rows, anki_path=anki, practice_dir=pr, dial_log=td / "none.tsv")
         assert r["floor_ok"] == "no" and r["srs_days"] == 0, r
+        # hub sensors fill the self-report columns; --set still overrides
+        hub = td / "days.json"; listen = td / "daily.json"
+        hub.write_text(json.dumps({
+            "2026-09-14": {"date": "2026-09-14", "listen_min": 20, "srs": True, "conversations": {"ai": 1}, "talk_min": 21},
+            "2026-09-15": {"date": "2026-09-15", "listen_min": 5, "srs": True, "conversations": {"tutor": 1}},
+            "2026-09-16": {"date": "2026-09-16", "srs": True, "conversations": {}}}))
+        listen.write_text(json.dumps({"2026-09-15": {"min": 25, "episodes": 1}, "2026-09-17": {"min": 12, "episodes": 1}}))
+        rows, r = rollup(dt.date(2026, 9, 14), None, rows=rows, anki_path=anki, practice_dir=pr, dial_log=td / "none.tsv", hub_path=hub, listen_path=listen)
+        assert r["conversations"] == 2 and r["human_conversations"] == 1 and r["listening_days"] == 3 and r["talk_min"] == 21, r
+        assert r["srs_days"] == 3, "check-in fallback when the Anki export has nothing for the week: %r" % r
+        rows, r = rollup(dt.date(2026, 9, 14), {"conversations": "3"}, rows=rows, anki_path=anki, practice_dir=pr, dial_log=td / "none.tsv", hub_path=hub, listen_path=listen)
+        assert r["conversations"] == "3", "--set overrides sensors"
     print("weekly-rollup.py selftest: OK")
 
 def main():
