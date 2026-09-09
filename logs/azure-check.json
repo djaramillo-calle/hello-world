@@ -1,0 +1,40 @@
+{
+ "checked": "2026-09-09T15:46:28Z",
+ "region": "uksouth",
+ "steps": {
+  "token": {
+   "http": 200
+  },
+  "tts": {
+   "http": 200,
+   "bytes": 169310
+  },
+  "en_gb_scripted": {
+   "http": 200,
+   "status": "Success",
+   "scores": {},
+   "words": 18,
+   "miscues": 0,
+   "phoneme_names": false,
+   "prosody": false,
+   "text": "On Thursday I usually go to the gym after work and then I read for half an hour."
+  },
+  "en_us_phoneme_prosody": {
+   "http": 200,
+   "status": "Success",
+   "scores": {},
+   "words": 18,
+   "miscues": 0,
+   "phoneme_names": true,
+   "prosody": false,
+   "text": "On Thursday I usually go to the gym after work and then I read for half an hour."
+  }
+ },
+ "capabilities": {
+  "assessment": false,
+  "completeness": false,
+  "phoneme_names": true,
+  "prosody": false
+ },
+ "verdict": "assessment FAILED \u00b7 scripted completeness missing \u00b7 IPA phonemes OK \u00b7 prosody not available on this tier (fine: prosody is optional)"
+}
