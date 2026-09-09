@@ -28,7 +28,7 @@ METRICS = [  # order = display order
     ("vocab_size", "Vocabulary", "families"),
     ("mtld", "Lexical diversity", "MTLD"),
 ]
-TARGET_METRIC = {"DEFAULT": "wpm", "DECODE": "dict_pct", "AUTOMATIZE": "wpm", "RANGE": "mtld", "USE": "evidence_n"}
+TARGET_METRIC = {"DEFAULT": "wpm", "DECODE": "dict_pct", "AUTOMATIZE": "wpm", "RANGE": "mtld", "USE": "evidence_n"}   # board highlight only; for DECODE dict_pct is a proxy (dial.py judges DECODE manually via the authentic-audio check)
 LOAD_FLOOR = {"conversations": 2, "srs_days": 5, "recordings": 1, "listening_days": 5}
 
 def read_tsv(path):

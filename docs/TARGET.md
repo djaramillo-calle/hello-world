@@ -15,7 +15,7 @@ Everything here is machine-readable by `scripts/dial.py` and
 | 6–9 | Cycle 2 — build | Runbook at the new dial position. |
 | 10 | **Time trial 2** | Deload + diagnostic → row 3. Dial reviewed. |
 | 11 | Sharpen | Cycle 3 at full load, race booked. |
-| **12** | **Race week** | The road race (below) + diagnostic → row 4. Season review. Next season's race defined. |
+| **12** | **Race week** | The road race (below) + diagnostic → row 4 (a **measurement**, scored against the targets; no lever decision — it is two weeks after time trial 2). Season review. Next season's race defined. |
 
 Weeks are counted from the Monday after the baseline. If the baseline slips,
 the whole calendar slips with it — the season never starts without a row 1.
@@ -87,11 +87,25 @@ recommendation, so the record shows every override.
 
 Rules the script enforces:
 - No baseline → `PRE-SEASON`; nothing is adjustable.
+- **Lever decisions happen only at time trials at least four weeks apart**
+  (weeks 5 and 10). A row closer than that to the previous time trial — the
+  week-12 race row — is a `MEASUREMENT`: scored against the targets, dial
+  held, no lever. The one-lever-per-5-week-cycle rule in `final-plan.md` is
+  the canonical cadence; the 12-week season is two cycles plus a race.
 - Cycle 1 deltas belong to the plan as a whole; the dial can move at the
-  first time trial only if the profile is unambiguous.
+  first time trial only if the profile is unambiguous (exactly one profile
+  applies and it differs from the current dial).
 - From cycle 2: keep the dial if its target metric moved ≥ threshold;
   otherwise move to the next-priority profile (decode → automatize → range
   → use). One lever per cycle. A position that fails twice is abandoned.
+  A blank target metric is `INCOMPLETE`: hold, never a lever on absent data.
+- **DECODE is never set mechanically.** Its defining metrics (dictation speed
+  ceiling < 1.2×, authentic-audio < 85%) are not in `tracking.tsv`, and
+  `dict_pct` is an inflated upper bound. Dictation below 85% is a *flag*:
+  run the authentic-audio check on novel material, and if it confirms,
+  override the dial to DECODE in the reason column. While the dial is
+  DECODE the script reports `MANUAL` and the same check decides whether to
+  hold or move.
 - Repeat scores are floors (item memory): upward moves are trusted, flat
   ones are ambiguous — the monthly authentic-audio check breaks ties on
   decode.

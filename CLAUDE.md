@@ -139,7 +139,10 @@ from an adversarially-verified tool investigation (workflow, 12 agents).
 - `scripts/dial.py` — mechanical dial recommendation (profile → dial,
   noise thresholds, held/moved/abandoned). Run at every time-trial
   week-close; log to `logs/dial-log.tsv`; overrides go in the `reason`
-  column. PRE-SEASON until tracking.tsv has a row.
+  column. PRE-SEASON until tracking.tsv has a row. Levers change only at
+  time trials ≥ 4 weeks apart (weeks 5 and 10); the week-12 row is a
+  MEASUREMENT. DECODE is never set mechanically (low dictation is a flag;
+  the authentic-audio check decides, by override).
 - `scripts/weekly-rollup.py` — Friday training log → `logs/weekly.tsv`
   (SRS days/reviews from Anki stats, recordings + wpm/filler from
   logs/practice, dial, floor check). Self-report via
