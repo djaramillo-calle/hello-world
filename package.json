@@ -17,8 +17,7 @@
   },
   "homepage": "https://github.com/djaramillo-calle/hello-world#readme",
   "dependencies": {
-    "jsdom": "^30.0.1",
-    "playwright": "^1.63.0"
+    "jsdom": "^30.0.1"
   },
   "private": true
 }
