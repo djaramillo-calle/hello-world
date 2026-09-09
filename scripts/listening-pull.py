@@ -5,6 +5,7 @@ phone reports to, and bucket attended minutes per local day.
 
     GPODDER_USER=... GPODDER_PASS=... python3 scripts/listening-pull.py
     GPODDER_BASE=https://my.opodsync.example ...   # default https://gpodder.net
+    python3 scripts/listening-pull.py --creds <json>   # {user, pass, base} — cloud Routines dump it from the Hub store
     python3 scripts/listening-pull.py --selftest
 
 Outputs:
@@ -101,9 +102,13 @@ def main():
     if "--selftest" in sys.argv:
         return selftest()
     user, pw = os.environ.get("GPODDER_USER"), os.environ.get("GPODDER_PASS")
+    base = os.environ.get("GPODDER_BASE", "https://gpodder.net")
+    if "--creds" in sys.argv:   # cloud Routines: a JSON {user, pass, base} dumped from the Hub store (meta/gpodder)
+        c = json.loads(pathlib.Path(sys.argv[sys.argv.index("--creds") + 1]).read_text(encoding="utf-8"))
+        user, pw, base = c.get("user") or user, c.get("pass") or pw, c.get("base") or base
     if not user or not pw:
         print("listening: GPODDER_USER/GPODDER_PASS not set — skipped"); return
-    base = os.environ.get("GPODDER_BASE", "https://gpodder.net").rstrip("/")
+    base = base.rstrip("/")
     sp = OUT / "state.json"
     since = json.loads(sp.read_text()).get("since") if sp.exists() else None
     data = fetch_actions(base, user, pw, since)

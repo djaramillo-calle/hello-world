@@ -188,6 +188,13 @@ is the same architecture for English. Read it before touching ingestion.
   optional `elevenlabs-pull.py` → Kindle if mounted → `intervals-push.py`
   (custom wellness fields `Eng*`, idempotent merge) → one commit, push,
   never force. Secrets in `~/.config/english-runbook/env`, never in git.
+- **gpodder from the cloud:** `scripts/listening-pull.py` runs here too when
+  `GPODDER_USER` / `GPODDER_PASS` are set as environment variables of this
+  CCR environment (claude.ai environment settings — the only persistent,
+  private place the cloud has; storing them in git or in an artifact store
+  is refused). If set, every Routine runs the pull and commits
+  `logs/listening/`; if not, the Mac's nightly job is the only listening
+  sensor. Credentials never go into git, the Hub store, or chat.
 - Sensor data is load or harvest: `logs/hub`, `logs/listening`,
   `logs/ai-sessions`, Intervals.icu fields never feed `tracking.tsv`.
   Transcripts feed `observations.md` under the 2-occurrence rule.
