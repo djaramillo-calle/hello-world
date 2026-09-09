@@ -172,13 +172,16 @@ def selftest():
         (pr / "2026-09-11-eng-432.json").write_text(json.dumps({"recorded": "2026-09-11 18:20", "wpm": 118.5, "words": 240, "fillers": 12}))
         (pr / "2026-09-02-old.json").write_text(json.dumps({"recorded": "2026-09-02 18:20", "wpm": 90, "words": 100, "fillers": 20}))
         wk = dt.date(2026, 9, 7)
-        rows, r = rollup(wk, {"conversations": "2", "listening_days": "5"}, rows={}, anki_path=anki, practice_dir=pr, dial_log=td / "none.tsv")
+        # hermetic: point hub/listen at nonexistent temp files so the selftest never
+        # reads the live repo logs/hub or logs/listening (which a real pull may create)
+        nohub, nolisten = td / "nohub.json", td / "nolisten.json"
+        rows, r = rollup(wk, {"conversations": "2", "listening_days": "5"}, rows={}, anki_path=anki, practice_dir=pr, dial_log=td / "none.tsv", hub_path=nohub, listen_path=nolisten)
         assert r["srs_days"] == 5 and r["reviews"] == 44, r
         assert r["recordings"] == 1 and r["rec_wpm_mean"] == 118.5 and r["rec_filler_pct"] == 5.0, r
         assert r["floor_ok"] == "yes", r
-        rows, r = rollup(wk, {"conversations": "1"}, rows=rows, anki_path=anki, practice_dir=pr, dial_log=td / "none.tsv")
+        rows, r = rollup(wk, {"conversations": "1"}, rows=rows, anki_path=anki, practice_dir=pr, dial_log=td / "none.tsv", hub_path=nohub, listen_path=nolisten)
         assert r["floor_ok"] == "no" and r["listening_days"] == "5", "self-report preserved, floor re-evaluated"
-        rows, r = rollup(dt.date(2026, 9, 14), None, rows=rows, anki_path=anki, practice_dir=pr, dial_log=td / "none.tsv")
+        rows, r = rollup(dt.date(2026, 9, 14), None, rows=rows, anki_path=anki, practice_dir=pr, dial_log=td / "none.tsv", hub_path=nohub, listen_path=nolisten)
         assert r["floor_ok"] == "no" and r["srs_days"] == 0, r
         # hub sensors fill the self-report columns; --set still overrides
         hub = td / "days.json"; listen = td / "daily.json"
