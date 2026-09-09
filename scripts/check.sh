@@ -1,6 +1,6 @@
 #!/bin/bash
 # One command to verify the whole system. Non-zero exit on any failure.
-set -e
+set -eo pipefail
 cd "$(dirname "$0")/.."
 echo "== diagnostic page (jsdom suite) =="; node scripts/test.js | tail -2
 echo "== python tooling =="

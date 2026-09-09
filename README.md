@@ -62,3 +62,5 @@ Season tooling: `python3 scripts/daily-readout.py` (the morning check),
 (rebuild the board). Mac automation: `bash scripts/install-automation.sh` (see `docs/HUB.md`).
 
 `node_modules/` is gitignored.
+
+Third-party code: the vendored Praat syllable-nuclei script is GPL-3.0-or-later — see `THIRD_PARTY_NOTICES.md` and `LICENSES/GPL-3.0.txt`.

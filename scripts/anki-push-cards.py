@@ -17,9 +17,9 @@ QUEUE = REPO / "cards" / "queue.tsv"
 API = "http://127.0.0.1:8765"
 DECK, MODEL, CAP = "English Runbook", "Basic", 25
 
-sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
-from importlib import import_module
-_pr = import_module("practice-review")
+import importlib.util
+_spec = importlib.util.spec_from_file_location("practice_review", pathlib.Path(__file__).resolve().parent / "practice-review.py")
+_pr = importlib.util.module_from_spec(_spec); _spec.loader.exec_module(_pr)   # sibling script with a hyphen in its name
 load_queue, save_queue = _pr.load_queue, _pr.save_queue
 
 def anki_call(action, **params):

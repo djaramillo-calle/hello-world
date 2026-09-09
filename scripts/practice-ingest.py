@@ -5,7 +5,7 @@ Run with the project venv (NOT the stock python3 — see scripts/practice-setup.
 
     .venv-practice/bin/python scripts/practice-ingest.py [--commit] [--source DIR] [--out DIR]
 
-Sources scanned, newest first:
+Sources scanned (files ingested oldest first, so outputs stay chronological):
   ~/EnglishPractice/                                  every audio file
   Voice Memos iCloud container (when sync enabled)    files named eng*
   iCloud Drive/EnglishPractice (when it exists)       files named eng*

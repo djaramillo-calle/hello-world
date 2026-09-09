@@ -22,7 +22,7 @@ HUB = REPO / "logs" / "hub" / "days.json"            # English Hub check-ins + T
 LISTEN = REPO / "logs" / "listening" / "daily.json"  # gpodder pull (scripts/listening-pull.py)
 
 COLS = ["week_start", "srs_days", "reviews", "recordings", "rec_wpm_mean",
-        "rec_filler_pct", "conversations", "listening_days", "talk_min", "dial", "floor_ok", "notes"]
+        "rec_filler_pct", "conversations", "human_conversations", "listening_days", "talk_min", "dial", "floor_ok", "notes"]
 FLOOR = {"conversations": 2, "srs_days": 5, "recordings": 1, "listening_days": 5}
 
 def monday(d):
@@ -44,7 +44,7 @@ def save_weekly(rows):
     WEEKLY.parent.mkdir(exist_ok=True)
     out = ["# Weekly training log — load/adherence, one row per ISO week (Monday).",
            "# Floors: conversations>=2 (>=1 human) | srs_days>=5 | recordings>=1 | listening_days>=5",
-           "# Auto columns from repo data; conversations/listening_days/notes are self-report (--set).",
+           "# Auto columns from repo data (hub + listening sensors fill conversations/human_conversations/listening_days when present); --set overrides in writing.",
            "\t".join(COLS)]
     for k in sorted(rows):
         r = rows[k]
@@ -131,6 +131,8 @@ def floor_ok(r):
     for k, f in FLOOR.items():
         v = num(r.get(k))
         checks.append(None if v is None else v >= f)
+    human = num(r.get("human_conversations"))
+    if human is not None: checks.append(human >= 1)   # the conversation floor is 2 with at least one human
     if any(c is False for c in checks): return "no"
     if all(c is True for c in checks): return "yes"
     return "partial"
@@ -187,6 +189,13 @@ def selftest():
         listen.write_text(json.dumps({"2026-09-15": {"min": 25, "episodes": 1}, "2026-09-17": {"min": 12, "episodes": 1}}))
         rows, r = rollup(dt.date(2026, 9, 14), None, rows=rows, anki_path=anki, practice_dir=pr, dial_log=td / "none.tsv", hub_path=hub, listen_path=listen)
         assert r["conversations"] == 2 and r["human_conversations"] == 1 and r["listening_days"] == 3 and r["talk_min"] == 21, r
+        hub.write_text(json.dumps({"2026-09-14": {"date": "2026-09-14", "listen_min": 20, "srs": True, "conversations": {"ai": 2}}}))
+        rows2, r2 = rollup(dt.date(2026, 9, 14), {"listening_days": "5", "srs_days": "5"}, rows={}, anki_path=anki, practice_dir=pr, dial_log=td / "none.tsv", hub_path=hub, listen_path=listen)
+        assert r2["conversations"] == 2 and r2["human_conversations"] == 0 and r2["floor_ok"] == "no", "two AI conversations do not meet the >=1 human floor: %r" % r2
+        hub.write_text(json.dumps({
+            "2026-09-14": {"date": "2026-09-14", "listen_min": 20, "srs": True, "conversations": {"ai": 1}, "talk_min": 21},
+            "2026-09-15": {"date": "2026-09-15", "listen_min": 5, "srs": True, "conversations": {"tutor": 1}},
+            "2026-09-16": {"date": "2026-09-16", "srs": True, "conversations": {}}}))
         assert r["srs_days"] == 3, "check-in fallback when the Anki export has nothing for the week: %r" % r
         rows, r = rollup(dt.date(2026, 9, 14), {"conversations": "3"}, rows=rows, anki_path=anki, practice_dir=pr, dial_log=td / "none.tsv", hub_path=hub, listen_path=listen)
         assert r["conversations"] == "3", "--set overrides sensors"
