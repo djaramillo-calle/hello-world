@@ -44,6 +44,9 @@ def sources():
     # EnglishPractice folder in My Drive is ingested wholesale
     for mount in (home / "Library/CloudStorage").glob("GoogleDrive-*"):
         fixed.append((mount / "My Drive" / "EnglishPractice", False))
+        # ASR (com.nll.asr, the Android recorder) uploads into its own tree:
+        # My Drive/com.nll.asr/EnglishPractice/Recordings/<device>/<yyyy>/<mm>/<dd>/<file>.m4a — scanned recursively
+        fixed.append((mount / "My Drive" / "com.nll.asr" / "EnglishPractice", False))
     return fixed
 
 def sha256(path):

@@ -1,0 +1,65 @@
+{
+ "id": "2026-09-09-1788988987643-2026-09-09-22-19-23",
+ "source": "1788988987643 - 2026_09_09_22_19_23.m4a",
+ "recorded": "2026-09-09 21:28",
+ "kind": "free",
+ "passage": null,
+ "anchor": false,
+ "reviewed": "2026-09-09T21:31:05Z",
+ "fluency": {
+  "duration_s": 32.8,
+  "wpm": 111.5,
+  "words": 61,
+  "filler_pct": 0.0,
+  "speech_rate_syll_s": 2.83,
+  "articulation_rate_syll_s": 3.51,
+  "avg_syllable_s": 0.285,
+  "f0_median_hz": 115.2,
+  "f0_range_semitones": 4.6,
+  "pause_count": 5,
+  "phonation_ratio": 0.81,
+  "mean_pause_s": 1.27
+ },
+ "pronunciation": {
+  "source": "azure",
+  "scripted": false,
+  "scores": {
+   "accuracy": 93.8,
+   "fluency": 91.7,
+   "completeness": 100.0,
+   "pron": 92.3,
+   "prosody_us_ref": 83.6
+  },
+  "flagged": [
+   {
+    "word": "two",
+    "accuracy": 42.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "remaining",
+    "accuracy": 6.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "this",
+    "accuracy": 20.0,
+    "error": "Mispronunciation"
+   }
+  ],
+  "classes": {
+   "th": {
+    "n": 1,
+    "words": [
+     "this"
+    ]
+   }
+  }
+ },
+ "harvest": {
+  "status": "pending",
+  "why": "llm disabled"
+ },
+ "cards_added": 0,
+ "flags": []
+}

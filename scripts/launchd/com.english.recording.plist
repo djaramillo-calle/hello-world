@@ -15,6 +15,10 @@
   <key>WatchPaths</key><array>
 __WATCH__
   </array>
+  <!-- Safety net: the ASR recorder creates a new day folder every day, which WatchPaths cannot see
+       until the installer is re-run — so the pipeline also polls every 10 minutes (idempotent: nothing
+       new → nothing done). -->
+  <key>StartInterval</key><integer>600</integer>
   <key>ThrottleInterval</key><integer>90</integer>
   <key>EnvironmentVariables</key><dict>
     <key>PATH</key><string>/opt/homebrew/bin:/usr/local/bin:/opt/node22/bin:/usr/bin:/bin</string>

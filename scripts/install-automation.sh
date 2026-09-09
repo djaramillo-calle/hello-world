@@ -36,12 +36,12 @@ mkdir -p "$AGENTS" "$HOME/.config/english-runbook"
 [ -f "$HOME/.config/english-runbook/env" ] || { touch "$HOME/.config/english-runbook/env"; chmod 600 "$HOME/.config/english-runbook/env"; }
 
 WATCH=()
-for d in "$HOME/EnglishPractice" "$HOME"/Library/CloudStorage/GoogleDrive-*/"My Drive/EnglishPractice"; do
+for d in "$HOME/EnglishPractice" "$HOME"/Library/CloudStorage/GoogleDrive-*/"My Drive/EnglishPractice" "$HOME"/Library/CloudStorage/GoogleDrive-*/"My Drive/com.nll.asr/EnglishPractice"; do
   [ -d "$d" ] || continue
   WATCH+=("$d")
-  for sub in "$d"/*/; do   # WatchPaths does not recurse: watch each subfolder (Recordings, …) explicitly
-    [ -d "$sub" ] && WATCH+=("${sub%/}")
-  done
+  while IFS= read -r sub; do   # WatchPaths does not recurse: watch every existing subfolder (Recordings/<device>/<yyyy>/<mm>/<dd>)
+    WATCH+=("$sub")
+  done < <(find "$d" -mindepth 1 -maxdepth 5 -type d -not -name '.*' 2>/dev/null)
 done
 [ "${#WATCH[@]}" -gt 0 ] || echo "warning: no EnglishPractice folder found yet (create ~/EnglishPractice or add the Drive account) — the recording watcher is NOT installed until you re-run this"
 

@@ -107,6 +107,13 @@ def pronunciation(rec, scripted):
         for w in gb.get("flagged_words") or []:
             item = {"word": w.get("word"), "accuracy": w.get("accuracy"), "error": w.get("error")}
             out["flagged"].append(item)
+        explained = {str(w.get("word", "")).lower() for w in (az.get("en_us_targets") or {}).get("phoneme_findings") or []}
+        for item in out["flagged"]:
+            w = str(item.get("word") or "").lower()
+            if w and w not in explained and item.get("error") == "Mispronunciation":
+                for c in classify_word(w):   # spelling-based fallback: "this" → th, "very" → b/v, …
+                    e = out["classes"].setdefault(c, {"n": 0, "words": []})
+                    if w not in e["words"]: e["n"] += 1; e["words"].append(w)
         for w in (az.get("en_us_targets") or {}).get("phoneme_findings") or []:
             for ph in w.get("phonemes") or []:
                 c = PH2CLASS.get(ph.get("ph"))

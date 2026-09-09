@@ -84,15 +84,23 @@ cap, deduplicated by front; `cards/queue.tsv` is the audit trail.
 
 ## Phone setup (one-off)
 
-1. A recorder app that saves to a fixed folder, with a filename you can type
-   at save time. Names: `eng read A00`, `eng read R03`, `eng ai`, `eng 432`,
-   `eng debrief`, `eng drill`. Case and separators do not matter.
-2. **Autosync for Google Drive** (MetaCtrl): one folder pair from that folder
-   to `My Drive/EnglishPractice/Recordings` in the udea account, upload-only, instant
-   sync on Wi-Fi and mobile. Free tier caps files at 10 MB — fine for reads
-   (3 min ≈ 2–3 MB); the Pro upgrade is needed for 20-minute conversations.
-   Easy Voice Recorder Pro's built-in Drive upload is the alternative.
+1. **ASR Voice Recorder** (NLL, `com.nll.asr`) with its Google Drive
+   auto-upload to the udea account. It uploads into its own tree:
+   `My Drive/com.nll.asr/EnglishPractice/Recordings/<device>/<yyyy>/<mm>/<dd>/`
+   — the Mac scans that tree recursively, and the recording agent polls it
+   every 10 minutes as well as watching the folders that exist at install
+   time (a new day folder is invisible to WatchPaths until then).
+2. **The file name carries the kind.** ASR's default name is a timestamp,
+   which the pipeline reads as `free` (a conversation: it would be harvested
+   for grammar, wrong for a read-aloud). Rename the recording in ASR right
+   after stopping, or set ASR to ask for a name: `eng read A00`, `eng read
+   R03`, `eng ai`, `eng 432`, `eng debrief`, `eng drill`. Case and separators
+   do not matter; the timestamp may stay in the name.
 3. Hub → Read shows today's passage, the exact filename, and the drill.
+
+Verified 2026-09-09 with the first test recording (32 s of Arendt, read
+aloud, un-named): Whisper transcript, fluency, Azure scores and flagged
+words all came through; the only thing missing was the name.
 
 ## Mac setup (one-off, after `docs/HUB.md`)
 
