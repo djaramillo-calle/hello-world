@@ -64,13 +64,15 @@ def summarise(resp):
     """Pull the capability facts out of one detailed-format response."""
     out = {"status": resp.get("RecognitionStatus"), "scores": {}, "words": 0, "miscues": 0, "phoneme_names": False, "prosody": False}
     nb = (resp.get("NBest") or [{}])[0]
-    pa = nb.get("PronunciationAssessment") or {}
+    # the REST short-audio endpoint returns the scores flat on the NBest item; the SDK nests them under PronunciationAssessment
+    pa = {**nb, **(nb.get("PronunciationAssessment") or {})}
     for k in ("AccuracyScore", "FluencyScore", "CompletenessScore", "ProsodyScore", "PronScore"):
         if k in pa: out["scores"][k] = pa[k]
     out["prosody"] = "ProsodyScore" in pa
+    out["nbest_keys"] = sorted(k for k in nb if k != "Words")
     for w in nb.get("Words") or []:
         out["words"] += 1
-        wpa = w.get("PronunciationAssessment") or {}
+        wpa = {**w, **(w.get("PronunciationAssessment") or {})}
         if wpa.get("ErrorType") not in (None, "None"): out["miscues"] += 1
         for ph in w.get("Phonemes") or []:
             if ph.get("Phoneme"): out["phoneme_names"] = True
@@ -114,6 +116,10 @@ def selftest():
                   {"Word": "thursday", "PronunciationAssessment": {"ErrorType": "Mispronunciation"}, "Phonemes": [{"Phoneme": "θ"}]}]}]}
     s = summarise(resp)
     assert s["scores"]["CompletenessScore"] == 100.0 and s["prosody"] and s["phoneme_names"] and s["miscues"] == 1 and s["words"] == 2, s
+    flat = {"RecognitionStatus": "Success", "NBest": [{"Display": "On Thursday I go.", "AccuracyScore": 95.0, "FluencyScore": 90.0,
+            "CompletenessScore": 100.0, "PronScore": 93.0, "Words": [{"Word": "thursday", "AccuracyScore": 40.0, "ErrorType": "Mispronunciation", "Phonemes": [{"Phoneme": "θ"}]}]}]}
+    s3 = summarise(flat)   # REST shape
+    assert s3["scores"]["CompletenessScore"] == 100.0 and s3["miscues"] == 1 and s3["phoneme_names"] and not s3["prosody"], s3
     s2 = summarise({"RecognitionStatus": "NoMatch"})
     assert s2["status"] == "NoMatch" and not s2["scores"] and not s2["prosody"], s2
     print("azure-check.py selftest: OK")
