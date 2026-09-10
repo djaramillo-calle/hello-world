@@ -64,6 +64,8 @@ def open_from_ankiweb(workdir, user, password, log=print):
     auth = col.sync_login(user, password, None)
     out = col.sync_collection(auth, False)
     if out.new_endpoint: auth.endpoint = out.new_endpoint
+    log(f"anki-cloud: first sync from an empty collection → required={R.ChangesRequired.Name(out.required)}"
+        + (f" · server says: {out.server_message}" if out.server_message else ""))
     if out.required in (R.FULL_SYNC, R.FULL_DOWNLOAD):
         log("anki-cloud: downloading the collection from AnkiWeb")
         col.close_for_full_sync()
@@ -125,7 +127,11 @@ def run(user, password, dry=False, check=False, log=print):
         try:
             did, fronts = deck_fronts(col)
             week = len(col.find_notes(f'"deck:{DECK}" added:7')) if did else 0
-            log(f"anki-cloud: collection downloaded — deck {DECK!r} {'found' if did else 'MISSING'}, {len(fronts)} notes, {week} added in the last 7 days")
+            total = len(col.find_notes("")); decks = [d.name for d in col.decks.all_names_and_ids()]
+            log(f"anki-cloud: collection state — {total} notes in {len(decks)} decks {decks[:8]}; deck {DECK!r} {'found' if did else 'MISSING'}, {len(fronts)} notes, {week} added in the last 7 days")
+            if total == 0:
+                log("anki-cloud: the AnkiWeb account holds NO collection yet (never synced from a desktop/AnkiDroid) — sync once from the desktop with this account first; this script never uploads a full collection")
+                if not check: return 4
             if check: return 0
             now = dt.datetime.now(dt.timezone.utc)
             added, room = add_cards(col, rows, now, dry, log)
