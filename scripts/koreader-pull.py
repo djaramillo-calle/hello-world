@@ -189,9 +189,10 @@ def fold(vocab_rows, daily_new, positions, kosync, today=None, vocab=None, daily
     if vocab_rows: vocab["synced"] = today.isoformat()
     for k, v in daily_new.items(): daily[k] = v
     by_md5 = {b.get("partial_md5"): b for b in books if b.get("partial_md5")}
+    progress.pop("null", None); progress.pop(None, None)   # an earlier version keyed unregistered books under null
     for p in positions.values():
         b = by_md5.get(p.get("md5"))
-        if not b:
+        if not b or not b.get("slug"):   # unregistered books (no slug) are listed in books.json but never get a progress entry
             if p.get("md5") and not any(x.get("title") == p["title"] for x in books):
                 books.append({"slug": None, "title": p["title"], "partial_md5": p["md5"], "passages": None, "seen": "statistics"})
             continue
