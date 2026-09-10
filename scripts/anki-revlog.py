@@ -62,6 +62,8 @@ def stats(db_path, deck=DECK, today=None, rollover_h=ROLLOVER_H):
         if wal.exists():
             shutil.copy2(wal, str(snap) + "-wal")
         con = sqlite3.connect(f"file:{snap}?mode=ro", uri=True)
+        # newer collections (schema 18, Anki 23.10+) declare a `unicase` collation on their indexes; sqlite needs one to exist
+        con.create_collation("unicase", lambda a, b: (a.casefold() > b.casefold()) - (a.casefold() < b.casefold()))
         try:
             qc = con.execute("pragma quick_check").fetchone()[0]
             if qc != "ok":

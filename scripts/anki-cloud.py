@@ -39,12 +39,14 @@ def ensure_anki():
     except ImportError:
         pass
     py = VENV / "bin" / "python"
-    if not py.exists():
+    if os.environ.get("ANKI_CLOUD_REEXEC"):
+        sys.exit("anki-cloud: the anki library is still missing inside .venv-anki (delete the folder and run again)")
+    if not (VENV / "pyvenv.cfg").exists():
         print("anki-cloud: creating .venv-anki and installing the anki library (one-off, ~1 min)…", flush=True)
         subprocess.run([sys.executable, "-m", "venv", str(VENV)], check=True)
+    if not (VENV / "lib").exists() or not any(VENV.glob("lib/python*/site-packages/anki")):
         subprocess.run([str(py), "-m", "pip", "install", "-q", "anki"], check=True)
-    if pathlib.Path(sys.executable).resolve() == py.resolve():
-        sys.exit("anki-cloud: the anki library is still missing inside .venv-anki")
+    os.environ["ANKI_CLOUD_REEXEC"] = "1"
     os.execv(str(py), [str(py)] + sys.argv)
 
 def tls_env():
@@ -164,10 +166,13 @@ def selftest():
         old = [{"id": f"o{i}", "created": "2026-09-09T00:00:00Z", "added_at": "2026-09-09T00:00:00Z", "front": f"old {i}", "back": "x", "status": "added"} for i in range(23)]
         rows2 = old + [{"id": "c4", "created": "2026-09-10T00:00:00Z", "front": "Say it: c", "back": "c", "tags": "auto", "status": "queued"}]
         added, room = add_cards(col, rows2, now, log=lambda *a: None)
-        assert room == 0 and added == [], "23 from the queue + 2 already in the deck this week = cap reached: %r" % room
+        assert room == 2 and [r["id"] for r in added] == ["c4"], "the cap counts max(queue rows added this week, deck notes added this week) = 23 → room 2: %r" % room
+        rows3 = [dict(r) for r in old] + [{"id": f"q{i}", "created": "2026-09-10T00:00:00Z", "front": f"Say it: q{i}", "back": "q", "tags": "auto", "status": "queued"} for i in range(4)]
+        added, room = add_cards(col, rows3, now, log=lambda *a: None)
+        assert room == 2 and len(added) == 2 and rows3[-1]["status"] == "queued", "only the room is filled; the rest stays queued: %r" % [r["status"] for r in rows3[-4:]]
         col.close()
         rv = _load("anki-revlog"); s = rv.stats(pathlib.Path(td) / "collection.anki2", DECK, dt.date(2026, 9, 10))
-        assert s["counts"]["total"] == 2 and s["counts"]["new"] == 2, s["counts"]
+        assert s["counts"]["total"] == 5 and s["counts"]["new"] == 5, s["counts"]   # a, b, c4, q0, q1
     print("anki-cloud.py selftest: OK")
 
 def main():
