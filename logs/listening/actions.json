@@ -36,5 +36,49 @@
 "started": 0,
 "position": 51,
 "total": 2868
+},
+{
+"podcast": "https://raw.githubusercontent.com/djaramillo-calle/hello-world/claude/adult-language-learning-gnk7i1/feeds/arendt-origins.xml",
+"episode": "http://open.live.bbc.co.uk/mediaselector/6/redir/version/2.0/mediaset/audio-nondrm-download-rss/proto/http/vpid/p0kbwwn5.mp3",
+"guid": null,
+"action": "play",
+"timestamp": "2026-09-10T16:31:00",
+"device": "poco",
+"started": 31,
+"position": 1631,
+"total": 2868
+},
+{
+"podcast": "https://raw.githubusercontent.com/djaramillo-calle/hello-world/claude/adult-language-learning-gnk7i1/feeds/arendt-origins.xml",
+"episode": "http://open.live.bbc.co.uk/mediaselector/6/redir/version/2.0/mediaset/audio-nondrm-download-rss/proto/http/vpid/p0kbwwn5.mp3",
+"guid": null,
+"action": "play",
+"timestamp": "2026-09-10T16:35:19",
+"device": "poco",
+"started": 31,
+"position": 1879,
+"total": 2868
+},
+{
+"podcast": "https://raw.githubusercontent.com/djaramillo-calle/hello-world/claude/adult-language-learning-gnk7i1/feeds/arendt-origins.xml",
+"episode": "http://open.live.bbc.co.uk/mediaselector/6/redir/version/2.0/mediaset/audio-nondrm-download-rss/proto/http/vpid/p0kbwwn5.mp3",
+"guid": null,
+"action": "play",
+"timestamp": "2026-09-10T16:43:28",
+"device": "poco",
+"started": 31,
+"position": 2352,
+"total": 2868
+},
+{
+"podcast": "https://raw.githubusercontent.com/djaramillo-calle/hello-world/claude/adult-language-learning-gnk7i1/feeds/arendt-origins.xml",
+"episode": "http://open.live.bbc.co.uk/mediaselector/6/redir/version/2.0/mediaset/audio-nondrm-download-rss/proto/http/vpid/p0kbwwn5.mp3",
+"guid": null,
+"action": "play",
+"timestamp": "2026-09-10T16:46:57",
+"device": "poco",
+"started": 31,
+"position": 2495,
+"total": 2868
 }
 ]

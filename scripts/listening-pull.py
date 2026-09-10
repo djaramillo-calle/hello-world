@@ -13,9 +13,11 @@ Outputs:
   logs/listening/daily.json     {date: {"min": attended minutes, "episodes": n}}
   logs/listening/state.json     {"since": <server timestamp>} so each pull is incremental
 
-AntennaPod enqueues a `play` action on every pause and at playback end with
-`started`/`position` seconds, so position-started is time actually played,
-not episode length. Minutes are LOAD (attended listening), never a score.
+AntennaPod enqueues a `play` action on every pause, at playback end and on
+every sync while playing, with `started`/`position` seconds. A running session
+is re-reported with the same `started` and a growing `position`, so the day's
+minutes are the union of each episode's spans (each second counted once), not
+the sum. Minutes are LOAD (attended listening), never a score.
 Standard library only (urllib) so it runs on the Mac's stock python3 too.
 """
 import base64, datetime as dt, json, os, pathlib, sys, urllib.request
@@ -47,7 +49,11 @@ def action_key(a):
     return f"{a.get('episode')}|{a.get('timestamp')}|{a.get('started')}|{a.get('position')}"
 
 def bucket(actions, zone=None):
-    daily = {}
+    """Attended seconds per local day: the UNION of each episode's [started, position] spans.
+    AntennaPod re-reports a running session on every sync with the same `started` and a
+    growing `position` (31→1631, 31→1879, 31→2352 ...), so summing spans multiplies the
+    same minutes; merging overlapping spans per episode counts each second once."""
+    spans = {}
     for a in actions:
         if a.get("action") != "play":
             continue
@@ -59,13 +65,26 @@ def bucket(actions, zone=None):
         if zone:
             t = t.astimezone(zone)
         try:
-            secs = max(0, int(a.get("position") or 0) - int(a.get("started") or 0))
+            lo, hi = int(a.get("started") or 0), int(a.get("position") or 0)
         except (TypeError, ValueError):
             continue
-        day = daily.setdefault(t.date().isoformat(), {"sec": 0, "episodes": set()})
-        day["sec"] += secs
-        day["episodes"].add(a.get("episode"))
-    return {k: {"min": round(v["sec"] / 60), "episodes": len(v["episodes"])} for k, v in sorted(daily.items())}
+        if hi <= lo:
+            continue
+        spans.setdefault(t.date().isoformat(), {}).setdefault(a.get("episode"), []).append((lo, hi))
+    daily = {}
+    for day, eps in spans.items():
+        sec = 0
+        for ranges in eps.values():
+            cur_lo = cur_hi = None
+            for lo, hi in sorted(ranges):
+                if cur_hi is None or lo > cur_hi:
+                    if cur_hi is not None: sec += cur_hi - cur_lo
+                    cur_lo, cur_hi = lo, hi
+                else:
+                    cur_hi = max(cur_hi, hi)
+            if cur_hi is not None: sec += cur_hi - cur_lo
+        daily[day] = {"sec": sec, "episodes": len(eps)}
+    return {k: {"min": round(v["sec"] / 60), "episodes": v["episodes"]} for k, v in sorted(daily.items())}
 
 def merge(out, new_actions, server_ts):
     out.mkdir(parents=True, exist_ok=True)
@@ -87,13 +106,19 @@ def selftest():
         {"podcast": "p", "episode": "e1", "device": "poco", "action": "play", "timestamp": "2026-09-08T12:31:00", "started": 900, "position": 1500, "total": 2700},
         {"podcast": "p", "episode": "e2", "device": "poco", "action": "download", "timestamp": "2026-09-08T12:31:00"},
         {"podcast": "p", "episode": "e2", "device": "poco", "action": "play", "timestamp": "2026-09-09T23:30:00", "started": 0, "position": 600, "total": 1800},
+        # AntennaPod re-reports one running session with the same start and a growing position: count it once
+        {"podcast": "p", "episode": "e3", "device": "poco", "action": "play", "timestamp": "2026-09-11T16:31:00", "started": 31, "position": 1631, "total": 2868},
+        {"podcast": "p", "episode": "e3", "device": "poco", "action": "play", "timestamp": "2026-09-11T16:35:19", "started": 31, "position": 1879, "total": 2868},
+        {"podcast": "p", "episode": "e3", "device": "poco", "action": "play", "timestamp": "2026-09-11T16:43:28", "started": 31, "position": 2495, "total": 2868},
+        {"podcast": "p", "episode": "e3", "device": "poco", "action": "play", "timestamp": "2026-09-11T17:20:00", "started": 2600, "position": 2868, "total": 2868},
     ], "timestamp": 1757430000}
     d = bucket(sample["actions"], local_zone())
     assert d["2026-09-08"]["min"] == 25 and d["2026-09-08"]["episodes"] == 1, d
     assert d["2026-09-10"]["min"] == 10, d   # 23:30 UTC on the 9th is 00:30 BST on the 10th
+    assert d["2026-09-11"]["min"] == 46 and d["2026-09-11"]["episodes"] == 1, d   # (2495-31)+(2868-2600) = 2732 s ≈ 46′, not 6913 s
     with tempfile.TemporaryDirectory() as td:
         out = pathlib.Path(td)
-        assert merge(out, sample["actions"], sample["timestamp"]) == 4
+        assert merge(out, sample["actions"], sample["timestamp"]) == 8
         assert merge(out, sample["actions"], sample["timestamp"]) == 0, "idempotent"
         assert json.loads((out / "state.json").read_text())["since"] == 1757430000
     print("listening-pull.py selftest: OK")

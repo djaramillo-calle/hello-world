@@ -101,3 +101,39 @@ make review data visible. tracking.tsv: still no baseline row.
 
 **Register note**: all evidence remains written/technical; still no
 past-tense or social sample.
+
+---
+
+## 2026-09-10 — daily review (chat harvest, sessions of 2026-09-09/10)
+
+**Status changes**
+- Subject–verb agreement (3rd-person *-s*): **WATCHING → PATTERN**. Two
+  independent occurrences in one day: "an app that **connect** to kindle" →
+  *connects*; "if that **automate** everything" → *automates*. Both after a
+  relative/demonstrative subject (*that*), which is where the *-s* drops.
+- Article omission (PROMOTED, open): 4th occurrence — "optimise **∅**
+  likelihood of adherence" → *the likelihood*. Same profile as before:
+  abstract noun after a verb.
+- NEW `WATCHING` — preposition of place with devices: "a reading **in** the
+  phone" → *on the phone* (L1: *en el teléfono*).
+- NEW `WATCHING` — modal dropped in a question: "How **∅** that be easier?"
+  → *How would that be easier?*
+- NEW `WATCHING` — participle reduced to base form: "the epubs and
+  **process** files" → *processed files*.
+- NEW `WATCHING` — object dropped after a transitive verb: "can I **limit ∅**
+  to the folder we need?" → *limit **it** to*.
+- Typo bucket (not counted): "comprenhensive", "crendtials", "enviroment",
+  "drice", "acces", "somethinglike", "FOr".
+
+**Strengths**: "if it fits smoothly into the hub" (natural phrasal
+collocation, no Latinate substitute); "optimise likelihood of adherence"
+(precise abstract vocabulary); "Simplify and be more granular"; "step by
+step" as a bare instruction — clear, idiomatic imperative register.
+
+**Cards queued** (2, production format; the agreement pattern is now
+card-worthy):
+- "Say it: I need an app that ___ to Kindle. (connect)" → **connects**
+- "Say it: If that ___ everything, I'll add it. (automate)" → **automates**
+
+**Register note**: all evidence is still written and technical, chat only.
+Nothing here goes into tracking.tsv.
