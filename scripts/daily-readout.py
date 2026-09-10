@@ -16,7 +16,18 @@ adherence, not ability — nothing here is a score.
 import datetime as dt, json, pathlib, sys
 
 REPO = pathlib.Path(__file__).resolve().parent.parent
-FLOOR = {"conversations": 2, "srs_days": 5, "listening_days": 5, "recordings": 1}
+FLOOR = {"conversations": 2, "srs_days": 5, "listening_days": 5, "recordings": 1}   # stage 3, the full runbook
+STAGE_FLOORS = {1: {"srs_days": 5, "recordings": 5}, 2: {"srs_days": 5, "recordings": 5, "conversations": 1, "listening_days": 3}, 3: FLOOR}
+STAGE_PLAN = {
+    1: ["06:45 SRS aloud on the phone, then ONE page read aloud, recorded (from KOReader; Monday = the anchor A00). That is the whole day."] * 7,
+    2: ["06:45 SRS aloud + one recorded page (Monday: anchor) · 13:00 narrow listening 15′", "06:45 SRS aloud + one recorded page · 17:20 AI voice conversation (Hub → Talk) 20′",
+        "06:45 SRS aloud + one recorded page · 13:00 narrow listening 15′", "06:45 SRS aloud + one recorded page · 13:00 narrow listening 15′",
+        "06:45 SRS aloud + one recorded page · week close (Hub → Log)", "one recorded page, or rest", "one recorded page, or rest"],
+}
+def stage_of(repo):
+    d = load_json(repo / "logs/stage.json", {}) if isinstance(repo, pathlib.Path) else {}
+    try: return max(1, min(3, int(d.get("stage") or 3)))
+    except (TypeError, ValueError): return 3
 DAYN = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 PLAN = {
     0: "06:45 SRS aloud + read the ANCHOR (record: eng read A00) · 13:00 narrow listening 20′ · 17:20 narrow reading + harvest",
@@ -106,12 +117,19 @@ def readout(repo=REPO, today=None):
     wk = week_load(D, monday(today), today)
     last = week_load(D, monday(today) - dt.timedelta(days=7), monday(today) - dt.timedelta(days=1))
     flags = []
+    stage = stage_of(repo); floors = STAGE_FLOORS[stage]
     zero = streak(D, today, lambda x: not x["logged"])
     if zero >= 2: flags.append(f"{zero} days with no data at all — two zero days is the runbook's red line (an MVD is a full green day)")
-    nospeak = streak(D, today, lambda x: x["conversations"] == 0 and x["talk_min"] == 0 and x["recordings"] == 0)
-    if nospeak >= 2: flags.append(f"{nospeak} days without speaking beyond SRS — the AI option is mandatory today")
-    if last["days"] and last["conversations"] < FLOOR["conversations"] and wk["days"] >= 4 and wk["conversations"] < FLOOR["conversations"]:
-        flags.append("second consecutive week heading below the conversation floor — Thursday → 20′ AI is non-negotiable")
+    if stage == 1:
+        noread = streak(D, today, lambda x: not x["recordings"])
+        if noread >= 2: flags.append(f"{noread} days without a recorded page — the one habit of stage 1; today's page is the whole day")
+        rs = streak(D, today, lambda x: x["recordings"] > 0)
+        if rs >= 21 and last["days"] and last["recordings"] >= 5: flags.append(f"read-aloud streak {rs} days — the stage-1 rule is met: propose stage 2 (one AI conversation a week + listening)")
+    else:
+        nospeak = streak(D, today, lambda x: x["conversations"] == 0 and x["talk_min"] == 0 and x["recordings"] == 0)
+        if nospeak >= 2: flags.append(f"{nospeak} days without speaking beyond SRS — the AI option is mandatory today")
+        if "conversations" in floors and last["days"] and last["conversations"] < floors["conversations"] and wk["days"] >= 4 and wk["conversations"] < floors["conversations"]:
+            flags.append("second consecutive week heading below the conversation floor — Thursday → 20′ AI is non-negotiable")
     leech = len(D["anki"].get("leech_candidates", []) or [])
     if leech: flags.append(f"{leech} leech candidate(s) in the deck — suspend or reformulate at the next local session")
     if not s: flags.append("PRE-SEASON: no baseline row — the season clock has not started")
@@ -123,7 +141,8 @@ def readout(repo=REPO, today=None):
         except ValueError: pass
     if stale is not None and stale > 7: flags.append(f"Anki export is {stale} days old — SRS days are coming from check-ins only")
     return {"date": today.isoformat(), "weekday": DAYN[today.weekday()], "season": s, "dial": D["dial"], "yesterday": y, "week": wk,
-            "last_week": last, "flags": flags, "plan": PLAN[today.weekday()], "recent_sessions": recent, "floors": FLOOR}
+            "last_week": last, "flags": flags, "plan": (STAGE_PLAN[stage][today.weekday()] if stage in STAGE_PLAN else PLAN[today.weekday()]),
+            "recent_sessions": recent, "floors": floors, "stage": stage}
 
 def fmt(R):
     s = R["season"]; out = []
@@ -139,7 +158,10 @@ def fmt(R):
     if y["recordings"]: ybits.append(f"recordings {y['recordings']}")
     out.append("yesterday: " + (" · ".join(ybits) if ybits else "nothing logged"))
     w = R["week"]; F = R["floors"]
-    out.append(f"week to date ({w['days']}d): conversations {w['conversations']}/{F['conversations']} ({w['human']} human) · SRS days {w['srs_days']}/{F['srs_days']} · listening days {w['listening_days']}/{F['listening_days']} · recordings {w['recordings']}/{F['recordings']} · AI talk {w['talk_min']}′ · reading {round(w['reading_min'])}′")
+    if R.get("stage", 3) == 1:
+        out.append(f"stage 1 · week to date ({w['days']}d): recorded pages {w['recordings']}/{F['recordings']} · SRS days {w['srs_days']}/{F['srs_days']} · reading {round(w['reading_min'])}′")
+    else:
+        out.append(f"stage {R.get('stage', 3)} · week to date ({w['days']}d): conversations {w['conversations']}/{F.get('conversations', '-')} ({w['human']} human) · SRS days {w['srs_days']}/{F['srs_days']} · listening days {w['listening_days']}/{F.get('listening_days', '-')} · recordings {w['recordings']}/{F['recordings']} · AI talk {w['talk_min']}′ · reading {round(w['reading_min'])}′")
     lw = R["last_week"]
     if lw["days"]: out.append(f"last week: conversations {lw['conversations']} · SRS days {lw['srs_days']} · listening days {lw['listening_days']} · recordings {lw['recordings']}")
     for sess in R["recent_sessions"][:2]:
@@ -172,6 +194,11 @@ def selftest():
         assert "season week 1/12" in txt and "article omission" in txt and "today: 06:45 SRS" in txt, txt
         R2 = readout(repo, dt.date(2026, 9, 20))
         assert any("days without speaking" in f for f in R2["flags"]), R2["flags"]
+        (repo / "logs/stage.json").write_text(json.dumps({"stage": 1}))
+        R3 = readout(repo, dt.date(2026, 9, 20))
+        assert R3["stage"] == 1 and R3["floors"] == {"srs_days": 5, "recordings": 5} and "ONE page" in R3["plan"], R3["plan"]
+        assert not any("without speaking" in f for f in R3["flags"]) and any("without a recorded page" in f for f in R3["flags"]), R3["flags"]
+        assert "stage 1 · week to date" in fmt(R3)
     print("daily-readout.py selftest: OK")
 
 def main():

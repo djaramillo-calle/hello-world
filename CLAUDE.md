@@ -203,6 +203,12 @@ from an adversarially-verified tool investigation (workflow, 12 agents).
   chart). Rebuild after every diagnostic and every Friday review; publish
   the wrapper-stripped copy to the existing artifact URL:
   https://claude.ai/code/artifact/43e3b4e1-75f6-45d4-b1e5-ba4b04a0c1ef
+- **Stages** (`logs/stage.json`, `docs/COACH.md`): 1 = SRS + one recorded
+  page a day (floors: recorded pages 5, SRS days 5); 2 adds one AI
+  conversation + listening; 3 = the full runbook. Stage 1 since 2026-09-10
+  at the user's request. The readout, the weekly rollup and the Hub's Today
+  tab follow the stage; promotion is proposed by the Friday review and
+  confirmed by the user in chat. Not a lever.
 - `scripts/check.sh` — one command: jsdom suite + all Python self-tests.
   Run before committing tooling changes.
 - Friday Routine (trig_01Quw9v6zvapu6kkvperUVPL) now: pull → digest →

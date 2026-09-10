@@ -18,6 +18,18 @@ levers move only under `docs/TARGET.md` at time trials, and only one per cycle.
 | The user taps "Import a book…" (Read tab) | Hub page | stores `book/*` + `meta/book`, points `book_next` at B001 | the Read tab serves the book |
 | Any chat with the user | Any session | harvest English passively (`observations.md` rules); never correct unsolicited | `observations.md` |
 
+## Stages (adherence first) — `logs/stage.json`, mirrored to the Hub's `meta/config.stage`
+
+| Stage | The day | Floors per week | Promotion rule |
+|---|---|---|---|
+| **1** (from 2026-09-10) | 06:45: SRS aloud on the phone, then one page read aloud, recorded. Nothing else is prescribed. Mondays the page is the anchor. | recorded pages ≥ 5 · SRS days ≥ 5 | reading held ≥ 5 days/week for 3 consecutive weeks → the Friday review proposes stage 2 |
+| **2** | + one AI conversation (Tuesday, Hub → Talk, 20′) + narrow listening 15′ on 3 days; the pronunciation drill appears before the page when the ledger flags a class on 2+ recordings | + conversations ≥ 1 · listening days ≥ 3 | 3 weeks with the AI conversation kept → stage 3 |
+| **3** | the full runbook (`routine.html`): tutor Thursday, 4/3/2 Friday, dial slot Wednesday | conversations ≥ 2 (≥ 1 human) · SRS 5 · listening 5 · recordings ≥ 1 | — |
+
+A stage change is not a plan lever (pre-season staging is in the plan); the user confirms it in
+chat ("stage 2") and the coach flips `logs/stage.json` + `meta/config.stage`. The miss rule at
+every stage: one missed day costs nothing; two in a row is the only red line, and the readout says so.
+
 ## What the coach decides on its own (harvest level, no gate)
 
 - **Cards:** every source queues production cards (`cards/queue.tsv`); the cloud pushes them to

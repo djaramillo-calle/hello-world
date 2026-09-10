@@ -238,6 +238,8 @@
       <div class="field"><label for="topic">This week's topic</label><input type="text" id="topic" placeholder="e.g. how my team plans a release"></div>
       <div class="field"><label for="dial">Dial</label>
         <select id="dial"><option>DEFAULT</option><option>DECODE</option><option>AUTOMATIZE</option><option>RANGE</option><option>USE</option></select></div>
+      <div class="field"><label for="stage">Stage</label>
+        <select id="stage"><option value="1">1 · SRS + one recorded page</option><option value="2">2 · + AI conversation, listening</option><option value="3">3 · full runbook</option></select></div>
     </div>
     <div class="field"><label for="crutch">Crutch words to ban (RANGE dial)</label><input type="text" id="crutch" placeholder="comma-separated, e.g. very, thing, good"></div>
     <p class="small soft" style="margin:0">The standing brief is applied automatically: no reformulations, "sorry, what do you mean?" on breakdowns, three repeated errors every ten turns, pushback on opinions. Replies are kept short so they can be spoken.</p>
@@ -380,6 +382,24 @@
     6: [["09:30", "Time-trial Saturdays only: Signal Check, rested", 60], ["—", "Optional: one personal-circle conversation", 0]],
     0: [["—", "Optional: personal-circle conversation · monthly authentic-audio check", 0]]
   };
+  /* Adherence stages (docs/COACH.md): 1 = SRS + one recorded page a day; 2 adds one AI conversation + listening; 3 = the full runbook. */
+  var PAGE = function (wd) { return ["06:45", wd === 1 ? "SRS aloud on the phone, then the ANCHOR passage read aloud, recorded (Read tab)" : "SRS aloud on the phone, then ONE page read aloud, recorded (KOReader or the Read tab)", 10, "read"]; };
+  var STAGES = {
+    1: { name: "stage 1 · SRS + one recorded page", floors: { srs_days: 5, recordings: 5 }, slots: function (wd) { return [PAGE(wd)]; } },
+    2: { name: "stage 2 · + AI conversation, listening", floors: { srs_days: 5, recordings: 5, conversations: 1, listening_days: 3 }, slots: function (wd) {
+      var b = [PAGE(wd)];
+      if (wd === 2) b.push(["17:20", "AI voice conversation, standing brief (Talk tab)", 20, "talk"]);
+      else if (wd >= 1 && wd <= 4) b.push(["13:00", "Narrow listening, current topic", 15]);
+      if (wd === 5) b.push(["18:15", "Week close (Log tab)", 2]);
+      return b; } },
+    3: { name: "stage 3 · full runbook", floors: FLOOR, slots: function (wd) { return WEEK[wd].slice(); } }
+  };
+  function stageNo() { var n = +cfg.stage || 1; return STAGES[n] ? n : 1; }
+  function readDates() {
+    var set = {};
+    if (ledgerDoc) ["anchor", "reads"].forEach(function (k) { (ledgerDoc[k] || []).forEach(function (e) { if (e && e.date) set[String(e.date).slice(0, 10)] = e; }); });
+    return set;
+  }
   var WED_DIAL = {
     DECODE: "Minimal-pair / HVPT drill on your own dictation errors — ≥4 voices, instant feedback",
     AUTOMATIZE: "Second 4/3/2 run — same task as Tuesday's AI session, recorded",
@@ -389,7 +409,7 @@
 
   /* ---------- state ---------- */
   var db = null, sample = null;
-  var cfg = { dial: "DEFAULT", topic: "", crutch: "", baseline: "", tutor_day: 4, book_next: "", book_read: 0 };
+  var cfg = { dial: "DEFAULT", topic: "", crutch: "", baseline: "", tutor_day: 4, book_next: "", book_read: 0, stage: 1 };
   var days = {};        // iso -> doc
   var sessions = [];    // newest first
   var unsub = [];
@@ -439,17 +459,24 @@
   /* ---------- today ---------- */
   function renderToday() {
     var wd = today.getDay();
-    $("today-title").textContent = DAYN[wd] + " " + iso(today) + (wd === 5 ? " · rest day, week close" : "");
-    var slots = WEEK[wd].slice();
-    if (wd === 3 && WED_DIAL[cfg.dial]) slots[2] = ["17:20", WED_DIAL[cfg.dial] + " + harvest", 20, "dial"];
-    if (wd === 0 && cfg.dial === "USE") slots = [["—", "USE dial: the personal-circle conversation is expected and logged this week", 0]];
+    var sn = stageNo(), ST = STAGES[sn];
+    $("today-title").textContent = DAYN[wd] + " " + iso(today) + " · " + ST.name + (sn === 3 && wd === 5 ? " · rest day, week close" : "");
+    var slots = ST.slots(wd);
+    if (sn === 3 && wd === 3 && WED_DIAL[cfg.dial]) slots[2] = ["17:20", WED_DIAL[cfg.dial] + " + harvest", 20, "dial"];
+    if (sn === 3 && wd === 0 && cfg.dial === "USE") slots = [["—", "USE dial: the personal-circle conversation is expected and logged this week", 0]];
     $("today-slots").innerHTML = slots.map(function (s) {
       var cls = s[3] === "talk" ? "talkc" : s[3] === "dial" ? "dialc" : s[3] === "read" ? "readc" : "";
       return '<div class="slot"><span class="t">' + s[0] + '</span><span class="' + cls + '">' + s[1] + "</span><span class=\"m\">" + (s[2] ? s[2] + "′" : "") + "</span></div>";
-    }).join("") + '<div class="slot"><span class="t">20:45</span><span>Before-bed cards, aloud</span><span class="m">5′</span></div>';
+    }).join("") + (sn === 3 ? '<div class="slot"><span class="t">20:45</span><span>Before-bed cards, aloud</span><span class="m">5′</span></div>' : "");
 
-    var y = days[iso(addDays(today, -1))];
-    $("yesterday").innerHTML = y ? describeDay(y) : "Nothing logged for " + iso(addDays(today, -1)) + ". Two blank days in a row is the signal, not one.";
+    var yk = iso(addDays(today, -1)), y = days[yk], R = readDates(), yr = R[yk];
+    var parts = [];
+    if (y) parts.push(describeDay(y));
+    if (yr) parts.push("read-aloud scored" + (yr.accuracy != null ? ": accuracy " + Math.round(yr.accuracy) + "%" : "") + (yr.fluency != null ? ", fluency " + Math.round(yr.fluency) + "%" : "") + (yr.passage ? " (" + yr.passage + ")" : ""));
+    var streak = 0, d = R[iso(today)] || (days[iso(today)] && days[iso(today)].recording) ? today : addDays(today, -1);
+    while (streak < 365) { var k = iso(d); if (R[k] || (days[k] && days[k].recording)) { streak++; d = addDays(d, -1); } else break; }
+    if (streak) parts.push("streak: " + streak + " day" + (streak > 1 ? "s" : "") + " with a recorded page");
+    $("yesterday").innerHTML = parts.length ? parts.join(" · ") : "Nothing logged for " + yk + ". One missed day costs nothing; two in a row is the signal.";
   }
   function describeDay(d) {
     var bits = [];
@@ -467,7 +494,7 @@
 
   /* ---------- week ---------- */
   function weekStats(mon) {
-    var st = { conversations: 0, human: 0, srs_days: 0, listening_days: 0, recordings: 0, listen_min: 0, talk_min: 0, days: [] };
+    var st = { conversations: 0, human: 0, srs_days: 0, listening_days: 0, recordings: 0, listen_min: 0, talk_min: 0, days: [] }, R = readDates();
     for (var i = 0; i < 7; i++) {
       var k = iso(addDays(mon, i)), d = days[k] || null;
       var c = d && d.conversations || {};
@@ -476,7 +503,7 @@
       if (d && d.srs) st.srs_days++;
       if (d && d.listen_min >= 10) st.listening_days++;
       st.listen_min += d && d.listen_min || 0;
-      if (d && d.recording) st.recordings++;
+      if ((d && d.recording) || R[k]) st.recordings++;
       st.talk_min += d && d.talk_min || 0;
       st.days.push({ k: k, d: d });
     }
@@ -487,12 +514,13 @@
     return '<div class="tile ' + (ok ? "ok" : "short") + '"><div class="k">' + k + '</div><div class="v">' + v + " <small>/ " + floor + "</small></div><div class=\"s\">" + (ok ? "floor met" : sub || "below floor") + "</div></div>";
   }
   function renderWeek() {
-    var st = weekStats(monday(today));
-    $("week-tiles").innerHTML =
-      tile("Conversations", st.conversations, FLOOR.conversations, st.human ? "" : "none human yet") +
-      tile("SRS days", st.srs_days, FLOOR.srs_days) +
-      tile("Listening days", st.listening_days, FLOOR.listening_days, st.listen_min + "′ so far") +
-      tile("Recordings", st.recordings, FLOOR.recordings);
+    var st = weekStats(monday(today)), sn = stageNo(), F = STAGES[sn].floors, html = "";
+    if (sn === 1) html = tile("Recorded pages", st.recordings, F.recordings) + tile("SRS days", st.srs_days, F.srs_days);
+    else if (sn === 2) html = tile("Recorded pages", st.recordings, F.recordings) + tile("SRS days", st.srs_days, F.srs_days) +
+      tile("AI conversations", st.conversations, F.conversations) + tile("Listening days", st.listening_days, F.listening_days, st.listen_min + "′ so far");
+    else html = tile("Conversations", st.conversations, F.conversations, st.human ? "" : "none human yet") + tile("SRS days", st.srs_days, F.srs_days) +
+      tile("Listening days", st.listening_days, F.listening_days, st.listen_min + "′ so far") + tile("Recordings", st.recordings, F.recordings);
+    $("week-tiles").innerHTML = html;
   }
 
   /* ---------- 28-day table + chart ---------- */
@@ -750,15 +778,15 @@
     cfg.baseline = $("baseline").value || ""; cfg.tutor_day = +$("tutor-day").value; saveCfg($("cfg-status"));
   });
   function saveCfg(statusEl) {
-    cfg.dial = $("dial").value; cfg.topic = $("topic").value.trim(); cfg.crutch = $("crutch").value.trim();
+    cfg.dial = $("dial").value; cfg.topic = $("topic").value.trim(); cfg.crutch = $("crutch").value.trim(); cfg.stage = +$("stage").value || 1;
     renderAll();
     if (!db) { if (statusEl) statusEl.textContent = "not saved — open from the artifact link"; return; }
     db.doc("meta/config").set(Object.assign({ updated: new Date().toISOString() }, cfg)).then(function () { if (statusEl) statusEl.textContent = "saved"; },
       function (e) { if (statusEl) statusEl.textContent = "save failed (" + e.code + ")"; });
   }
-  ["dial", "topic", "crutch"].forEach(function (id) { $(id).addEventListener("change", function () { saveCfg(null); }); });
+  ["dial", "topic", "crutch", "stage"].forEach(function (id) { $(id).addEventListener("change", function () { saveCfg(null); }); });
   function fillCfg() {
-    $("dial").value = cfg.dial || "DEFAULT"; $("topic").value = cfg.topic || ""; $("crutch").value = cfg.crutch || "";
+    $("dial").value = cfg.dial || "DEFAULT"; $("topic").value = cfg.topic || ""; $("crutch").value = cfg.crutch || ""; $("stage").value = String(stageNo());
     $("baseline").value = cfg.baseline || ""; $("tutor-day").value = String(cfg.tutor_day || 4);
   }
 
@@ -924,10 +952,11 @@
     var y = days[iso(addDays(today, -1))];
     var prompt = "You are the coach for an adult English learner's training program (treat it like a running plan: load, floors, one lever per cycle). Today is " + DAYN[today.getDay()] + " " + iso(today) + ". " +
       (s && s.week >= 1 && s.week <= 12 ? "Season week " + s.week + " of 12; next time trial " + iso(s.nextDate) + "." : "PRE-SEASON: baseline not run yet.") + " Dial: " + cfg.dial + ".\n" +
-      "Week-to-date load (Mon–today): conversations " + st.conversations + "/2 (human " + st.human + "), SRS days " + st.srs_days + "/5, listening days " + st.listening_days + "/5 (" + st.listen_min + " min), recordings " + st.recordings + "/1, AI talk " + st.talk_min + " min.\n" +
+      "Adherence " + STAGES[stageNo()].name + "; the floors this week are " + JSON.stringify(STAGES[stageNo()].floors) + " (stage 1 prescribes nothing but SRS and one recorded page a day; do not ask for conversations or listening before stage 2).\n" +
+      "Week-to-date load (Mon–today): conversations " + st.conversations + " (human " + st.human + "), SRS days " + st.srs_days + ", listening days " + st.listening_days + " (" + st.listen_min + " min), recorded pages " + st.recordings + ", AI talk " + st.talk_min + " min.\n" +
       "Last week: conversations " + last.conversations + ", SRS days " + last.srs_days + ", listening days " + last.listening_days + ", recordings " + last.recordings + ".\n" +
       "Yesterday: " + (y ? describeDay(y) : "nothing logged") + ".\nRecent AI sessions:\n" + (recent || "none") + "\n" +
-      "Today's plan: " + WEEK[today.getDay()].map(function (x) { return x[0] + " " + x[1]; }).join("; ") + ".\n" +
+      "Today's plan: " + STAGES[stageNo()].slots(today.getDay()).map(function (x) { return x[0] + " " + x[1]; }).join("; ") + ".\n" +
       "Write the morning readout in at most 4 short lines, plain text: (1) load status vs floors in one line, (2) the one thing that matters today and why, (3) one specific error pattern or strength to carry into today's speaking, if the sessions show one, (4) a straight, unsentimental note if something is slipping. No praise, no emojis, no headings.";
     $("readout-status").textContent = "thinking…"; $("readout").hidden = false; $("readout").textContent = "";
     sample(prompt, { modelTier: "quick", cache: false, onText: function (u) { $("readout").textContent = u.text; } }).then(function (r) { $("readout").textContent = r.text; $("readout-status").textContent = ""; },
@@ -947,7 +976,7 @@
       if (snap.exists) { cfg = Object.assign(cfg, snap.data()); fillCfg(); renderAll(); }
     }, function (e) { console.warn("config", e); });
     [["meta/passages", function (v) { passagesDoc = v; }], ["meta/drills", function (v) { drillDoc = v; }], ["meta/ledger", function (v) { ledgerDoc = v; }], ["meta/book", function (v) { bookMeta = v; }], ["meta/reading", function (v) { readingDoc = v; }]].forEach(function (pair) {
-      d.doc(pair[0]).onSnapshot(function (snap) { if (snap.exists) { pair[1](snap.data()); renderRead(); } }, function (e) { console.warn(pair[0], e); });
+      d.doc(pair[0]).onSnapshot(function (snap) { if (snap.exists) { pair[1](snap.data()); renderRead(); renderToday(); renderWeek(); } }, function (e) { console.warn(pair[0], e); });
     });
     var since = iso(addDays(today, -35));
     d.collection("days").where("date", ">=", since).onSnapshot(function (snap) {
