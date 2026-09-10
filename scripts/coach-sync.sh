@@ -58,6 +58,12 @@ if [ "$MODE" != "--kindle-only" ]; then
 
   # 1b. Review every new recording (checklist, ledger, cards queue, drill); harvest via `claude -p` when present
   python3 scripts/practice-review.py || echo "practice review FAILED"
+
+  # 1c. Reading: KOReader on the phone (Autosync → Drive EnglishPractice/koreader) + kosync position, then lookups → cards
+  python3 scripts/koreader-pull.py || echo "koreader pull skipped/FAILED"
+  python3 scripts/reading-cards.py || echo "reading cards FAILED"
+
+  # 1d. Everything queued (recordings, Talk sessions, lookups) → Anki, when it is open; 25/week cap enforced here
   python3 scripts/anki-push-cards.py || echo "anki cards FAILED"
 
   # 2. Anki stats: AnkiConnect when Anki is open (sync first so phone reviews are in), else the collection file directly
@@ -76,8 +82,6 @@ if [ "$MODE" != "--kindle-only" ]; then
   # 4. AI conversations from a hosted voice agent, when configured (optional upgrade path)
   python3 scripts/elevenlabs-pull.py || echo "elevenlabs pull FAILED"
 
-  # 4b. Reading: KOReader on the phone (Autosync → Drive EnglishPractice/koreader) + kosync position
-  python3 scripts/koreader-pull.py || echo "koreader pull skipped/FAILED"
 fi
 
 # 5. Kindle vocab (legacy path: needs the device plugged in over USB; writes the same logs/reading/vocab.json)

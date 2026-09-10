@@ -14,6 +14,11 @@ real-world English. Key artifacts:
   missed its noise threshold.
 - `docs/METHOD.md` — instrument spec, noise thresholds, form history.
 - `observations.md` — the chat-based English observation log (see below).
+- `docs/COACH.md` — **the operating table**: every trigger (recording, nightly,
+  daily Routine, Friday, time trial, new book) → who acts → what is produced,
+  plus what the coach decides alone (cards, shelf, flags) and what never
+  happens without the user. Read it first in any session that is unsure
+  what to do.
 
 ## Standing instruction: maintain the observation log
 
@@ -89,6 +94,11 @@ one-off steps.
   when a Kindle is plugged in), `daily.json` (minutes per day, Europe/London),
   `progress.json` (percentage → passage id), `books.json` (KOReader document
   ids = partial MD5 of the file, written by `passage-import.py`).
+- **Cards:** `python3 scripts/reading-cards.py` (Mac before the Anki push;
+  cloud daily) turns the newest un-carded lookups that have a usable sentence
+  into production cards (front = the sentence with the word blanked, said
+  aloud; back = word + sentence), 5 per run, `carded: true` once used; the
+  25/week cap is enforced at the Anki push.
 - **Hub:** the daily Routine runs `python3 scripts/reading-hub.py` (exit 3 =
   nothing yet) and `write_db` sets `meta/reading` from `logs/hub-reading.json`
   (gitignored, regenerated each run). The Read tab's Reading panel shows the
