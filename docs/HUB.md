@@ -92,22 +92,27 @@ commit, one push, never force, never empty.
   Names: "eng 432", "eng ai", "eng warmup", "eng debrief".
 - **KOReader** (free, F-Droid or GitHub APK) — the reading sensor:
   1. The EPUB lives in Drive → `EnglishPractice/library` (the bookshelf,
-     `docs/PRACTICE.md`). KOReader has no Google Drive support, so open the
-     file once from the Drive app (⋮ → Download, then open with KOReader) or
-     let an Autosync pair mirror the folder. Long-press a word → dictionary →
-     "Add to vocabulary builder"; or Settings → Vocabulary builder → "Auto add
-     new words".
+     `docs/PRACTICE.md`); it reaches the phone by itself through step 3.
+     In KOReader: long-press a word → dictionary → "Add to vocabulary
+     builder"; or Settings → Vocabulary builder → "Auto add new words".
   2. Progress sync: top menu → ⚙ → Progress sync → register a username and
      password on the default server, enable "Auto sync". Put the same two
      values as `KOSYNC_USER` / `KOSYNC_PASS` in the cloud environment
      variables and in `~/.config/english-runbook/env` on the Mac.
-  3. **Autosync for Google Drive** (free tier, one folder pair): phone folder
-     `koreader/settings` (internal storage) → Drive folder
-     `EnglishPractice/koreader`, upload-only. That folder holds
-     `vocabulary_builder.sqlite3` and `statistics.sqlite3`; the Mac's nightly
-     job reads them from the Drive mount.
+  3. **Autosync for Google Drive** (free tier, one folder pair is enough):
+     phone folder `koreader/settings` (internal storage) ↔ Drive folder
+     `EnglishPractice/koreader`, **two-way**, autosync on. Up go
+     `vocabulary_builder.sqlite3` and `statistics.sqlite3` (the Mac's nightly
+     job reads them from the Drive mount); down come the books: the Mac
+     copies exactly the EPUBs listed in `logs/reading/shelf.json` (the coach
+     edits it from the cloud) into that Drive folder, and removes the rest.
+  4. In KOReader's file browser open `koreader/settings`, long-press the
+     folder and set it as the home folder: the shelf is what the phone shows.
+     The "Import a book…" tap on the Hub's Read tab is the only manual step
+     left, once per new book.
   Reading aloud: record with the recorder while reading from KOReader; the
-  ingest finds the passage from the transcript, no name needed.
+  ingest finds the passage from the transcript, no name needed. The Read
+  tab's passage follows the phone's position (progress sync).
 - **English Hub** on the home screen (Chrome → Add to Home screen). The first
   Talk or readout asks once to allow Claude; the first Talk asks for the
   microphone.

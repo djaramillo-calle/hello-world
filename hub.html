@@ -555,10 +555,10 @@
     if (!k || !(k.total || rd.last_day || pr)) return;
     var html = "";
     if (pr && pr.percentage != null) {
-      var here = bookMeta && !bookOff ? bookNextId() : null, jump = pr.passage && here && pr.passage !== here;
+      var here = bookMeta && !bookOff ? bookNextId() : null, jump = pr.passage && here && pr.passage !== here && pr.title === (bookMeta && bookMeta.title);
       html += '<p style="margin:0 0 8px"><b>' + esc(pr.title || "The book") + "</b> — " + Math.round(pr.percentage * 100) + "% on the " + esc(pr.device || "phone") +
         (pr.passage ? " ≈ passage " + esc(pr.passage) : "") + (pr.timestamp ? ' <span class="mono small faint">' + esc(String(pr.timestamp).slice(0, 10)) + "</span>" : "") +
-        (jump ? ' <button class="btn ghost" id="read-jump" data-passage="' + esc(pr.passage) + '">Read aloud from here</button>' : "") + "</p>";
+        (jump ? ' <button class="btn ghost" id="read-jump" data-passage="' + esc(pr.passage) + '">Back to the phone\u2019s position</button>' : ' <span class="faint small">· the passage below follows the phone</span>') + "</p>";
     }
     html += '<p class="mono small faint" style="margin:0 0 8px">reading ' + esc(rd.week_min || 0) + "′ on " + esc(rd.week_days || 0) + " days this week" +
       (rd.yesterday_min ? " · yesterday " + esc(Math.round(rd.yesterday_min)) + "′" : "") + " · " + esc(k.total || 0) + " words · " + esc(k.this_week || 0) + " this week · " +
@@ -594,7 +594,16 @@
     db.doc("book/" + ch.doc).get().then(function (snap) { bookLoading = null; if (snap.exists) { bookDocs[ch.doc] = snap.data(); renderRead(); } },
       function (e) { bookLoading = null; console.warn("book", e); });
   }
-  function bookNextId() { return cfg.book_next || (bookMeta && bookMeta.chapters && bookMeta.chapters.length ? bookMeta.chapters[0].first : null); }
+  /* The pointer follows the phone: when meta/reading carries a position in this book that is further on than
+     book_next, the Read tab offers that passage (KOReader is the reader; the Hub is where it is read aloud). */
+  function phonePassage() {
+    var pr = readingDoc && readingDoc.progress;
+    return pr && pr.passage && bookMeta && pr.title === bookMeta.title && cfg.book_follow !== false ? pr.passage : null;
+  }
+  function bookNextId() {
+    var own = cfg.book_next || (bookMeta && bookMeta.chapters && bookMeta.chapters.length ? bookMeta.chapters[0].first : null), ph = phonePassage();
+    return ph && bookNum(ph) > bookNum(own) ? ph : own;
+  }
   var ANCHOR_FALLBACK = {"id": "A00", "title": "Thursday", "text": "Every Thursday I finish work a little early and walk to the station. The streets are already busy, and the sky is usually grey. I think about the week: what went well, what I should have done differently, and what I still want to build. At the gym I stretch, then I lift for an hour. My legs feel heavy after the intervals, but I have learned to trust the plan and not to judge a single session. Later, at home, I cook something simple: rice, vegetables, a bit of fish. I used to skip dinner when I was tired; now I know that recovery starts at the table. Before bed I review thirty cards aloud, very slowly, and I try to say each phrase the way a friend would say it. Then I switch off the light and let the day go."};
   function todaysPassage() {
     var P = passagesDoc || { anchor: ANCHOR_FALLBACK, passages: [] };

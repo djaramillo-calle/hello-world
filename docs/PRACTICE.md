@@ -124,11 +124,13 @@ text never enters the public repo). Drop an EPUB there named
   tab then serves the next unread passage (Done advances it, Back one rewinds;
   Mondays still show the anchor; "Short passages instead" falls back to the
   seed set). The cloud never needs the text.
-- **Phone:** KOReader cannot open Drive itself (it speaks Dropbox, WebDAV and
-  FTP only): open the EPUB from the Drive app once (Download, then open in
-  KOReader) or add it to an Autosync pair. Its position reaches the Read tab
-  as `meta/reading` ("Read aloud from here"), its minutes are the
-  `reading_min` load column, its lookups become cards (`docs/HUB.md`).
+- **Phone:** `logs/reading/shelf.json` (committed; the coach edits it) lists
+  the books the phone holds. The Mac copies their EPUBs into Drive
+  `EnglishPractice/koreader/`, the folder the phone mirrors two-way into
+  `koreader/settings` (Autosync), and removes the rest: no manual copying.
+  KOReader's position reaches the Read tab as `meta/reading` (the passage
+  follows the phone), its minutes are the `reading_min` load column, its
+  lookups become cards (`docs/HUB.md`).
 - **Ingest:** a transcript is matched against every book, so a book read is
   scored scripted whatever the file is called.
 

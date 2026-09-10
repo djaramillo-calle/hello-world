@@ -72,12 +72,14 @@ The reading sensor, built like the listening one: an open client that
 publishes on its own, the cloud pulls. `docs/HUB.md` "Phone setup" has the
 one-off steps.
 
-- **Phone:** KOReader reads the EPUB (`library/` text never enters git; the
-  EPUB goes to the phone by hand). Its Vocabulary Builder keeps dictionary
+- **Phone:** KOReader reads the EPUB. Its Vocabulary Builder keeps dictionary
   lookups with the sentence context; its statistics plugin keeps seconds per
-  page. An Autosync folder pair uploads `koreader/settings/` to Drive
-  `EnglishPractice/koreader/`. Its progress-sync plugin (kosync,
-  sync.koreader.rocks) publishes the position in the book.
+  page. One two-way Autosync pair mirrors `koreader/settings/` ↔ Drive
+  `EnglishPractice/koreader/`: databases up, books down. **The shelf is
+  `logs/reading/shelf.json`** (committed): the coach lists the slugs the phone
+  should hold; `library-sync.py` on the Mac stocks the Drive folder from
+  `EnglishPractice/library/` accordingly. Progress sync (kosync,
+  sync.koreader.rocks) publishes the position; the Read tab follows it.
 - **Pull:** `python3 scripts/koreader-pull.py` — on the Mac (nightly and in
   `coach-sync.sh`) reads the Drive mount; anywhere with `KOSYNC_USER` /
   `KOSYNC_PASS` set (CCR environment variables + the Mac env file, never git)
