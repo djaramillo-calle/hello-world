@@ -128,7 +128,23 @@ one-off steps.
   `tracking.tsv`. No Amazon cookies or passwords, ever; the Kindle's
   `vocab.db` over USB remains the only Kindle route.
 
-## Data hub (local sessions)
+## The cloud does the sync (since 2026-09-10) — the Mac is optional
+
+`python3 scripts/cloud-sync.py` is the coach's sync from any fresh container:
+`scripts/drive.py` (Google Drive with a service account — `GDRIVE_SA_JSON_B64`
+as a CCR environment variable, the key file base64 on one line; the account is
+shared on `EnglishPractice` and on `com.nll.asr`, the recorder's upload root)
+→ bookshelf (`library-sync`, passage files mirrored to Drive, the phone folder
+stocked Drive-side from `logs/reading/shelf.json`) → new recordings downloaded
+by Drive id + md5 (`logs/practice/.drive.json`) → `practice-ingest` in
+`.venv-practice` (`scripts/cloud-setup.sh` builds it, Whisper + Azure) →
+`practice-review` → KOReader databases when changed (`logs/reading/.drive.json`)
+→ `koreader-pull` → `reading-cards` → `anki-cloud` → `reading-hub` → commit +
+push. Two Routines run it: morning 07:30 UTC (the 06:45 page scored before
+work) and the daily 18:30 UTC review. Nothing large ever passes through a chat
+context: the Drive connector is for listing, `drive.py` for bytes.
+
+## Data hub (local sessions, optional)
 
 `scripts/coach-sync.sh` is the single entry point for all data ingestion:
 practice recordings + Anki stats (when Anki is open) + KOReader reading data

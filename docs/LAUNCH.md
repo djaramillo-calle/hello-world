@@ -20,7 +20,7 @@ and one Mac session), **me** (in chat or by the daily/Friday Routines), or
 | A5 | Tap "Read out this morning" once and, on Tuesday, "Start a 20-minute AI conversation": allow Claude and the microphone when asked. | a readout renders; a Talk session ends with a harvest | you |
 | A6 | Put the Arendt EPUB in Drive → `EnglishPractice/library` (name it `Hannah_Arendt__The_Origins_of_Totalitarianism.epub`). KOReader: register Progress sync, enable the Vocabulary builder; Autosync two-way pair `koreader/settings` ↔ Drive `EnglishPractice/koreader`; set `koreader/settings` as KOReader's home folder (docs/HUB.md → Phone setup). The book appears there after the Mac's next sync (B5/B6). | Drive shows `statistics.sqlite3`; the EPUB shows in KOReader's home folder; `python3 scripts/koreader-pull.py --check` prints `authorized` | you |
 
-## B · Mac, one local session (~40 min)
+## B · Mac, one local session (~40 min) — OPTIONAL since 2026-09-10: the cloud sync (`scripts/cloud-sync.py`, Drive service account) does every row below except Kindle-over-USB and Intervals.icu. Skip unless you want scores within 10 minutes of a recording instead of at the next Routine.
 
 | # | Action | Verify | Owner |
 |---|---|---|---|
