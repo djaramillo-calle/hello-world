@@ -1,0 +1,44 @@
+{
+ "lookups": [
+  {
+   "id": "ko:conglomeration",
+   "word": "conglomeration",
+   "stem": "conglomeration",
+   "usage": "mechanics by which all traditional elements of our political and spiritual world were dissolved into a conglomeration where everything seems to have lost specific value, and has become unrecognizable for human comprehension, unusable",
+   "book": "Hannah_Arendt__The_Origins_of_Totalitarianism",
+   "ts": 1789038492000,
+   "source": "koreader",
+   "review_count": 0,
+   "streak": 0,
+   "highlight": "",
+   "carded": false
+  },
+  {
+   "id": "ko:spurious",
+   "word": "spurious",
+   "stem": "spurious",
+   "usage": "mere process of disintegration has become an irresistible temptation, not only because it has assumed the spurious grandeur of “historical necessity,” but also because everything outside it has begun to appear lifeless, bloodless",
+   "book": "Hannah_Arendt__The_Origins_of_Totalitarianism",
+   "ts": 1789038513000,
+   "source": "koreader",
+   "review_count": 0,
+   "streak": 0,
+   "highlight": "",
+   "carded": false
+  },
+  {
+   "id": "ko:grandeur",
+   "word": "grandeur",
+   "stem": "grandeur",
+   "usage": "process of disintegration has become an irresistible temptation, not only because it has assumed the spurious grandeur of “historical necessity,” but also because everything outside it has begun to appear lifeless, bloodless, meaningless",
+   "book": "Hannah_Arendt__The_Origins_of_Totalitarianism",
+   "ts": 1789038524000,
+   "source": "koreader",
+   "review_count": 0,
+   "streak": 0,
+   "highlight": "",
+   "carded": false
+  }
+ ],
+ "synced": "2026-09-10"
+}
