@@ -4,3 +4,6 @@ __pycache__/
 
 # converted reading material (copyrighted text stays local and in the private Hub store)
 library/
+
+# generated Hub document (rebuilt by scripts/kindle-hub.py on every Routine run; source is logs/kindle-vocab.json)
+logs/hub-kindle.json

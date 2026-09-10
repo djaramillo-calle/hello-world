@@ -10,7 +10,7 @@ English. Two stores, one loop.
  AntennaPod ──play actions──▶ gpodder.net ◀── listening-pull.py          Artifact DB (English Hub)
  recorder ──"eng *.m4a"────▶ Drive folder ──▶ practice-ingest.py           ▲  Talk sessions, check-ins
  AnkiDroid ──sync──▶ AnkiWeb ──▶ desktop Anki ──▶ anki-stats / anki-revlog   │  diagnostic runs
- Kindle (USB) ──StartOnMount──────────────────▶ kindle-vocab.py             │
+ Kindle (USB) ──StartOnMount──────────────────▶ kindle-vocab.py ──▶ git ──▶ kindle-hub.py ──▶ meta/kindle
                                               intervals-push.py ──▶ Intervals.icu (EngListenMin…)
                                               git commit + push ──▶ GIT ◀── read_db + hub-fold.py
                                                                             daily-readout.py / weekly-rollup.py / dial.py

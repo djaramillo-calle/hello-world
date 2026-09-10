@@ -282,6 +282,8 @@
   </div>
   <h2>Today's drill</h2>
   <div class="panel small" id="drill">No drill yet. The first scored recording builds the pronunciation ledger; the drill is generated from its top three confusion classes.</div>
+  <h2>Your words</h2>
+  <div class="panel small" id="words">No Kindle words yet. Plug the Kindle into the Mac: its Vocabulary Builder lookups arrive here with the sentence each one appeared in — say the sentence aloud, then the word.</div>
   <h2>Anchor trend</h2>
   <div class="panel small" id="anchor-trend">The anchor passage is the pronunciation time trial: same text every Monday, scored against the reference. Its scores appear here after the first one.</div>
 </section>
@@ -546,6 +548,18 @@
   /* The book: meta/book is the table of contents (chapters → document ids in collection `book`, each holding
      ~110 passages B001…); cfg.book_next is the next unread passage id. Built by scripts/passage-import.py. */
   var bookMeta = null, bookDocs = {}, bookLoading = null, bookOff = false;
+  var kindleDoc = null;   // meta/kindle — Vocabulary Builder lookups (+ notebook highlights), written by the coach from git
+  function renderWords() {
+    var k = kindleDoc; if (!k || !k.total) return;
+    var recent = (k.recent || []).slice(0, 12);
+    $("words").innerHTML = '<p class="mono small faint" style="margin:0 0 8px">' + esc(k.total) + " words · " + esc(k.this_week || 0) + " this week · " + esc(k.carded || 0) + " carded" +
+      (k.last_sync && k.last_sync.vocab ? " · Kindle synced " + esc(k.last_sync.vocab) : "") + "</p>" +
+      recent.map(function (w) {
+        return "<p style=\"margin:0 0 8px\"><b>" + esc(w.word || "") + "</b>" + (w.carded ? ' <span class="faint">· carded</span>' : "") +
+          (w.usage ? "<br><span class=\"soft\">" + esc(w.usage) + "</span>" : "") +
+          (w.book ? '<br><span class="mono small faint">' + esc(w.book) + (w.date ? " · " + esc(w.date) : "") + "</span>" : "") + "</p>";
+      }).join("") + '<p class="faint small" style="margin:0">Say each sentence aloud, then the word on its own. Lookups are reading load, never a score.</p>';
+  }
   function bookNum(id) { return parseInt(String(id || "").replace(/^B/, ""), 10) || 0; }
   function bookChapterFor(id) {
     if (!bookMeta || !bookMeta.chapters) return null;
@@ -601,6 +615,7 @@
           "<br><span class=\"mono small\">" + (c.pairs || []).map(function (pr) { return esc(pr[0]) + " / " + esc(pr[1]); }).join(" · ") + "</span></p>";
       }).join("") + "<p class=\"faint small\" style=\"margin:0\">Say each pair three times, slowly then at speed. Record it as <span class=\"mono\">eng drill</span>.</p>";
     }
+    renderWords();
     if (ledgerDoc && ledgerDoc.anchor && ledgerDoc.anchor.length) {
       var rows = ledgerDoc.anchor.slice(-8);
       $("anchor-trend").innerHTML = '<table class="load"><thead><tr><th>Date</th><th>Accuracy</th><th>Fluency</th><th>Complete</th></tr></thead><tbody>' +
@@ -880,7 +895,7 @@
     d.doc("meta/config").onSnapshot(function (snap) {
       if (snap.exists) { cfg = Object.assign(cfg, snap.data()); fillCfg(); renderAll(); }
     }, function (e) { console.warn("config", e); });
-    [["meta/passages", function (v) { passagesDoc = v; }], ["meta/drills", function (v) { drillDoc = v; }], ["meta/ledger", function (v) { ledgerDoc = v; }], ["meta/book", function (v) { bookMeta = v; }]].forEach(function (pair) {
+    [["meta/passages", function (v) { passagesDoc = v; }], ["meta/drills", function (v) { drillDoc = v; }], ["meta/ledger", function (v) { ledgerDoc = v; }], ["meta/book", function (v) { bookMeta = v; }], ["meta/kindle", function (v) { kindleDoc = v; }]].forEach(function (pair) {
       d.doc(pair[0]).onSnapshot(function (snap) { if (snap.exists) { pair[1](snap.data()); renderRead(); } }, function (e) { console.warn(pair[0], e); });
     });
     var since = iso(addDays(today, -35));

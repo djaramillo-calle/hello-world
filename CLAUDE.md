@@ -81,6 +81,16 @@ bridge. When the user plugs the Kindle in during a local session:
   "observations:". The cloud Friday review reads this file from git.
 - Lookups are harvest, never a metric: frequency of dictionary lookups is
   reading-difficulty data, not a proficiency score.
+- **Automatic path (added 2026-09-10):** the Mac's `com.english.kindle`
+  LaunchAgent (StartOnMount) runs `coach-sync.sh --kindle-only` whenever the
+  Kindle is plugged in → `logs/kindle-vocab.json` committed and pushed. The
+  cloud daily Routine then runs `python3 scripts/kindle-hub.py` (exit 3 =
+  nothing yet) and `write_db` sets the Hub's `meta/kindle` from
+  `logs/hub-kindle.json` (gitignored, regenerated each run); the Read tab's
+  "Your words" panel shows the recent lookups with their usage sentences.
+  There is no other route: Kindle has no API, and Amazon cookies/passwords
+  are never used. `logs/kindle-notebook.json` (highlights, same shape as
+  documented in `scripts/kindle-hub.py`) is read too if it ever exists.
 
 ## Data hub (local sessions)
 
