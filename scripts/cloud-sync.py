@@ -184,8 +184,14 @@ def main():
             print("cloud-sync: nothing new — no commit")
         else:
             run(["git", "-C", REPO, "commit", "-q", "-m", "observations: cloud sync"])
-            if push: run(["git", "-C", REPO, "push", "-q", "origin", "HEAD"])
-            print("cloud-sync: committed" + (" + pushed" if push else ""))
+            if push:
+                # a probe session checks the branch out detached: push HEAD to the branch that contains it
+                branch = subprocess.run(["git", "-C", str(REPO), "symbolic-ref", "--short", "-q", "HEAD"], capture_output=True, text=True).stdout.strip()
+                if not branch:
+                    refs = subprocess.run(["git", "-C", str(REPO), "for-each-ref", "--format=%(refname:short)", "--contains", "HEAD~1", "refs/remotes/origin"], capture_output=True, text=True).stdout.split()
+                    branch = next((r.split("/", 1)[1] for r in refs if r.startswith("origin/") and r != "origin/HEAD"), "claude/adult-language-learning-gnk7i1")
+                run(["git", "-C", REPO, "push", "-q", "origin", f"HEAD:{branch}"])
+            print("cloud-sync: committed" + (f" + pushed to {branch}" if push else ""))
     shutil.rmtree(work, ignore_errors=True)
     return 0
 
