@@ -1,5 +1,68 @@
 {
- "phonemes": {},
+ "phonemes": {
+  "b/v": {
+   "count": 2,
+   "words": {
+    "bury": 1,
+    "of": 1
+   },
+   "last": "2026-09-10"
+  },
+  "s/z": {
+   "count": 4,
+   "words": {
+    "surface": 1,
+    "this": 1,
+    "principle": 1,
+    "usurped": 1
+   },
+   "last": "2026-09-10"
+  },
+  "th": {
+   "count": 2,
+   "words": {
+    "earth": 1,
+    "this": 1
+   },
+   "last": "2026-09-10"
+  },
+  "schwa": {
+   "count": 9,
+   "words": {
+    "tradition": 1,
+    "as": 1,
+    "of": 1,
+    "political": 1,
+    "a": 1,
+    "principle": 1,
+    "and": 1
+   },
+   "last": "2026-09-10"
+  },
+  "i/ii": {
+   "count": 13,
+   "words": {
+    "rooted": 1,
+    "in": 1,
+    "tradition": 1,
+    "hatred": 1,
+    "we": 1,
+    "political": 1,
+    "into": 1,
+    "will": 1,
+    "simply": 1,
+    "dignity": 1
+   },
+   "last": "2026-09-10"
+  },
+  "-ed": {
+   "count": 1,
+   "words": {
+    "rooted": 1
+   },
+   "last": "2026-09-10"
+  }
+ },
  "words": {
   "world": {
    "count": 1,
@@ -7,9 +70,224 @@
    "kinds": [
     "read"
    ]
+  },
+  "past": {
+   "count": 3,
+   "last": "2026-09-10",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "discard": {
+   "count": 1,
+   "last": "2026-09-10",
+   "kinds": [
+    "read"
+   ]
+  },
+  "are": {
+   "count": 1,
+   "last": "2026-09-10",
+   "kinds": [
+    "read"
+   ]
+  },
+  "all": {
+   "count": 2,
+   "last": "2026-09-10",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "our": {
+   "count": 2,
+   "last": "2026-09-10",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "simply": {
+   "count": 3,
+   "last": "2026-09-10",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "call": {
+   "count": 2,
+   "last": "2026-09-10",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "one": {
+   "count": 1,
+   "last": "2026-09-10",
+   "kinds": [
+    "read"
+   ]
+  },
+  "afford": {
+   "count": 1,
+   "last": "2026-09-10",
+   "kinds": [
+    "read"
+   ]
+  },
+  "think": {
+   "count": 1,
+   "last": "2026-09-10",
+   "kinds": [
+    "read"
+   ]
+  },
+  "new": {
+   "count": 1,
+   "last": "2026-09-10",
+   "kinds": [
+    "read"
+   ]
+  },
+  "comprehend": {
+   "count": 3,
+   "last": "2026-09-10",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "usurped": {
+   "count": 1,
+   "last": "2026-09-10",
+   "kinds": [
+    "read"
+   ]
+  },
+  "power": {
+   "count": 2,
+   "last": "2026-09-10",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "merely": {
+   "count": 2,
+   "last": "2026-09-10",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "political": {
+   "count": 1,
+   "last": "2026-09-10",
+   "kinds": [
+    "read"
+   ]
+  },
+  "come": {
+   "count": 1,
+   "last": "2026-09-10",
+   "kinds": [
+    "read"
+   ]
+  },
+  "can": {
+   "count": 2,
+   "last": "2026-09-10",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "reality": {
+   "count": 1,
+   "last": "2026-09-10",
+   "kinds": [
+    "read"
+   ]
+  },
+  "earth": {
+   "count": 1,
+   "last": "2026-09-10",
+   "kinds": [
+    "read"
+   ]
+  },
+  "dead": {
+   "count": 1,
+   "last": "2026-09-10",
+   "kinds": [
+    "read"
+   ]
+  },
+  "present": {
+   "count": 1,
+   "last": "2026-09-10",
+   "kinds": [
+    "read"
+   ]
+  },
+  "surface": {
+   "count": 1,
+   "last": "2026-09-10",
+   "kinds": [
+    "read"
+   ]
+  },
+  "of": {
+   "count": 1,
+   "last": "2026-09-10",
+   "kinds": [
+    "read"
+   ]
+  },
+  "rooted": {
+   "count": 1,
+   "last": "2026-09-10",
+   "kinds": [
+    "read"
+   ]
+  },
+  "bury": {
+   "count": 1,
+   "last": "2026-09-10",
+   "kinds": [
+    "read"
+   ]
+  },
+  "must": {
+   "count": 1,
+   "last": "2026-09-10",
+   "kinds": [
+    "read"
+   ]
+  },
+  "needs": {
+   "count": 1,
+   "last": "2026-09-10",
+   "kinds": [
+    "read"
+   ]
   }
  },
  "anchor": [],
- "recordings": 1,
- "updated": "2026-09-09T21:36:50Z"
+ "recordings": 2,
+ "updated": "2026-09-10T21:01:10Z",
+ "reads": [
+  {
+   "date": "2026-09-10",
+   "passage": "B006",
+   "accuracy": 83.1,
+   "fluency": 81.8,
+   "completeness": 82.9,
+   "pron": 80.4
+  }
+ ]
 }
