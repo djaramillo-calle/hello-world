@@ -135,6 +135,29 @@ def recording_kind(name):
             return k, None
     return "free", None
 
+MIN_PASSAGE_OVERLAP = 0.5   # same threshold as practice-review's guard
+
+def detect_passage(transcript, passages=None):
+    """Which passage (if any) this transcript is a reading of: the id whose words the transcript
+    covers best, when it covers at least MIN_PASSAGE_OVERLAP of them. Lets an un-named ASR file
+    still be scored as a read-aloud, and corrects a wrong id in the name."""
+    if passages is None:
+        try:
+            passages = json.loads((REPO / "passages" / "passages.json").read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            return None, 0.0
+    tw = set(re.findall(r"[a-z']+", (transcript or "").lower()))
+    if not tw:
+        return None, 0.0
+    cands = [passages.get("anchor") or {}] + list(passages.get("passages") or [])
+    best, score = None, 0.0
+    for c in cands:
+        rw = set(re.findall(r"[a-z']+", str(c.get("text", "")).lower()))
+        if not rw: continue
+        ov = len(tw & rw) / len(rw)
+        if ov > score: best, score = c.get("id"), ov
+    return (best, round(score, 2)) if score >= MIN_PASSAGE_OVERLAP else (None, round(score, 2))
+
 def passage_text(pid):
     """Reference text for a read-aloud, from passages/passages.json (None when unknown)."""
     if not pid:
@@ -149,11 +172,20 @@ def passage_text(pid):
 
 def ingest_one(path, out_dir, azure):
     kind, pid = recording_kind(path.name)
-    reference = passage_text(pid) if kind == "read" else None
     with tempfile.TemporaryDirectory() as td:
         wav = Path(td) / "rec.wav"
         to_wav(path, wav)
         words, duration = transcribe(wav)
+        # The transcript decides the passage: an un-named file that reads A00 is scored as A00, and a
+        # name that says A00 while the words are R03's is corrected. Conversations never match a passage.
+        detected, overlap = detect_passage(" ".join(w["w"] for w in words))
+        note = None
+        if detected and detected != pid:
+            note = f"passage {detected} detected from the transcript ({overlap:.0%} overlap)" + (f"; name said {pid}" if pid else "; file was not named")
+            kind, pid = "read", detected
+        elif kind == "read" and pid and not detected:
+            note = f"name says {pid} but the transcript covers only {overlap:.0%} of it — scored unscripted"
+        reference = passage_text(pid) if (kind == "read" and detected) else None
         record = {
             "source": path.name,
             "recorded": datetime.fromtimestamp(path.stat().st_mtime).strftime("%Y-%m-%d %H:%M"),
@@ -162,6 +194,8 @@ def ingest_one(path, out_dir, azure):
             "kind": kind,
             "passage": pid,
             "scripted": bool(reference),
+            "passage_overlap": overlap,
+            "kind_note": note,
             **analyse(words, duration),
             "praat": praat_metrics(wav),
             "word_confidences": words,
@@ -191,7 +225,21 @@ def save_state(state_path, state):
     tmp.write_text(json.dumps(state, indent=1), encoding="utf-8")
     tmp.replace(state_path)
 
+def selftest():
+    P = {"anchor": {"id": "A00", "text": "Every Thursday I go to the gym after work and then I cook dinner."},
+         "passages": [{"id": "R01", "text": "The station was busy this morning and the train was late again."}]}
+    assert detect_passage("every thursday i go to the gym after work and then i cook dinner", P) == ("A00", 1.0)
+    assert detect_passage("the station was busy this morning, the train late again", P)[0] == "R01"
+    assert detect_passage("two world wars in one generation separated by a chain of local wars", P)[0] is None
+    assert detect_passage("", P) == (None, 0.0)
+    assert recording_kind("eng read A00 - 2026_09_09.m4a") == ("read", "A00")
+    assert recording_kind("1788988987643 - 2026_09_09_22_19_23.m4a") == ("free", None)
+    assert recording_kind("eng ai.m4a") == ("ai", None)
+    print("practice-ingest.py selftest: OK")
+
 def main():
+    if "--selftest" in sys.argv:
+        return selftest()
     ap = argparse.ArgumentParser()
     ap.add_argument("--commit", action="store_true", help="git add+commit+push new practice logs")
     ap.add_argument("--source", type=Path, help="extra/override source dir (everything ingested)")

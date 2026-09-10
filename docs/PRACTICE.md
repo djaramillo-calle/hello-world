@@ -90,12 +90,14 @@ cap, deduplicated by front; `cards/queue.tsv` is the audit trail.
    — the Mac scans that tree recursively, and the recording agent polls it
    every 10 minutes as well as watching the folders that exist at install
    time (a new day folder is invisible to WatchPaths until then).
-2. **The file name carries the kind.** ASR's default name is a timestamp,
-   which the pipeline reads as `free` (a conversation: it would be harvested
-   for grammar, wrong for a read-aloud). Rename the recording in ASR right
-   after stopping, or set ASR to ask for a name: `eng read A00`, `eng read
-   R03`, `eng ai`, `eng 432`, `eng debrief`, `eng drill`. Case and separators
-   do not matter; the timestamp may stay in the name.
+2. **Read-alouds need no name.** The ingest compares the transcript with
+   every passage in `passages/passages.json`; a recording that covers at
+   least half of a passage's words is scored as that passage, scripted, and
+   a name that says the wrong id is corrected. Conversations match nothing
+   and stay `free` unless named. So name only the conversation kinds
+   (`eng ai`, `eng 432`, `eng debrief`, `eng drill`) — ASR Pro's "Rename
+   file prompt after recording" does it before the upload; a rename after
+   the upload never reaches Drive.
 3. Hub → Read shows today's passage, the exact filename, and the drill.
 
 Verified 2026-09-09 with the first test recording (32 s of Arendt, read
