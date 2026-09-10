@@ -63,7 +63,15 @@ if [ "$MODE" != "--kindle-only" ]; then
   python3 scripts/koreader-pull.py || echo "koreader pull skipped/FAILED"
   python3 scripts/reading-cards.py || echo "reading cards FAILED"
 
-  # 1d. Everything queued (recordings, Talk sessions, lookups) → Anki, when it is open; 25/week cap enforced here
+  # 1d. Everything queued (recordings, Talk sessions, lookups) → Anki; 25/week cap enforced here.
+  #     Unattended, the job opens Anki itself when it is closed (and quits it at the end), so nobody has to leave it open.
+  anki_up() { curl -s -m 2 -X POST http://127.0.0.1:8765 -d '{"action":"version","version":6}' >/dev/null 2>&1; }
+  ANKI_LAUNCHED=0
+  if [ "$MODE" = "--unattended" ] && ! anki_up && ! pgrep -x Anki >/dev/null 2>&1 && [ -d /Applications/Anki.app ]; then
+    open -ga Anki && ANKI_LAUNCHED=1
+    for _ in $(seq 1 30); do anki_up && break; sleep 2; done
+    anki_up && echo "anki: launched for the sync" || echo "anki: launched but AnkiConnect did not answer in 60 s"
+  fi
   python3 scripts/anki-push-cards.py || echo "anki cards FAILED"
 
   # 2. Anki stats: AnkiConnect when Anki is open (sync first so phone reviews are in), else the collection file directly
@@ -74,6 +82,12 @@ if [ "$MODE" != "--kindle-only" ]; then
     echo "anki: running without AnkiConnect — skipped"
   else
     python3 scripts/anki-revlog.py || echo "anki: no collection readable — skipped"
+  fi
+
+  # 2b. Quit Anki again if this job opened it (its own close-sync pushes the new cards to AnkiWeb → AnkiDroid)
+  if [ "${ANKI_LAUNCHED:-0}" = "1" ]; then
+    curl -s -m 60 -X POST http://127.0.0.1:8765 -d '{"action":"sync","version":6}' >/dev/null 2>&1
+    osascript -e 'tell application "Anki" to quit' >/dev/null 2>&1 && echo "anki: quit"
   fi
 
   # 3. Listening (AntennaPod → gpodder-protocol server), when credentials exist

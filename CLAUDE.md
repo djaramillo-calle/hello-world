@@ -221,9 +221,10 @@ is the same architecture for English. Read it before touching ingestion.
   still overrides in writing. SRS days fall back to check-ins only when no
   Anki export covers the week.
 - **Mac nightly job** (`scripts/install-automation.sh`, 21:40, LaunchAgent):
-  `coach-sync.sh --unattended` = pull → practice ingest → Anki (AnkiConnect
-  with sync when open, else `anki-revlog.py` direct read — never read the
-  collection while Anki runs) → `listening-pull.py` (AntennaPod → gpodder) →
+  `coach-sync.sh --unattended` = pull → practice ingest → Anki (the job opens
+  Anki itself when closed: push cards, sync, stats, quit; `anki-revlog.py`
+  direct read only if it cannot start — never read the collection while Anki
+  runs) → `listening-pull.py` (AntennaPod → gpodder) →
   optional `elevenlabs-pull.py` → `koreader-pull.py` → Kindle if mounted → `intervals-push.py`
   (custom wellness fields `Eng*`, idempotent merge) → one commit, push,
   never force. Secrets in `~/.config/english-runbook/env`, never in git.

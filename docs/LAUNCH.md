@@ -31,7 +31,7 @@ and one Mac session), **me** (in chat or by the daily/Friday Routines), or
 | B5 | `bash scripts/install-automation.sh` — installs the nightly job, the Kindle watcher and the recording watcher (re-run after B2 so the Drive path is watched). | prints the three `installed …` lines | you |
 | B6 | Dry run by hand: `bash scripts/coach-sync.sh --unattended`. | log shows practice/anki/listening/intervals lines, one commit, "pushed" | you |
 | B7 | **First recording end to end:** record `eng read A00` on the phone (A4). Watch `/tmp/english-recording.log`. | `logs/practice/<date>-eng-read-a00.review.md` appears in git with scripted Azure scores incl. `completeness` (prosody as `azure-check` reported) | you → me |
-| B8 | Leave Anki open one evening across 21:40. | queued cards appear in the English Runbook deck; `logs/anki-stats.json` re-exported | you |
+| B8 | Nothing to do: the nightly job opens Anki itself when it is closed, pushes the queued cards, syncs and quits it. Check once. | queued cards appear in the English Runbook deck (and on AnkiDroid after its next sync); `logs/anki-stats.json` re-exported; `/tmp/english-nightly.log` shows `anki: launched for the sync` … `anki: quit` | you |
 | B9 | Intervals.icu → wellness page: add the `Eng*` fields to the fitness chart. | fields visible after the first push | you |
 
 ## C · Coach and season (~15 min of yours, the rest automatic)

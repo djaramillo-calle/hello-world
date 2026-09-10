@@ -71,10 +71,11 @@ takes conversations, listening days and talk minutes from the sensors; a
    `ELEVENLABS_API_KEY` + `ELEVENLABS_AGENT_ID`, `AZURE_SPEECH_*`.
 4. Optional: `sudo pmset repeat wakeorpoweron MTWRFSU 21:38:00` so a sleeping
    Mac wakes for the job. A closed lid may still not count.
-5. Leave desktop Anki open in the evening when possible: the job then syncs
-   first (pulling the phone's reviews) and reads through AnkiConnect. When
-   Anki is closed it reads `collection.anki2` directly — safe, but blind to
-   phone reviews until the next desktop sync.
+5. Anki needs no attention: when it is closed at 21:40 the job opens it in
+   the background, syncs (pulling the phone's reviews), pushes the queued
+   cards, exports the stats and quits it (the close-sync carries the new
+   cards to AnkiWeb, so AnkiDroid has them by morning). If Anki is already
+   open it is used as is and left open.
 
 What the nightly job does, in order: `git pull --rebase` → practice ingest
 from the Drive mount → Anki (sync + AnkiConnect, or direct read) → listening
