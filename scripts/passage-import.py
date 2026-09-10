@@ -215,6 +215,29 @@ def selftest():
         assert len(docs) == 2 and (pathlib.Path(td) / "meta-book.json").exists()
     print("passage-import.py selftest: OK")
 
+BOOKS = REPO / "logs" / "reading" / "books.json"
+
+def register_book(path, slug, title, author, n_passages):
+    """logs/reading/books.json: the book's KOReader document ids (partial MD5 of the file, MD5 of the
+    filename) and passage count — what koreader-pull.py needs to map a reading position to a passage.
+    Hashes and counts only; the text stays in library/."""
+    import hashlib
+    m = hashlib.md5()
+    with open(path, "rb") as f:
+        for i in range(-1, 11):
+            f.seek(0 if i == -1 else 1024 << (2 * i))
+            s = f.read(1024)
+            if not s: break
+            m.update(s)
+    entry = {"slug": slug, "title": title, "author": author, "filename": path.name, "partial_md5": m.hexdigest(),
+             "filename_md5": hashlib.md5(path.name.encode("utf-8")).hexdigest(), "passages": n_passages}
+    try: books = json.loads(BOOKS.read_text(encoding="utf-8"))
+    except (OSError, ValueError): books = []
+    books = [b for b in books if b.get("slug") != slug and b.get("partial_md5") != entry["partial_md5"]] + [entry]
+    BOOKS.parent.mkdir(parents=True, exist_ok=True)
+    BOOKS.write_text(json.dumps(books, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    return entry
+
 def main():
     if "--selftest" in sys.argv: return selftest()
     ap = argparse.ArgumentParser()
@@ -230,6 +253,7 @@ def main():
     LIB.mkdir(exist_ok=True)
     out = LIB / f"{slugify(title)}.json"
     out.write_text(json.dumps(book, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    if a.book.exists(): register_book(a.book, slugify(title), title, a.author, len(book["chunks"]))
     ws = [c["words"] for c in book["chunks"]]
     print(f"{title}: {len(book['chapters'])} sections, {len(book['chunks'])} passages, {sum(ws)} words "
           f"(passage {min(ws) if ws else 0}–{max(ws) if ws else 0} words) → {out.relative_to(REPO)}")

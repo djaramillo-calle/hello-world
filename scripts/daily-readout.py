@@ -44,6 +44,7 @@ def monday(d): return d - dt.timedelta(days=d.weekday())
 def gather(repo, today):
     hub = load_json(repo / "logs/hub/days.json", {})
     listen = load_json(repo / "logs/listening/daily.json", {})
+    reading = load_json(repo / "logs/reading/daily.json", {})
     anki = load_json(repo / "logs/anki-stats.json", {})
     per_day = anki.get("reviews_per_day_since_last_export", {}) or {}
     practice = {}
@@ -56,21 +57,22 @@ def gather(repo, today):
     sessions = load_json(repo / "logs/hub/sessions.json", [])
     trials = read_tsv(repo / "tracking.tsv")
     dial_rows = read_tsv(repo / "logs/dial-log.tsv")
-    return {"hub": hub, "listen": listen, "per_day": per_day, "anki": anki, "practice": practice, "sessions": sessions,
+    return {"hub": hub, "listen": listen, "reading": reading, "per_day": per_day, "anki": anki, "practice": practice, "sessions": sessions,
             "trials": trials, "dial": (dial_rows[-1].get("dial") or "DEFAULT") if dial_rows else "DEFAULT"}
 
 def day_load(D, k):
     h = D["hub"].get(k, {}); c = h.get("conversations") or {}
     listen_min = (D["listen"].get(k) or {}).get("min") if k in D["listen"] else h.get("listen_min")
+    read_min = (D["reading"].get(k) or {}).get("min") if k in D["reading"] else h.get("read_min")
     srs = D["per_day"].get(k)
     if srs is None and h.get("srs") is not None: srs = "done" if h["srs"] else 0
     conv = sum(int(c.get(x) or 0) for x in ("ai", "tutor", "circle", "work"))
-    return {"listen_min": listen_min, "srs": srs, "conversations": conv, "human": sum(int(c.get(x) or 0) for x in ("tutor", "circle", "work")),
+    return {"listen_min": listen_min, "read_min": read_min, "srs": srs, "conversations": conv, "human": sum(int(c.get(x) or 0) for x in ("tutor", "circle", "work")),
             "recordings": len(D["practice"].get(k, [])) or (1 if h.get("recording") else 0), "talk_min": h.get("talk_min") or 0,
-            "logged": bool(h) or k in D["listen"] or k in D["per_day"] or k in D["practice"]}
+            "logged": bool(h) or k in D["listen"] or k in D["reading"] or k in D["per_day"] or k in D["practice"]}
 
 def week_load(D, mon, upto):
-    w = {"conversations": 0, "human": 0, "srs_days": 0, "listening_days": 0, "recordings": 0, "talk_min": 0, "days": 0}
+    w = {"conversations": 0, "human": 0, "srs_days": 0, "listening_days": 0, "recordings": 0, "talk_min": 0, "days": 0, "reading_min": 0}
     d = mon
     while d <= upto and d < mon + dt.timedelta(days=7):
         x = day_load(D, d.isoformat())
@@ -78,6 +80,7 @@ def week_load(D, mon, upto):
         w["srs_days"] += 1 if x["srs"] else 0
         w["listening_days"] += 1 if (x["listen_min"] or 0) >= 10 else 0
         w["recordings"] += x["recordings"]; w["talk_min"] += x["talk_min"]; w["days"] += 1
+        w["reading_min"] += float(x["read_min"] or 0)
         d += dt.timedelta(days=1)
     return w
 
@@ -129,13 +132,14 @@ def fmt(R):
     y = R["yesterday"]
     ybits = []
     if y["listen_min"] is not None: ybits.append(f"listening {y['listen_min']}′")
+    if y["read_min"]: ybits.append(f"reading {round(y['read_min'])}′")
     if y["srs"]: ybits.append(f"SRS {y['srs']}" + ("" if y["srs"] == "done" else " reviews"))
     if y["conversations"]: ybits.append(f"conversations {y['conversations']} ({y['human']} human)")
     if y["talk_min"]: ybits.append(f"AI talk {y['talk_min']}′")
     if y["recordings"]: ybits.append(f"recordings {y['recordings']}")
     out.append("yesterday: " + (" · ".join(ybits) if ybits else "nothing logged"))
     w = R["week"]; F = R["floors"]
-    out.append(f"week to date ({w['days']}d): conversations {w['conversations']}/{F['conversations']} ({w['human']} human) · SRS days {w['srs_days']}/{F['srs_days']} · listening days {w['listening_days']}/{F['listening_days']} · recordings {w['recordings']}/{F['recordings']} · AI talk {w['talk_min']}′")
+    out.append(f"week to date ({w['days']}d): conversations {w['conversations']}/{F['conversations']} ({w['human']} human) · SRS days {w['srs_days']}/{F['srs_days']} · listening days {w['listening_days']}/{F['listening_days']} · recordings {w['recordings']}/{F['recordings']} · AI talk {w['talk_min']}′ · reading {round(w['reading_min'])}′")
     lw = R["last_week"]
     if lw["days"]: out.append(f"last week: conversations {lw['conversations']} · SRS days {lw['srs_days']} · listening days {lw['listening_days']} · recordings {lw['recordings']}")
     for sess in R["recent_sessions"][:2]:
@@ -158,7 +162,10 @@ def selftest():
         (repo / "logs/hub/sessions.json").write_text(json.dumps([{"started": "2026-09-15T17:20:00Z", "duration_s": 1200, "learner_turns": 12, "learner_words": 400, "repair_prompts": 2, "harvest": {"repeated": ["article omission"]}}]))
         R = readout(repo, dt.date(2026, 9, 17))
         assert R["season"]["week"] == 1 and R["season"]["next_date"] == dt.date(2026, 10, 17), R["season"]
-        assert R["week"] == {"conversations": 1, "human": 0, "srs_days": 3, "listening_days": 2, "recordings": 0, "talk_min": 20, "days": 4}, R["week"]
+        (repo / "logs/reading").mkdir(); (repo / "logs/reading/daily.json").write_text(json.dumps({"2026-09-16": {"min": 18.4, "pages": 12}}))
+        R = readout(repo, dt.date(2026, 9, 17))
+        assert R["week"] == {"conversations": 1, "human": 0, "srs_days": 3, "listening_days": 2, "recordings": 0, "talk_min": 20, "days": 4, "reading_min": 18.4}, R["week"]
+        assert R["yesterday"]["read_min"] == 18.4 and "reading 18′" in fmt(R), fmt(R)
         assert R["yesterday"]["listen_min"] == 20 and R["yesterday"]["srs"] == "done"
         assert any("leech" in f for f in R["flags"]) and not any("PRE-SEASON" in f for f in R["flags"]), R["flags"]
         txt = fmt(R)

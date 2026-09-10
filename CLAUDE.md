@@ -66,37 +66,46 @@ the bridge. Conventions for any LOCAL session with the Anki MCP attached:
   patterns' cards) are harvest-level actions: allowed any time, no
   one-lever gate. Never change the scheduler settings without the user.
 
-## Kindle (local sessions only)
+## Reading (KOReader on the phone; Kindle USB is the legacy path) — 2026-09-10
 
-Kindle has no API; the e-reader's Vocabulary Builder database is the
-bridge. When the user plugs the Kindle in during a local session:
+The reading sensor, built like the listening one: an open client that
+publishes on its own, the cloud pulls. `docs/HUB.md` "Phone setup" has the
+one-off steps.
 
-- Run `python3 scripts/kindle-vocab.py <kindle>/system/vocabulary/vocab.db`.
-  It merges new lookups (word + usage sentence + book) into
-  `logs/kindle-vocab.json`, deduplicated and idempotent.
-- Turn the best new lookups into production cards in the English Runbook
-  deck — front = the user's own usage sentence with the word blanked, said
-  aloud — respecting the 25-new-cards/week cap (Kindle + chat harvests
-  share the cap). Mark used entries `"carded": true`. Commit with prefix
-  "observations:". The cloud Friday review reads this file from git.
-- Lookups are harvest, never a metric: frequency of dictionary lookups is
-  reading-difficulty data, not a proficiency score.
-- **Automatic path (added 2026-09-10):** the Mac's `com.english.kindle`
-  LaunchAgent (StartOnMount) runs `coach-sync.sh --kindle-only` whenever the
-  Kindle is plugged in → `logs/kindle-vocab.json` committed and pushed. The
-  cloud daily Routine then runs `python3 scripts/kindle-hub.py` (exit 3 =
-  nothing yet) and `write_db` sets the Hub's `meta/kindle` from
-  `logs/hub-kindle.json` (gitignored, regenerated each run); the Read tab's
-  "Your words" panel shows the recent lookups with their usage sentences.
-  There is no other route: Kindle has no API, and Amazon cookies/passwords
-  are never used. `logs/kindle-notebook.json` (highlights, same shape as
-  documented in `scripts/kindle-hub.py`) is read too if it ever exists.
+- **Phone:** KOReader reads the EPUB (`library/` text never enters git; the
+  EPUB goes to the phone by hand). Its Vocabulary Builder keeps dictionary
+  lookups with the sentence context; its statistics plugin keeps seconds per
+  page. An Autosync folder pair uploads `koreader/settings/` to Drive
+  `EnglishPractice/koreader/`. Its progress-sync plugin (kosync,
+  sync.koreader.rocks) publishes the position in the book.
+- **Pull:** `python3 scripts/koreader-pull.py` — on the Mac (nightly and in
+  `coach-sync.sh`) reads the Drive mount; anywhere with `KOSYNC_USER` /
+  `KOSYNC_PASS` set (CCR environment variables + the Mac env file, never git)
+  it also pulls the position; `--dir <folder>` folds sqlite files fetched by
+  other means; `--check` verifies the credentials. Writes `logs/reading/`:
+  `vocab.json` (unified lookup store — `kindle-vocab.py` writes the same file
+  when a Kindle is plugged in), `daily.json` (minutes per day, Europe/London),
+  `progress.json` (percentage → passage id), `books.json` (KOReader document
+  ids = partial MD5 of the file, written by `passage-import.py`).
+- **Hub:** the daily Routine runs `python3 scripts/reading-hub.py` (exit 3 =
+  nothing yet) and `write_db` sets `meta/reading` from `logs/hub-reading.json`
+  (gitignored, regenerated each run). The Read tab's Reading panel shows the
+  position with a "Read aloud from here" button (sets `book_next`), the
+  week's minutes and the recent words with their sentences.
+- **Load, harvest, pointer — never a score:** `reading_min` is a load column
+  in `logs/weekly.tsv` and the readout (sensor first, the Log tab's check-in
+  when the sensor has nothing for that day); lookups follow the card rules
+  (best usage sentences → production cards, shared 25/week cap, `carded`
+  flag); the position only moves the Read tab's pointer. Nothing feeds
+  `tracking.tsv`. No Amazon cookies or passwords, ever; the Kindle's
+  `vocab.db` over USB remains the only Kindle route.
 
 ## Data hub (local sessions)
 
 `scripts/coach-sync.sh` is the single entry point for all data ingestion:
-practice recordings + Anki stats (when Anki is open) + Kindle vocab (when
-plugged in), one "observations: data sync" commit. Run it at the START of
+practice recordings + Anki stats (when Anki is open) + KOReader reading data
+(from the Drive mount) + Kindle vocab (when plugged in), one "observations:
+data sync" commit. Run it at the START of
 every local session and before Friday reviews; each path skips gracefully
 when its source is absent.
 
@@ -203,7 +212,7 @@ is the same architecture for English. Read it before touching ingestion.
   `coach-sync.sh --unattended` = pull → practice ingest → Anki (AnkiConnect
   with sync when open, else `anki-revlog.py` direct read — never read the
   collection while Anki runs) → `listening-pull.py` (AntennaPod → gpodder) →
-  optional `elevenlabs-pull.py` → Kindle if mounted → `intervals-push.py`
+  optional `elevenlabs-pull.py` → `koreader-pull.py` → Kindle if mounted → `intervals-push.py`
   (custom wellness fields `Eng*`, idempotent merge) → one commit, push,
   never force. Secrets in `~/.config/english-runbook/env`, never in git.
 - **gpodder from the cloud:** `scripts/listening-pull.py` runs here too when

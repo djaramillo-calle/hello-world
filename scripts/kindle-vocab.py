@@ -6,7 +6,7 @@ Run in a LOCAL session with the Kindle plugged in over USB:
     python3 scripts/kindle-vocab.py /path/to/Kindle/system/vocabulary/vocab.db
 
 Reads the device's lookup history (word + stem + the sentence it appeared
-in + book + timestamp), merges new lookups into logs/kindle-vocab.json
+in + book + timestamp), merges new lookups into logs/reading/vocab.json
 (deduplicated by lookup id), and prints the new entries so the session can
 turn them into production-format cards per CLAUDE.md.
 
@@ -17,7 +17,8 @@ LOOKUPS, BOOK_INFO). If a firmware version differs, inspect with
 import json, pathlib, sqlite3, sys
 
 REPO = pathlib.Path(__file__).resolve().parent.parent
-OUT = REPO / "logs" / "kindle-vocab.json"
+OUT = REPO / "logs" / "reading" / "vocab.json"   # the unified lookup store (KOReader writes it too: scripts/koreader-pull.py)
+LEGACY = REPO / "logs" / "kindle-vocab.json"
 
 def main():
     if len(sys.argv) != 2:
@@ -36,6 +37,8 @@ def main():
     store = {"lookups": []}
     if OUT.exists():
         store = json.loads(OUT.read_text(encoding="utf-8"))
+    elif LEGACY.exists():
+        store = json.loads(LEGACY.read_text(encoding="utf-8"))   # pre-2026-09-10 file, migrated on first run
     known = {x["id"] for x in store["lookups"]}
 
     new = []
@@ -50,7 +53,7 @@ def main():
         store["lookups"].append(entry)
         new.append(entry)
 
-    OUT.parent.mkdir(exist_ok=True)
+    OUT.parent.mkdir(parents=True, exist_ok=True)
     # atomic replace: a failure mid-write must never truncate the store
     # (carded flags live only in this file)
     tmp = OUT.with_suffix(".json.tmp")
@@ -64,7 +67,7 @@ def main():
     if new:
         print("\nNext: turn the best of these into production cards "
               "(front = the usage sentence with the word blanked, said aloud), "
-              "mark them carded:true, then commit logs/kindle-vocab.json "
+              "mark them carded:true, then commit logs/reading/vocab.json "
               "with message prefix 'observations:'.")
 
 if __name__ == "__main__":

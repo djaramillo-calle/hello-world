@@ -18,6 +18,7 @@ and one Mac session), **me** (in chat or by the daily/Friday Routines), or
 | A3 | Install **AntennaPod**; create a gpodder.net account (or note if registration is closed → tell me, we self-host oPodSync); Settings → Synchronization → log in, device `poco`. Subscribe the 2–3 shows of the week's topic. | one episode played ≥1 min shows in the gpodder web UI | you |
 | A4 | Recorder app saving to a fixed folder + **Autosync for Google Drive** folder pair → `My Drive/EnglishPractice/Recordings` in the udea account, upload-only, instant. | a test file `eng read A00` appears in the Drive folder within a minute | you |
 | A5 | Tap "Read out this morning" once and, on Tuesday, "Start a 20-minute AI conversation": allow Claude and the microphone when asked. | a readout renders; a Talk session ends with a harvest | you |
+| A6 | KOReader: open the EPUB, register Progress sync, add lookups to the Vocabulary builder; Autosync pair `koreader/settings` → Drive `EnglishPractice/koreader` (docs/HUB.md → Phone setup). | Drive shows `statistics.sqlite3`; `python3 scripts/koreader-pull.py --check` prints `authorized` | you |
 
 ## B · Mac, one local session (~40 min)
 
@@ -25,7 +26,7 @@ and one Mac session), **me** (in chat or by the daily/Friday Routines), or
 |---|---|---|---|
 | B1 | `git pull`. If `.venv-practice` is missing: `bash scripts/practice-setup.sh` (Python 3.13 pins are load-bearing). | `.venv-practice/bin/python -c "import faster_whisper"` prints nothing | you |
 | B2 | Google Drive desktop: add the udea account so `~/Library/CloudStorage/GoogleDrive-udea…/My Drive/EnglishPractice` exists. | folder visible in Finder | you |
-| B3 | Secrets in `~/.config/english-runbook/env` (chmod 600): `AZURE_SPEECH_KEY` + `AZURE_SPEECH_REGION=uksouth` (the same values you put in the cloud environment — verified there 2026-09-09: assessment, completeness, phonemes and prosody all OK on F0), `GPODDER_USER` / `GPODDER_PASS`, `INTERVALS_API_KEY` (Intervals → Settings → Developer). Optional: `ELEVENLABS_*`. Sanity check on the Mac: `set -a; source ~/.config/english-runbook/env; set +a; python3 scripts/azure-check.py`. | verdict line all OK | you |
+| B3 | Secrets in `~/.config/english-runbook/env` (chmod 600): `AZURE_SPEECH_KEY` + `AZURE_SPEECH_REGION=uksouth` (the same values you put in the cloud environment — verified there 2026-09-09: assessment, completeness, phonemes and prosody all OK on F0), `KOSYNC_USER` + `KOSYNC_PASS` (KOReader progress sync, A6), `GPODDER_USER` / `GPODDER_PASS`, `INTERVALS_API_KEY` (Intervals → Settings → Developer). Optional: `ELEVENLABS_*`. Sanity check on the Mac: `set -a; source ~/.config/english-runbook/env; set +a; python3 scripts/azure-check.py`. | verdict line all OK | you |
 | B4 | Make `git push` prompt-free: `gh auth setup-git` (or an SSH deploy key without passphrase). | `git push` from a terminal asks nothing | you |
 | B5 | `bash scripts/install-automation.sh` — installs the nightly job, the Kindle watcher and the recording watcher (re-run after B2 so the Drive path is watched). | prints the three `installed …` lines | you |
 | B6 | Dry run by hand: `bash scripts/coach-sync.sh --unattended`. | log shows practice/anki/listening/intervals lines, one commit, "pushed" | you |

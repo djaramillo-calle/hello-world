@@ -16,6 +16,7 @@
 # Secrets live in ~/.config/english-runbook/env (chmod 600), never in git:
 #   GPODDER_USER / GPODDER_PASS [/ GPODDER_BASE]   INTERVALS_API_KEY [/ INTERVALS_ATHLETE_ID]
 #   ELEVENLABS_API_KEY / ELEVENLABS_AGENT_ID       AZURE_SPEECH_KEY / AZURE_SPEECH_REGION
+#   KOSYNC_USER / KOSYNC_PASS                      (KOReader progress sync — the reading position)
 set -uo pipefail
 cd "$(dirname "$0")/.."
 MODE="${1:-}"
@@ -72,9 +73,12 @@ if [ "$MODE" != "--kindle-only" ]; then
 
   # 4. AI conversations from a hosted voice agent, when configured (optional upgrade path)
   python3 scripts/elevenlabs-pull.py || echo "elevenlabs pull FAILED"
+
+  # 4b. Reading: KOReader on the phone (Autosync → Drive EnglishPractice/koreader) + kosync position
+  python3 scripts/koreader-pull.py || echo "koreader pull skipped/FAILED"
 fi
 
-# 5. Kindle vocab (needs the device plugged in over USB)
+# 5. Kindle vocab (legacy path: needs the device plugged in over USB; writes the same logs/reading/vocab.json)
 KINDLE_DB=$(ls /Volumes/*/system/vocabulary/vocab.db 2>/dev/null | head -1)
 if [ -n "${KINDLE_DB:-}" ]; then
   python3 scripts/kindle-vocab.py "$KINDLE_DB" || echo "kindle sync FAILED"

@@ -10,7 +10,9 @@ English. Two stores, one loop.
  AntennaPod ──play actions──▶ gpodder.net ◀── listening-pull.py          Artifact DB (English Hub)
  recorder ──"eng *.m4a"────▶ Drive folder ──▶ practice-ingest.py           ▲  Talk sessions, check-ins
  AnkiDroid ──sync──▶ AnkiWeb ──▶ desktop Anki ──▶ anki-stats / anki-revlog   │  diagnostic runs
- Kindle (USB) ──StartOnMount──────────────────▶ kindle-vocab.py ──▶ git ──▶ kindle-hub.py ──▶ meta/kindle
+ KOReader ──Autosync──▶ Drive koreader/ ──▶ koreader-pull.py ──▶ git ──▶ reading-hub.py ──▶ meta/reading
+         ──kosync──▶ sync.koreader.rocks ◀── koreader-pull.py (position, from the cloud too)
+ Kindle (USB, legacy) ──StartOnMount──────────▶ kindle-vocab.py (same vocab store)
                                               intervals-push.py ──▶ Intervals.icu (EngListenMin…)
                                               git commit + push ──▶ GIT ◀── read_db + hub-fold.py
                                                                             daily-readout.py / weekly-rollup.py / dial.py
@@ -76,7 +78,8 @@ takes conversations, listening days and talk minutes from the sensors; a
 
 What the nightly job does, in order: `git pull --rebase` → practice ingest
 from the Drive mount → Anki (sync + AnkiConnect, or direct read) → listening
-pull → optional ElevenLabs pull → Kindle if mounted → Intervals.icu push → one
+pull → optional ElevenLabs pull → KOReader pull (Drive mount + kosync) → Kindle if
+mounted → Intervals.icu push → one
 commit, one push, never force, never empty.
 
 ## Phone setup (one-off, ~15 minutes)
@@ -87,6 +90,21 @@ commit, one push, never force, never empty.
 - **Recorder with auto-upload** into the `EnglishPractice` Drive folder
   (Easy Voice Recorder Pro, or Autosync for Google Drive with a folder pair).
   Names: "eng 432", "eng ai", "eng warmup", "eng debrief".
+- **KOReader** (free, F-Droid or GitHub APK) — the reading sensor:
+  1. Copy the EPUB to the phone (Drive → download, or USB) and open it in
+     KOReader. Long-press a word → dictionary → "Add to vocabulary builder";
+     or turn on Settings → Vocabulary builder → "Auto add new words".
+  2. Progress sync: top menu → ⚙ → Progress sync → register a username and
+     password on the default server, enable "Auto sync". Put the same two
+     values as `KOSYNC_USER` / `KOSYNC_PASS` in the cloud environment
+     variables and in `~/.config/english-runbook/env` on the Mac.
+  3. **Autosync for Google Drive** (free tier, one folder pair): phone folder
+     `koreader/settings` (internal storage) → Drive folder
+     `EnglishPractice/koreader`, upload-only. That folder holds
+     `vocabulary_builder.sqlite3` and `statistics.sqlite3`; the Mac's nightly
+     job reads them from the Drive mount.
+  Reading aloud: record with the recorder while reading from KOReader; the
+  ingest finds the passage from the transcript, no name needed.
 - **English Hub** on the home screen (Chrome → Add to Home screen). The first
   Talk or readout asks once to allow Claude; the first Talk asks for the
   microphone.
@@ -95,13 +113,14 @@ commit, one push, never force, never empty.
 
 ## What is still self-report
 
-Reading minutes, personal-circle and work conversations, whether the tutor
-pushed you to self-repair, and the tutor's correction list. All of it is one
+Personal-circle and work conversations, whether the tutor pushed you to
+self-repair, and the tutor's correction list (reading minutes come from
+KOReader; the Log tab's chip only covers days the phone did not sync). All of it is one
 screen in Hub → Log, and the Friday review asks for nothing else.
 
 ## Rules that do not change
 
 Load is adherence, never ability: nothing in `logs/hub`, `logs/listening`,
-`logs/ai-sessions` or Intervals.icu feeds `tracking.tsv`. Transcripts are
+`logs/reading`, `logs/ai-sessions` or Intervals.icu feeds `tracking.tsv`. Transcripts are
 harvest for the observation log under the 2-occurrence rule. One lever per
 5-week cycle; sensors change what the coach *knows*, not what it may *change*.

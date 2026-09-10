@@ -111,6 +111,9 @@ copyrighted — plus, with `--hub-docs`, the documents for the Hub: collection
 `meta/book` (the table of contents). The Read tab serves the next unread
 passage (`meta/config.book_next`; Done advances it, Back one rewinds; Mondays
 still show the anchor; "Short passages instead" falls back to the seed set).
+The book is also read in KOReader on the phone (`docs/HUB.md` → Phone setup);
+its position reaches the Read tab as `meta/reading` ("Read aloud from here"), its
+minutes are the `reading_min` load column, its lookups become cards.
 The ingest matches a transcript against the library too, so a book read is
 scored scripted whatever the file is called. Both machines need the library
 file: run the importer once on the Mac with the same EPUB.
