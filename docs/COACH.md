@@ -11,7 +11,7 @@ levers move only under `docs/TARGET.md` at time trials, and only one per cycle.
 | A recording lands in Drive `EnglishPractice/…` | Mac, `com.english.recording` (WatchPaths, ≤10 min) | `coach-sync.sh --on-recording`: bookshelf sync → ingest (Whisper + Azure, scripted if the transcript matches a passage) → review (checklist, ledger, drill, cards) → Anki push if open → commit + push | `logs/practice/<id>.*`, `logs/pronunciation-ledger.json`, `drills/latest.*`, `cards/queue.tsv` |
 | Every night 21:40 | Mac, `com.english.nightly` | `coach-sync.sh --unattended`: pull → bookshelf (import new EPUBs, stock the phone from `logs/reading/shelf.json`) → ingest → review → **KOReader pull** (Drive mount) → **reading cards** → Anki (opened by the job if closed: push cards, sync, stats, quit) → listening → ElevenLabs → Kindle if mounted → Intervals.icu → commit + push | `logs/reading/*`, `logs/anki-stats.json`, `logs/listening/`, cards in Anki |
 | Kindle plugged in | Mac, `com.english.kindle` | `coach-sync.sh --kindle-only` → the same lookup store | `logs/reading/vocab.json` |
-| Daily 18:30 UTC | Cloud Routine `trig_01YRXXRq9hmK5rPfza4UVzUy` | pull → gpodder listening (if env) → finish pending harvests → Hub pull + fold → Talk-session cards → `koreader-pull` (kosync position, if env) → `reading-cards` → `reading-hub` → Hub `meta/drills`, `meta/ledger`, `meta/reading` → observations → commit + push → 5-line reply | Hub Read tab current; `cards/queue.tsv`; `observations.md` |
+| Daily 18:30 UTC | Cloud Routine `trig_01YRXXRq9hmK5rPfza4UVzUy` | pull → gpodder listening (if env) → finish pending harvests → Hub pull + fold → Talk-session cards → `koreader-pull` (kosync position, if env) → `reading-cards` → **`anki-cloud`** (queue → AnkiWeb, stats ← AnkiWeb, if env) → `reading-hub` → Hub `meta/drills`, `meta/ledger`, `meta/reading` → observations → commit + push → 5-line reply | cards on AnkiWeb (AnkiDroid/desktop at next sync); `logs/anki-stats.json`; Hub Read tab current; `observations.md` |
 | Friday 18:00 UTC | Cloud Routine `trig_01Quw9v6zvapu6kkvperUVPL` | pull → Hub + diagnostic runs → weekly digest (**judgement**: patterns, 2-occurrence rule) → `weekly-rollup` → `daily-readout` → `dial` (recommend only) → Season Board → commit + push → ≤10-line reply | `observations.md`, `logs/weekly.tsv`, `progress.html` |
 | Time-trial week-close (weeks 5, 10; week 12 = measurement) | Friday Routine + user | `dial.py` recommendation logged to `logs/dial-log.tsv`; **the user decides** the one lever | `logs/dial-log.tsv` |
 | A new EPUB in Drive `EnglishPractice/library` | Mac (next sync) | imported; `<slug>.hub.json` written beside it; `logs/reading/books.json` registered | the book on the shelf list = on the phone |
@@ -20,8 +20,9 @@ levers move only under `docs/TARGET.md` at time trials, and only one per cycle.
 
 ## What the coach decides on its own (harvest level, no gate)
 
-- **Cards:** every source queues production cards (`cards/queue.tsv`); the Mac pushes them every
-  night (opening Anki itself if needed), at most 25 new per rolling week across all sources (`anki-push-cards.py`). Lookups
+- **Cards:** every source queues production cards (`cards/queue.tsv`); the cloud pushes them to
+  AnkiWeb daily (`anki-cloud.py`, when the credentials are in the environment) and the Mac pushes
+  whatever is left at night (opening Anki itself if needed), at most 25 new per rolling week across all sources (`anki-push-cards.py`). Lookups
   are carded newest-first, 5 per run (`reading-cards.py`); the Friday review may reformulate or
   retire cards (RETIRED patterns) — harvest actions, any time.
 - **The shelf:** `logs/reading/shelf.json` lists what the phone holds. The coach changes it when a
@@ -34,7 +35,7 @@ levers move only under `docs/TARGET.md` at time trials, and only one per cycle.
 ## What never happens without the user
 
 Plan levers (one per 5-week cycle, time trials only) · calendar events · Anki scheduler settings ·
-new credentials or accounts · anything touching `tracking.tsv` outside a diagnostic run ·
+new credentials or accounts (AnkiWeb's were the user's own decision, 2026-09-10) · anything touching `tracking.tsv` outside a diagnostic run ·
 publishing the book text anywhere public.
 
 ## Where things are

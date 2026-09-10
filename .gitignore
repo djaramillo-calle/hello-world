@@ -7,3 +7,8 @@ library/
 
 # generated Hub document (rebuilt by scripts/reading-hub.py on every Routine run; sources are logs/reading/*.json)
 logs/hub-reading.json
+
+# cloud Anki venv (scripts/anki-cloud.py bootstraps it)
+.venv-anki/
+.venv-tools/
+.venv-practice/

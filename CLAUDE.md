@@ -49,11 +49,27 @@ fires into the long-running session to write the digest. If working in a
 fresh session, append observations with dated entries in the established
 format and commit with message prefix "observations:".
 
-## Anki (local sessions only)
+## Anki
 
-The user's SRS lives in desktop Anki, controlled via an Anki MCP server +
-AnkiConnect on their local machine. Cloud sessions cannot reach it; git is
-the bridge. Conventions for any LOCAL session with the Anki MCP attached:
+The user's SRS lives in desktop Anki (Anki MCP + AnkiConnect on the Mac) and
+AnkiDroid, both synced through AnkiWeb. Two paths into it:
+
+- **Cloud (chosen by the user 2026-09-10):** `python3 scripts/anki-cloud.py`
+  — the official `anki` library's AnkiWeb sync, with `ANKIWEB_USER` /
+  `ANKIWEB_PASS` as CCR environment variables (never git, never the Hub
+  store, never chat). Each run: empty temp collection → full DOWNLOAD from
+  AnkiWeb → queued cards added (deck, model, cap and dedupe below) → normal
+  sync (incremental upload) → `logs/anki-stats.json` exported from the
+  downloaded collection → queue rows marked `added`. It never full-uploads:
+  if AnkiWeb asks for one it aborts and the desktop resolves it. Exit 3 when
+  the variables are unset. The daily and Friday Routines run it; AnkiDroid
+  and the desktop receive the cards at their next sync.
+- **Mac (AnkiConnect):** `anki-push-cards.py` / `anki-stats.py` in
+  `coach-sync.sh`, which opens Anki itself at night. Both paths share the
+  queue (`cards/queue.tsv`) and the cap, so whichever runs first wins and the
+  other finds nothing left.
+
+Conventions for any session that adds cards (either path, or the MCP):
 
 - Deck name: **English Runbook**. Card format: production — front = cue
   ("Say it: ...", "Complete aloud: ...", "Phrasal (instead of X): ..."),
