@@ -56,7 +56,8 @@ def tls_env():
         os.environ["SSL_CERT_FILE"] = ca
 
 def open_from_ankiweb(workdir, user, password, log=print):
-    """Fresh collection ← AnkiWeb. Returns (col, auth). Aborts rather than ever uploading a full collection."""
+    """Fresh collection ← AnkiWeb. Returns (col, auth, downloaded). Aborts rather than ever uploading a full collection.
+    `downloaded` False means AnkiWeb answered NO_CHANGES to an empty client: the account holds no collection at all."""
     from anki.collection import Collection
     from anki import sync_pb2
     R = sync_pb2.SyncCollectionResponse
@@ -66,14 +67,16 @@ def open_from_ankiweb(workdir, user, password, log=print):
     if out.new_endpoint: auth.endpoint = out.new_endpoint
     log(f"anki-cloud: first sync from an empty collection → required={R.ChangesRequired.Name(out.required)}"
         + (f" · server says: {out.server_message}" if out.server_message else ""))
+    downloaded = False
     if out.required in (R.FULL_SYNC, R.FULL_DOWNLOAD):
         log("anki-cloud: downloading the collection from AnkiWeb")
         col.close_for_full_sync()
         col.full_upload_or_download(auth=auth, server_usn=out.server_media_usn, upload=False)
         col.reopen(after_full_sync=True)
+        downloaded = True
     elif out.required == R.FULL_UPLOAD:
         col.close(); raise SystemExit("anki-cloud: AnkiWeb asks for a FULL UPLOAD from an empty collection — refusing; sync the desktop first")
-    return col, auth
+    return col, auth, downloaded
 
 def deck_fronts(col, deck=DECK):
     did = col.decks.id_for_name(deck)
@@ -122,16 +125,18 @@ def run(user, password, dry=False, check=False, log=print):
     pr = _load("practice-review")
     rows = pr.load_queue()
     with tempfile.TemporaryDirectory() as td:
-        col, auth = open_from_ankiweb(td, user, password, log)
+        col, auth, downloaded = open_from_ankiweb(td, user, password, log)
         path = col.path
         try:
             did, fronts = deck_fronts(col)
             week = len(col.find_notes(f'"deck:{DECK}" added:7')) if did else 0
             total = len(col.find_notes("")); decks = [d.name for d in col.decks.all_names_and_ids()]
             log(f"anki-cloud: collection state — {total} notes in {len(decks)} decks {decks[:8]}; deck {DECK!r} {'found' if did else 'MISSING'}, {len(fronts)} notes, {week} added in the last 7 days")
-            if total == 0:
+            if not downloaded and total == 0:
                 log("anki-cloud: the AnkiWeb account holds NO collection yet (never synced from a desktop/AnkiDroid) — sync once from the desktop with this account first; this script never uploads a full collection")
                 if not check: return 4
+            if downloaded and total == 0:
+                log("anki-cloud: the collection is synced but empty (the seed deck was never imported) — cards can be added")
             if check: return 0
             now = dt.datetime.now(dt.timezone.utc)
             added, room = add_cards(col, rows, now, dry, log)
