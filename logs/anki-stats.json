@@ -1,13 +1,17 @@
 {
- "exported": "2026-08-30T16:51:18Z",
+ "exported": "2026-09-10T12:28:09Z",
  "deck": "English Runbook",
+ "source": "ankiweb (cloud, anki-cloud.py)",
  "counts": {
-  "total": 33,
-  "new": 33,
+  "total": 3,
+  "new": 3,
   "young": 0,
   "mature": 0,
-  "suspended": 0
+  "suspended": 0,
+  "learning": 0
  },
  "reviews_per_day_since_last_export": {},
+ "review_seconds_per_day": {},
+ "retention_per_day": {},
  "leech_candidates": []
 }
