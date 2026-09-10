@@ -27,9 +27,13 @@ AUDIO_EXT = {".m4a", ".mp3", ".wav", ".aac", ".ogg", ".opus", ".flac", ".mp4", "
 BOOK_EXT = {".epub", ".txt", ".md"}
 RECORDING_ROOTS = ["EnglishPractice/Recordings", "com.nll.asr/EnglishPractice"]
 
+_MODULES = {}
 def _load(name):
-    spec = importlib.util.spec_from_file_location(name.replace("-", "_"), SCRIPTS / f"{name}.py")
-    m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m); return m
+    """One instance per sibling script (so a selftest's patches on it hold across calls)."""
+    if name not in _MODULES:
+        spec = importlib.util.spec_from_file_location(name.replace("-", "_"), SCRIPTS / f"{name}.py")
+        m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m); _MODULES[name] = m
+    return _MODULES[name]
 
 def load_json(p, default):
     try: return json.loads(p.read_text(encoding="utf-8"))
