@@ -221,7 +221,8 @@ def selftest():
         globals()["load_json"] = lambda p, default: real_load_json(shelf_path if str(p).endswith("shelf.json") else p, default)
         logs = []
         done = sync_library(drv, work, log=logs.append)
-        assert done["imported"] == ["a-small-book"], done
+        assert done["imported"] == ["a-small-book"], done      # Old__Gone.epub (fake bytes) is skipped with a log line, not a crash
+        assert any("Old__Gone.epub could not be converted" in l for l in logs), logs
         names = {f["name"] for f in drv.children("EnglishPractice/library")}
         assert "a-small-book.json" in names and "a-small-book.hub.json" in names, names
         knames = {f["name"] for f in drv.children("EnglishPractice/koreader")}

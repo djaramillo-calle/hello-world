@@ -89,7 +89,10 @@ def sync(drive, lib=LIB, pi=None, log=print, phone_dir=None, shelf=None):
         slug = pi.slugify(title)
         if (drive / f"{slug}.json").exists() or (lib / f"{slug}.json").exists(): continue
         log(f"library-sync: importing {src.name} → {slug}")
-        book = pi.build(pi.to_markdown(src), title, author, src.name, 150)
+        try:
+            book = pi.build(pi.to_markdown(src), title, author, src.name, 150)
+        except Exception as e:   # a broken or unconvertible file must not stop the other books
+            log(f"library-sync: {src.name} could not be converted ({type(e).__name__}) — skipped"); continue
         if not book["chunks"]:
             log(f"library-sync: {src.name} produced no passages — skipped (check the file)"); continue
         text = json.dumps(book, ensure_ascii=False, indent=1) + "\n"
