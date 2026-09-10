@@ -5,8 +5,10 @@
     python3 scripts/cloud-sync.py --selftest
 
 Needs GDRIVE_SA_JSON_B64 (scripts/drive.py). In order:
-  1. bookshelf: Drive EnglishPractice/library → import new EPUBs (library-sync), passage files back up,
-     the phone folder EnglishPractice/koreader stocked from logs/reading/shelf.json (Drive-side copies)
+  1. bookshelf: EPUBs in Drive EnglishPractice/library and EnglishPractice/koreader → imported when no
+     passage file exists (markitdown, ~1.5 min; passages are rebuilt each run — a service account cannot
+     store files in a personal Drive), Hub documents for new books left in library/hub/<slug>/ for the
+     Routine to write_db; the phone folder is what the user drops there (shelf removals best effort)
   2. recordings: every new audio file under EnglishPractice/Recordings and com.nll.asr/EnglishPractice
      (by Drive file id + md5, logs/practice/.drive.json) → downloaded → practice-ingest (Whisper + Azure,
      scripted when the transcript matches a passage) → practice-review (ledger, drill, cards)
@@ -62,6 +64,10 @@ def sync_library(drv, work, log=print, dry=False):
     lib_folder = drv.resolve("EnglishPractice/library")
     if not lib_folder: log("library: Drive folder missing — skipped"); return {}
     entries = {f["name"]: f for f in drv.children(lib_folder["id"]) if f["mimeType"] != "application/vnd.google-apps.folder"}
+    kf = drv.resolve("EnglishPractice/koreader")
+    if kf:   # a book dropped straight into the phone folder is imported too (its passages then live in the run's library/)
+        for f in drv.children(kf["id"]):
+            if pathlib.Path(f["name"]).suffix.lower() in BOOK_EXT and f["name"] not in entries: entries[f["name"]] = f
     local = work / "library"; local.mkdir(parents=True, exist_ok=True)
     have_json = {n[:-5] for n in entries if n.endswith(".json") and not n.endswith(".hub.json")}
     ls = _load("library-sync"); pi = _load("passage-import")
@@ -81,7 +87,17 @@ def sync_library(drv, work, log=print, dry=False):
     if not dry:
         for x in sorted(local.iterdir()):
             if x.name not in before or (x.name.endswith(".json") and x.name.replace(".json", "") in done.get("imported", [])):
-                log(f"library: uploading {x.name}"); drv.upload(x, lib_folder["id"])
+                try: log(f"library: uploading {x.name}"); drv.upload(x, lib_folder["id"])
+                except SystemExit as e:
+                    log(f"library: upload of {x.name} refused ({str(e)[:80]}…) — a service account owns what it creates and has no Drive quota; the passages are rebuilt from the EPUB each run instead")
+                    break
+    # Hub documents for a newly imported book: written locally (gitignored) for the Routine to write_db from files
+    for slug in done.get("imported", []):
+        src = LIB / f"{slug}.json"
+        if src.exists():
+            out = LIB / "hub" / slug; out.mkdir(parents=True, exist_ok=True)
+            n = len(pi.write_hub_docs(json.loads(src.read_text(encoding="utf-8")), out))
+            log(f"library: hub docs for {slug} ready in library/hub/{slug} ({n} + meta-book.json) — write_db them to the Hub (book/<id>, meta/book)")
     # the phone folder: exactly the shelf's EPUBs (Drive-side copies), sqlite files untouched
     shelf = load_json(REPO / "logs" / "reading" / "shelf.json", {}).get("phone") or []
     kfolder = drv.resolve("EnglishPractice/koreader")
@@ -89,9 +105,13 @@ def sync_library(drv, work, log=print, dry=False):
         kids = {f["name"]: f for f in drv.children(kfolder["id"])}
         wanted = {n: f for n, f in entries.items() if pathlib.Path(n).suffix.lower() in BOOK_EXT and pi.slugify(ls.title_author(pathlib.Path(n))[0]) in shelf}
         for n, f in wanted.items():
-            if n not in kids: log(f"phone: + {n}"); drv.copy(f["id"], kfolder["id"], n)
+            if n in kids: continue
+            try: log(f"phone: + {n}"); drv.copy(f["id"], kfolder["id"], n)
+            except SystemExit as e: log(f"phone: cannot copy {n} ({str(e)[:60]}…) — drop the EPUB into EnglishPractice/koreader yourself; the service account has no Drive quota")
         for n, f in kids.items():
-            if pathlib.Path(n).suffix.lower() in BOOK_EXT and n not in wanted: log(f"phone: - {n}"); drv.trash(f["id"])
+            if pathlib.Path(n).suffix.lower() in BOOK_EXT and n not in wanted:
+                try: log(f"phone: - {n}"); drv.trash(f["id"])
+                except SystemExit as e: log(f"phone: cannot remove {n} ({str(e)[:60]}…) — remove it from EnglishPractice/koreader yourself")
     return done
 
 def sync_recordings(drv, work, log=print, dry=False, skip_audio=False):
