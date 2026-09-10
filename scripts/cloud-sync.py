@@ -72,6 +72,9 @@ def sync_library(drv, work, log=print, dry=False):
         elif p.suffix.lower() in BOOK_EXT and pi.slugify(ls.title_author(p)[0]) not in have_json:
             log(f"library: new book {name} — downloading for import"); drv.download(f["id"], local / name)
     LIB.mkdir(exist_ok=True)
+    needs_import = any(pathlib.Path(n).suffix.lower() in BOOK_EXT and pi.slugify(ls.title_author(pathlib.Path(n))[0]) not in have_json for n in entries)
+    if needs_import and not (REPO / ".venv-tools" / "bin" / "markitdown").exists() and not dry:
+        if run(["bash", SCRIPTS / "cloud-setup.sh", "--tools"]) != 0: log("library: markitdown install FAILED — import skipped this run")
     before = {x.name for x in local.iterdir()}
     phone = work / "phone"; phone.mkdir(exist_ok=True)
     done = ls.sync(local, LIB, pi, log=log, phone_dir=phone, shelf=[])   # imports + mirrors into REPO/library; the phone is stocked below, Drive-side
@@ -132,7 +135,9 @@ def main():
     drv = Drive(key)
     work = pathlib.Path(tempfile.mkdtemp(prefix="cloud-sync-"))
     print(f"== cloud-sync (work {work}) ==")
-    sync_library(drv, work, dry=dry)
+    try: sync_library(drv, work, dry=dry)
+    except (SystemExit, Exception) as e:   # the shelf must never block the recordings
+        print(f"cloud-sync: library step failed — {type(e).__name__}: {str(e)[:200]}")
     n = sync_recordings(drv, work, dry=dry, skip_audio=skip_audio)
     if n and not skip_audio:
         if run(["bash", SCRIPTS / "cloud-setup.sh"]) != 0: print("cloud-sync: practice venv FAILED — recordings left for next run"); n = 0
