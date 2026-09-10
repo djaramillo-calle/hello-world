@@ -18,7 +18,7 @@ and one Mac session), **me** (in chat or by the daily/Friday Routines), or
 | A3 | Install **AntennaPod**; create a gpodder.net account (or note if registration is closed → tell me, we self-host oPodSync); Settings → Synchronization → log in, device `poco`. Subscribe the 2–3 shows of the week's topic. | one episode played ≥1 min shows in the gpodder web UI | you |
 | A4 | Recorder app saving to a fixed folder + **Autosync for Google Drive** folder pair → `My Drive/EnglishPractice/Recordings` in the udea account, upload-only, instant. | a test file `eng read A00` appears in the Drive folder within a minute | you |
 | A5 | Tap "Read out this morning" once and, on Tuesday, "Start a 20-minute AI conversation": allow Claude and the microphone when asked. | a readout renders; a Talk session ends with a harvest | you |
-| A6 | KOReader: open the EPUB, register Progress sync, add lookups to the Vocabulary builder; Autosync pair `koreader/settings` → Drive `EnglishPractice/koreader` (docs/HUB.md → Phone setup). | Drive shows `statistics.sqlite3`; `python3 scripts/koreader-pull.py --check` prints `authorized` | you |
+| A6 | Put the Arendt EPUB in Drive → `EnglishPractice/library` (name it `Hannah_Arendt__The_Origins_of_Totalitarianism.epub`). KOReader: open it from the Drive app, register Progress sync, add lookups to the Vocabulary builder; Autosync pair `koreader/settings` → Drive `EnglishPractice/koreader` (docs/HUB.md → Phone setup). | Drive shows `statistics.sqlite3`; `python3 scripts/koreader-pull.py --check` prints `authorized` | you |
 
 ## B · Mac, one local session (~40 min)
 

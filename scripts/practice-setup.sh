@@ -18,4 +18,9 @@ PY313="${PY313:-/Users/dj14/.homebrew/bin/python3.13}"
   praat-parselmouth==0.4.7 \
   azure-cognitiveservices-speech==1.51.2
 .venv-practice/bin/python -c "import faster_whisper, parselmouth, azure.cognitiveservices.speech; print('practice venv OK')"
+# Book import (scripts/passage-import.py via library-sync.py) needs markitdown; it gets its own venv so its
+# dependency tree can never disturb the pinned practice stack above.
+"$PY313" -m venv .venv-tools && .venv-tools/bin/pip install -q 'markitdown[epub]' \
+  && .venv-tools/bin/markitdown --version >/dev/null && echo "tools venv OK (markitdown)" \
+  || echo "markitdown install failed — book import will need it (bash scripts/practice-setup.sh again later)"
 echo "Usage: .venv-practice/bin/python scripts/practice-ingest.py [--commit]"

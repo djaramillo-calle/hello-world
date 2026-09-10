@@ -4,7 +4,7 @@ set -eo pipefail
 cd "$(dirname "$0")/.."
 echo "== diagnostic page (jsdom suite) =="; node scripts/test.js | tail -2
 echo "== python tooling =="
-for s in dial weekly-rollup build-progress hub-fold listening-pull anki-revlog intervals-push daily-readout elevenlabs-pull practice-review anki-push-cards azure-check practice-ingest passage-import koreader-pull reading-hub; do
+for s in dial weekly-rollup build-progress hub-fold listening-pull anki-revlog intervals-push daily-readout elevenlabs-pull practice-review anki-push-cards azure-check practice-ingest passage-import library-sync koreader-pull reading-hub; do
   python3 "scripts/$s.py" --selftest
 done
 for f in scripts/*.py; do python3 -m py_compile "$f"; done

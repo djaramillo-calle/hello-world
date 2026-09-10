@@ -91,9 +91,12 @@ commit, one push, never force, never empty.
   (Easy Voice Recorder Pro, or Autosync for Google Drive with a folder pair).
   Names: "eng 432", "eng ai", "eng warmup", "eng debrief".
 - **KOReader** (free, F-Droid or GitHub APK) — the reading sensor:
-  1. Copy the EPUB to the phone (Drive → download, or USB) and open it in
-     KOReader. Long-press a word → dictionary → "Add to vocabulary builder";
-     or turn on Settings → Vocabulary builder → "Auto add new words".
+  1. The EPUB lives in Drive → `EnglishPractice/library` (the bookshelf,
+     `docs/PRACTICE.md`). KOReader has no Google Drive support, so open the
+     file once from the Drive app (⋮ → Download, then open with KOReader) or
+     let an Autosync pair mirror the folder. Long-press a word → dictionary →
+     "Add to vocabulary builder"; or Settings → Vocabulary builder → "Auto add
+     new words".
   2. Progress sync: top menu → ⚙ → Progress sync → register a username and
      password on the default server, enable "Auto sync". Put the same two
      values as `KOSYNC_USER` / `KOSYNC_PASS` in the cloud environment

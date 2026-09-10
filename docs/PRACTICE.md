@@ -102,21 +102,39 @@ cap, deduplicated by front; `cards/queue.tsv` is the audit trail.
 
 ## The book (stage 1 reading material)
 
-`scripts/passage-import.py <book.epub>` converts a book with markitdown and cuts
-it into ~150-word passages (`B001`…) that end on sentence boundaries, grouped by
-chapter, with the running headers, footnotes and dropped-cap artefacts of a
-scanned edition stripped. Output `library/<slug>.json` — gitignored, the text is
-copyrighted — plus, with `--hub-docs`, the documents for the Hub: collection
-`book` (one document per chapter or chapter part, ≤ 110 passages each) and
-`meta/book` (the table of contents). The Read tab serves the next unread
-passage (`meta/config.book_next`; Done advances it, Back one rewinds; Mondays
-still show the anchor; "Short passages instead" falls back to the seed set).
-The book is also read in KOReader on the phone (`docs/HUB.md` → Phone setup);
-its position reaches the Read tab as `meta/reading` ("Read aloud from here"), its
-minutes are the `reading_min` load column, its lookups become cards.
-The ingest matches a transcript against the library too, so a book read is
-scored scripted whatever the file is called. Both machines need the library
-file: run the importer once on the Mac with the same EPUB.
+**The bookshelf is the Drive folder `EnglishPractice/library/`** (private; the
+text never enters the public repo). Drop an EPUB there named
+`Author__Title.epub`. Everything else is automatic:
+
+- **Mac** (`scripts/library-sync.py`, run by the nightly job and before every
+  recording ingest): a book without passages is imported —
+  `scripts/passage-import.py` converts it with markitdown (`.venv-tools`,
+  from `practice-setup.sh`) and cuts it into ~150-word passages (`B001`…)
+  that end on sentence boundaries, grouped by chapter (scan headers,
+  footnotes and dropped-cap artefacts stripped; ordinary EPUBs are split on
+  their headings). Output: `<slug>.json` next to the EPUB in Drive and in the
+  gitignored `library/`; `<slug>.hub.json`, the Hub bundle; and the book's
+  KOReader document ids in `logs/reading/books.json` (hashes only, committed).
+  Passage files present on one side only are mirrored, so the ingest's
+  transcript matching always sees every book.
+- **Hub:** Read tab → "Import a book…" → pick `<slug>.hub.json` from the Drive
+  folder. The page stores collection `book` (one document per chapter or
+  chapter part, ≤ 110 passages each) and `meta/book` (the table of contents)
+  in its own database and points `book_next` at the first passage. The Read
+  tab then serves the next unread passage (Done advances it, Back one rewinds;
+  Mondays still show the anchor; "Short passages instead" falls back to the
+  seed set). The cloud never needs the text.
+- **Phone:** KOReader cannot open Drive itself (it speaks Dropbox, WebDAV and
+  FTP only): open the EPUB from the Drive app once (Download, then open in
+  KOReader) or add it to an Autosync pair. Its position reaches the Read tab
+  as `meta/reading` ("Read aloud from here"), its minutes are the
+  `reading_min` load column, its lookups become cards (`docs/HUB.md`).
+- **Ingest:** a transcript is matched against every book, so a book read is
+  scored scripted whatever the file is called.
+
+Current book: Arendt, *The Origins of Totalitarianism* (1433 passages),
+imported 2026-09-10 in the cloud and already in the Hub; the EPUB still needs
+to go into the Drive folder for the Mac and the phone.
 
 Verified 2026-09-09 with the first test recording (32 s of Arendt, read
 aloud, un-named): Whisper transcript, fluency, Azure scores and flagged

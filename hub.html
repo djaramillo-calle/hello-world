@@ -279,6 +279,7 @@
     <p class="passage" id="read-text"></p>
     <div class="strip"><b>RECORD AS</b><span class="mono" id="read-filename"></span><span class="small soft">then let it upload to EnglishPractice. The file is the check-in; the review, the ledger and the cards follow by themselves.</span></div>
     <div class="row"><button class="btn ghost" id="read-other">Another passage</button><button class="btn ghost" id="read-back" hidden>Back one</button><button class="btn ghost" id="read-anchor">Show the anchor</button><button class="btn ghost" id="read-book" hidden>Short passages instead</button></div>
+    <div class="row small"><label class="btn ghost" for="book-file">Import a book…</label><input type="file" id="book-file" accept=".json,application/json" hidden><span class="faint" id="book-status">the <span class="mono">&lt;book&gt;.hub.json</span> file from Drive → EnglishPractice → library</span></div>
   </div>
   <h2>Today's drill</h2>
   <div class="panel small" id="drill">No drill yet. The first scored recording builds the pronunciation ledger; the drill is generated from its top three confusion classes.</div>
@@ -647,6 +648,34 @@
     if (t.book && t.p && bookNum(t.p.id) > 1) { cfg.book_next = "B" + String(bookNum(t.p.id) - 1).padStart(3, "0"); saveCfg(null); renderRead(); }
   });
   $("read-book").addEventListener("click", function () { bookOff = !bookOff; showAnchor = false; renderRead(); });
+  /* The bookshelf: scripts/library-sync.py writes <slug>.hub.json next to each EPUB in Drive (meta/book + the
+     chapter documents). Importing it here stores the book in this page's own database — the text never has to
+     travel through a cloud session. Sequential writes: each document is ≤ 256 KiB, a book is ~20 of them. */
+  $("book-file").addEventListener("change", function () {
+    var f = this.files && this.files[0], st = $("book-status"); this.value = "";
+    if (!f) return;
+    if (!db) { st.textContent = "open the Hub from its artifact link to import"; return; }
+    st.textContent = "reading " + f.name + "…";
+    f.text().then(function (txt) {
+      var b = JSON.parse(txt), ids = Object.keys(b.docs || {});
+      if (!b.meta || !b.meta.chapters || !ids.length) throw new Error("not a book bundle (<slug>.hub.json)");
+      var i = 0;
+      function next() {
+        if (i >= ids.length) {
+          return db.doc("meta/book").set(b.meta).then(function () {
+            var fresh = !bookMeta || bookMeta.title !== b.meta.title;
+            bookMeta = b.meta; bookDocs = {}; bookOff = false;
+            if (fresh || !cfg.book_next) { cfg.book_next = b.meta.chapters[0].first; cfg.book_read = 0; saveCfg(null); }
+            st.textContent = "imported " + b.meta.title + " — " + b.meta.total + " passages in " + ids.length + " documents";
+            renderRead();
+          });
+        }
+        var id = ids[i++]; st.textContent = "storing " + i + "/" + ids.length + "…";
+        return db.doc("book/" + id).set(b.docs[id]).then(next);
+      }
+      return next();
+    }).catch(function (e) { st.textContent = "import failed: " + (e.message || e.code || e); });
+  });
   $("read-anchor").addEventListener("click", function () { showAnchor = !showAnchor; this.textContent = showAnchor ? "Back to today's passage" : "Show the anchor"; renderRead(); });
 
   /* ---------- log tab ---------- */

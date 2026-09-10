@@ -50,9 +50,9 @@ def preface_title(raw: str) -> str:
 def to_markdown(path: pathlib.Path) -> str:
     if path.suffix.lower() in (".md", ".txt"):
         return path.read_text(encoding="utf-8", errors="replace")
-    exe = shutil.which("markitdown") or next((str(p) for p in [REPO / ".venv-practice/bin/markitdown"] if p.exists()), None)
+    exe = shutil.which("markitdown") or next((str(p) for p in [REPO / ".venv-tools/bin/markitdown", REPO / ".venv-practice/bin/markitdown"] if p.exists()), None)
     if not exe:
-        sys.exit("markitdown not found: pip install 'markitdown[epub]' (in the practice venv) or pass --md <converted.md>")
+        sys.exit("markitdown not found: bash scripts/practice-setup.sh installs it in .venv-tools (or pip install markitdown), or pass --md <converted.md>")
     return subprocess.run([exe, str(path)], check=True, capture_output=True, text=True).stdout
 
 def clean_page(text: str) -> str:
@@ -143,7 +143,20 @@ def sections(md: str):
         if started:
             cur.append(l)
     flush()
-    return yield_list
+    if yield_list: return yield_list
+    # Structured Markdown (a proper EPUB, not a scan): every heading starts a section; text before the first
+    # heading is front matter. No headings at all: the whole text is one section.
+    heads = [(i, l) for i, l in enumerate(lines) if re.match(r"^#{1,3}\s+\S", l)]
+    if not heads:
+        body = [l.strip() for l in lines]
+        return [("Book", body)] if body else []
+    out = []
+    for k, (i, h) in enumerate(heads):
+        end = heads[k + 1][0] if k + 1 < len(heads) else len(lines)
+        title = re.sub(r"^#+\s*", "", h).strip()[:120]
+        body = [l.strip() for l in lines[i + 1:end] if not re.match(r"^#{1,6}\s", l)]
+        if body and not any(title.upper().startswith(s) for s in SKIP_SECTIONS): out.append((title, body))
+    return out
 
 def build(md: str, title: str, author: str, source: str, words=150):
     chunks, chapters = [], []
@@ -213,6 +226,10 @@ def selftest():
     with tempfile.TemporaryDirectory() as td:
         docs = write_hub_docs(b, pathlib.Path(td))
         assert len(docs) == 2 and (pathlib.Path(td) / "meta-book.json").exists()
+    md = "Front matter, dropped.\n\n# Chapter One\n\n" + ("The morning was cold and the station was already full of people who did not look at each other. " * 12).strip() + "\n\n## Chapter Two\n\nA short one. It ends here.\n"
+    b = build(md, "A Small Book", "Test Author", "small.txt", 150)
+    assert [c["title"] for c in b["chapters"]] == ["Chapter One", "Chapter Two"] and b["chunks"][0]["id"] == "B001" and "Front matter" not in b["chunks"][0]["text"], b["chapters"]
+    assert build("Just prose. No headings at all.", "P", "", "p.txt")["chapters"][0]["title"] == "Book"
     print("passage-import.py selftest: OK")
 
 BOOKS = REPO / "logs" / "reading" / "books.json"

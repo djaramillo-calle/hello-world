@@ -32,6 +32,7 @@ fi
 
 if [ "$MODE" = "--on-recording" ]; then
   # 0. The recording trigger: only the practice paths, as fast as possible
+  python3 scripts/library-sync.py || true   # new EPUB in Drive → passages (the ingest detects book reads from the transcript)
   if [ -x .venv-practice/bin/python ]; then
     .venv-practice/bin/python scripts/practice-ingest.py || echo "practice ingest FAILED"
   else
@@ -47,7 +48,8 @@ if [ "$MODE" = "--on-recording" ]; then
 fi
 
 if [ "$MODE" != "--kindle-only" ]; then
-  # 1. Practice recordings (local folders + any synced Drive mount)
+  # 1. The bookshelf (Drive EnglishPractice/library: import new EPUBs, mirror the passages), then practice recordings
+  python3 scripts/library-sync.py || true
   if [ -x .venv-practice/bin/python ]; then
     .venv-practice/bin/python scripts/practice-ingest.py || echo "practice ingest FAILED"
   else
