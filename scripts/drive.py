@@ -128,6 +128,14 @@ def upload(key, path, folder_id, name=None):
     url = f"{UPLOAD}/files/{existing[0]['id']}?uploadType=multipart&supportsAllDrives=true" if existing else f"{UPLOAD}/files?uploadType=multipart&supportsAllDrives=true"
     return _req(key, url, data=body.getvalue(), method="PATCH" if existing else "POST", headers={"Content-Type": f"multipart/related; boundary={boundary}"})
 
+def copy(key, file_id, folder_id, name=None):
+    """Drive-side copy into a folder (no bytes through here) — how the shelf stocks the phone folder."""
+    body = json.dumps({"parents": [folder_id], **({"name": name} if name else {})}).encode()
+    return _req(key, f"{API}/files/{file_id}/copy?supportsAllDrives=true", data=body, method="POST", headers={"Content-Type": "application/json"})
+
+def trash(key, file_id):
+    return _req(key, f"{API}/files/{file_id}?supportsAllDrives=true", data=json.dumps({"trashed": True}).encode(), method="PATCH", headers={"Content-Type": "application/json"})
+
 def selftest():
     # a throwaway RSA key: the JWT must verify with openssl against its public half
     with tempfile.TemporaryDirectory() as td:
