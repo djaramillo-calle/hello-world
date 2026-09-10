@@ -42,11 +42,12 @@ def find_drive(explicit=None):
     return None
 
 def title_author(path):
-    """`Author__Title.epub` → (title, author); `Title.epub` → (title, "")."""
+    """`Author__Title.epub` or `Author - Title.epub` → (title, author); `Title.epub` → (title, "")."""
     stem = path.stem
-    if "__" in stem:
-        a, t = stem.split("__", 1)
-        return t.replace("_", " ").strip(), a.replace("_", " ").strip()
+    for sep in ("__", " - "):
+        if sep in stem:
+            a, t = stem.split(sep, 1)
+            return t.replace("_", " ").strip(), a.replace("_", " ").strip()
     return stem.replace("_", " ").strip(), ""
 
 def bundle(book, pi):
@@ -127,6 +128,7 @@ def selftest():
         d = sync(drive, lib, pi, log=lambda *a: None, phone_dir=phone, shelf=[])
         assert d["copied_down"] == ["a-small-book"] and d["phone_removed"] == ["Test_Author__A_Small_Book.txt"] and (lib / "a-small-book.json").exists(), d
         assert title_author(pathlib.Path("Only_Title.epub")) == ("Only Title", "")
+        assert title_author(pathlib.Path("Hannah Arendt - The Origins of Totalitarianism.epub")) == ("The Origins of Totalitarianism", "Hannah Arendt")
     print("library-sync.py selftest: OK")
 
 def main():
