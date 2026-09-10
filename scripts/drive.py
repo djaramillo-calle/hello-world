@@ -85,17 +85,24 @@ def find_roots(key, name):
                                 "supportsAllDrives": "true", "includeItemsFromAllDrives": "true"})
     return _req(key, f"{API}/files?{q}").get("files", [])
 
+def resolve_all(key, path):
+    """Every match of 'Root/sub/…' across all shared roots of that name (two folders called EnglishPractice
+    may both be shared: the user's own and the recorder's com.nll.asr/EnglishPractice)."""
+    parts = [p for p in path.strip("/").split("/") if p]
+    out = []
+    for root in find_roots(key, parts[0]):
+        cur = root
+        for name in parts[1:]:
+            nxt = [f for f in list_children(key, cur["id"]) if f["name"] == name]
+            if not nxt: cur = None; break
+            cur = nxt[0]
+        if cur: out.append(cur)
+    return out
+
 def resolve(key, path):
     """'EnglishPractice/koreader/statistics.sqlite3' → file dict (or None). First segment = a shared root."""
-    parts = [p for p in path.strip("/").split("/") if p]
-    roots = find_roots(key, parts[0])
-    if not roots: return None
-    cur = roots[0]
-    for name in parts[1:]:
-        nxt = [f for f in list_children(key, cur["id"]) if f["name"] == name]
-        if not nxt: return None
-        cur = nxt[0]
-    return cur
+    m = resolve_all(key, path)
+    return m[0] if m else None
 
 def walk(key, folder_id, prefix=""):
     """Every file below a folder, with its relative path (recordings live several levels down)."""

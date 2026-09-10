@@ -48,6 +48,7 @@ class Drive:
     """Thin adapter over scripts/drive.py so the selftest can swap in a folder-backed fake."""
     def __init__(self, key): self.d = _load("drive"); self.key = key
     def resolve(self, path): return self.d.resolve(self.key, path)
+    def resolve_all(self, path): return self.d.resolve_all(self.key, path)
     def children(self, folder_id): return self.d.list_children(self.key, folder_id)
     def walk(self, folder_id): return list(self.d.walk(self.key, folder_id))
     def download(self, file_id, dest): return self.d.download(self.key, file_id, dest)
@@ -118,18 +119,22 @@ def sync_recordings(drv, work, log=print, dry=False, skip_audio=False):
     """New audio under the recording roots → work/recordings; returns the number downloaded."""
     state = load_json(DRIVE_STATE, {})
     dest = work / "recordings"; n = 0
+    seen_folders = set()
     for root in RECORDING_ROOTS:
-        folder = drv.resolve(root)
-        if not folder: log(f"recordings: {root} not visible — skipped"); continue
-        for rel, f in drv.walk(folder["id"]):
-            if pathlib.Path(rel).suffix.lower() not in AUDIO_EXT: continue
-            seen = state.get(f["id"])
-            if seen and seen.get("md5") == f.get("md5Checksum"): continue
-            log(f"recordings: new {rel} ({f.get('size', '?')} B)")
-            if dry or skip_audio: continue
-            drv.download(f["id"], dest / rel)
-            state[f["id"]] = {"name": rel, "md5": f.get("md5Checksum"), "size": f.get("size"), "modified": f.get("modifiedTime")}
-            n += 1
+        folders = drv.resolve_all(root) if hasattr(drv, "resolve_all") else [drv.resolve(root)]
+        folders = [f for f in folders if f and f["id"] not in seen_folders]
+        if not folders: log(f"recordings: {root} not visible — skipped"); continue
+        for folder in folders:
+          seen_folders.add(folder["id"])
+          for rel, f in drv.walk(folder["id"]):
+                if pathlib.Path(rel).suffix.lower() not in AUDIO_EXT: continue
+                seen = state.get(f["id"])
+                if seen and seen.get("md5") == f.get("md5Checksum"): continue
+                log(f"recordings: new {rel} ({f.get('size', '?')} B)")
+                if dry or skip_audio: continue
+                drv.download(f["id"], dest / rel)
+                state[f["id"]] = {"name": rel, "md5": f.get("md5Checksum"), "size": f.get("size"), "modified": f.get("modifiedTime")}
+                n += 1
     if not dry and n: dump_json(DRIVE_STATE, state)
     return n
 
