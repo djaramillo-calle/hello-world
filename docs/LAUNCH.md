@@ -47,8 +47,8 @@ and one Mac session), **me** (in chat or by the daily/Friday Routines), or
 
 | # | Action | Verify | Owner |
 |---|---|---|---|
-| D1 | Put the book as a DRM-free EPUB/PDF in `~/EnglishLibrary/` on the Mac (never in git: `library/` is ignored — copyrighted text stays local and in the private Hub store). | file present | you |
-| D2 | I build `passage-import.py` (markitdown → 150-word chunks → Hub Read tab in order) and the transcript-to-text alignment. | Read tab serves the next unread chunk; reviews list misread words | me |
+| D1 | ~~Book file~~ Done 2026-09-10: the EPUB was converted in the cloud; the passages live in the private Hub store (`book/*`, `meta/book`). On the Mac, drop the same EPUB in `library/` and run `python3 scripts/passage-import.py library/<file>.epub --title "The Origins of Totalitarianism" --author "Hannah Arendt"` once (needs `pip install "markitdown[epub]"` in the practice venv) so the recording pipeline can score book reads scripted. `library/` is gitignored. | `library/the-origins-of-totalitarianism.json` exists on the Mac | you |
+| D2 | ~~passage-import.py~~ Done 2026-09-10: 1433 passages, Read tab serves the next one in order (Done → next; position in `meta/config.book_next`). Transcript-to-passage matching is in the ingest. | Read tab shows the preface, passage B001 | me |
 
 ## On hold (deliberately)
 

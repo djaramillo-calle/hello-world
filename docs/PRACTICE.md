@@ -100,6 +100,21 @@ cap, deduplicated by front; `cards/queue.tsv` is the audit trail.
    the upload never reaches Drive.
 3. Hub → Read shows today's passage, the exact filename, and the drill.
 
+## The book (stage 1 reading material)
+
+`scripts/passage-import.py <book.epub>` converts a book with markitdown and cuts
+it into ~150-word passages (`B001`…) that end on sentence boundaries, grouped by
+chapter, with the running headers, footnotes and dropped-cap artefacts of a
+scanned edition stripped. Output `library/<slug>.json` — gitignored, the text is
+copyrighted — plus, with `--hub-docs`, the documents for the Hub: collection
+`book` (one document per chapter or chapter part, ≤ 110 passages each) and
+`meta/book` (the table of contents). The Read tab serves the next unread
+passage (`meta/config.book_next`; Done advances it, Back one rewinds; Mondays
+still show the anchor; "Short passages instead" falls back to the seed set).
+The ingest matches a transcript against the library too, so a book read is
+scored scripted whatever the file is called. Both machines need the library
+file: run the importer once on the Mac with the same EPUB.
+
 Verified 2026-09-09 with the first test recording (32 s of Arendt, read
 aloud, un-named): Whisper transcript, fluency, Azure scores and flagged
 words all came through; the only thing missing was the name.

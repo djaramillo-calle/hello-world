@@ -137,6 +137,17 @@ def recording_kind(name):
 
 MIN_PASSAGE_OVERLAP = 0.5   # same threshold as practice-review's guard
 
+def library_chunks():
+    """Book passages from library/*.json (built by scripts/passage-import.py; gitignored, copyrighted)."""
+    out = []
+    for f in sorted((REPO / "library").glob("*.json")) if (REPO / "library").is_dir() else []:
+        try:
+            for c in json.loads(f.read_text(encoding="utf-8")).get("chunks") or []:
+                if c.get("id") and c.get("text"): out.append({"id": c["id"], "text": c["text"], "title": c.get("chapter", "")})
+        except (OSError, ValueError):
+            continue
+    return out
+
 def detect_passage(transcript, passages=None):
     """Which passage (if any) this transcript is a reading of: the id whose words the transcript
     covers best, when it covers at least MIN_PASSAGE_OVERLAP of them. Lets an un-named ASR file
@@ -149,7 +160,7 @@ def detect_passage(transcript, passages=None):
     tw = set(re.findall(r"[a-z']+", (transcript or "").lower()))
     if not tw:
         return None, 0.0
-    cands = [passages.get("anchor") or {}] + list(passages.get("passages") or [])
+    cands = [passages.get("anchor") or {}] + list(passages.get("passages") or []) + (library_chunks() if passages.get("_with_library", True) else [])
     best, score = None, 0.0
     for c in cands:
         rw = set(re.findall(r"[a-z']+", str(c.get("text", "")).lower()))
@@ -166,6 +177,8 @@ def passage_text(pid):
         P = json.loads((REPO / "passages" / "passages.json").read_text(encoding="utf-8"))
     except (OSError, ValueError):
         return None
+    for c in library_chunks():
+        if c["id"] == pid: return c["text"]
     if P.get("anchor", {}).get("id") == pid:
         return P["anchor"]["text"]
     return next((p["text"] for p in P.get("passages", []) if p.get("id") == pid), None)
@@ -227,7 +240,7 @@ def save_state(state_path, state):
 
 def selftest():
     P = {"anchor": {"id": "A00", "text": "Every Thursday I go to the gym after work and then I cook dinner."},
-         "passages": [{"id": "R01", "text": "The station was busy this morning and the train was late again."}]}
+         "passages": [{"id": "R01", "text": "The station was busy this morning and the train was late again."}], "_with_library": False}
     assert detect_passage("every thursday i go to the gym after work and then i cook dinner", P) == ("A00", 1.0)
     assert detect_passage("the station was busy this morning, the train late again", P)[0] == "R01"
     assert detect_passage("two world wars in one generation separated by a chain of local wars", P)[0] is None

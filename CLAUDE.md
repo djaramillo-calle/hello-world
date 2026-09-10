@@ -236,6 +236,12 @@ touching `practice-*.py`, the ledger, the cards queue or the passages.
   daily; stage 2 adds recorded conversations once reading holds ~3 weeks.
 - Never a score: the anchor series is formative; nothing feeds tracking.tsv.
   The daily read-aloud entered the plan in pre-season (no lever spent).
+- **The book** (added 2026-09-10): `scripts/passage-import.py` turns an
+  EPUB into `library/<slug>.json` (gitignored — copyrighted) and Hub documents
+  (`book/*`, `meta/book`); the Read tab serves passages in order via
+  `meta/config.book_next`. The ingest's passage detection reads `library/`
+  too. Current book: Arendt, The Origins of Totalitarianism, 1433 passages.
+  The EPUB itself never enters git; the Mac needs its own import run.
 
 ## Repo conventions
 

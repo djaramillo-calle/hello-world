@@ -278,7 +278,7 @@
     <div class="row" style="justify-content:space-between"><span class="mono small" id="read-id"></span><span class="mono small faint" id="read-words"></span></div>
     <p class="passage" id="read-text"></p>
     <div class="strip"><b>RECORD AS</b><span class="mono" id="read-filename"></span><span class="small soft">then let it upload to EnglishPractice. The file is the check-in; the review, the ledger and the cards follow by themselves.</span></div>
-    <div class="row"><button class="btn ghost" id="read-other">Another passage</button><button class="btn ghost" id="read-anchor">Show the anchor</button></div>
+    <div class="row"><button class="btn ghost" id="read-other">Another passage</button><button class="btn ghost" id="read-back" hidden>Back one</button><button class="btn ghost" id="read-anchor">Show the anchor</button><button class="btn ghost" id="read-book" hidden>Short passages instead</button></div>
   </div>
   <h2>Today's drill</h2>
   <div class="panel small" id="drill">No drill yet. The first scored recording builds the pronunciation ledger; the drill is generated from its top three confusion classes.</div>
@@ -386,7 +386,7 @@
 
   /* ---------- state ---------- */
   var db = null, sample = null;
-  var cfg = { dial: "DEFAULT", topic: "", crutch: "", baseline: "", tutor_day: 4 };
+  var cfg = { dial: "DEFAULT", topic: "", crutch: "", baseline: "", tutor_day: 4, book_next: "", book_read: 0 };
   var days = {};        // iso -> doc
   var sessions = [];    // newest first
   var unsub = [];
@@ -543,22 +543,58 @@
 
   /* ---------- read tab ---------- */
   var passagesDoc = null, drillDoc = null, ledgerDoc = null, readOffset = 0, showAnchor = false;
+  /* The book: meta/book is the table of contents (chapters → document ids in collection `book`, each holding
+     ~110 passages B001…); cfg.book_next is the next unread passage id. Built by scripts/passage-import.py. */
+  var bookMeta = null, bookDocs = {}, bookLoading = null, bookOff = false;
+  function bookNum(id) { return parseInt(String(id || "").replace(/^B/, ""), 10) || 0; }
+  function bookChapterFor(id) {
+    if (!bookMeta || !bookMeta.chapters) return null;
+    var n = bookNum(id);
+    for (var i = 0; i < bookMeta.chapters.length; i++) { var c = bookMeta.chapters[i]; if (n >= bookNum(c.first) && n <= bookNum(c.last)) return c; }
+    return null;
+  }
+  function bookPassage(id) {
+    var ch = bookChapterFor(id); if (!ch) return null;
+    var doc = bookDocs[ch.doc]; if (!doc) return { pending: ch };
+    var list = doc.chunks || [];
+    for (var i = 0; i < list.length; i++) if (list[i].id === id) return { p: list[i], ch: ch, idx: i, n: list.length };
+    return null;
+  }
+  function loadBookDoc(ch) {
+    if (!db || bookDocs[ch.doc] || bookLoading === ch.doc) return;
+    bookLoading = ch.doc;
+    db.doc("book/" + ch.doc).get().then(function (snap) { bookLoading = null; if (snap.exists) { bookDocs[ch.doc] = snap.data(); renderRead(); } },
+      function (e) { bookLoading = null; console.warn("book", e); });
+  }
+  function bookNextId() { return cfg.book_next || (bookMeta && bookMeta.chapters && bookMeta.chapters.length ? bookMeta.chapters[0].first : null); }
   var ANCHOR_FALLBACK = {"id": "A00", "title": "Thursday", "text": "Every Thursday I finish work a little early and walk to the station. The streets are already busy, and the sky is usually grey. I think about the week: what went well, what I should have done differently, and what I still want to build. At the gym I stretch, then I lift for an hour. My legs feel heavy after the intervals, but I have learned to trust the plan and not to judge a single session. Later, at home, I cook something simple: rice, vegetables, a bit of fish. I used to skip dinner when I was tired; now I know that recovery starts at the table. Before bed I review thirty cards aloud, very slowly, and I try to say each phrase the way a friend would say it. Then I switch off the light and let the day go."};
   function todaysPassage() {
     var P = passagesDoc || { anchor: ANCHOR_FALLBACK, passages: [] };
     var list = P.passages || [];
-    if (showAnchor || (today.getDay() === 1 && readOffset === 0) || !list.length) return { p: P.anchor || ANCHOR_FALLBACK, anchor: true };
+    if (showAnchor || (today.getDay() === 1 && readOffset === 0)) return { p: P.anchor || ANCHOR_FALLBACK, anchor: true };
+    if (bookMeta && !bookOff) {
+      var id = bookNextId(), b = id && bookPassage(id);
+      if (b && b.pending) { loadBookDoc(b.pending); return { p: { id: id, title: b.pending.title, text: "loading the chapter…" }, book: true, loading: true }; }
+      if (b && b.p) return { p: Object.assign({ title: b.ch.title }, b.p), book: true, ch: b.ch, idx: b.idx, n: b.n };
+    }
+    if (!list.length) return { p: P.anchor || ANCHOR_FALLBACK, anchor: true };
     var idx = (Math.floor(today.getTime() / 864e5) + readOffset) % list.length;
     return { p: list[idx], anchor: false };
   }
   function renderRead() {
     var t = todaysPassage(), p = t.p || ANCHOR_FALLBACK;
     var n = (p.text || "").split(/\s+/).filter(Boolean).length;
-    $("read-id").textContent = p.id + " · " + (p.title || "") + (t.anchor ? " · ANCHOR" : "");
+    $("read-id").textContent = p.id + " · " + (p.title || "") + (t.anchor ? " · ANCHOR" : "") + (t.book && t.n ? " · " + (t.idx + 1) + "/" + t.n + " of the chapter" : "");
     $("read-words").textContent = n + " words · about " + Math.max(1, Math.round(n / 130 * 60)) + "s";
     $("read-text").textContent = p.text || "";
-    $("read-filename").textContent = "eng read " + p.id;
-    $("read-when").textContent = t.anchor ? "The anchor: the same text every Monday. This is the pronunciation time trial — read it as you would any other day." : "Three minutes after SRS. Read at a natural pace; do not restart if you stumble.";
+    $("read-filename").textContent = "eng read " + p.id + (t.book ? "  (or any name — the transcript finds the passage)" : "");
+    $("read-when").textContent = t.anchor ? "The anchor: the same text every Monday. This is the pronunciation time trial — read it as you would any other day."
+      : t.book ? (bookMeta.title || "The book") + " — " + (t.ch ? t.ch.title : "") + ". Read it aloud, then tap Done to move on. Scanned text: read what makes sense when a word is odd."
+      : "Three minutes after SRS. Read at a natural pace; do not restart if you stumble.";
+    $("read-other").textContent = t.book ? "Done — next passage" : "Another passage";
+    $("read-book").hidden = !bookMeta;
+    $("read-book").textContent = bookOff ? "Back to the book" : "Short passages instead";
+    $("read-back").hidden = !(t.book && bookNum(p.id) > 1);
     if (drillDoc && drillDoc.classes && drillDoc.classes.length) {
       $("drill").innerHTML = drillDoc.classes.map(function (c) {
         return "<p><b>" + esc(c["class"]) + "</b> <span class=\"faint\">×" + esc(c.count) + "</span> — your words: " + esc((c.words || []).join(", ")) +
@@ -571,7 +607,18 @@
         rows.map(function (r) { return "<tr><td class=\"day\">" + esc(r.date) + "</td><td>" + esc(r.accuracy == null ? "" : r.accuracy) + "</td><td>" + esc(r.fluency == null ? "" : r.fluency) + "</td><td>" + esc(r.completeness == null ? "" : r.completeness) + "</td></tr>"; }).join("") + "</tbody></table>";
     }
   }
-  $("read-other").addEventListener("click", function () { showAnchor = false; readOffset++; renderRead(); });
+  $("read-other").addEventListener("click", function () {
+    showAnchor = false;
+    var t = todaysPassage();
+    if (t.book && t.p && !t.loading) { cfg.book_next = "B" + String(bookNum(t.p.id) + 1).padStart(3, "0"); cfg.book_read = (cfg.book_read || 0) + 1; saveCfg(null); }
+    else readOffset++;
+    renderRead();
+  });
+  $("read-back").addEventListener("click", function () {
+    var t = todaysPassage();
+    if (t.book && t.p && bookNum(t.p.id) > 1) { cfg.book_next = "B" + String(bookNum(t.p.id) - 1).padStart(3, "0"); saveCfg(null); renderRead(); }
+  });
+  $("read-book").addEventListener("click", function () { bookOff = !bookOff; showAnchor = false; renderRead(); });
   $("read-anchor").addEventListener("click", function () { showAnchor = !showAnchor; this.textContent = showAnchor ? "Back to today's passage" : "Show the anchor"; renderRead(); });
 
   /* ---------- log tab ---------- */
@@ -833,7 +880,7 @@
     d.doc("meta/config").onSnapshot(function (snap) {
       if (snap.exists) { cfg = Object.assign(cfg, snap.data()); fillCfg(); renderAll(); }
     }, function (e) { console.warn("config", e); });
-    [["meta/passages", function (v) { passagesDoc = v; }], ["meta/drills", function (v) { drillDoc = v; }], ["meta/ledger", function (v) { ledgerDoc = v; }]].forEach(function (pair) {
+    [["meta/passages", function (v) { passagesDoc = v; }], ["meta/drills", function (v) { drillDoc = v; }], ["meta/ledger", function (v) { ledgerDoc = v; }], ["meta/book", function (v) { bookMeta = v; }]].forEach(function (pair) {
       d.doc(pair[0]).onSnapshot(function (snap) { if (snap.exists) { pair[1](snap.data()); renderRead(); } }, function (e) { console.warn(pair[0], e); });
     });
     var since = iso(addDays(today, -35));

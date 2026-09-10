@@ -63,8 +63,19 @@ def kind_of(name):
         if re.search(r"\b%s\b" % k, s): return k, None
     return "free", None
 
+def library_text(pid):
+    """Book passage text from library/*.json (scripts/passage-import.py output; gitignored)."""
+    lib = REPO / "library"
+    if not pid or not lib.is_dir(): return None
+    for f in sorted(lib.glob("*.json")):
+        for c in load_json(f, {}).get("chunks") or []:
+            if c.get("id") == pid: return c.get("text")
+    return None
+
 def passage_text(pid, passages=None):
     P = passages if passages is not None else load_json(PASSAGES, {})
+    t = library_text(pid)
+    if t: return t
     if not P: return None
     if P.get("anchor", {}).get("id") == pid: return P["anchor"]["text"]
     for p in P.get("passages", []):
