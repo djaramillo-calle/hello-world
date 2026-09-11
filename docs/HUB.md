@@ -114,6 +114,18 @@ commit, one push, never force, never empty.
   Reading aloud: record with the recorder while reading from KOReader; the
   ingest finds the passage from the transcript, no name needed. The Read
   tab's passage follows the phone's position (progress sync).
+- **Minimal Pairs** (the perception drill, own repo
+  `djaramillo-calle/minimal-pairs`): open the repo's Releases page in Chrome
+  on the phone, download `minimal-pairs-<version>.apk`, allow installs from
+  Chrome, install. First launch: pick or create `Documents/MinimalPairs` as
+  the data folder. Settings → download the clip pack if the build says
+  "placeholder" or "partial". Then one more Autosync pair: phone
+  `Documents/MinimalPairs` (internal storage) ↔ Drive `EnglishPractice/pairs`,
+  **two-way**, autosync on. Up go `sessions/*.json` and `state.json`; down
+  comes `plan.json`, which the coach rewrites after each sync from the
+  pronunciation ledger (the Home screen shows its note). A debug-signed build
+  must be uninstalled before a release-signed one installs; the data folder
+  survives. Three minutes a day, aloud: say the word you chose as you tap it.
 - **English Hub** on the home screen (Chrome → Add to Home screen). The first
   Talk or readout asks once to allow Claude; the first Talk asks for the
   microphone.

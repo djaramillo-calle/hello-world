@@ -25,6 +25,8 @@ LIB = REPO / "library"
 PRACTICE = REPO / "logs" / "practice"
 DRIVE_STATE = PRACTICE / ".drive.json"
 READING_STATE = REPO / "logs" / "reading" / ".drive.json"
+PAIRS_STATE = REPO / "logs" / "pairs" / ".drive.json"
+PAIRS_PLAN = REPO / "logs" / "pairs" / "plan.json"
 AUDIO_EXT = {".m4a", ".mp3", ".wav", ".aac", ".ogg", ".opus", ".flac", ".mp4", ".webm", ".3gp", ".amr", ".wma", ".caf"}
 BOOK_EXT = {".epub", ".txt", ".md"}
 RECORDING_ROOTS = ["EnglishPractice/Recordings", "com.nll.asr/EnglishPractice"]
@@ -151,6 +153,36 @@ def sync_reading(drv, work, log=print, dry=False):
     if changed and not dry: dump_json(READING_STATE, state)
     return changed
 
+def sync_pairs(drv, work, log=print, dry=False):
+    """The Minimal Pairs app's folder (Drive EnglishPractice/pairs ← phone Documents/MinimalPairs via Autosync):
+    new session files, state.json and catalog-version.txt → work/pairs (folded by pairs-pull.py --dir).
+    Returns True when something new came down."""
+    folder = drv.resolve("EnglishPractice/pairs")
+    if not folder: log("pairs: EnglishPractice/pairs not visible — skipped"); return False
+    state = load_json(PAIRS_STATE, {}); dest = work / "pairs"; changed = False
+    for rel, f in drv.walk(folder["id"]):
+        if rel == "plan.json" or not (rel.endswith(".json") or rel.endswith(".txt")): continue
+        if state.get(rel) == f.get("md5Checksum"): continue
+        log(f"pairs: {rel} new"); changed = True
+        if not dry: drv.download(f["id"], dest / rel); state[rel] = f.get("md5Checksum")
+    if changed and not dry: dump_json(PAIRS_STATE, state)
+    return changed
+
+def push_plan(drv, log=print, dry=False, plan=None):
+    """logs/pairs/plan.json → Drive EnglishPractice/pairs/plan.json when it differs (update in place:
+    the file was created by the owner once, and the service account, with no quota of its own, can
+    only PATCH an existing file — never create). The phone's Autosync carries it to the app."""
+    plan = pathlib.Path(plan or PAIRS_PLAN)
+    if not plan.exists(): return False
+    folder = drv.resolve("EnglishPractice/pairs")
+    if not folder: return False
+    remote = next((f for f in drv.children(folder["id"]) if f["name"] == "plan.json"), None)
+    if not remote: log("pairs: plan.json is not on Drive yet — the owner creates it once (see docs/HUB.md)"); return False
+    if remote.get("md5Checksum") == hashlib.md5(plan.read_bytes()).hexdigest(): return False
+    if dry: log("pairs: plan.json would be updated"); return True
+    try: drv.upload(plan, folder["id"]); log("pairs: plan.json updated on Drive"); return True
+    except Exception as e: log(f"pairs: plan.json NOT updated — {type(e).__name__}: {str(e)[:160]}"); return False
+
 def main():
     a = sys.argv[1:]
     if "--selftest" in a: return selftest()
@@ -175,6 +207,14 @@ def main():
         run([sys.executable, SCRIPTS / "koreader-pull.py", "--dir", work / "koreader"])
     elif not dry:
         run([sys.executable, SCRIPTS / "koreader-pull.py"])   # kosync position, if its credentials exist
+    try:
+        if sync_pairs(drv, work, dry=dry) and not dry:
+            run([sys.executable, SCRIPTS / "pairs-pull.py", "--dir", work / "pairs"])
+        elif not dry:
+            run([sys.executable, SCRIPTS / "pairs-pull.py", "--plan"])   # the ledger may have moved: keep the plan current
+        push_plan(drv, dry=dry)
+    except (SystemExit, Exception) as e:   # the pairs app must never block the rest
+        print(f"cloud-sync: pairs step failed — {type(e).__name__}: {str(e)[:200]}")
     if not dry:
         run([sys.executable, SCRIPTS / "reading-cards.py"])
         run([sys.executable, SCRIPTS / "anki-cloud.py"])
@@ -246,6 +286,22 @@ def selftest():
         assert sync_reading(drv, work, log=logs.append) is False
         (root / "EnglishPractice" / "koreader" / "statistics.sqlite3").write_bytes(b"s2")
         assert sync_reading(drv, work, log=logs.append) is True, "changed md5 → downloaded again"
+        # pairs: sessions + state come down, plan.json never does; the plan goes up only when it differs and exists remotely
+        global PAIRS_STATE
+        PAIRS_STATE = td / "pairs-state.json"
+        assert sync_pairs(drv, work, log=logs.append) is False and any("not visible" in l for l in logs)
+        pf = root / "EnglishPractice" / "pairs"; (pf / "sessions").mkdir(parents=True)
+        (pf / "sessions" / "20260911T070000Z.json").write_text('{"version": 1, "trials": []}'); (pf / "state.json").write_text('{"version": 1}')
+        (pf / "plan.json").write_text('{"version": 1, "note": "old"}'); (pf / "clips.zip").write_bytes(b"zip")
+        assert sync_pairs(drv, work, log=logs.append) is True
+        assert (work / "pairs" / "sessions" / "20260911T070000Z.json").exists() and (work / "pairs" / "state.json").exists()
+        assert not (work / "pairs" / "plan.json").exists() and not (work / "pairs" / "clips.zip").exists()
+        assert sync_pairs(drv, work, log=logs.append) is False, "second pass: nothing new"
+        local_plan = td / "plan.json"; local_plan.write_text('{"version": 1, "note": "new"}')
+        assert push_plan(drv, log=logs.append, plan=local_plan) is True and (pf / "plan.json").read_text() == '{"version": 1, "note": "new"}'
+        assert push_plan(drv, log=logs.append, plan=local_plan) is False, "same md5: no upload"
+        (pf / "plan.json").unlink()
+        assert push_plan(drv, log=logs.append, plan=local_plan) is False and any("not on Drive yet" in l for l in logs)
         globals()["load_json"] = real_load_json
     print("cloud-sync.py selftest: OK")
 

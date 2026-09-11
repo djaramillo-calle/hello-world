@@ -128,6 +128,39 @@ one-off steps.
   `tracking.tsv`. No Amazon cookies or passwords, ever; the Kindle's
   `vocab.db` over USB remains the only Kindle route.
 
+## Minimal Pairs (the perception drill app on the phone) — 2026-09-11
+
+`djaramillo-calle/minimal-pairs` is its own repo and its own Android app (Kotlin, sideloaded APK
+from its GitHub Releases page, built by its Actions workflow on every push). It is the HVPT drill:
+one word of a pair in a random one of six British voices, tap the word heard, instant feedback,
+about 40 trials in 3 minutes, half of them on words never heard before (the honest probe). Same
+sensor pattern as KOReader: the app writes files into the phone folder `Documents/MinimalPairs`,
+Autosync mirrors it two-way to Drive `EnglishPractice/pairs`, the cloud pulls and pushes.
+
+- **Contract** (`docs/CONTRACT.md` in the app repo): the app writes `sessions/<id>.json`
+  (immutable, per-trial rows), `state.json`, `catalog-version.txt`; the coach writes `plan.json`
+  only (contrast weights 0–1, trials, untrained ratio, voices, word bands, feedback level, note).
+  Contrast ids = the ledger's classes plus `long-back`, `sh/ch`, `er/or`.
+- **Cloud (`cloud-sync.py`, every run):** `sync_pairs` downloads new sessions/state to the work
+  dir → `python3 scripts/pairs-pull.py --dir <folder>` folds them into `logs/pairs/` (sessions
+  copied once, `weekly.tsv` per ISO week and contrast, repeated misses → "Say it (pronunciation)"
+  cards through the shared queue) → `plan.json` rebuilt from the ledger + recent sessions with the
+  app's own `plan-from-ledger.py` (the app repo is shallow-cloned into `.cache/minimal-pairs`,
+  gitignored, so both sides use one script and one catalog) → `push_plan` PATCHes Drive's
+  `plan.json` when it differs. The service account cannot create files (no quota): the owner
+  created `EnglishPractice/pairs/plan.json` once (2026-09-11); it is only ever updated in place.
+- **Rollup:** `weekly.tsv` gains `pairs_sessions` and `pairs_untrained_pct` (percent correct on
+  untrained words that week). Load + formative signal, never a score, never tracking.tsv.
+- **What the app adapts alone** (`docs/ADAPTATION.md`): which contrast/pair/word/voice comes next
+  and more trials for a struggling contrast, inside the plan. What only the coach changes: the
+  plan. A manual override in the app is recorded as `plan_source: "override"`; talk about it,
+  never silently overwrite it.
+- **Reviewing it:** the Friday review reads `logs/pairs/weekly.tsv` and `state.json`; a contrast
+  whose untrained accuracy stays under ~80% for two weeks gets more weight, one above ~95% for
+  two weeks less; `untrained_shortfall` growing means widen `band` (plan-from-ledger does it).
+  The perception line is a candidate third line on the Season Board (with the anchor read and
+  the daily pages) once the diagnostic is retired.
+
 ## The cloud does the sync (since 2026-09-10) — the Mac is optional
 
 `python3 scripts/cloud-sync.py` is the coach's sync from any fresh container:

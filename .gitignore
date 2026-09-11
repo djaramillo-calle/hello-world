@@ -12,3 +12,6 @@ logs/hub-reading.json
 .venv-anki/
 .venv-tools/
 .venv-practice/
+
+# shallow clone of the Minimal Pairs app (scripts/pairs-pull.py uses its scripts and catalog)
+.cache/

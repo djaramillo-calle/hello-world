@@ -22,9 +22,10 @@ DIAL_LOG = REPO / "logs" / "dial-log.tsv"
 HUB = REPO / "logs" / "hub" / "days.json"            # English Hub check-ins + Talk sessions (scripts/hub-fold.py)
 LISTEN = REPO / "logs" / "listening" / "daily.json"  # gpodder pull (scripts/listening-pull.py)
 READING = REPO / "logs" / "reading" / "daily.json"   # KOReader statistics (scripts/koreader-pull.py)
+PAIRS = REPO / "logs" / "pairs" / "sessions"          # Minimal Pairs app sessions (scripts/pairs-pull.py)
 
 COLS = ["week_start", "srs_days", "reviews", "recordings", "rec_wpm_mean",
-        "rec_filler_pct", "conversations", "human_conversations", "listening_days", "reading_min", "talk_min", "dial", "stage", "floor_ok", "notes"]
+        "rec_filler_pct", "conversations", "human_conversations", "listening_days", "reading_min", "talk_min", "pairs_sessions", "pairs_untrained_pct", "dial", "stage", "floor_ok", "notes"]
 FLOOR = {"conversations": 2, "srs_days": 5, "recordings": 1, "listening_days": 5}   # stage 3
 STAGE_FLOORS = {1: {"srs_days": 5, "recordings": 5}, 2: {"srs_days": 5, "recordings": 5, "conversations": 1, "listening_days": 3}, 3: FLOOR}
 STAGE = REPO / "logs" / "stage.json"
@@ -96,6 +97,20 @@ def practice_stats(week_start, practice_dir=PRACTICE):
     mean = lambda xs: round(sum(xs) / len(xs), 1) if xs else ""
     return n, mean(wpms), mean(fill)
 
+def pairs_week(week_start, pairs_dir=PAIRS):
+    """Minimal Pairs app: sessions this week and percent correct on UNTRAINED words (the honest probe).
+    Load + a formative signal for the ledger; never a score, never tracking.tsv."""
+    if not pathlib.Path(pairs_dir).is_dir(): return 0, ""
+    n, ut, uc = 0, 0, 0
+    for p in sorted(pathlib.Path(pairs_dir).glob("*.json")):
+        try:
+            s = json.loads(p.read_text(encoding="utf-8")); day = dt.date.fromisoformat(str(s.get("started", ""))[:10])
+        except Exception: continue
+        if monday(day) != week_start: continue
+        n += 1; sm = s.get("summary") or {}
+        ut += int(sm.get("untrained_trials") or 0); uc += int(sm.get("untrained_correct") or 0)
+    return n, (round(100.0 * uc / ut, 1) if ut else "")
+
 def hub_week(week_start, hub_path=HUB, listen_path=LISTEN, reading_path=READING):
     """Sensor-derived load for the week: conversations (hub check-ins + Talk sessions),
     listening days (gpodder minutes, else hub check-in minutes; >=10' counts), SRS
@@ -156,7 +171,7 @@ def floor_ok(r, floors=None):
     return "partial"
 
 def rollup(week_start, sets=None, rows=None, anki_path=ANKI, practice_dir=PRACTICE, dial_log=DIAL_LOG,
-           hub_path=HUB, listen_path=LISTEN, reading_path=READING, stage=None):
+           hub_path=HUB, listen_path=LISTEN, reading_path=READING, stage=None, pairs_dir=PAIRS):
     stage = stage if stage is not None else current_stage()
     rows = load_weekly() if rows is None else rows
     key = week_start.isoformat()
@@ -165,6 +180,7 @@ def rollup(week_start, sets=None, rows=None, anki_path=ANKI, practice_dir=PRACTI
     n, wpm, fill = practice_stats(week_start, practice_dir)
     r.update({"srs_days": days, "reviews": total, "recordings": n,
               "rec_wpm_mean": wpm, "rec_filler_pct": fill, "dial": current_dial(dial_log)})
+    r["pairs_sessions"], r["pairs_untrained_pct"] = pairs_week(week_start, pairs_dir)
     hub = hub_week(week_start, hub_path, listen_path, reading_path)
     if hub:
         # sensors replace self-report; --set still wins below (a correction in writing)
