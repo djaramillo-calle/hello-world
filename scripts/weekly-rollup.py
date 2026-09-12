@@ -81,7 +81,9 @@ def practice_stats(week_start, practice_dir=PRACTICE):
         return 0, "", ""
     n, wpms, fill = 0, [], []
     for p in practice_dir.glob("*.json"):
-        if p.name.startswith("."):
+        # .review.json carries the same "recorded" date as its recording: counting both doubled
+        # the week's recorded pages and let stage 1's floor pass on half the real adherence.
+        if p.name.startswith(".") or p.name.endswith(".review.json"):
             continue
         try:
             r = json.loads(p.read_text(encoding="utf-8"))
@@ -261,6 +263,12 @@ def selftest():
         rows, r = rollup(dt.date(2026, 9, 21), None, rows={}, anki_path=anki, practice_dir=pr1, dial_log=td / "none.tsv", hub_path=nohub, listen_path=nolisten, reading_path=noread, stage=1)
         assert r["stage"] == 1 and r["recordings"] == 5 and r["srs_days"] == 5 and r["floor_ok"] == "yes", r
         assert floor_ok({"srs_days": 5, "recordings": 4}, STAGE_FLOORS[1]) == "no" and floor_ok({"srs_days": 5, "recordings": 5, "conversations": 0}, STAGE_FLOORS[2]) == "no"
+        # a recording and its .review.json are ONE recorded page, not two
+        pr2 = td / "practice2"; pr2.mkdir()
+        (pr2 / "r1.json").write_text(json.dumps({"recorded": "2026-09-08 07:00", "wpm": 80, "words": 100, "fillers": 0}))
+        (pr2 / "r1.review.json").write_text(json.dumps({"recorded": "2026-09-08 07:00", "fluency": {"wpm": 80}}))
+        n2, wpm2, _ = practice_stats(dt.date(2026, 9, 7), pr2)
+        assert n2 == 1 and wpm2 == 80.0, (n2, wpm2)
         assert current_stage(td / "missing.json") == 3
     print("weekly-rollup.py selftest: OK")
 

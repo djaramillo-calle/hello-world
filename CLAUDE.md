@@ -284,6 +284,15 @@ is the same architecture for English. Read it before touching ingestion.
   artifact (823a99e1…) now stores each saved run in its own DB, collection
   `runs` (field `tsv` is the tracking row) — pull it before appending to
   `tracking.tsv`; the paste path still works.
+- **Hub writes need a version (2026-09-12):** the artifact runtime now rejects any
+  `write_db` set/update/delete on an EXISTING document unless the call carries
+  `if_version` (read the doc first, resend with the version `read_db` returned).
+  Sessions whose Artifact tool has no `if_version` parameter cannot refresh
+  `meta/ledger`, `meta/drills`, `meta/reading` at all — creates still work, and
+  `read_db` is unaffected. When that happens: say so in the reply rather than
+  reporting the Hub as refreshed, and leave the documents alone (never delete and
+  recreate them to get around it — delete needs the version too, and the page's
+  history belongs to the URL). git stays the source of truth meanwhile.
 - **Morning check** ("how is my recovery?" for English): `python3
   scripts/daily-readout.py` — mechanical readout from git; add judgement,
   never a score. The Hub's readout button is the self-serve version.

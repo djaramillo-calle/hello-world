@@ -62,7 +62,7 @@ def gather(repo, today):
     pdir = repo / "logs/practice"
     if pdir.exists():
         for p in pdir.glob("*.json"):
-            if p.name.startswith("."): continue
+            if p.name.startswith(".") or p.name.endswith(".review.json"): continue   # the review doubles its recording
             r = load_json(p, {}); d = str(r.get("recorded", ""))[:10]
             if d: practice.setdefault(d, []).append(r)
     sessions = load_json(repo / "logs/hub/sessions.json", [])

@@ -1,5 +1,5 @@
 # Weekly training log — load/adherence, one row per ISO week (Monday).
-# Floors: conversations>=2 (>=1 human) | srs_days>=5 | recordings>=1 | listening_days>=5
-# Auto columns from repo data (hub + listening sensors fill conversations/human_conversations/listening_days when present); --set overrides in writing.
-week_start	srs_days	reviews	recordings	rec_wpm_mean	rec_filler_pct	conversations	human_conversations	listening_days	talk_min	dial	floor_ok	notes
-2026-09-07	0	0	0							DEFAULT	no	
+# Floors by stage (logs/stage.json): 1 = srs_days>=5, recordings>=5 · 2 = + conversations>=1, listening_days>=3 · 3 = conversations>=2 (>=1 human), srs_days>=5, recordings>=1, listening_days>=5
+# Auto columns from repo data (hub + listening + reading sensors fill conversations/human_conversations/listening_days/reading_min when present); --set overrides in writing.
+week_start	srs_days	reviews	recordings	rec_wpm_mean	rec_filler_pct	conversations	human_conversations	listening_days	reading_min	talk_min	pairs_sessions	pairs_untrained_pct	dial	stage	floor_ok	notes
+2026-09-07	0	0	3	89.9	0.0	0	0	1	32.5	0	2	80.5	DEFAULT	1	no	

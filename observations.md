@@ -137,3 +137,43 @@ card-worthy):
 
 **Register note**: all evidence is still written and technical, chat only.
 Nothing here goes into tracking.tsv.
+
+---
+
+## 2026-09-12 — weekly digest 2 (week of 2026-09-07)
+
+**Status changes**
+- Preposition of place with devices: **WATCHING → PATTERN**. Second
+  independent occurrence, six days apart: "a reading **in** the phone"
+  (09-10) and "use it **in** my phone" (09-11) → *on the phone*. Spanish
+  *en el teléfono* covers both English prepositions; English splits them.
+  Card queued.
+- Subject–verb agreement (PATTERN since 09-10): no recurrence this week.
+  Week 1 of ~4 toward RETIRED.
+- Article omission (PROMOTED, open): one borderline occurrence — "see how
+  **∅** pace at a certain HR improves" → *how **your** pace*. Counted as
+  reinforcement, not a new pattern; generic bare nouns are legal here.
+- NEW `WATCHING` — past tense dropped in a relative clause: "the diagnostic
+  test we **design**" → *we designed*. Distinct from the agreement pattern:
+  the verb is finite but uninflected for tense.
+- Typo bucket (not counted): "evalaute", "drils", "comprenhensive",
+  "bulding", "adnroid", "recoreded", "it self".
+
+**Strengths this week**: "so you can adapt my training to **optimise my
+learning progress**" (clean purpose clause, precise abstract vocabulary);
+"which must **integrate into** the hub" (correct phrasal collocation, no
+Latinate substitute); "**Be concise and direct**" (idiomatic imperative);
+"Brief me the state of this" (verb *brief* used natively).
+
+**Cards queued** (1; the 25/week Anki cap was already spent, so it goes up
+next week):
+- "Say it: I read it ___ my phone, not on paper. (preposition)" → **on**
+
+**Register note**: still entirely written and technical. Six days of chat,
+no past-tense narrative and no social register sampled. The speaking
+evidence now comes from the read-alouds instead, which is the point of
+stage 1 — but it measures the text's grammar, not his.
+
+**Data state**: 3 recorded pages this week (the rollup had been counting
+each recording twice; fixed today). SRS days 0 — 25 cards live on AnkiWeb,
+zero reviews in 60 days. That is the week's real gap.
