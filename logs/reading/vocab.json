@@ -791,7 +791,7 @@
    "review_count": 0,
    "streak": 0,
    "highlight": "",
-   "carded": false
+   "carded": true
   },
   {
    "id": "ko:pernicious",
@@ -804,7 +804,7 @@
    "review_count": 0,
    "streak": 0,
    "highlight": "",
-   "carded": false
+   "carded": true
   },
   {
    "id": "ko:sheer",
@@ -817,7 +817,7 @@
    "review_count": 0,
    "streak": 0,
    "highlight": "",
-   "carded": false
+   "carded": true
   },
   {
    "id": "ko:unadulterated",
@@ -830,7 +830,7 @@
    "review_count": 0,
    "streak": 0,
    "highlight": "",
-   "carded": false
+   "carded": true
   },
   {
    "id": "ko:cursory",
@@ -843,7 +843,7 @@
    "review_count": 0,
    "streak": 0,
    "highlight": "",
-   "carded": false
+   "carded": true
   },
   {
    "id": "ko:dispel",
