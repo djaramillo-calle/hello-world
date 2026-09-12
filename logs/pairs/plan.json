@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "written": "2026-09-11T11:47:15Z",
+  "written": "2026-09-12T13:12:53Z",
   "written_by": "coach",
-  "note": "From your reads: i/ii, schwa. 3 minutes, aloud when you answer: say the word you chose.",
+  "note": "From your reads: i/ii, schwa. 2 sessions done. Say the word you chose, aloud.",
   "trials_per_session": 40,
   "untrained_ratio": 0.5,
   "voices": [
@@ -19,18 +19,18 @@
   ],
   "feedback": "full",
   "weights": {
-    "th": 0.28,
-    "s/z": 0.41,
-    "i/ii": 1.0,
-    "b/v": 0.28,
-    "cat/cut": 0.15,
+    "th": 0.38,
+    "s/z": 1.0,
+    "i/ii": 0.94,
+    "b/v": 0.41,
+    "cat/cut": 0.29,
     "long-back": 0.15,
-    "j/y": 0.15,
-    "-ed": 0.22,
-    "h": 0.15,
+    "j/y": 0.18,
+    "-ed": 0.24,
+    "h": 0.21,
     "sh/ch": 0.15,
     "er/or": 0.15,
-    "schwa": 0.74,
+    "schwa": 0.52,
     "s-cluster": 0.0
   }
 }

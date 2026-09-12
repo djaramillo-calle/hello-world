@@ -1,8 +1,8 @@
 # Pronunciation drill — from the ledger
 
-## i/ii  (13 hits)
+## i/ii  (20 hits)
 
-Your words: rooted, in, tradition, hatred, we, political
+Your words: in, rooted, tradition, hatred, we, political
 
 Minimal pairs — say each pair three times, slowly then at speed:
 
@@ -19,7 +19,7 @@ Lines to read aloud:
 - In the end I suggested we ship the smaller version first and see what the users actually do with it.
 - My manager agreed, though she asked for a proper test plan before we merge anything.
 
-## schwa  (9 hits)
+## schwa  (13 hits)
 
 Your words: tradition, as, of, political, a, principle
 
@@ -38,9 +38,9 @@ Lines to read aloud:
 - My legs feel heavy after the intervals, but I have learned to trust the plan and not to judge a single session.
 - Later, at home, I cook something simple: rice, vegetables, a bit of fish.
 
-## s/z  (4 hits)
+## s/z  (10 hits)
 
-Your words: surface, this, principle, usurped
+Your words: this, surface, principle, usurped, since, jews
 
 Minimal pairs — say each pair three times, slowly then at speed:
 

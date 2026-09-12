@@ -1,33 +1,46 @@
 {
  "phonemes": {
   "b/v": {
-   "count": 2,
+   "count": 9,
    "words": {
     "bury": 1,
-    "of": 1
+    "of": 1,
+    "over": 1,
+    "convinced": 1,
+    "anybody": 1,
+    "over-all": 1,
+    "before": 1,
+    "subject": 1,
+    "but": 1
    },
-   "last": "2026-09-10"
+   "last": "2026-09-12"
   },
   "s/z": {
-   "count": 4,
+   "count": 10,
    "words": {
     "surface": 1,
-    "this": 1,
+    "this": 2,
     "principle": 1,
-    "usurped": 1
+    "usurped": 1,
+    "since": 1,
+    "jews": 1,
+    "organize": 1,
+    "its": 1
    },
-   "last": "2026-09-10"
+   "last": "2026-09-12"
   },
   "th": {
-   "count": 2,
+   "count": 6,
    "words": {
     "earth": 1,
-    "this": 1
+    "this": 2,
+    "the": 1,
+    "than": 1
    },
-   "last": "2026-09-10"
+   "last": "2026-09-12"
   },
   "schwa": {
-   "count": 9,
+   "count": 13,
    "words": {
     "tradition": 1,
     "as": 1,
@@ -35,15 +48,18 @@
     "political": 1,
     "a": 1,
     "principle": 1,
-    "and": 1
+    "and": 1,
+    "deplorable": 1,
+    "but": 1,
+    "material": 1
    },
-   "last": "2026-09-10"
+   "last": "2026-09-12"
   },
   "i/ii": {
-   "count": 13,
+   "count": 20,
    "words": {
     "rooted": 1,
-    "in": 1,
+    "in": 2,
     "tradition": 1,
     "hatred": 1,
     "we": 1,
@@ -51,16 +67,50 @@
     "into": 1,
     "will": 1,
     "simply": 1,
-    "dignity": 1
+    "dignity": 1,
+    "this": 1,
+    "did": 1,
+    "since": 1,
+    "material": 1,
+    "collected": 1,
+    "recently": 1
    },
-   "last": "2026-09-10"
+   "last": "2026-09-12"
   },
   "-ed": {
+   "count": 3,
+   "words": {
+    "rooted": 1,
+    "convinced": 1,
+    "collected": 1
+   },
+   "last": "2026-09-12"
+  },
+  "j/y": {
    "count": 1,
    "words": {
-    "rooted": 1
+    "jewish": 1
    },
-   "last": "2026-09-10"
+   "last": "2026-09-12"
+  },
+  "h": {
+   "count": 2,
+   "words": {
+    "historical": 1,
+    "had": 1
+   },
+   "last": "2026-09-12"
+  },
+  "cat/cut": {
+   "count": 5,
+   "words": {
+    "after": 1,
+    "subject": 1,
+    "than": 1,
+    "sometimes": 1,
+    "had": 1
+   },
+   "last": "2026-09-12"
   }
  },
  "words": {
@@ -275,11 +325,242 @@
    "kinds": [
     "read"
    ]
+  },
+  "products": {
+   "count": 1,
+   "last": "2026-09-12",
+   "kinds": [
+    "read"
+   ]
+  },
+  "deplorable": {
+   "count": 1,
+   "last": "2026-09-12",
+   "kinds": [
+    "read"
+   ]
+  },
+  "since": {
+   "count": 1,
+   "last": "2026-09-12",
+   "kinds": [
+    "read"
+   ]
+  },
+  "over": {
+   "count": 1,
+   "last": "2026-09-12",
+   "kinds": [
+    "read"
+   ]
+  },
+  "treatment": {
+   "count": 1,
+   "last": "2026-09-12",
+   "kinds": [
+    "read"
+   ]
+  },
+  "the": {
+   "count": 2,
+   "last": "2026-09-12",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "to": {
+   "count": 1,
+   "last": "2026-09-12",
+   "kinds": [
+    "read"
+   ]
+  },
+  "conform": {
+   "count": 1,
+   "last": "2026-09-12",
+   "kinds": [
+    "read"
+   ]
+  },
+  "its": {
+   "count": 3,
+   "last": "2026-09-12",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "documentary": {
+   "count": 1,
+   "last": "2026-09-12",
+   "kinds": [
+    "read"
+   ]
+  },
+  "period": {
+   "count": 1,
+   "last": "2026-09-12",
+   "kinds": [
+    "read"
+   ]
+  },
+  "convinced": {
+   "count": 2,
+   "last": "2026-09-12",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "situation": {
+   "count": 2,
+   "last": "2026-09-12",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "examples": {
+   "count": 1,
+   "last": "2026-09-12",
+   "kinds": [
+    "read"
+   ]
+  },
+  "from": {
+   "count": 2,
+   "last": "2026-09-12",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "impartial": {
+   "count": 2,
+   "last": "2026-09-12",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "is": {
+   "count": 2,
+   "last": "2026-09-12",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "war": {
+   "count": 1,
+   "last": "2026-09-12",
+   "kinds": [
+    "read"
+   ]
+  },
+  "sometimes": {
+   "count": 1,
+   "last": "2026-09-12",
+   "kinds": [
+    "read"
+   ]
+  },
+  "recently": {
+   "count": 1,
+   "last": "2026-09-12",
+   "kinds": [
+    "read"
+   ]
+  },
+  "jewish": {
+   "count": 1,
+   "last": "2026-09-12",
+   "kinds": [
+    "read"
+   ]
+  },
+  "anybody": {
+   "count": 1,
+   "last": "2026-09-12",
+   "kinds": [
+    "read"
+   ]
+  },
+  "single": {
+   "count": 1,
+   "last": "2026-09-12",
+   "kinds": [
+    "read"
+   ]
+  },
+  "over-all": {
+   "count": 1,
+   "last": "2026-09-12",
+   "kinds": [
+    "read"
+   ]
+  },
+  "presentation": {
+   "count": 1,
+   "last": "2026-09-12",
+   "kinds": [
+    "read"
+   ]
+  },
+  "sources": {
+   "count": 1,
+   "last": "2026-09-12",
+   "kinds": [
+    "read"
+   ]
+  },
+  "historical": {
+   "count": 1,
+   "last": "2026-09-12",
+   "kinds": [
+    "read"
+   ]
+  },
+  "more": {
+   "count": 1,
+   "last": "2026-09-12",
+   "kinds": [
+    "read"
+   ]
+  },
+  "after": {
+   "count": 1,
+   "last": "2026-09-12",
+   "kinds": [
+    "read"
+   ]
+  },
+  "before": {
+   "count": 1,
+   "last": "2026-09-12",
+   "kinds": [
+    "read"
+   ]
+  },
+  "greater": {
+   "count": 1,
+   "last": "2026-09-12",
+   "kinds": [
+    "read"
+   ]
+  },
+  "did": {
+   "count": 1,
+   "last": "2026-09-12",
+   "kinds": [
+    "read"
+   ]
   }
  },
  "anchor": [],
- "recordings": 2,
- "updated": "2026-09-10T21:01:10Z",
+ "recordings": 3,
+ "updated": "2026-09-12T13:12:42Z",
  "reads": [
   {
    "date": "2026-09-10",
@@ -288,6 +569,14 @@
    "fluency": 81.8,
    "completeness": 82.9,
    "pron": 80.4
+  },
+  {
+   "date": "2026-09-12",
+   "passage": "B016",
+   "accuracy": 81.9,
+   "fluency": 78.8,
+   "completeness": 82.1,
+   "pron": 78.3
   }
  ]
 }
