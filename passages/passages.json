@@ -1,0 +1,60 @@
+{
+  "_about": "Read-aloud passages for the recording loop (docs/PRACTICE.md). Record as 'eng read <id>' and drop the file in the EnglishPractice Drive folder; the pipeline scores it against this text. The ANCHOR is recorded every Monday and never changes — it is the pronunciation time trial. Rotating passages change daily. Every passage is seeded with the L1-Spanish confusion set: th (θ/ð), b/v, long/short i, j/y, s-clusters without a leading e, -ed endings, schwa, h, and cat/cut vowels.",
+  "anchor": {
+    "id": "A00",
+    "title": "Thursday",
+    "words": 152,
+    "focus": ["th", "b/v", "i/ii", "s-cluster", "-ed", "schwa", "h"],
+    "text": "Every Thursday I finish work a little early and walk to the station. The streets are already busy, and the sky is usually grey. I think about the week: what went well, what I should have done differently, and what I still want to build. At the gym I stretch, then I lift for an hour. My legs feel heavy after the intervals, but I have learned to trust the plan and not to judge a single session. Later, at home, I cook something simple: rice, vegetables, a bit of fish. I used to skip dinner when I was tired; now I know that recovery starts at the table. Before bed I review thirty cards aloud, very slowly, and I try to say each phrase the way a friend would say it. Then I switch off the light and let the day go."
+  },
+  "passages": [
+    {
+      "id": "R01",
+      "title": "The morning run",
+      "focus": ["th", "-ed", "s-cluster", "i/ii"],
+      "text": "The alarm goes off at a quarter past six. I measure everything before I move: heart rate, weight, blood pressure. Then I put on my shoes and start slowly, because the first three minutes always feel worse than they are. This week the plan says easy, so I keep the effort low and let the watch complain. On Tuesday I did intervals at the track: five times eight hundred metres, with a jog between each one. My legs were still heavy on Wednesday, which is exactly what the coach expected. I have stopped fighting that feeling. A slow day is not a wasted day; it is the price of the fast one."
+    },
+    {
+      "id": "R02",
+      "title": "Planning a release",
+      "focus": ["b/v", "j/y", "schwa", "s-cluster"],
+      "text": "Yesterday we sat down to plan the next release. The job looked simple on the board, but every ticket hid a second ticket behind it. Somebody had to decide what to drop, and nobody wanted to be the one. In the end I suggested we ship the smaller version first and see what the users actually do with it. My manager agreed, though she asked for a proper test plan before we merge anything. I spent the afternoon writing it: which paths we cover, which we skip, and why. It is not a beautiful document. It is a clear one, and clear beats beautiful when the deadline is on Friday."
+    },
+    {
+      "id": "R03",
+      "title": "A call to the landlord",
+      "focus": ["th", "h", "-ed", "i/ii"],
+      "text": "Hello, this is Daniel from the flat on the third floor. I am calling about the heating again. It worked for two days after your engineer visited, and then it stopped on Thursday night. The boiler shows an error and the water is cold by seven. I have reset it three times, as he showed me, but it does not hold. I would like someone to look at it this week, please, because the temperature has dropped and my flatmate has been ill. If it needs a part, let me know how long that will take. I can be at home any evening after six, or on Saturday morning."
+    },
+    {
+      "id": "R04",
+      "title": "Cooking rice properly",
+      "focus": ["s-cluster", "-ed", "schwa", "cat/cut"],
+      "text": "The secret is not the rice; it is the water. Rinse the grains until the water runs clear, then leave them to soak for twenty minutes while you cut the vegetables. Use one cup of rice to one and a half cups of water, a pinch of salt, and a spoon of butter. Bring it to the boil, cover it, and turn the heat right down. Do not lift the lid. After twelve minutes switch off the stove and wait another ten. When you finally open it, the grains should be separate and soft, not stuck together in a lump. I burned it a dozen times before I stopped stirring. Stirring is the enemy."
+    },
+    {
+      "id": "R05",
+      "title": "Weather talk",
+      "focus": ["th", "b/v", "i/ii", "h"],
+      "text": "People here talk about the weather because it changes every hour, not because they have nothing to say. This morning it was bright and cold; by lunch it was raining sideways; by three the sun was back as if nothing had happened. I have learned to carry a thin jacket everywhere and to trust nobody's forecast, including my own. The thing I still find strange is the light. In winter it is dark before five and the office feels like a submarine. In summer the evenings go on and on, and the whole city sits outside with a drink, pretending it is warm."
+    },
+    {
+      "id": "R06",
+      "title": "The journey that went wrong",
+      "focus": ["-ed", "j/y", "th", "s-cluster"],
+      "text": "We arrived at the airport with plenty of time, which was the first mistake, because it made us relaxed. The gate changed twice. Then the flight was delayed by an hour, then by three. By the time we boarded, the connection in Madrid was already gone. A young man at the desk found us seats on a later plane, but our bags travelled on the first one and waited for us, alone, in a corner of the terminal. We reached the hotel just after midnight. My brother laughed about it the next day. I did not, until much later."
+    },
+    {
+      "id": "R07",
+      "title": "Giving directions",
+      "focus": ["th", "s-cluster", "schwa", "h"],
+      "text": "It is about ten minutes on foot. Come out of the station and turn left, towards the bridge. Go straight past the supermarket and the little school, and keep the river on your right. At the third set of lights there is a bakery on the corner; cross there, not before, because the crossing further up is closed for works. The office is the grey building behind the bakery, with the blue door. If you reach the hospital you have gone too far. Ring the bell for the second floor and somebody will come down to let you in."
+    },
+    {
+      "id": "R08",
+      "title": "What I would argue for now",
+      "focus": ["b/v", "i/ii", "-ed", "cat/cut"],
+      "text": "Last year the team believed that more data would settle every argument. We built dashboards for everything and then spent our meetings arguing about the dashboards. Nobody's judgement improved; only our confidence did, and that is a worse trade than it sounds. What I would argue for now is fewer numbers and faster feedback. Ship the small thing, watch what breaks, fix it the same week. Keep the metrics that actually change a decision and delete the rest. It felt reckless when I first said it. It is, in fact, the cautious option."
+    }
+  ]
+}

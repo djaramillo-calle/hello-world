@@ -1,0 +1,84 @@
+English Signal Check — post-audit verification run (form v2)
+date: 2026-08-29T17:56:40Z
+node: v22.22.2, jsdom-driven suite (scripts/test.js)
+context: all fixes from docs/audit/verdict.md applied (FIX-1..FIX-30 as specified;
+one adjudicated deviation: FIX-20's band/core disjointness assertion scoped to bands >= 2000,
+since FIX-15 deliberately leaves the 1000-band probes inside the ~1,500-word core list).
+
+== T1: C-test construction ==
+  ok    passage 1 has 20 gaps (got 20, want 20)
+  ok    passage 2 has 20 gaps (got 20, want 20)
+  ok    passage 3 has 20 gaps (got 20, want 20)
+  ok    passage 4 has 20 gaps (got 20, want 20)
+  ok    gap structure intact
+== T2: item-bank integrity (locks FIX-15) ==
+  ok    no band-2000+ word appears in the core list (got 0, want 0)
+  ok    no pseudoword in core list (got 0, want 0)
+  ok    bands and pseudowords disjoint (got 0, want 0)
+  ok    8 words per band (got true, want true)
+  ok    32 pseudowords (got 32, want 32)
+  ok    risky pseudowords zolvent/prantic replaced
+== T3: deterministic shuffle ==
+  ok    item order identical across loads (got "yarnick,sullen,lonture,answer,plask,dilute,grovish,trantle,prodigal,wry,strong,thurgle,tremble,ladder,stubborn,unctile,indolent,quagmire,quilber,cellar,obfuscate,opplate,ceramic,clamber,meander,repair,marlint,spade,dispolate,vigorous,lachrymose,water,brittle,tangible,tervine,fastidious,rustic,effigy,prundic,abstruse,perfidy,crolling,lucrative,obdurate,feeble,drown,welmid,abolish,gaunt,disperse,sylvan,hinge,rendive,morative,ferment,pigeon,appraise,money,blenter,house,nurbid,hinture,cabrish,kelmish,family,gorbid,gossamer,anxious,sceptical,spralt,bargain,learn,gravel,faltive,desiccate,cautious,cadence,vasple,scrimble,night,nursery,jaunkle,febrile,alleged,hirsute,flenting,truculent,zorvale,vandric,blanket,glimpse,praise,askew,lurid,deltive,murky", want "yarnick,sullen,lonture,answer,plask,dilute,grovish,trantle,prodigal,wry,strong,thurgle,tremble,ladder,stubborn,unctile,indolent,quagmire,quilber,cellar,obfuscate,opplate,ceramic,clamber,meander,repair,marlint,spade,dispolate,vigorous,lachrymose,water,brittle,tangible,tervine,fastidious,rustic,effigy,prundic,abstruse,perfidy,crolling,lucrative,obdurate,feeble,drown,welmid,abolish,gaunt,disperse,sylvan,hinge,rendive,morative,ferment,pigeon,appraise,money,blenter,house,nurbid,hinture,cabrish,kelmish,family,gorbid,gossamer,anxious,sceptical,spralt,bargain,learn,gravel,faltive,desiccate,cautious,cadence,vasple,scrimble,night,nursery,jaunkle,febrile,alleged,hirsute,flenting,truculent,zorvale,vandric,blanket,glimpse,praise,askew,lurid,deltive,murky")
+  ok    pseudowords interleaved (longest run 4 <= 6)
+== T4: vocabulary validity gate on SHIPPED scoreVocab ==
+  ok    f = 9/32 -> valid (got true, want true)
+  ok    f = 10/32 -> void (got false, want false)
+  ok    VOID card leaks no band diagnosis (FIX-7)
+  ok    void size never exported to a row
+== T5: dictation scoring ==
+  ok    exact match, case/punct-insensitive (got 4, want 4)
+  ok    curly apostrophe == straight (FIX-10) (got 3, want 3)
+  ok    partial credit counts (got 2, want 2)
+  ok    norm() normalizes curly apostrophes (got "don't", want "don't")
+== T6: MTLD vs independent implementation ==
+  ok    fixture 1: shipped 24.52 vs reference 24.52
+  ok    fixture 2: shipped 11.50 vs reference 11.50
+  ok    zero-factor text reports null, not token count (FIX-28) (got null, want null)
+== T7: C-test alternates + monotone ceiling ==
+  ok    attribute / lie / moderate accepted (FIX-14) (got 3, want 3)
+  ok    only-P4-correct does not report a C1 ceiling (FIX-13) (got "below A2–B1", want "below A2–B1")
+  ok    all keys accepted (got 1, want 1)
+  ok    full marks -> top ceiling (got "C1–C2", want "C1–C2")
+== T8: save / copy / report / delta (FIX-1, FIX-2) ==
+  ok    session saved (got 1, want 1)
+  ok    copy AFTER save yields the saved data, not blanks (U01)
+  ok    history table visible after save (U02)
+  ok    double-save refused on empty session (got 1, want 1)
+  ok    delta compares current unsaved run vs last saved (U03)
+  ok    EI cannot re-score stale answers after save (U04)
+== T9: speaking guards (FIX-5, FIX-6) ==
+  ok    secs=5 refused (U13)
+  ok    secs=-30 refused (U13)
+  ok    all-filler transcript refused (U14)
+  ok    self-repair ratio capped at 1 (U14)
+  ok    clean transcript scores (60 words / 120s = 30 wpm)
+== T10: dictation freeze (FIX-8) + beyond-core lemmatization (FIX-11) ==
+  ok    inputs frozen after scoring
+  ok    re-score after reveal refused (U09) (got 0.05426356589147287, want 0.05426356589147287)
+  ok    "walked" counts as core (inflection)
+  ok    "friends" counts as core (inflection)
+  ok    "things" counts as core (inflection)
+  ok    "wanted" counts as core (inflection)
+  ok    "working" counts as core (inflection)
+  ok    "houses" counts as core (inflection)
+  ok    "authentication" still beyond core
+  ok    "quagmire" still beyond core
+  ok    "infrastructure" still beyond core
+== T11: corrupted storage (FIX-4) + no-TTS plays (FIX-23) ==
+  ok    corrupted localStorage primitive: page still builds (got 8, want 8)
+  ok    plays not burned without TTS (U24) (got "2", want "2")
+  ok    play decremented when audio spoken (got "1", want "1")
+  ok    voice recorded (U11) (got "TestVoice", want "TestVoice")
+== T12: unattempted-module guards (FIX-18) ==
+  ok    empty vocab refused
+  ok    empty EI refused
+  ok    empty evidence refused
+
+57 passed, 0 failed
+SUITE PASS
+
+--- sabotage checks (suite must FAIL on broken code; old suite could not — U12) ---
+sabotage-1 gutted C-test passage . exit 1  (verified this session)
+sabotage-2 validity gate deleted . exit 1  (verified this session)
+sabotage-3 alternates removed .... exit 1  (verified this session)

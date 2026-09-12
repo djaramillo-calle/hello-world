@@ -1,0 +1,74 @@
+{
+ "checked": "2026-09-09T15:49:29Z",
+ "region": "uksouth",
+ "steps": {
+  "token": {
+   "http": 200
+  },
+  "tts": {
+   "http": 200,
+   "bytes": 169310
+  },
+  "en_gb_scripted": {
+   "http": 200,
+   "status": "Success",
+   "scores": {
+    "AccuracyScore": 100.0,
+    "FluencyScore": 96.0,
+    "CompletenessScore": 100.0,
+    "PronScore": 97.6
+   },
+   "words": 18,
+   "miscues": 0,
+   "phoneme_names": false,
+   "prosody": false,
+   "nbest_keys": [
+    "AccuracyScore",
+    "CompletenessScore",
+    "Confidence",
+    "Display",
+    "FluencyScore",
+    "ITN",
+    "Lexical",
+    "MaskedITN",
+    "PronScore"
+   ],
+   "text": "On Thursday I usually go to the gym after work and then I read for half an hour."
+  },
+  "en_us_phoneme_prosody": {
+   "http": 200,
+   "status": "Success",
+   "scores": {
+    "AccuracyScore": 97.0,
+    "FluencyScore": 98.0,
+    "CompletenessScore": 100.0,
+    "ProsodyScore": 91.3,
+    "PronScore": 95.5
+   },
+   "words": 18,
+   "miscues": 0,
+   "phoneme_names": true,
+   "prosody": true,
+   "nbest_keys": [
+    "AccuracyScore",
+    "CompletenessScore",
+    "Confidence",
+    "Display",
+    "FluencyScore",
+    "ITN",
+    "Lexical",
+    "MaskedITN",
+    "PronScore",
+    "ProsodyScore"
+   ],
+   "text": "On Thursday I usually go to the gym after work and then I read for half an hour."
+  }
+ },
+ "capabilities": {
+  "assessment": true,
+  "completeness": true,
+  "phoneme_names": true,
+  "prosody": true
+ },
+ "verdict": "assessment OK · scripted completeness OK · IPA phonemes OK · prosody OK"
+}

@@ -1,0 +1,3 @@
+# Focus-dial decisions, one row per time-trial week-close (and the baseline).
+# recommendation = scripts/dial.py output; dial = what was actually set; reason = the override, if any.
+date	cycle	dial	recommendation	reason

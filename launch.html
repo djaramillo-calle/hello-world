@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hub Launch Checklist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;500;600&family=Public+Sans:wght@400;600&display=swap">
+<style>
+  :root {
+    --ground: #F1F2EF; --panel: #FBFBF9; --panel-2: #E7E9E4;
+    --ink: #16191A; --ink-soft: #57605C; --ink-faint: #6C7570;
+    --rule: #D6DAD3; --rule-soft: #E4E7E1;
+    --go: #0E6B4A; --go-wash: #DDEAE3; --dial: #8A6210; --dial-wash: #F0E7D2;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #141715; --panel: #1B201D; --panel-2: #232925;
+      --ink: #E4E8E4; --ink-soft: #9AA49E; --ink-faint: #7B857F;
+      --rule: #2C332E; --rule-soft: #232A25;
+      --go: #5BC095; --go-wash: #163026; --dial: #D3A445; --dial-wash: #322916;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #141715; --panel: #1B201D; --panel-2: #232925;
+    --ink: #E4E8E4; --ink-soft: #9AA49E; --ink-faint: #7B857F;
+    --rule: #2C332E; --rule-soft: #232A25;
+    --go: #5BC095; --go-wash: #163026; --dial: #D3A445; --dial-wash: #322916;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--ground); color: var(--ink); font-family: "Public Sans", "Helvetica Neue", Arial, sans-serif; font-size: 15.5px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+  .shell { max-width: 720px; margin: 0 auto; padding: 0 16px 60px; }
+  header { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; border-bottom: 2px solid var(--ink); padding: 22px 0 10px; margin-bottom: 14px; }
+  h1 { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; font-size: clamp(1.5rem, 5vw, 1.9rem); letter-spacing: -0.025em; margin: 0; line-height: 1; }
+  .metaline { font-family: "IBM Plex Mono", monospace; font-size: 0.64rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-faint); text-align: right; }
+  h2 { font-family: "Bricolage Grotesque", sans-serif; font-weight: 700; font-size: 1.05rem; letter-spacing: -0.01em; margin: 24px 0 8px; text-wrap: balance; }
+  h2 small { font-family: "IBM Plex Mono", monospace; font-size: 0.66rem; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); margin-left: 8px; }
+  p { margin: 0 0 10px; }
+  .soft { color: var(--ink-soft); }
+  .small { font-size: 0.84rem; }
+  .strip { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; background: var(--go-wash); border-left: 3px solid var(--go); padding: 10px 12px; font-size: 0.86rem; }
+  .strip b { font-family: "IBM Plex Mono", monospace; font-size: 0.78rem; }
+  .strip.pre { background: var(--dial-wash); border-color: var(--dial); }
+  .bar { height: 6px; background: var(--panel-2); border-radius: 3px; overflow: hidden; margin: 10px 0 4px; }
+  .bar i { display: block; height: 100%; background: var(--go); width: 0; transition: width .3s; }
+  .items { display: grid; gap: 0; border-top: 1px solid var(--rule); }
+  .item { display: grid; grid-template-columns: 28px 1fr; gap: 10px; padding: 11px 0; border-bottom: 1px solid var(--rule-soft); align-items: start; }
+  .item input { width: 20px; height: 20px; margin: 2px 0 0; accent-color: var(--go); cursor: pointer; }
+  .item .t { font-weight: 600; }
+  .item .t code { font-family: "IBM Plex Mono", monospace; font-size: 0.8em; background: var(--panel-2); padding: 1px 4px; border-radius: 2px; font-weight: 400; }
+  .item .d { font-size: 0.86rem; color: var(--ink-soft); margin-top: 2px; }
+  .item .d code { font-family: "IBM Plex Mono", monospace; font-size: 0.82em; background: var(--panel-2); padding: 1px 4px; border-radius: 2px; }
+  .item .v { font-family: "IBM Plex Mono", monospace; font-size: 0.68rem; color: var(--ink-faint); margin-top: 4px; }
+  .item .v b { color: var(--go); font-weight: 600; }
+  .item.done .t, .item.done .d { color: var(--ink-faint); text-decoration: line-through; text-decoration-color: var(--rule); }
+  .tag { font-family: "IBM Plex Mono", monospace; font-size: 0.62rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 1px 6px; border-radius: 2px; border: 1px solid var(--rule); color: var(--ink-soft); margin-left: 6px; vertical-align: 1px; }
+  .tag.me { border-color: var(--go); color: var(--go); }
+  .tag.auto { border-color: var(--dial); color: var(--dial); }
+  .status { font-family: "IBM Plex Mono", monospace; font-size: 0.7rem; color: var(--ink-faint); }
+  .hold { background: var(--panel); border: 1px solid var(--rule); border-radius: 3px; padding: 12px 14px; font-size: 0.86rem; }
+  footer { border-top: 2px solid var(--ink); margin-top: 30px; padding-top: 10px; font-family: "IBM Plex Mono", monospace; font-size: 0.64rem; line-height: 1.7; color: var(--ink-faint); }
+  a { color: var(--go); text-underline-offset: 2px; }
+</style>
+</head>
+<body>
+<div class="shell">
+<header><h1>Hub Launch Checklist</h1><div class="metaline" id="meta">first working version</div></header>
+
+<div class="strip pre" id="strip"><b>0 / 0</b><span>Ticks are saved with this page. Order that matters: A4 before B7 · B2 before B5 · B3 before B6 · C4 before anything is in season.</span></div>
+<div class="bar"><i id="bar"></i></div>
+<p class="small soft">Owner tags: <span class="tag">you</span> one-off, <span class="tag me">me</span> in chat or by the Routines, <span class="tag auto">auto</span> runs by itself once the step above it is done. Verification is written under each item: tick when it is true, not when it is started.</p>
+
+<div id="groups"></div>
+
+<h2>On hold, deliberately</h2>
+<div class="hold">Drill tab (minimal-pair identification with several voices, then production with a recogniser check) and Listen tab (sentence decoding at speed from the passages). They ship after the read-aloud has held for two weeks. Adding three habits on day one is how routines die.</div>
+
+<footer><div>Hub Launch Checklist — companion to docs/LAUNCH.md in the repo. Links: <a href="https://claude.ai/code/artifact/81ce98f7-d1a4-4904-b268-84245e8fabe9">English Hub</a> · <a href="https://claude.ai/code/artifact/07a51efd-b57e-4864-99bf-0186f5227e6d">Runbook</a> · <a href="https://claude.ai/code/artifact/823a99e1-14f7-4633-9654-970630efcc42">Signal Check</a> · <a href="https://claude.ai/code/artifact/43e3b4e1-75f6-45d4-b1e5-ba4b04a0c1ef">Season Board</a></div></footer>
+</div>
+
+<script>
+(function () {
+  var GROUPS = [
+    { id: "A", title: "Phone", est: "about 35 minutes", items: [
+      ["A1", "you", "Open the Hub on the Poco and add it to the home screen", "Chrome → menu → Add to Home screen. Open Read.", "the Read tab shows a passage and a filename"],
+      ["A2", "you", "Hub → Log → Season settings: tutor day, save", "The baseline date comes at C4.", "status reads “saved”"],
+      ["A3", "you", "AntennaPod + gpodder.net", "Install AntennaPod; create a gpodder.net account (if registration is closed, tell me and we self-host oPodSync); Settings → Synchronization → log in, device name <code>poco</code>. Subscribe the two or three shows of the week's topic. Move all podcast listening here.", "one episode played for a minute shows in the gpodder web UI"],
+      ["A4", "you", "Recorder + Autosync folder pair into EnglishPractice/Recordings", "Any recorder saving to a fixed folder. Autosync for Google Drive: one folder pair to <code>My Drive/EnglishPractice/Recordings</code> in the udea account (the subfolder you created), upload-only, instant sync. Record a test named <code>eng read A00</code>.", "the test file appears in the Drive folder within a minute"],
+      ["A5", "you", "Allow Claude and the microphone in the Hub", "Tap “Read out this morning” once. On Tuesday, start a Talk session; accept both prompts.", "a readout renders; a Talk session ends with a harvest"]
+    ]},
+    { id: "B", title: "Mac, one local session", est: "about 40 minutes", items: [
+      ["B1", "you", "<code>git pull</code>; practice venv present", "If <code>.venv-practice</code> is missing: <code>bash scripts/practice-setup.sh</code>. The Python 3.13 pins are load-bearing on the Intel Mac.", "<code>.venv-practice/bin/python -c \"import faster_whisper\"</code> prints nothing"],
+      ["B2", "you", "Google Drive desktop: add the udea account", "So that <code>~/Library/CloudStorage/GoogleDrive-udea…/My Drive/EnglishPractice</code> exists.", "the folder is visible in Finder"],
+      ["B3", "you", "Secrets in <code>~/.config/english-runbook/env</code>", "chmod 600. <code>AZURE_SPEECH_KEY</code> + <code>AZURE_SPEECH_REGION=uksouth</code> (free F0 Speech resource in the Azure portal), <code>GPODDER_USER</code> / <code>GPODDER_PASS</code>, <code>INTERVALS_API_KEY</code> (Intervals → Settings → Developer). Optional <code>ELEVENLABS_*</code>.", "the file exists and is not in git"],
+      ["B4", "you", "Prompt-free <code>git push</code>", "<code>gh auth setup-git</code>, or an SSH deploy key without passphrase.", "a push from a terminal asks nothing"],
+      ["B5", "you", "<code>bash scripts/install-automation.sh</code>", "Installs the nightly job, the Kindle watcher and the recording watcher. Re-run after B2 so the Drive path is watched.", "three “installed …” lines"],
+      ["B6", "you", "Dry run: <code>bash scripts/coach-sync.sh --unattended</code>", "Watch the output once by hand.", "practice / anki / listening / intervals lines, one commit, “pushed”"],
+      ["B7", "me", "First recording end to end", "Record <code>eng read A00</code> on the phone; watch <code>/tmp/english-recording.log</code>. Then tell me, or let the 18:30 Routine find it.", "<code>logs/practice/…-eng-read-a00.review.md</code> in git with scripted Azure scores including <b>completeness</b>; note whether <b>prosody</b> came back (paid tier?)"],
+      ["B8", "you", "Anki open across one 21:40", "Leave desktop Anki open one evening so the nightly job syncs and pushes the queued cards.", "cards in the English Runbook deck; <code>logs/anki-stats.json</code> re-exported"],
+      ["B9", "you", "Intervals.icu: add the Eng* fields to the fitness chart", "They exist after the first push.", "seven Eng fields visible on the wellness page"]
+    ]},
+    { id: "C", title: "Coach and season", est: "15 minutes of yours; the rest runs by itself", items: [
+      ["C1", "auto", "Daily Routine finishes harvests and refreshes the Read tab", "18:30 UTC, every day, in this session.", "its five-line reply; the Read tab shows a drill after B7"],
+      ["C2", "auto", "Friday review rolls the week from sensors", "First one Friday Sep 11, 18:00 UTC.", "a weekly-log row with sensor-filled columns"],
+      ["C3", "me", "Calendar events", "Say “go” and I create the seven proposed events. Nothing else is touched.", "events on the udea calendar"],
+      ["C4", "you", "Baseline: Sun Sep 13, 09:30, rested", "<code>diagnostic.html</code>, all six modules, “Save this session”. Then Hub → Log → Season settings → baseline date.", "the run is stored; I append the tracking row; the Hub strip reads WEEK 1 from Mon Sep 14"],
+      ["C5", "auto", "First anchor time trial: Mon Sep 14, 06:45", "<code>eng read A00</code>, same as every Monday.", "the anchor trend shows its first row"]
+    ]},
+    { id: "D", title: "Reading material", est: "when you have the file", items: [
+      ["D1", "you", "The book as a DRM-free EPUB or PDF in <code>~/EnglishLibrary/</code>", "Never in git: <code>library/</code> is ignored. Copyrighted text stays on the Mac and in the private Hub store.", "the file is on the Mac"],
+      ["D2", "me", "Passage import + transcript-to-text alignment", "markitdown → 150-word chunks → Read tab in reading order; reviews list misread words even without Azure.", "the Read tab serves the next unread chunk"]
+    ]}
+  ];
+  var state = {}, db = null;
+  var use = function (n) { return (window.claude && window.claude.use) ? window.claude.use(n) : Promise.resolve(null); };
+  function total() { var n = 0; GROUPS.forEach(function (g) { n += g.items.length; }); return n; }
+  function doneCount() { return Object.keys(state).filter(function (k) { return state[k] && state[k].done; }).length; }
+  function render() {
+    var host = document.getElementById("groups"); host.innerHTML = "";
+    GROUPS.forEach(function (g) {
+      var h = document.createElement("h2"); h.innerHTML = g.id + " · " + g.title + "<small>" + g.est + "</small>"; host.appendChild(h);
+      var box = document.createElement("div"); box.className = "items";
+      g.items.forEach(function (it) {
+        var id = it[0], done = state[id] && state[id].done;
+        var row = document.createElement("label"); row.className = "item" + (done ? " done" : "");
+        row.innerHTML = '<input type="checkbox" data-id="' + id + '"' + (done ? " checked" : "") + '><div><div class="t">' + id + " · " + it[2] + '<span class="tag ' + (it[1] === "me" ? "me" : it[1] === "auto" ? "auto" : "") + '">' + it[1] + "</span></div><div class=\"d\">" + it[3] + "</div><div class=\"v\"><b>verify</b> " + it[4] + (done && state[id].at ? " · ticked " + String(state[id].at).slice(0, 10) : "") + "</div></div>";
+        box.appendChild(row);
+      });
+      host.appendChild(box);
+    });
+    var d = doneCount(), t = total();
+    document.querySelector("#strip b").textContent = d + " / " + t;
+    document.getElementById("strip").className = "strip" + (d === t ? "" : " pre");
+    document.getElementById("bar").style.width = (t ? Math.round(100 * d / t) : 0) + "%";
+    document.getElementById("meta").textContent = d === t ? "first version running" : (t - d) + " to go";
+  }
+  document.getElementById("groups").addEventListener("change", function (ev) {
+    var cb = ev.target; if (!cb || !cb.dataset.id) return;
+    state[cb.dataset.id] = { done: cb.checked, at: new Date().toISOString() };
+    render();
+    if (db) db.doc("launch/state").set(state).catch(function (e) { console.warn("save", e); });
+    else try { localStorage.setItem("launch.state", JSON.stringify(state)); } catch (e) {}
+  });
+  try { var raw = localStorage.getItem("launch.state"); if (raw) state = JSON.parse(raw) || {}; } catch (e) {}
+  render();
+  use("db").then(function (d) {
+    db = d; if (!d) return;
+    d.doc("launch/state").onSnapshot(function (snap) { if (snap.exists) { state = snap.data() || {}; render(); } }, function (e) { console.warn("state", e); });
+  });
+})();
+</script>
+</body>
+</html>
