@@ -1,7 +1,7 @@
 {
  "phonemes": {
   "b/v": {
-   "count": 9,
+   "count": 10,
    "words": {
     "bury": 1,
     "of": 1,
@@ -11,36 +11,42 @@
     "over-all": 1,
     "before": 1,
     "subject": 1,
-    "but": 1
+    "but": 1,
+    "overseas": 1
    },
-   "last": "2026-09-12"
+   "last": "2026-09-13"
   },
   "s/z": {
-   "count": 10,
+   "count": 16,
    "words": {
     "surface": 1,
-    "this": 2,
+    "this": 3,
     "principle": 1,
     "usurped": 1,
     "since": 1,
     "jews": 1,
     "organize": 1,
-    "its": 1
+    "its": 1,
+    "prophecy": 1,
+    "imperialist": 1,
+    "policies": 1,
+    "said": 1
    },
-   "last": "2026-09-12"
+   "last": "2026-09-13"
   },
   "th": {
-   "count": 6,
+   "count": 8,
    "words": {
     "earth": 1,
     "this": 2,
-    "the": 1,
-    "than": 1
+    "the": 2,
+    "than": 1,
+    "that": 1
    },
-   "last": "2026-09-12"
+   "last": "2026-09-13"
   },
   "schwa": {
-   "count": 13,
+   "count": 16,
    "words": {
     "tradition": 1,
     "as": 1,
@@ -48,15 +54,17 @@
     "political": 1,
     "a": 1,
     "principle": 1,
-    "and": 1,
+    "and": 2,
     "deplorable": 1,
     "but": 1,
-    "material": 1
+    "material": 1,
+    "imperialist": 1,
+    "from": 1
    },
-   "last": "2026-09-12"
+   "last": "2026-09-13"
   },
   "i/ii": {
-   "count": 20,
+   "count": 29,
    "words": {
     "rooted": 1,
     "in": 2,
@@ -69,22 +77,29 @@
     "simply": 1,
     "dignity": 1,
     "this": 1,
-    "did": 1,
+    "did": 2,
     "since": 1,
     "material": 1,
     "collected": 1,
-    "recently": 1
+    "recently": 1,
+    "imperialist": 1,
+    "his": 1,
+    "be": 1,
+    "which": 1,
+    "finished": 1
    },
-   "last": "2026-09-12"
+   "last": "2026-09-13"
   },
   "-ed": {
-   "count": 3,
+   "count": 6,
    "words": {
     "rooted": 1,
     "convinced": 1,
-    "collected": 1
+    "collected": 1,
+    "shifted": 1,
+    "finished": 1
    },
-   "last": "2026-09-12"
+   "last": "2026-09-13"
   },
   "j/y": {
    "count": 1,
@@ -94,12 +109,13 @@
    "last": "2026-09-12"
   },
   "h": {
-   "count": 2,
+   "count": 3,
    "words": {
     "historical": 1,
-    "had": 1
+    "had": 1,
+    "has": 1
    },
-   "last": "2026-09-12"
+   "last": "2026-09-13"
   },
   "cat/cut": {
    "count": 5,
@@ -152,8 +168,8 @@
    "carded": true
   },
   "our": {
-   "count": 2,
-   "last": "2026-09-10",
+   "count": 3,
+   "last": "2026-09-13",
    "kinds": [
     "read"
    ],
@@ -219,8 +235,8 @@
    ]
   },
   "power": {
-   "count": 2,
-   "last": "2026-09-10",
+   "count": 5,
+   "last": "2026-09-13",
    "kinds": [
     "read"
    ],
@@ -242,11 +258,12 @@
    ]
   },
   "come": {
-   "count": 1,
-   "last": "2026-09-10",
+   "count": 2,
+   "last": "2026-09-13",
    "kinds": [
     "read"
-   ]
+   ],
+   "carded": true
   },
   "can": {
    "count": 2,
@@ -362,8 +379,8 @@
    ]
   },
   "the": {
-   "count": 2,
-   "last": "2026-09-12",
+   "count": 3,
+   "last": "2026-09-13",
    "kinds": [
     "read"
    ],
@@ -429,8 +446,8 @@
    ]
   },
   "from": {
-   "count": 2,
-   "last": "2026-09-12",
+   "count": 3,
+   "last": "2026-09-13",
    "kinds": [
     "read"
    ],
@@ -556,11 +573,191 @@
    "kinds": [
     "read"
    ]
+  },
+  "prophecy": {
+   "count": 1,
+   "last": "2026-09-13",
+   "kinds": [
+    "read"
+   ]
+  },
+  "imperialist": {
+   "count": 3,
+   "last": "2026-09-13",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "only": {
+   "count": 1,
+   "last": "2026-09-13",
+   "kinds": [
+    "read"
+   ]
+  },
+  "his": {
+   "count": 2,
+   "last": "2026-09-13",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "agent": {
+   "count": 1,
+   "last": "2026-09-13",
+   "kinds": [
+    "read"
+   ]
+  },
+  "overseas": {
+   "count": 1,
+   "last": "2026-09-13",
+   "kinds": [
+    "read"
+   ]
+  },
+  "inherent": {
+   "count": 2,
+   "last": "2026-09-13",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "continental": {
+   "count": 1,
+   "last": "2026-09-13",
+   "kinds": [
+    "read"
+   ]
+  },
+  "said": {
+   "count": 1,
+   "last": "2026-09-13",
+   "kinds": [
+    "read"
+   ]
+  },
+  "eastern": {
+   "count": 1,
+   "last": "2026-09-13",
+   "kinds": [
+    "read"
+   ]
+  },
+  "which": {
+   "count": 2,
+   "last": "2026-09-13",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "central": {
+   "count": 1,
+   "last": "2026-09-13",
+   "kinds": [
+    "read"
+   ]
+  },
+  "this": {
+   "count": 1,
+   "last": "2026-09-13",
+   "kinds": [
+    "read"
+   ]
+  },
+  "expansion": {
+   "count": 1,
+   "last": "2026-09-13",
+   "kinds": [
+    "read"
+   ]
+  },
+  "under": {
+   "count": 4,
+   "last": "2026-09-13",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "nuclear": {
+   "count": 1,
+   "last": "2026-09-13",
+   "kinds": [
+    "read"
+   ]
+  },
+  "was": {
+   "count": 1,
+   "last": "2026-09-13",
+   "kinds": [
+    "read"
+   ]
+  },
+  "russia": {
+   "count": 1,
+   "last": "2026-09-13",
+   "kinds": [
+    "read"
+   ]
+  },
+  "secret": {
+   "count": 1,
+   "last": "2026-09-13",
+   "kinds": [
+    "read"
+   ]
+  },
+  "shifted": {
+   "count": 1,
+   "last": "2026-09-13",
+   "kinds": [
+    "read"
+   ]
+  },
+  "nation-state": {
+   "count": 1,
+   "last": "2026-09-13",
+   "kinds": [
+    "read"
+   ]
+  },
+  "deny": {
+   "count": 1,
+   "last": "2026-09-13",
+   "kinds": [
+    "read"
+   ]
+  },
+  "every": {
+   "count": 1,
+   "last": "2026-09-13",
+   "kinds": [
+    "read"
+   ]
+  },
+  "takes": {
+   "count": 1,
+   "last": "2026-09-13",
+   "kinds": [
+    "read"
+   ]
+  },
+  "has": {
+   "count": 1,
+   "last": "2026-09-13",
+   "kinds": [
+    "read"
+   ]
   }
  },
  "anchor": [],
- "recordings": 3,
- "updated": "2026-09-12T13:12:42Z",
+ "recordings": 5,
+ "updated": "2026-09-13T17:51:14Z",
  "reads": [
   {
    "date": "2026-09-10",
@@ -577,6 +774,14 @@
    "fluency": 78.8,
    "completeness": 82.1,
    "pron": 78.3
+  },
+  {
+   "date": "2026-09-13",
+   "passage": "B029",
+   "accuracy": 82.1,
+   "fluency": 74.6,
+   "completeness": 81.8,
+   "pron": 76.9
   }
  ]
 }

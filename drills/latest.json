@@ -1,16 +1,16 @@
 {
- "generated": "2026-09-12T13:12:42Z",
+ "generated": "2026-09-13T17:51:14Z",
  "classes": [
   {
    "class": "i/ii",
-   "count": 20,
+   "count": 29,
    "words": [
     "in",
+    "did",
     "rooted",
     "tradition",
     "hatred",
-    "we",
-    "political"
+    "we"
    ],
    "pairs": [
     [
@@ -39,57 +39,14 @@
     ]
    ],
    "sentences": [
+    "On Tuesday I did intervals at the track: five times eight hundred metres, with a jog between each one.",
     "Yesterday we sat down to plan the next release.",
-    "In the end I suggested we ship the smaller version first and see what the users actually do with it.",
-    "My manager agreed, though she asked for a proper test plan before we merge anything."
-   ]
-  },
-  {
-   "class": "schwa",
-   "count": 13,
-   "words": [
-    "tradition",
-    "as",
-    "of",
-    "political",
-    "a",
-    "principle"
-   ],
-   "pairs": [
-    [
-     "about",
-     "a bout"
-    ],
-    [
-     "support",
-     "sport"
-    ],
-    [
-     "banana",
-     "banner"
-    ],
-    [
-     "today",
-     "to day"
-    ],
-    [
-     "photograph",
-     "photographer"
-    ],
-    [
-     "comfortable",
-     "comfort"
-    ]
-   ],
-   "sentences": [
-    "Every Thursday I finish work a little early and walk to the station.",
-    "My legs feel heavy after the intervals, but I have learned to trust the plan and not to judge a single session.",
-    "Later, at home, I cook something simple: rice, vegetables, a bit of fish."
+    "In the end I suggested we ship the smaller version first and see what the users actually do with it."
    ]
   },
   {
    "class": "s/z",
-   "count": 10,
+   "count": 16,
    "words": [
     "this",
     "surface",
@@ -128,6 +85,49 @@
     "This week the plan says easy, so I keep the effort low and let the watch complain.",
     "Hello, this is Daniel from the flat on the third floor.",
     "I would like someone to look at it this week, please, because the temperature has dropped and my flatmate has been ill."
+   ]
+  },
+  {
+   "class": "schwa",
+   "count": 16,
+   "words": [
+    "and",
+    "tradition",
+    "as",
+    "of",
+    "political",
+    "a"
+   ],
+   "pairs": [
+    [
+     "about",
+     "a bout"
+    ],
+    [
+     "support",
+     "sport"
+    ],
+    [
+     "banana",
+     "banner"
+    ],
+    [
+     "today",
+     "to day"
+    ],
+    [
+     "photograph",
+     "photographer"
+    ],
+    [
+     "comfortable",
+     "comfort"
+    ]
+   ],
+   "sentences": [
+    "Every Thursday I finish work a little early and walk to the station.",
+    "The streets are already busy, and the sky is usually grey.",
+    "I think about the week: what went well, what I should have done differently, and what I still want to build."
    ]
   }
  ]
