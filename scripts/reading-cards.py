@@ -18,6 +18,10 @@ import datetime as dt, importlib.util, json, pathlib, re, sys
 REPO = pathlib.Path(__file__).resolve().parent.parent
 VOCAB = REPO / "logs" / "reading" / "vocab.json"
 WINDOW = 14   # words kept on each side of the blank
+BACKLOG = 25  # stop queueing while this many cards already wait: the Anki push takes 25 a WEEK and this
+              # script runs on every sync (~3x a day), so without the brake the queue grows without bound
+              # and a lookup is spent on a card that only reaches the deck weeks later. Lookups are left
+              # un-carded instead, so the newest-first pick stays fresh when room opens up.
 
 def _pr():
     spec = importlib.util.spec_from_file_location("practice_review", REPO / "scripts" / "practice-review.py")
@@ -56,8 +60,14 @@ def build(vocab, max_cards=5):
         if len(cards) >= max_cards: break
     return cards, used
 
-def run(vocab_path=VOCAB, queue_path=None, max_cards=5, now=None):
+def backlog(pr, queue_path=None):
+    return sum(1 for r in pr.load_queue(queue_path or pr.QUEUE) if r.get("status") == "queued")
+
+def run(vocab_path=VOCAB, queue_path=None, max_cards=5, now=None, backlog_cap=BACKLOG):
     pr = _pr()
+    waiting = backlog(pr, queue_path)
+    if backlog_cap and waiting >= backlog_cap: return 0, 0
+    if backlog_cap: max_cards = min(max_cards, backlog_cap - waiting)
     try: vocab = json.loads(vocab_path.read_text(encoding="utf-8"))
     except (OSError, ValueError): return 0, 0
     cards, used = build(vocab, max_cards)
@@ -87,13 +97,25 @@ def selftest():
         v2 = json.loads(vp.read_text()); assert all(x["carded"] for x in v2["lookups"])
         rows = [l for l in q.read_text().splitlines() if l and not l.startswith("#")]
         assert len(rows) == 3 and rows[1].split("\t")[3] == "lookup" and rows[1].split("\t")[7] == "queued", rows
+    # the brake: a queue already at the cap takes nothing, and a nearly-full one takes only the room left
+    with tempfile.TemporaryDirectory() as td:
+        td = pathlib.Path(td); vp = td / "vocab.json"; q = td / "queue.tsv"
+        # distinct sentences: identical fronts would collapse under the queue's dedupe and hide the brake
+        many = {"lookups": [{"word": f"wording{i}", "usage": f"the {i} quiet morning after a long wording{i} of the night", "ts": i} for i in range(9)]}
+        vp.write_text(json.dumps(many))
+        assert run(vp, q, 5, now="2026-09-10T12:00:00Z", backlog_cap=3) == (3, 3), "fills only the room left"
+        assert run(vp, q, 5, now="2026-09-10T12:00:00Z", backlog_cap=3) == (0, 0), "at the cap: nothing"
+        assert sum(1 for x in json.loads(vp.read_text())["lookups"] if x.get("carded")) == 3, "un-picked lookups stay available"
     print("reading-cards.py selftest: OK")
 
 def main():
     if "--selftest" in sys.argv: return selftest()
     n = int(sys.argv[sys.argv.index("--max") + 1]) if "--max" in sys.argv else 5
     added, used = run(max_cards=n)
-    print(f"reading-cards: {added} queued from {used} lookups" if used else "reading-cards: nothing new to card")
+    waiting = backlog(_pr())
+    if used: print(f"reading-cards: {added} queued from {used} lookups ({waiting} waiting)")
+    elif waiting >= BACKLOG: print(f"reading-cards: {waiting} cards already waiting (cap {BACKLOG}) — no new lookups carded")
+    else: print("reading-cards: nothing new to card")
     return 0
 
 if __name__ == "__main__":
