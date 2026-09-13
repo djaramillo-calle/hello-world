@@ -726,7 +726,7 @@
    "review_count": 0,
    "streak": 0,
    "highlight": "",
-   "carded": false
+   "carded": true
   },
   {
    "id": "ko:denunciation",
@@ -739,7 +739,7 @@
    "review_count": 0,
    "streak": 0,
    "highlight": "",
-   "carded": false
+   "carded": true
   },
   {
    "id": "ko:lacuna",
@@ -752,7 +752,7 @@
    "review_count": 0,
    "streak": 0,
    "highlight": "",
-   "carded": false
+   "carded": true
   },
   {
    "id": "ko:avoided",
@@ -765,7 +765,7 @@
    "review_count": 0,
    "streak": 0,
    "highlight": "",
-   "carded": false
+   "carded": true
   },
   {
    "id": "ko:crackpots",
@@ -778,7 +778,7 @@
    "review_count": 0,
    "streak": 0,
    "highlight": "",
-   "carded": false
+   "carded": true
   },
   {
    "id": "ko:equate",
