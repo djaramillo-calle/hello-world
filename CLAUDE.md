@@ -161,6 +161,32 @@ Autosync mirrors it two-way to Drive `EnglishPractice/pairs`, the cloud pulls an
   The perception line is a candidate third line on the Season Board (with the anchor read and
   the daily pages) once the diagnostic is retired.
 
+## Say it (the production half of the pronunciation loop) — 2026-09-13
+
+The reads flag words; `scripts/sayit.py` turns the repeat offenders into something he can practise and
+be scored on, inside the Minimal Pairs app. The loop: read aloud → Azure flags words → sayit picks the
+words he actually misses → he says the sentence in the app → the cloud scores that recording → the word
+retires or goes to the tutor.
+
+- **The unit is the word IN ITS SENTENCE, never alone.** His failures are connected-speech failures
+  (unstressed syllables collapsing, final consonants dropping) and an isolated word is a different motor
+  task. The sentence is one he actually read, taken from the passage the review named — never invented.
+- **Selection is a RATE, not a count** (`MIN_RATE`): flagged / times actually read. A count alone promotes
+  function words — "the" flagged 3× across 200 occurrences is noise, "imperialist" flagged 3× out of 4 is
+  broken. `read_on` undercounts when a passage's text is not in `library/` locally, which biases rates
+  upward uniformly; the ranking still holds.
+- **The Azure key never reaches the phone.** The app plays a pre-rendered clip, records, writes the
+  attempt to the folder; `sayit.py --score` scores it here with the same scripted Azure path as the reads.
+- **ONE coach→app file, `sayit.zip`** (words.json + results.json + clips/<id>.ogg, en-GB neural TTS).
+  The Drive service account has no storage quota and can only PATCH files that already exist, so the owner
+  created an empty `sayit.zip` once (2026-09-13, alongside `plan.json` 2026-09-11) and `push_file` in
+  cloud-sync overwrites it in place forever. Never try to create a Drive file from the service account.
+- **Status:** `active` → `retired` after 2 attempts at accuracy ≥ 80 → `tutor` when still active after 3
+  weeks (a motor problem a human should hear, not more self-practice). `logs/sayit/results.json` is the
+  history; formative only, nothing reaches `tracking.tsv`.
+- Every `cloud-sync.py` run: score the new attempts → rebuild the words → push the zip. The app contract
+  lives in `docs/CONTRACT.md` of the app repo and must not drift from `scripts/sayit.py`.
+
 ## The cloud does the sync (since 2026-09-10) — the Mac is optional
 
 `python3 scripts/cloud-sync.py` is the coach's sync from any fresh container:
@@ -284,15 +310,16 @@ is the same architecture for English. Read it before touching ingestion.
   artifact (823a99e1…) now stores each saved run in its own DB, collection
   `runs` (field `tsv` is the tracking row) — pull it before appending to
   `tracking.tsv`; the paste path still works.
-- **Hub writes need a version (2026-09-12):** the artifact runtime now rejects any
-  `write_db` set/update/delete on an EXISTING document unless the call carries
-  `if_version` (read the doc first, resend with the version `read_db` returned).
-  Sessions whose Artifact tool has no `if_version` parameter cannot refresh
-  `meta/ledger`, `meta/drills`, `meta/reading` at all — creates still work, and
-  `read_db` is unaffected. When that happens: say so in the reply rather than
-  reporting the Hub as refreshed, and leave the documents alone (never delete and
-  recreate them to get around it — delete needs the version too, and the page's
-  history belongs to the URL). git stays the source of truth meanwhile.
+- **Hub writes need a version (2026-09-12, resolved 2026-09-13):** the artifact runtime
+  rejects `write_db` set/update/delete on an EXISTING document unless the call carries
+  `if_version` (read the doc first, resend with the version `read_db` returned). Older
+  Artifact tools have no such parameter and simply cannot refresh `meta/*`; container
+  2.1.270 has it. **So the Hub writes belong in the same FRESH session that runs
+  `cloud-sync.py`**, not in the long-running coach session, whose container may be older.
+  If a session cannot write: say so in the reply rather than reporting the Hub refreshed,
+  and leave the documents alone — never delete and recreate them to get around it (delete
+  needs the version too, and the page's history belongs to the URL). git stays the source
+  of truth meanwhile.
 - **Morning check** ("how is my recovery?" for English): `python3
   scripts/daily-readout.py` — mechanical readout from git; add judgement,
   never a score. The Hub's readout button is the self-serve version.

@@ -1,0 +1,109 @@
+{
+ "version": 1,
+ "written": "2026-09-13T18:07:28Z",
+ "per_session": 5,
+ "words": [
+  {
+   "id": "under",
+   "word": "under",
+   "sentence": "This is not to deny that the unexpected revival of imperialist policies and methods takes place under vastly changed conditions and circumstances.",
+   "clip": "clips/under.ogg",
+   "ipa": "",
+   "classes": [],
+   "flagged_on": 4,
+   "read_on": 1,
+   "miss_rate": 4.0,
+   "added": "2026-09-13"
+  },
+  {
+   "id": "impartial",
+   "word": "impartial",
+   "sentence": "This is all the more deplorable as the need for an impartial, truthful treatment of Jewish history has recently become greater than it has ever been before.",
+   "clip": "clips/impartial.ogg",
+   "ipa": "",
+   "classes": [],
+   "flagged_on": 2,
+   "read_on": 1,
+   "miss_rate": 2.0,
+   "added": "2026-09-13"
+  },
+  {
+   "id": "situation",
+   "word": "situation",
+   "sentence": "And the situation has hardly changed since.",
+   "clip": "clips/situation.ogg",
+   "ipa": "",
+   "classes": [],
+   "flagged_on": 2,
+   "read_on": 1,
+   "miss_rate": 2.0,
+   "added": "2026-09-13"
+  },
+  {
+   "id": "imperialist",
+   "word": "imperialist",
+   "sentence": "This is not to deny that the unexpected revival of imperialist policies and methods takes place under vastly changed conditions and circumstances.",
+   "clip": "clips/imperialist.ogg",
+   "ipa": "",
+   "classes": [
+    "i/ii",
+    "s/z",
+    "schwa"
+   ],
+   "flagged_on": 3,
+   "read_on": 2,
+   "miss_rate": 1.5,
+   "added": "2026-09-13"
+  },
+  {
+   "id": "our",
+   "word": "our",
+   "sentence": "The subterranean stream of Western history has finally come to the surface and usurped the dignity of our tradition.",
+   "clip": "clips/our.ogg",
+   "ipa": "",
+   "classes": [],
+   "flagged_on": 3,
+   "read_on": 3,
+   "miss_rate": 1.0,
+   "added": "2026-09-13"
+  },
+  {
+   "id": "all",
+   "word": "all",
+   "sentence": "This is all the more deplorable as the need for an impartial, truthful treatment of Jewish history has recently become greater than it has ever been before.",
+   "clip": "clips/all.ogg",
+   "ipa": "",
+   "classes": [],
+   "flagged_on": 2,
+   "read_on": 3,
+   "miss_rate": 0.67,
+   "added": "2026-09-13"
+  },
+  {
+   "id": "come",
+   "word": "come",
+   "sentence": "The subterranean stream of Western history has finally come to the surface and usurped the dignity of our tradition.",
+   "clip": "clips/come.ogg",
+   "ipa": "",
+   "classes": [],
+   "flagged_on": 2,
+   "read_on": 3,
+   "miss_rate": 0.67,
+   "added": "2026-09-13"
+  },
+  {
+   "id": "which",
+   "word": "which",
+   "sentence": "This is the reality in which we live.",
+   "clip": "clips/which.ogg",
+   "ipa": "",
+   "classes": [
+    "i/ii"
+   ],
+   "flagged_on": 2,
+   "read_on": 7,
+   "miss_rate": 0.29,
+   "added": "2026-09-13"
+  }
+ ]
+}

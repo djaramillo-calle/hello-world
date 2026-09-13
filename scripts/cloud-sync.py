@@ -27,6 +27,7 @@ DRIVE_STATE = PRACTICE / ".drive.json"
 READING_STATE = REPO / "logs" / "reading" / ".drive.json"
 PAIRS_STATE = REPO / "logs" / "pairs" / ".drive.json"
 PAIRS_PLAN = REPO / "logs" / "pairs" / "plan.json"
+SAYIT_ZIP = REPO / "logs" / "sayit" / "sayit.zip"
 AUDIO_EXT = {".m4a", ".mp3", ".wav", ".aac", ".ogg", ".opus", ".flac", ".mp4", ".webm", ".3gp", ".amr", ".wma", ".caf"}
 BOOK_EXT = {".epub", ".txt", ".md"}
 RECORDING_ROOTS = ["EnglishPractice/Recordings", "com.nll.asr/EnglishPractice"]
@@ -168,6 +169,21 @@ def sync_pairs(drv, work, log=print, dry=False):
     if changed and not dry: dump_json(PAIRS_STATE, state)
     return changed
 
+def push_file(drv, local, remote_name, folder="EnglishPractice/pairs", log=print, dry=False):
+    """Update a coach→app file in place. The service account has NO storage quota, so it can only PATCH a
+    file that already exists — the owner creates each one once (plan.json 2026-09-11, sayit.zip 2026-09-13)."""
+    local = pathlib.Path(local)
+    if not local.exists(): return False
+    f = drv.resolve(folder)
+    if not f: return False
+    remote = next((x for x in drv.children(f["id"]) if x["name"] == remote_name), None)
+    if not remote:
+        log(f"sayit: {remote_name} is not on Drive yet — the owner creates it once (docs/HUB.md)"); return False
+    if remote.get("md5Checksum") == hashlib.md5(local.read_bytes()).hexdigest(): return False
+    if dry: log(f"sayit: {remote_name} would be updated"); return True
+    try: drv.upload(local, f["id"], name=remote_name); log(f"sayit: {remote_name} updated on Drive"); return True
+    except Exception as e: log(f"sayit: {remote_name} NOT updated — {type(e).__name__}: {str(e)[:160]}"); return False
+
 def push_plan(drv, log=print, dry=False, plan=None):
     """logs/pairs/plan.json → Drive EnglishPractice/pairs/plan.json when it differs (update in place:
     the file was created by the owner once, and the service account, with no quota of its own, can
@@ -213,6 +229,12 @@ def main():
         elif not dry:
             run([sys.executable, SCRIPTS / "pairs-pull.py", "--plan"])   # the ledger may have moved: keep the plan current
         push_plan(drv, dry=dry)
+        # Say it: score the attempts he recorded, rebuild the word list from the ledger, ship one zip back
+        if not dry:
+            py = REPO / ".venv-practice" / "bin" / "python"           # scoring needs the Azure SDK + ffmpeg
+            run([py if py.exists() else sys.executable, SCRIPTS / "sayit.py", "--score", "--dir", work / "pairs"])
+            run([sys.executable, SCRIPTS / "sayit.py", "--build"])
+            push_file(drv, SAYIT_ZIP, "sayit.zip", dry=dry)
     except (SystemExit, Exception) as e:   # the pairs app must never block the rest
         print(f"cloud-sync: pairs step failed — {type(e).__name__}: {str(e)[:200]}")
     if not dry:
@@ -302,6 +324,12 @@ def selftest():
         assert push_plan(drv, log=logs.append, plan=local_plan) is False, "same md5: no upload"
         (pf / "plan.json").unlink()
         assert push_plan(drv, log=logs.append, plan=local_plan) is False and any("not on Drive yet" in l for l in logs)
+        # push_file only ever updates in place: a payload the owner has not created once is refused, not created
+        zp = td / "sayit.zip"; zp.write_bytes(b"PK\x05\x06" + b"\0" * 18)
+        assert push_file(drv, zp, "sayit.zip", log=logs.append) is False and any("sayit.zip is not on Drive yet" in l for l in logs)
+        (pf / "sayit.zip").write_bytes(b"old")
+        assert push_file(drv, zp, "sayit.zip", log=logs.append) is True and (pf / "sayit.zip").read_bytes() == zp.read_bytes()
+        assert push_file(drv, zp, "sayit.zip", log=logs.append) is False, "same md5: no upload"
         globals()["load_json"] = real_load_json
     print("cloud-sync.py selftest: OK")
 
