@@ -64,7 +64,7 @@ def gather(repo, today):
         for p in pdir.glob("*.json"):
             if p.name.startswith(".") or p.name.endswith(".review.json"): continue   # the review doubles its recording
             r = load_json(p, {}); d = str(r.get("recorded", ""))[:10]
-            if d: practice.setdefault(d, []).append(r)
+            if d and int(r.get("words") or 0) >= 30: practice.setdefault(d, []).append(r)   # void recordings are not pages
     sessions = load_json(repo / "logs/hub/sessions.json", [])
     trials = read_tsv(repo / "tracking.tsv")
     dial_rows = read_tsv(repo / "logs/dial-log.tsv")

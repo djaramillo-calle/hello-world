@@ -35,15 +35,14 @@
    "last": "2026-09-13"
   },
   "th": {
-   "count": 8,
+   "count": 7,
    "words": {
     "earth": 1,
     "this": 2,
     "the": 2,
-    "than": 1,
-    "that": 1
+    "than": 1
    },
-   "last": "2026-09-13"
+   "last": "2026-09-12"
   },
   "schwa": {
    "count": 16,
@@ -756,7 +755,7 @@
   }
  },
  "anchor": [],
- "recordings": 5,
+ "recordings": 4,
  "updated": "2026-09-13T17:51:14Z",
  "reads": [
   {

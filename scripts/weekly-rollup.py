@@ -23,6 +23,7 @@ HUB = REPO / "logs" / "hub" / "days.json"            # English Hub check-ins + T
 LISTEN = REPO / "logs" / "listening" / "daily.json"  # gpodder pull (scripts/listening-pull.py)
 READING = REPO / "logs" / "reading" / "daily.json"   # KOReader statistics (scripts/koreader-pull.py)
 PAIRS = REPO / "logs" / "pairs" / "sessions"          # Minimal Pairs app sessions (scripts/pairs-pull.py)
+MIN_REC_WORDS = 30                                   # practice-review's MIN_WORDS: below it the recording is void
 
 COLS = ["week_start", "srs_days", "reviews", "recordings", "rec_wpm_mean",
         "rec_filler_pct", "conversations", "human_conversations", "listening_days", "reading_min", "talk_min", "pairs_sessions", "pairs_untrained_pct", "dial", "stage", "floor_ok", "notes"]
@@ -92,6 +93,8 @@ def practice_stats(week_start, practice_dir=PRACTICE):
             continue
         if monday(day) != week_start:
             continue
+        if int(r.get("words") or 0) < MIN_REC_WORDS:
+            continue   # a pocket recording is not a recorded page (same floor as practice-review's MIN_WORDS)
         n += 1
         if r.get("wpm"): wpms.append(float(r["wpm"]))
         if r.get("words"):
@@ -269,6 +272,9 @@ def selftest():
         (pr2 / "r1.review.json").write_text(json.dumps({"recorded": "2026-09-08 07:00", "fluency": {"wpm": 80}}))
         n2, wpm2, _ = practice_stats(dt.date(2026, 9, 7), pr2)
         assert n2 == 1 and wpm2 == 80.0, (n2, wpm2)
+        # a 5-word pocket recording is not a recorded page
+        (pr2 / "r2.json").write_text(json.dumps({"recorded": "2026-09-09 07:00", "wpm": 1.5, "words": 5, "fillers": 0}))
+        assert practice_stats(dt.date(2026, 9, 7), pr2)[0] == 1, "void recording not counted"
         assert current_stage(td / "missing.json") == 3
     print("weekly-rollup.py selftest: OK")
 

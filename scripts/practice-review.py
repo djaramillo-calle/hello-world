@@ -186,6 +186,10 @@ TRANSCRIPT>>>"""
 HARVEST_MAX = {"errors": 6, "vocabulary": 4, "cards": 4, "strengths": 4}
 CARD_MAX_LEN = 200
 MIN_PASSAGE_OVERLAP = 0.5   # share of the passage's words that must appear in the transcript for a scripted score to count
+MIN_WORDS = 30              # below this a recording is not practice: a pocket recording or a false start. Azure happily
+                            # returns 99 on five words, which would enter the ledger, sit as a pending harvest forever and
+                            # count as a recorded page — inflating the one number stage 1 is judged on. Reviewed and kept,
+                            # but marked void: no ledger, no cards, no harvest.
 CARD_CUES = ("say it", "complete aloud", "phrasal")
 
 def harvest_claude(kind, transcript):
@@ -332,7 +336,14 @@ def review_one(rec_path, llm="auto", ledger=None, passages=None, queue_path=QUEU
     if review["pronunciation"]["source"] == "whisper":
         review["flags"].append("no Azure assessment — pronunciation is an ASR-confidence screen only")
     review["pronunciation"]["source"] = review["pronunciation"]["source"].split(" ")[0]
+    words = int(rec.get("words") or 0)
+    review["void"] = words < MIN_WORDS
     ledger = ledger if ledger is not None else load_json(LEDGER, {})
+    if review["void"]:
+        review["flags"].append(f"only {words} words in {round(float(rec.get('duration_s') or 0) / 60, 1)}′ — not practice; "
+                               f"scores are noise, nothing entered the ledger or the cards")
+        review["harvest"] = {"status": "skipped", "reason": "too little speech"}
+        return review, ledger
     update_ledger(ledger, review, date)
     cards = pronunciation_cards(ledger)
     if kind != "read":
