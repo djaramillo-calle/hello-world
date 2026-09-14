@@ -42,6 +42,7 @@ MIN_RATE = 0.25          # ...AND flagged on at least this share of the times it
                          # alone promotes function words: "the" flagged 3x across 200 occurrences is noise,
                          # while "imperialist" flagged 3x out of 4 is broken. Rate separates them.
 RETIRE_AT, RETIRE_HITS = 80.0, 2
+MIN_COMPLETENESS = 80.0   # a sentence he only half said never counts towards retiring the word
 TUTOR_WEEKS = 3
 
 def load_json(p, default):
@@ -162,10 +163,17 @@ def score_one(audio, sentence, azure=None):
         r = azure.dual_locale_assessment(str(wav), reference_text=sentence)
     gb = (r.get("en_gb") or {}).get("overall") or {}
     return {"accuracy": gb.get("accuracy"), "fluency": gb.get("fluency"), "pron": gb.get("pron"),
+            "completeness": gb.get("completeness"),
             "flagged": [w.get("word") for w in ((r.get("en_gb") or {}).get("flagged_words") or [])][:8]}
 
 def status_for(rec, today=None, retire_at=RETIRE_AT, retire_hits=RETIRE_HITS, tutor_weeks=TUTOR_WEEKS):
-    good = sum(1 for a in rec["attempts"] if (a.get("accuracy") or 0) >= retire_at)
+    # Accuracy alone would retire a word off a sentence he only half said: Azure scores the words
+    # it heard, so three clear words out of twenty can score high. An attempt counts towards
+    # retirement only when he actually said the sentence (completeness is absent on an unscripted
+    # answer, and absent never blocks).
+    good = sum(1 for a in rec["attempts"]
+               if (a.get("accuracy") or 0) >= retire_at
+               and (a.get("completeness") is None or a["completeness"] >= MIN_COMPLETENESS))
     if good >= retire_hits: return "retired"
     first = min((a["at"][:10] for a in rec["attempts"]), default=None)
     if first and rec["attempts"]:
@@ -179,6 +187,7 @@ def phone_score(src, stem):
     d = load_json(f, None)
     if not isinstance(d, dict) or d.get("accuracy") is None: return None
     return {"accuracy": d.get("accuracy"), "fluency": d.get("fluency"), "pron": d.get("pron"),
+            "completeness": d.get("completeness"),
             "flagged": list(d.get("flagged") or [])[:8], "source": d.get("source") or "phone"}
 
 def score(src, out=OUT, scorer=None, today=None, log=print):
@@ -243,6 +252,13 @@ def selftest():
         assert status_for(mk([85.0], "2026-09-13"), today="2026-09-13") == "active"
         assert status_for(mk([40.0, 55.0], "2026-08-01"), today="2026-09-13") == "tutor"
         assert status_for(mk([40.0, 88.0, 92.0], "2026-08-01"), today="2026-09-13") == "retired", "good scores win over age"
+        half = {"attempts": [{"accuracy": 95.0, "completeness": 30.0, "at": "2026-09-01"},
+                             {"accuracy": 95.0, "completeness": 30.0, "at": "2026-09-02"}]}
+        assert status_for(half, today="2026-09-13") == "active", "a half-said sentence never retires the word"
+        half["attempts"][1]["completeness"] = 100.0
+        assert status_for(half, today="2026-09-13") == "active", "one full attempt is not two"
+        half["attempts"][0]["completeness"] = 100.0
+        assert status_for(half, today="2026-09-13") == "retired"
         # scoring: idempotent, sentence-driven, audio required
         src = td / "phone"; att = src / "sayit" / "attempts"; att.mkdir(parents=True)
         (att / "20260913T180402Z_imperialist.json").write_text(json.dumps(
@@ -272,12 +288,14 @@ def selftest():
             {"id": "prophecy", "sentence": "The prophecy was never written down.", "started": "2026-09-15T07:00:00Z"}))
         (sc_dir / f"{stem}.json").write_text(json.dumps(
             {"version": 1, "id": "prophecy", "at": "2026-09-15T07:00:00Z", "source": "phone-azure",
-             "accuracy": 62.0, "fluency": 55.0, "pron": 58.0, "flagged": ["prophecy"]}))
+             "accuracy": 62.0, "fluency": 55.0, "pron": 58.0, "completeness": 100.0,
+             "flagged": ["prophecy"]}))
         before = len(seen)
         n, r = score(src, out, scorer=fake, today="2026-09-15", log=lambda *a: None)
         assert n == 1 and len(seen) == before, "phone score used; the cloud scorer was not called"
         pr_ = r["words"]["prophecy"]
         assert pr_["last"] == 62.0 and pr_["attempts"][0]["source"] == "phone-azure" and pr_["status"] == "active", pr_
+        assert pr_["attempts"][0]["completeness"] == 100.0, "the phone's completeness is kept, not dropped"
         # build without rendering still writes a usable words.json (clip blanked, never a dead path)
         lp = td / "ledger.json"; lp.write_text(json.dumps(ledger))
         pd = td / "practice"; pd.mkdir()
