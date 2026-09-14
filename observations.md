@@ -177,3 +177,43 @@ stage 1 — but it measures the text's grammar, not his.
 **Data state**: 3 recorded pages this week (the rollup had been counting
 each recording twice; fixed today). SRS days 0 — 25 cards live on AnkiWeb,
 zero reviews in 60 days. That is the week's real gap.
+
+---
+
+## 2026-09-14 — daily review (telemetry only, no chat harvest)
+
+**Read-aloud fluency is falling as the reads get longer.** Accuracy is flat;
+fluency is not:
+
+| date | passage | minutes | accuracy | fluency |
+|------|---------|---------|----------|---------|
+| 09-10 | B006 | 9.5 | 83.1 | 81.8 |
+| 09-12 | B016 | 37.1 | 81.9 | 78.8 |
+| 09-13 | B029 | 27.6 | 82.1 | 74.6 |
+| 09-14 | B077 | 83.7 | 81.7 | **70.7** |
+
+Four points, one direction, and length is the obvious covariate — 84 minutes
+of reading aloud is an endurance test, not a page. Accuracy holding at ~82
+while fluency drops 11 points says the articulation is intact and the
+*delivery* is tiring: pauses lengthening, rhythm going. Recommendation (not
+a lever, stage 1 asks for one page a day): keep the recorded read to roughly
+10 minutes and read the rest unrecorded. A 10-minute page is also what makes
+the anchor series comparable — B006 at 9.5 minutes and B077 at 84 are not
+the same measurement. Flagged for the Friday review; nothing changed today.
+
+**"power" flagged 4× in one read** (09-14) — first word to repeat that often
+in a single sitting. Below the Say-it rate threshold because Arendt uses it
+constantly. Watching whether it clears the bar on the next read.
+
+**First Say-it attempt, and it was void.** 20260914T150652Z_under: 1.2
+seconds of audio for a 22-word sentence (1100 wpm). Azure scored exactly what
+it heard — every word omitted, accuracy 0, completeness 0 — and the phone
+wrote that as a real score. Not a performance: the recording stopped before
+the sentence did. Added a void rule to `scripts/sayit.py` (`MAX_WPM = 240`)
+and voided the stored row; it now sets no score, counts towards no
+retirement, and starts no tutor clock. Nothing to conclude about his
+pronunciation of "under" — he has not been measured on it yet.
+
+**Data state**: 37 cards queued, 25 live on AnkiWeb, **0 reviews in 60
+days** — unchanged and still the week's real gap. No chat English to harvest
+today (the session was all tooling).

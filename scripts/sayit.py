@@ -43,6 +43,7 @@ MIN_RATE = 0.25          # ...AND flagged on at least this share of the times it
                          # while "imperialist" flagged 3x out of 4 is broken. Rate separates them.
 RETIRE_AT, RETIRE_HITS = 80.0, 2
 MIN_COMPLETENESS = 80.0   # a sentence he only half said never counts towards retiring the word
+MAX_WPM = 240.0           # above this nobody is speaking: the recording stopped before the sentence did
 TUTOR_WEEKS = 3
 
 def load_json(p, default):
@@ -171,12 +172,13 @@ def status_for(rec, today=None, retire_at=RETIRE_AT, retire_hits=RETIRE_HITS, tu
     # it heard, so three clear words out of twenty can score high. An attempt counts towards
     # retirement only when he actually said the sentence (completeness is absent on an unscripted
     # answer, and absent never blocks).
-    good = sum(1 for a in rec["attempts"]
+    real = [a for a in rec["attempts"] if not a.get("void")]
+    good = sum(1 for a in real
                if (a.get("accuracy") or 0) >= retire_at
                and (a.get("completeness") is None or a["completeness"] >= MIN_COMPLETENESS))
     if good >= retire_hits: return "retired"
-    first = min((a["at"][:10] for a in rec["attempts"]), default=None)
-    if first and rec["attempts"]:
+    first = min((a["at"][:10] for a in real), default=None)
+    if first and real:
         age = (dt.date.fromisoformat(today or dt.date.today().isoformat()) - dt.date.fromisoformat(first)).days
         if age >= tutor_weeks * 7: return "tutor"
     return "active"
@@ -189,6 +191,21 @@ def phone_score(src, stem):
     return {"accuracy": d.get("accuracy"), "fluency": d.get("fluency"), "pron": d.get("pron"),
             "completeness": d.get("completeness"),
             "flagged": list(d.get("flagged") or [])[:8], "source": d.get("source") or "phone"}
+
+def void_attempt(meta):
+    """Why this attempt is not a reading of the sentence, or None when it is one.
+
+    A recording that stopped early — a mis-tap, a phone locking, the button let go — comes back
+    from Azure as every word omitted, which is a real assessment of what it heard and a score of
+    zero for the learner. It is the Say-it twin of practice-review's MIN_WORDS rule: a void take
+    must count as nothing, not as a failure. Duration is the phone's own and does not depend on
+    Azure having understood anything."""
+    sec, words = meta.get("duration_s"), len((meta.get("sentence") or "").split())
+    if not sec or not words: return None
+    wpm = words / (sec / 60.0)
+    if wpm > MAX_WPM:
+        return f"{sec:.1f}s for {words} words ({wpm:.0f} wpm) — the recording stopped before the sentence did"
+    return None
 
 def score(src, out=OUT, scorer=None, today=None, log=print):
     """Every attempt in <src>/sayit/attempts not already recorded → results.json. Idempotent by filename.
@@ -204,6 +221,15 @@ def score(src, out=OUT, scorer=None, today=None, log=print):
         wid, sentence = meta.get("id"), meta.get("sentence")
         if not wid or not sentence: log(f"sayit: {side.name} has no id/sentence — skipped"); continue
         if side.name in done: continue
+        why = void_attempt(meta)
+        if why:
+            # Recorded, so it is never scored or re-examined, but it is not an attempt at the word:
+            # it sets no score, starts no tutor clock and counts towards nothing.
+            log(f"sayit: {side.name} void — {why}")
+            rec = results["words"].setdefault(wid, {"attempts": [], "best": None, "last": None, "status": "active"})
+            rec["attempts"].append({"at": meta.get("started") or _now(), "file": side.name, "void": True, "note": why})
+            n += 1
+            continue
         sc = phone_score(src, side.stem)
         if sc is None:
             audio = next((p for p in side.parent.glob(side.stem + ".*") if p.suffix.lower() != ".json"), None)
@@ -214,7 +240,7 @@ def score(src, out=OUT, scorer=None, today=None, log=print):
                 log(f"sayit: scoring {side.name} failed — {type(e).__name__}: {str(e)[:120]}"); continue
         rec = results["words"].setdefault(wid, {"attempts": [], "best": None, "last": None, "status": "active"})
         rec["attempts"].append({"at": meta.get("started") or _now(), "file": side.name, **sc})
-        accs = [a["accuracy"] for a in rec["attempts"] if a.get("accuracy") is not None]
+        accs = [a["accuracy"] for a in rec["attempts"] if not a.get("void") and a.get("accuracy") is not None]
         rec["best"] = max(accs) if accs else None
         rec["last"] = sc.get("accuracy")
         rec["status"] = status_for(rec, today)
@@ -296,6 +322,23 @@ def selftest():
         pr_ = r["words"]["prophecy"]
         assert pr_["last"] == 62.0 and pr_["attempts"][0]["source"] == "phone-azure" and pr_["status"] == "active", pr_
         assert pr_["attempts"][0]["completeness"] == 100.0, "the phone's completeness is kept, not dropped"
+        # a take that stopped early is void: recorded so it is never rescored, but it scores nothing
+        assert void_attempt({"duration_s": 1.2, "sentence": " ".join(["w"] * 22)}), "1.2s for 22 words is void"
+        assert void_attempt({"duration_s": 9.0, "sentence": " ".join(["w"] * 22)}) is None, "9s for 22 words is a reading"
+        assert void_attempt({"sentence": "no duration recorded"}) is None, "no duration: never guess it void"
+        vstem = "20260916T070000Z_prophecy"
+        (att / f"{vstem}.json").write_text(json.dumps(
+            {"id": "prophecy", "sentence": "The prophecy was never written down.", "started": "2026-09-16T07:00:00Z",
+             "duration_s": 0.4}))
+        (att / f"{vstem}.m4a").write_bytes(b"audio")
+        before = len(seen)
+        n, r = score(src, out, scorer=fake, today="2026-09-16", log=lambda *a: None)
+        pr_ = r["words"]["prophecy"]
+        assert n == 1 and len(seen) == before, "a void take is never sent to Azure"
+        assert pr_["attempts"][-1]["void"] is True and pr_["last"] == 62.0, "void leaves the real score standing"
+        assert score(src, out, scorer=fake, today="2026-09-16", log=lambda *a: None)[0] == 0, "void is recorded once"
+        vonly = {"attempts": [{"at": "2026-08-01", "file": "x.json", "void": True}]}
+        assert status_for(vonly, today="2026-09-16") == "active", "void attempts start no tutor clock"
         # build without rendering still writes a usable words.json (clip blanked, never a dead path)
         lp = td / "ledger.json"; lp.write_text(json.dumps(ledger))
         pd = td / "practice"; pd.mkdir()

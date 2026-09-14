@@ -6,25 +6,12 @@
     {
      "at": "2026-09-14T15:06:52Z",
      "file": "20260914T150652Z_under.json",
-     "accuracy": 0.0,
-     "fluency": 0.0,
-     "pron": 0.0,
-     "completeness": 0.0,
-     "flagged": [
-      "This",
-      "is",
-      "not",
-      "to",
-      "deny",
-      "that",
-      "the",
-      "unexpected"
-     ],
-     "source": "phone-azure"
+     "void": true,
+     "note": "1.2s for 22 words (1100 wpm) — the recording stopped before the sentence did"
     }
    ],
-   "best": 0.0,
-   "last": 0.0,
+   "best": null,
+   "last": null,
    "status": "active"
   }
  },
