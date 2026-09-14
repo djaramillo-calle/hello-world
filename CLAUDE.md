@@ -244,10 +244,17 @@ from an adversarially-verified tool investigation (workflow, 12 agents).
   de Jong & Wempe pause/rate metrics, pitch stats, low-confidence
   pronunciation suspects. Idempotent (content-hash state file).
 - **Azure pronunciation assessment** (`scripts/azure_pa.py`) activates when
-  `AZURE_SPEECH_KEY` + `AZURE_SPEECH_REGION` are set. Dual-locale by design:
-  en-GB is the real score; the en-US pass exists ONLY to extract phoneme
-  identities/prosody for the L1-Spanish confusion set (US reference model —
-  never read it as an overall score). Uploads audio to Azure; no-retention
+  `AZURE_SPEECH_KEY` + `AZURE_SPEECH_REGION` are set. **ONE en-GB pass since
+  2026-09-14**, carrying the score, the IPA phonemes and prosody together. It
+  was two passes (en-GB for the score, en-US for phoneme identities), which
+  billed every recording twice against a 5-audio-hour/month free tier and went
+  over it on 2026-09-14 with a single 84-minute read. The phoneme alphabet,
+  n-best phonemes and prosody are a config flag, not a property of the US
+  model, so the second pass bought only a US reference view of the same audio.
+  `second_pass=True` restores it for a one-off comparison. **en-GB stays the
+  score**: a US reference model marks down correct British pronunciation
+  (non-rhotic r, the BATH/TRAP split) and the whole anchor series is en-GB —
+  changing the score locale would reset it, like changing a diagnostic form. Uploads audio to Azure; no-retention
   terms verified 2026-08. Verified 2026-09-09 on the F0 free tier from the
   cloud (`scripts/azure-check.py`, report in `logs/azure-check.json`):
   scripted assessment, completeness, IPA phonemes and prosody all work.

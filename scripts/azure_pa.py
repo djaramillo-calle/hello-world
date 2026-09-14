@@ -18,9 +18,11 @@ endpoint returns them flat — _aggregate reads the SDK shape.
 """
 import json, os, threading
 
-# en-US IPA phonemes involved in the L1-Spanish confusion set
-# (i:/ɪ, b/v, dʒ/j, θ/ð, schwa, word-final d/t for -ed endings, z/s)
-TARGET_PHONEMES = {"i", "ɪ", "b", "v", "d͡ʒ", "dʒ", "j", "θ", "ð", "ə", "z", "s", "d", "t"}
+# IPA phonemes involved in the L1-Spanish confusion set
+# (i:/ɪ, b/v, dʒ/j, θ/ð, schwa, word-final d/t for -ed endings, z/s).
+# Read from the en-GB pass since 2026-09-14; every symbol here is shared by both
+# reference models, plus the length-marked en-GB spellings of the long vowels.
+TARGET_PHONEMES = {"i", "iː", "ɪ", "b", "v", "d͡ʒ", "dʒ", "j", "θ", "ð", "ə", "z", "s", "d", "t"}
 
 def _assess(wav, locale, phoneme_pass, reference_text=""):
     import azure.cognitiveservices.speech as speechsdk
@@ -97,19 +99,36 @@ def _aggregate(utterances, phoneme_pass):
                or w.get("phonemes")]
     return {"overall": overall, "flagged_words": flagged[:40], "word_count": len(words)}
 
-def dual_locale_assessment(wav, reference_text=None):
-    """en-GB everyday pass + en-US phoneme-target pass. Serial (free tier concurrency = 1).
-    With reference_text (a read-aloud passage) both passes run SCRIPTED: accuracy is judged
-    against the known words and CompletenessScore + Omission/Insertion errors become meaningful.
-    Without it (conversation, 4/3/2) the assessment is unscripted — a rougher screen."""
-    gb = _aggregate(_assess(wav, "en-GB", phoneme_pass=False, reference_text=reference_text), phoneme_pass=False)
-    us = _aggregate(_assess(wav, "en-US", phoneme_pass=True, reference_text=reference_text), phoneme_pass=True)
+def dual_locale_assessment(wav, reference_text=None, second_pass=False):
+    """ONE en-GB pass carrying the score, the IPA phonemes and prosody (2026-09-14).
+
+    It used to be two passes, en-GB for the score and en-US for phoneme identities, which
+    billed every recording twice against a 5-audio-hour free tier. The phoneme alphabet,
+    the n-best phonemes and prosody are a config flag, not a property of the US model, so
+    en-GB returns all three itself and the second pass bought nothing but a US reference
+    view of the same audio.
+
+    The name and the returned shape are unchanged so callers keep working; `en_us_targets`
+    now holds the en-GB pass's own phonemes. `second_pass=True` restores the old US pass
+    for a one-off comparison — never for routine scoring, and never as a score: a US
+    reference model marks down correct British pronunciation (non-rhotic r, the BATH/TRAP
+    split) and the anchor series is en-GB throughout.
+
+    With reference_text (a read-aloud passage) the pass runs SCRIPTED: accuracy is judged
+    against the known words and CompletenessScore + Omission/Insertion errors become
+    meaningful. Without it (conversation, 4/3/2) the assessment is unscripted — a rougher
+    screen."""
+    gb = _aggregate(_assess(wav, "en-GB", phoneme_pass=True, reference_text=reference_text), phoneme_pass=True)
+    src, note = gb, "en-GB is the score; the phonemes come from that same pass"
+    if second_pass:
+        src = _aggregate(_assess(wav, "en-US", phoneme_pass=True, reference_text=reference_text), phoneme_pass=True)
+        note = "en-GB is the score; phonemes from an extra en-US pass (US reference model)"
     return {
         "scripted": bool(reference_text),
         "en_gb": gb,
         "en_us_targets": {
-            "overall_prosody": us["overall"].get("prosody"),
-            "phoneme_findings": [w for w in us["flagged_words"] if w.get("phonemes")],
+            "overall_prosody": src["overall"].get("prosody"),
+            "phoneme_findings": [w for w in src["flagged_words"] if w.get("phonemes")],
         },
-        "note": "en-GB is the score; en-US pass is only for phoneme identities (US reference model)",
+        "note": note,
     }
