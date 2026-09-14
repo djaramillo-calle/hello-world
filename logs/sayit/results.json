@@ -1,0 +1,32 @@
+{
+ "version": 1,
+ "words": {
+  "under": {
+   "attempts": [
+    {
+     "at": "2026-09-14T15:06:52Z",
+     "file": "20260914T150652Z_under.json",
+     "accuracy": 0.0,
+     "fluency": 0.0,
+     "pron": 0.0,
+     "completeness": 0.0,
+     "flagged": [
+      "This",
+      "is",
+      "not",
+      "to",
+      "deny",
+      "that",
+      "the",
+      "unexpected"
+     ],
+     "source": "phone-azure"
+    }
+   ],
+   "best": 0.0,
+   "last": 0.0,
+   "status": "active"
+  }
+ },
+ "updated": "2026-09-14T18:33:06Z"
+}
