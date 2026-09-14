@@ -1,6 +1,6 @@
 {
  "version": 1,
- "written": "2026-09-14T12:00:43Z",
+ "written": "2026-09-14T12:40:56Z",
  "per_session": 5,
  "words": [
   {
@@ -68,18 +68,6 @@
    "added": "2026-09-14"
   },
   {
-   "id": "all",
-   "word": "all",
-   "sentence": "This is all the more deplorable as the need for an impartial, truthful treatment of Jewish history has recently become greater than it has ever been before.",
-   "clip": "clips/all.ogg",
-   "ipa": "",
-   "classes": [],
-   "flagged_on": 2,
-   "read_on": 3,
-   "miss_rate": 0.67,
-   "added": "2026-09-14"
-  },
-  {
    "id": "come",
    "word": "come",
    "sentence": "The subterranean stream of Western history has finally come to the surface and usurped the dignity of our tradition.",
@@ -89,6 +77,18 @@
    "flagged_on": 2,
    "read_on": 3,
    "miss_rate": 0.67,
+   "added": "2026-09-14"
+  },
+  {
+   "id": "all",
+   "word": "all",
+   "sentence": "This is all the more deplorable as the need for an impartial, truthful treatment of Jewish history has recently become greater than it has ever been before.",
+   "clip": "clips/all.ogg",
+   "ipa": "",
+   "classes": [],
+   "flagged_on": 3,
+   "read_on": 5,
+   "miss_rate": 0.6,
    "added": "2026-09-14"
   },
   {

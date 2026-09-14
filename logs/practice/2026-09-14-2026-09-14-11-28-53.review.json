@@ -1,0 +1,322 @@
+{
+ "id": "2026-09-14-2026-09-14-11-28-53",
+ "source": "2026_09_14_11_28_53.mp3",
+ "recorded": "2026-09-14 12:07",
+ "kind": "read",
+ "passage": "B077",
+ "anchor": false,
+ "reviewed": "2026-09-14T12:40:48Z",
+ "fluency": {
+  "duration_s": 5019.2,
+  "wpm": 102.6,
+  "words": 8581,
+  "filler_pct": 0.0,
+  "speech_rate_syll_s": 3.13,
+  "articulation_rate_syll_s": 4.11,
+  "avg_syllable_s": 0.243,
+  "f0_median_hz": 150.1,
+  "f0_range_semitones": 8.8,
+  "pause_count": 1415,
+  "phonation_ratio": 0.76,
+  "mean_pause_s": 0.84
+ },
+ "pronunciation": {
+  "source": "azure",
+  "scripted": true,
+  "scores": {
+   "accuracy": 81.7,
+   "fluency": 70.7,
+   "completeness": 81.2,
+   "pron": 74.3,
+   "prosody_us_ref": 58.3
+  },
+  "flagged": [
+   {
+    "word": "power",
+    "accuracy": 44.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "power",
+    "accuracy": 45.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "manifold",
+    "accuracy": 4.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "ultimately",
+    "accuracy": 0.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "form",
+    "accuracy": 47.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "power",
+    "accuracy": 45.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "russia",
+    "accuracy": 11.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "people",
+    "accuracy": 29.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "can",
+    "accuracy": 44.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "other",
+    "accuracy": 44.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "form",
+    "accuracy": 43.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "constitutional",
+    "accuracy": 1.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "power",
+    "accuracy": 45.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "horrible",
+    "accuracy": 0.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "the",
+    "accuracy": 44.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "words",
+    "accuracy": 7.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "elements",
+    "accuracy": 40.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "germany",
+    "accuracy": 44.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "power",
+    "accuracy": 45.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "jurists",
+    "accuracy": 9.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "and",
+    "accuracy": 55.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "ultimately",
+    "accuracy": 0.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "stalin",
+    "accuracy": 5.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "government",
+    "accuracy": 51.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "to",
+    "accuracy": 50.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "modern",
+    "accuracy": 53.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "28",
+    "accuracy": 0.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "while",
+    "accuracy": 0.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "all",
+    "accuracy": 59.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "country",
+    "accuracy": 3.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "power",
+    "accuracy": 48.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "most",
+    "accuracy": 33.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "death",
+    "accuracy": 50.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "historical",
+    "accuracy": 0.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "analyze",
+    "accuracy": 7.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "to",
+    "accuracy": 44.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "while",
+    "accuracy": 53.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "set",
+    "accuracy": 42.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "could",
+    "accuracy": 35.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "even",
+    "accuracy": 42.0,
+    "error": "Mispronunciation"
+   }
+  ],
+  "classes": {
+   "th": {
+    "n": 5,
+    "words": [
+     "other",
+     "the",
+     "death"
+    ]
+   },
+   "b/v": {
+    "n": 6,
+    "words": [
+     "horrible",
+     "government",
+     "even",
+     "of",
+     "be"
+    ]
+   },
+   "h": {
+    "n": 2,
+    "words": [
+     "horrible",
+     "historical"
+    ]
+   },
+   "j/y": {
+    "n": 1,
+    "words": [
+     "jurists"
+    ]
+   },
+   "s-cluster": {
+    "n": 1,
+    "words": [
+     "stalin"
+    ]
+   },
+   "i/ii": {
+    "n": 9,
+    "words": [
+     "totalitarianism",
+     "people",
+     "it",
+     "in",
+     "is",
+     "be"
+    ]
+   },
+   "schwa": {
+    "n": 5,
+    "words": [
+     "totalitarianism",
+     "of",
+     "to",
+     "opposition",
+     "russia"
+    ]
+   },
+   "s/z": {
+    "n": 3,
+    "words": [
+     "totalitarianism",
+     "opposition",
+     "ussr"
+    ]
+   },
+   "cat/cut": {
+    "n": 3,
+    "words": [
+     "the",
+     "russia"
+    ]
+   },
+   "-ed": {
+    "n": 1,
+    "words": [
+     "tried"
+    ]
+   }
+  }
+ },
+ "harvest": null,
+ "cards_added": 6,
+ "flags": [],
+ "passage_overlap": 0.99,
+ "void": false
+}

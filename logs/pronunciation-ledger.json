@@ -1,10 +1,10 @@
 {
  "phonemes": {
   "b/v": {
-   "count": 10,
+   "count": 16,
    "words": {
     "bury": 1,
-    "of": 1,
+    "of": 2,
     "over": 1,
     "convinced": 1,
     "anybody": 1,
@@ -12,12 +12,16 @@
     "before": 1,
     "subject": 1,
     "but": 1,
-    "overseas": 1
+    "overseas": 1,
+    "horrible": 1,
+    "government": 1,
+    "even": 1,
+    "be": 1
    },
-   "last": "2026-09-13"
+   "last": "2026-09-14"
   },
   "s/z": {
-   "count": 16,
+   "count": 19,
    "words": {
     "surface": 1,
     "this": 3,
@@ -30,26 +34,31 @@
     "prophecy": 1,
     "imperialist": 1,
     "policies": 1,
-    "said": 1
+    "said": 1,
+    "totalitarianism": 1,
+    "opposition": 1,
+    "ussr": 1
    },
-   "last": "2026-09-13"
+   "last": "2026-09-14"
   },
   "th": {
-   "count": 7,
+   "count": 12,
    "words": {
     "earth": 1,
     "this": 2,
-    "the": 2,
-    "than": 1
+    "the": 3,
+    "than": 1,
+    "other": 1,
+    "death": 1
    },
-   "last": "2026-09-12"
+   "last": "2026-09-14"
   },
   "schwa": {
-   "count": 16,
+   "count": 21,
    "words": {
     "tradition": 1,
     "as": 1,
-    "of": 1,
+    "of": 2,
     "political": 1,
     "a": 1,
     "principle": 1,
@@ -58,15 +67,19 @@
     "but": 1,
     "material": 1,
     "imperialist": 1,
-    "from": 1
+    "from": 1,
+    "totalitarianism": 1,
+    "to": 1,
+    "opposition": 1,
+    "russia": 1
    },
-   "last": "2026-09-13"
+   "last": "2026-09-14"
   },
   "i/ii": {
-   "count": 29,
+   "count": 38,
    "words": {
     "rooted": 1,
-    "in": 2,
+    "in": 3,
     "tradition": 1,
     "hatred": 1,
     "we": 1,
@@ -83,49 +96,65 @@
     "recently": 1,
     "imperialist": 1,
     "his": 1,
-    "be": 1,
+    "be": 2,
     "which": 1,
-    "finished": 1
+    "finished": 1,
+    "totalitarianism": 1,
+    "people": 1,
+    "it": 1,
+    "is": 1
    },
-   "last": "2026-09-13"
+   "last": "2026-09-14"
   },
   "-ed": {
-   "count": 6,
+   "count": 7,
    "words": {
     "rooted": 1,
     "convinced": 1,
     "collected": 1,
     "shifted": 1,
-    "finished": 1
+    "finished": 1,
+    "tried": 1
    },
-   "last": "2026-09-13"
+   "last": "2026-09-14"
   },
   "j/y": {
-   "count": 1,
+   "count": 2,
    "words": {
-    "jewish": 1
+    "jewish": 1,
+    "jurists": 1
    },
-   "last": "2026-09-12"
+   "last": "2026-09-14"
   },
   "h": {
-   "count": 3,
+   "count": 5,
    "words": {
-    "historical": 1,
+    "historical": 2,
     "had": 1,
-    "has": 1
+    "has": 1,
+    "horrible": 1
    },
-   "last": "2026-09-13"
+   "last": "2026-09-14"
   },
   "cat/cut": {
-   "count": 5,
+   "count": 8,
    "words": {
     "after": 1,
     "subject": 1,
     "than": 1,
     "sometimes": 1,
-    "had": 1
+    "had": 1,
+    "the": 1,
+    "russia": 1
    },
-   "last": "2026-09-12"
+   "last": "2026-09-14"
+  },
+  "s-cluster": {
+   "count": 1,
+   "words": {
+    "stalin": 1
+   },
+   "last": "2026-09-14"
   }
  },
  "words": {
@@ -159,8 +188,8 @@
    ]
   },
   "all": {
-   "count": 2,
-   "last": "2026-09-10",
+   "count": 3,
+   "last": "2026-09-14",
    "kinds": [
     "read"
    ],
@@ -234,8 +263,8 @@
    ]
   },
   "power": {
-   "count": 5,
-   "last": "2026-09-13",
+   "count": 11,
+   "last": "2026-09-14",
    "kinds": [
     "read"
    ],
@@ -265,8 +294,8 @@
    "carded": true
   },
   "can": {
-   "count": 2,
-   "last": "2026-09-10",
+   "count": 3,
+   "last": "2026-09-14",
    "kinds": [
     "read"
    ],
@@ -378,19 +407,20 @@
    ]
   },
   "the": {
-   "count": 3,
-   "last": "2026-09-13",
+   "count": 4,
+   "last": "2026-09-14",
    "kinds": [
     "read"
    ],
    "carded": true
   },
   "to": {
-   "count": 1,
-   "last": "2026-09-12",
+   "count": 3,
+   "last": "2026-09-14",
    "kinds": [
     "read"
-   ]
+   ],
+   "carded": true
   },
   "conform": {
    "count": 1,
@@ -532,11 +562,12 @@
    ]
   },
   "historical": {
-   "count": 1,
-   "last": "2026-09-12",
+   "count": 2,
+   "last": "2026-09-14",
    "kinds": [
     "read"
-   ]
+   ],
+   "carded": true
   },
   "more": {
    "count": 1,
@@ -698,11 +729,12 @@
    ]
   },
   "russia": {
-   "count": 1,
-   "last": "2026-09-13",
+   "count": 2,
+   "last": "2026-09-14",
    "kinds": [
     "read"
-   ]
+   ],
+   "carded": true
   },
   "secret": {
    "count": 1,
@@ -752,11 +784,182 @@
    "kinds": [
     "read"
    ]
+  },
+  "manifold": {
+   "count": 1,
+   "last": "2026-09-14",
+   "kinds": [
+    "read"
+   ]
+  },
+  "ultimately": {
+   "count": 2,
+   "last": "2026-09-14",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "form": {
+   "count": 2,
+   "last": "2026-09-14",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "people": {
+   "count": 1,
+   "last": "2026-09-14",
+   "kinds": [
+    "read"
+   ]
+  },
+  "other": {
+   "count": 1,
+   "last": "2026-09-14",
+   "kinds": [
+    "read"
+   ]
+  },
+  "constitutional": {
+   "count": 1,
+   "last": "2026-09-14",
+   "kinds": [
+    "read"
+   ]
+  },
+  "horrible": {
+   "count": 1,
+   "last": "2026-09-14",
+   "kinds": [
+    "read"
+   ]
+  },
+  "words": {
+   "count": 1,
+   "last": "2026-09-14",
+   "kinds": [
+    "read"
+   ]
+  },
+  "elements": {
+   "count": 1,
+   "last": "2026-09-14",
+   "kinds": [
+    "read"
+   ]
+  },
+  "germany": {
+   "count": 1,
+   "last": "2026-09-14",
+   "kinds": [
+    "read"
+   ]
+  },
+  "jurists": {
+   "count": 1,
+   "last": "2026-09-14",
+   "kinds": [
+    "read"
+   ]
+  },
+  "and": {
+   "count": 1,
+   "last": "2026-09-14",
+   "kinds": [
+    "read"
+   ]
+  },
+  "stalin": {
+   "count": 1,
+   "last": "2026-09-14",
+   "kinds": [
+    "read"
+   ]
+  },
+  "government": {
+   "count": 1,
+   "last": "2026-09-14",
+   "kinds": [
+    "read"
+   ]
+  },
+  "modern": {
+   "count": 1,
+   "last": "2026-09-14",
+   "kinds": [
+    "read"
+   ]
+  },
+  "28": {
+   "count": 1,
+   "last": "2026-09-14",
+   "kinds": [
+    "read"
+   ]
+  },
+  "while": {
+   "count": 2,
+   "last": "2026-09-14",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "country": {
+   "count": 1,
+   "last": "2026-09-14",
+   "kinds": [
+    "read"
+   ]
+  },
+  "most": {
+   "count": 1,
+   "last": "2026-09-14",
+   "kinds": [
+    "read"
+   ]
+  },
+  "death": {
+   "count": 1,
+   "last": "2026-09-14",
+   "kinds": [
+    "read"
+   ]
+  },
+  "analyze": {
+   "count": 1,
+   "last": "2026-09-14",
+   "kinds": [
+    "read"
+   ]
+  },
+  "set": {
+   "count": 1,
+   "last": "2026-09-14",
+   "kinds": [
+    "read"
+   ]
+  },
+  "could": {
+   "count": 1,
+   "last": "2026-09-14",
+   "kinds": [
+    "read"
+   ]
+  },
+  "even": {
+   "count": 1,
+   "last": "2026-09-14",
+   "kinds": [
+    "read"
+   ]
   }
  },
  "anchor": [],
- "recordings": 4,
- "updated": "2026-09-13T17:51:14Z",
+ "recordings": 5,
+ "updated": "2026-09-14T12:40:48Z",
  "reads": [
   {
    "date": "2026-09-10",
@@ -781,6 +984,14 @@
    "fluency": 74.6,
    "completeness": 81.8,
    "pron": 76.9
+  },
+  {
+   "date": "2026-09-14",
+   "passage": "B077",
+   "accuracy": 81.7,
+   "fluency": 70.7,
+   "completeness": 81.2,
+   "pron": 74.3
   }
  ]
 }
