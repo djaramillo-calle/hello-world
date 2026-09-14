@@ -18,6 +18,11 @@ Files (inside the app's folder, Drive EnglishPractice/pairs, docs/CONTRACT.md in
                               exist — the owner created an empty sayit.zip once, and it is updated in place
                               forever after. The app unpacks it; it never writes it.
   sayit/attempts/<ts>_<id>.*  app → coach: his recording + a sidecar naming the sentence
+  sayit/scores/<ts>_<id>.json app → coach: the score the PHONE computed, instantly, with the learner's own
+                              separate Azure resource. This is the normal path: the app must not depend on
+                              a sync running to give feedback, or a missed sync costs a day of practice.
+                              The coach only scores an attempt itself when the phone could not (no key,
+                              no network, Azure error) — the fallback, never the rule.
 
 Status: active → retired after RETIRE_HITS attempts at accuracy ≥ RETIRE_AT; → tutor when it is
 still active after TUTOR_WEEKS (a motor problem a human should hear, not more self-practice).
@@ -168,8 +173,18 @@ def status_for(rec, today=None, retire_at=RETIRE_AT, retire_hits=RETIRE_HITS, tu
         if age >= tutor_weeks * 7: return "tutor"
     return "active"
 
+def phone_score(src, stem):
+    """The score the phone already computed for this attempt, if any (sayit/scores/<stem>.json)."""
+    f = pathlib.Path(src) / "sayit" / "scores" / f"{stem}.json"
+    d = load_json(f, None)
+    if not isinstance(d, dict) or d.get("accuracy") is None: return None
+    return {"accuracy": d.get("accuracy"), "fluency": d.get("fluency"), "pron": d.get("pron"),
+            "flagged": list(d.get("flagged") or [])[:8], "source": d.get("source") or "phone"}
+
 def score(src, out=OUT, scorer=None, today=None, log=print):
-    """Every attempt in <src>/sayit/attempts not already scored → results.json. Idempotent by filename."""
+    """Every attempt in <src>/sayit/attempts not already recorded → results.json. Idempotent by filename.
+    The phone's own score is used when present (that is the normal path and costs nothing here); the
+    audio is only sent to Azure when the phone could not score it."""
     src, out = pathlib.Path(src), pathlib.Path(out)
     results = load_json(out / "results.json", {"version": 1, "words": {}})
     results.setdefault("words", {})
@@ -180,12 +195,14 @@ def score(src, out=OUT, scorer=None, today=None, log=print):
         wid, sentence = meta.get("id"), meta.get("sentence")
         if not wid or not sentence: log(f"sayit: {side.name} has no id/sentence — skipped"); continue
         if side.name in done: continue
-        audio = next((p for p in side.parent.glob(side.stem + ".*") if p.suffix.lower() != ".json"), None)
-        if not audio: log(f"sayit: no audio beside {side.name} — skipped"); continue
-        try:
-            sc = (scorer or score_one)(audio, sentence)
-        except Exception as e:
-            log(f"sayit: scoring {side.name} failed — {type(e).__name__}: {str(e)[:120]}"); continue
+        sc = phone_score(src, side.stem)
+        if sc is None:
+            audio = next((p for p in side.parent.glob(side.stem + ".*") if p.suffix.lower() != ".json"), None)
+            if not audio: log(f"sayit: no audio beside {side.name} and no phone score — skipped"); continue
+            try:
+                sc = dict((scorer or score_one)(audio, sentence), source="cloud")
+            except Exception as e:
+                log(f"sayit: scoring {side.name} failed — {type(e).__name__}: {str(e)[:120]}"); continue
         rec = results["words"].setdefault(wid, {"attempts": [], "best": None, "last": None, "status": "active"})
         rec["attempts"].append({"at": meta.get("started") or _now(), "file": side.name, **sc})
         accs = [a["accuracy"] for a in rec["attempts"] if a.get("accuracy") is not None]
@@ -240,6 +257,7 @@ def selftest():
         n, r = score(src, out, scorer=fake, today="2026-09-13", log=lambda *a: None)
         assert n == 1 and seen == ["He was the agent of imperialist expansion overseas."], (n, seen)
         assert r["words"]["imperialist"]["best"] == 88.0 and r["words"]["imperialist"]["status"] == "active"
+        assert r["words"]["imperialist"]["attempts"][0]["source"] == "cloud", "no phone score: cloud fallback"
         assert score(src, out, scorer=fake, today="2026-09-13", log=lambda *a: None)[0] == 0, "already scored"
         # a second good attempt retires it
         (att / "20260914T180402Z_imperialist.json").write_text(json.dumps(
@@ -247,6 +265,19 @@ def selftest():
         (att / "20260914T180402Z_imperialist.m4a").write_bytes(b"audio")
         n, r = score(src, out, scorer=fake, today="2026-09-14", log=lambda *a: None)
         assert n == 1 and r["words"]["imperialist"]["status"] == "retired", r["words"]["imperialist"]
+        # the phone's own score is taken as-is: no audio needed, Azure never called here
+        sc_dir = src / "sayit" / "scores"; sc_dir.mkdir(parents=True)
+        stem = "20260915T070000Z_prophecy"
+        (att / f"{stem}.json").write_text(json.dumps(
+            {"id": "prophecy", "sentence": "The prophecy was never written down.", "started": "2026-09-15T07:00:00Z"}))
+        (sc_dir / f"{stem}.json").write_text(json.dumps(
+            {"version": 1, "id": "prophecy", "at": "2026-09-15T07:00:00Z", "source": "phone-azure",
+             "accuracy": 62.0, "fluency": 55.0, "pron": 58.0, "flagged": ["prophecy"]}))
+        before = len(seen)
+        n, r = score(src, out, scorer=fake, today="2026-09-15", log=lambda *a: None)
+        assert n == 1 and len(seen) == before, "phone score used; the cloud scorer was not called"
+        pr_ = r["words"]["prophecy"]
+        assert pr_["last"] == 62.0 and pr_["attempts"][0]["source"] == "phone-azure" and pr_["status"] == "active", pr_
         # build without rendering still writes a usable words.json (clip blanked, never a dead path)
         lp = td / "ledger.json"; lp.write_text(json.dumps(ledger))
         pd = td / "practice"; pd.mkdir()

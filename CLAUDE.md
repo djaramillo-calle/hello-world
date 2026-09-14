@@ -175,8 +175,13 @@ retires or goes to the tutor.
   function words — "the" flagged 3× across 200 occurrences is noise, "imperialist" flagged 3× out of 4 is
   broken. `read_on` undercounts when a passage's text is not in `library/` locally, which biases rates
   upward uniformly; the ranking still holds.
-- **The Azure key never reaches the phone.** The app plays a pre-rendered clip, records, writes the
-  attempt to the folder; `sayit.py --score` scores it here with the same scripted Azure path as the reads.
+- **Scoring is INSTANT, on the phone, with the learner's OWN separate Azure resource** (free tier, its
+  own key, a different region from the coach's — Azure allows one F0 per subscription per region). Decided
+  2026-09-14 after the cloud-only design was tried: a sync runs a few times a day, so cloud-only scoring
+  means no feedback whenever the coach is not running, and the coach becomes a single point of failure for
+  a daily habit. The coach's own key still never reaches the phone. The app writes one immutable
+  `sayit/scores/<ts>_<id>.json` per attempt; `sayit.py --score` takes that score as-is and only calls Azure
+  itself when the phone could not (no key, no network, an error) — the fallback, never the rule.
 - **ONE coach→app file, `sayit.zip`** (words.json + results.json + clips/<id>.ogg, en-GB neural TTS).
   The Drive service account has no storage quota and can only PATCH files that already exist, so the owner
   created an empty `sayit.zip` once (2026-09-13, alongside `plan.json` 2026-09-11) and `push_file` in
