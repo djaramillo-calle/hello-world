@@ -1,6 +1,6 @@
 {
  "version": 1,
- "written": "2026-09-15T12:08:40Z",
+ "written": "2026-09-15T15:42:45Z",
  "per_session": 5,
  "words": [
   {
@@ -47,54 +47,54 @@
    "added": "2026-09-15"
   },
   {
-   "id": "new-revolting",
-   "word": "revolting",
-   "sentence": "Only wealth without power or aloofness without a policy are felt to be parasitical, useless, revolting, because such conditions cut all the threads which tie men together.",
-   "clip": "clips/new-revolting.ogg",
-   "ipa": "",
-   "classes": [],
-   "source": "new",
-   "book": "Hannah_Arendt__The_Origins_of_Totalitarianism",
-   "added": "2026-09-15"
-  },
-  {
-   "id": "new-spectacle",
-   "word": "spectacle",
-   "sentence": "Persecution of powerless or power-losing groups may not be a very pleasant spectacle, but it does not spring from human meanness alone.",
-   "clip": "clips/new-spectacle.ogg",
-   "ipa": "",
-   "classes": [],
-   "source": "new",
-   "book": "Hannah_Arendt__The_Origins_of_Totalitarianism",
-   "added": "2026-09-15"
-  },
-  {
-   "id": "new-haste",
-   "word": "haste",
-   "sentence": "It was as though Moscow repeated in great haste all the stages of the October Revolution up to the emergence of totalitarian dictatorship.",
-   "clip": "clips/new-haste.ogg",
-   "ipa": "",
-   "classes": [],
-   "source": "new",
-   "book": "Hannah_Arendt__The_Origins_of_Totalitarianism",
-   "added": "2026-09-15"
-  },
-  {
-   "id": "new-ambitious",
-   "word": "ambitious",
-   "sentence": "Less well known but perhaps even more convincing is that Khrushchev’s own and most ambitious attempt at reversing the process of detotalitarization turned into a complete failure.",
-   "clip": "clips/new-ambitious.ogg",
-   "ipa": "",
-   "classes": [],
-   "source": "new",
-   "book": "Hannah_Arendt__The_Origins_of_Totalitarianism",
-   "added": "2026-09-15"
-  },
-  {
    "id": "new-stave",
    "word": "stave",
    "sentence": "Soviets could afford sending enough aid to the defeated country to prevent mass starvation and to stave off a complete collapse of the economy in the year following the revolution.",
    "clip": "clips/new-stave.ogg",
+   "ipa": "",
+   "classes": [],
+   "source": "new",
+   "book": "Hannah_Arendt__The_Origins_of_Totalitarianism",
+   "added": "2026-09-15"
+  },
+  {
+   "id": "new-conspicuous",
+   "word": "conspicuous",
+   "sentence": "Or, the curious contradiction between the totalitarian movements’ avowed cynical “realism” and their conspicuous disdain of the whole texture of reality.",
+   "clip": "clips/new-conspicuous.ogg",
+   "ipa": "",
+   "classes": [],
+   "source": "new",
+   "book": "Hannah_Arendt__The_Origins_of_Totalitarianism",
+   "added": "2026-09-15"
+  },
+  {
+   "id": "new-parasitical",
+   "word": "parasitical",
+   "sentence": "Only wealth without power or aloofness without a policy are felt to be parasitical, useless, revolting, because such conditions cut all the threads which tie men together.",
+   "clip": "clips/new-parasitical.ogg",
+   "ipa": "",
+   "classes": [],
+   "source": "new",
+   "book": "Hannah_Arendt__The_Origins_of_Totalitarianism",
+   "added": "2026-09-15"
+  },
+  {
+   "id": "new-uprootedness",
+   "word": "uprootedness",
+   "sentence": "Only the horror of the final catastrophe, and even more the homelessness and uprootedness of the survivors, made the “Jewish question” so prominent in our everyday political life.",
+   "clip": "clips/new-uprootedness.ogg",
+   "ipa": "",
+   "classes": [],
+   "source": "new",
+   "book": "Hannah_Arendt__The_Origins_of_Totalitarianism",
+   "added": "2026-09-15"
+  },
+  {
+   "id": "new-chagrin",
+   "word": "chagrin",
+   "sentence": "Stalin paid to his late colleague and rival in total domination with whom, much to his chagrin, he had not been able to come to a lasting agreement.",
+   "clip": "clips/new-chagrin.ogg",
    "ipa": "",
    "classes": [],
    "source": "new",

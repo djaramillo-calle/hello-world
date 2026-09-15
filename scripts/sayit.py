@@ -63,7 +63,17 @@ VOCAB = REPO / "logs" / "reading" / "vocab.json"
 NEW_ACTIVE = 6           # how many new words ride along with the flagged ones
 NEW_MIN_WORDS = 6        # a usage fragment shorter than this is not a sentence to repeat
 NEW_MAX_WORDS = 30
-TOO_COMMON = 2000        # a word inside the commonest N in English needs no model: he has heard it
+TOO_COMMON = 2000        # flagged path: a word this common, flagged, is connected speech, not a problem
+TOO_COMMON_NEW = 15000   # new-word path, raised from 2000 on 2026-09-15 at the user's reading of his own
+                         # lookups: "these are very common words, which I know — they are likely mistakes
+                         # when I try to select a truly new word". A tap in KOReader lands where the finger
+                         # lands, so the lookup store is full of words he never meant to look up (and,
+                         # that, in, hatred, medieval, swift, glimpse, haste, spectacle). The threshold is
+                         # therefore about DELIBERATENESS, not about knowing the meaning: above it, he
+                         # chose the word. Note this does not throw away the Latinate cognates that look
+                         # easy to him — conglomeration, erudition, lamentation are not in the 50k list at
+                         # all, and they are the best targets of the lot: he knows what they mean from
+                         # Spanish and has never heard where the English stress falls.
 WORDLISTS = REPO / ".cache" / "minimal-pairs" / "data" / "sources"
 
 def load_json(p, default):
@@ -179,6 +189,17 @@ def usable_usage(word, usage, min_words=NEW_MIN_WORDS, max_words=NEW_MAX_WORDS):
              and min_words <= len(t.split()) <= max_words]
     return min(cands, key=lambda t: len(t.split())) if cands else None
 
+def worth_saying(word, freq, too_common=TOO_COMMON_NEW):
+    """Whether a looked-up word is worth a slot, by the word alone.
+
+    Also applied to the words ALREADY on the list, so tightening the bar clears out what it now
+    rejects instead of leaving it standing for ever."""
+    w = (word or "").strip()
+    if not w or not w.isalpha() or len(w) < 3: return False
+    if not re.search(r"[aeiouy]", w.lower()): return False   # OCR damage, not a word
+    if w[:1].isupper(): return False                          # Volga, Comintern: a name, not vocabulary
+    return freq.get(w.lower(), 10 ** 9) >= too_common
+
 def new_words(vocab, results, limit=NEW_ACTIVE, today=None, lists=None):
     """Words he looked up while reading, newest first, each in a sentence he actually met it in.
 
@@ -196,9 +217,7 @@ def new_words(vocab, results, limit=NEW_ACTIVE, today=None, lists=None):
     for v in reversed(vocab.get("lookups") or []):          # newest first: he just met it in context
         w = (v.get("word") or "").strip()
         if not w or v.get("carded"): continue
-        if not w.isalpha() or len(w) < 3 or not re.search(r"[aeiouy]", w.lower()): continue
-        if w[:1].isupper(): continue                        # a proper noun, not vocabulary
-        if freq.get(w.lower(), 10 ** 9) < TOO_COMMON: continue
+        if not worth_saying(w, freq): continue
         wid = "new-" + w.lower()
         st = ((results.get("words") or {}).get(wid) or {}).get("status")
         if st in ("retired", "tutor", "parked"): continue
@@ -259,8 +278,10 @@ def build(out=OUT, ledger_path=LEDGER, practice_dir=PRACTICE, render=True, today
     vocab = load_json(vocab_path, {})
     done = {w for w, r in (results.get("words") or {}).items()
             if r.get("status") in ("retired", "tutor", "parked")}
+    _known, _freq = known_words()
     standing = [w for w in (load_json(out / "words.json", {}).get("words") or [])
-                if w.get("source") == "new" and w.get("id") not in done]
+                if w.get("source") == "new" and w.get("id") not in done
+                and worth_saying(w.get("word"), _freq)]
     fresh = new_words(vocab, results, limit=max(0, NEW_ACTIVE - len(standing)), today=today)
     words += standing + fresh
     mark_used(vocab_path, vocab, [w["word"] for w in fresh])
@@ -505,7 +526,7 @@ def selftest():
             {"word": "spent", "usage": "Nothing here.", "carded": True},
             {"word": "scapegoat", "usage": "unfinished start. " + full},
         ]}
-        got = new_words(voc, {}, lists=({"scapegoat"}, {"that": 3, "scapegoat": 9000}))
+        got = new_words(voc, {}, lists=({"scapegoat"}, {"that": 3, "scapegoat": 16064}))
         ids = [w["id"] for w in got]
         assert "new-volga" not in ids, "a proper noun is a name, not vocabulary"
         assert "new-that" not in ids, "too common to need a model"
@@ -516,6 +537,11 @@ def selftest():
         assert got[0]["source"] == "new"
         assert new_words(voc, {"words": {"new-scapegoat": {"status": "retired"}}},
                          lists=({"scapegoat"}, {}))[0]["id"] != "new-scapegoat"
+        # a word he knows is a mis-tap, not a lookup: the bar is deliberateness, not meaning
+        assert not worth_saying("haste", {"haste": 10391}), "inside the commonest 15000: a mis-tap"
+        assert worth_saying("scapegoat", {"scapegoat": 16064}), "above it: he chose the word"
+        assert worth_saying("conglomeration", {}), "not in the 50k list at all: the best kind of target"
+        assert not worth_saying("Volga", {}) and not worth_saying("xy", {}) and not worth_saying("psst", {})
         vp = td / "vocab.json"; dump_json(vp, voc)
         v2 = load_json(vp, {}); assert mark_used(vp, v2, ["scapegoat"]) == 1
         assert [x for x in load_json(vp, {})["lookups"] if x["word"] == "scapegoat"][0]["carded"] is True

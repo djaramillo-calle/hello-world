@@ -189,8 +189,17 @@ retires or goes to the tutor.
   occurrences before its rate is believed, and rarity breaks the ties. For `new` words the lists
   are a SOFT signal only — used as a gate they threw away *conglomeration*, *erudition*,
   *lamentation* and *conflagration* to catch four bits of OCR damage — so an unrecognised word is
-  merely ranked last. Hard rejects there: shape (non-alpha, under three letters, no vowel), a
-  capital inside the sentence (*Volga*, *Comintern* are names), and the commonest words.
+  merely ranked last. Hard rejects there (`worth_saying`): shape (non-alpha, under three letters,
+  no vowel), a capital inside the sentence (*Volga*, *Comintern* are names), and anything inside
+  the commonest `TOO_COMMON_NEW` (15,000, raised from 2,000 on 2026-09-15). **The bar is
+  DELIBERATENESS, not meaning** — the user's own reading of his lookups: "these are very common
+  words, which I know; they are likely mistakes when I try to select a truly new word". A tap in
+  KOReader lands where the finger lands, so the store is full of *and*, *that*, *hatred*,
+  *medieval*, *swift*, *haste*, *spectacle*. It costs nothing real: the Latinate cognates that
+  matter most (*conglomeration*, *erudition*, *lamentation*) are not in the 50k list at all — he
+  knows them from Spanish and has never heard where the English stress falls. `worth_saying` is
+  applied to the words ALREADY on the list too, so raising the bar clears out what it now rejects
+  instead of leaving it standing; a claimed lookup the bar later rejects is released.
 - **The unit is the word IN ITS SENTENCE, never alone.** His failures are connected-speech failures
   (unstressed syllables collapsing, final consonants dropping) and an isolated word is a different motor
   task. The sentence is one he actually read, taken from the passage the review named — never invented.

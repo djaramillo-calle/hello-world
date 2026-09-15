@@ -102,7 +102,7 @@
    "review_count": 0,
    "streak": 0,
    "highlight": "",
-   "carded": false
+   "carded": true
   },
   {
    "id": "ko:disdain",
@@ -128,7 +128,7 @@
    "review_count": 0,
    "streak": 0,
    "highlight": "",
-   "carded": true
+   "carded": false
   },
   {
    "id": "ko:impasses",
@@ -206,7 +206,7 @@
    "review_count": 0,
    "streak": 0,
    "highlight": "",
-   "carded": true
+   "carded": false
   },
   {
    "id": "ko:usurped",
@@ -661,7 +661,7 @@
    "review_count": 0,
    "streak": 0,
    "highlight": "",
-   "carded": true
+   "carded": false
   },
   {
    "id": "ko:dubious",
@@ -713,7 +713,7 @@
    "review_count": 0,
    "streak": 0,
    "highlight": "",
-   "carded": true
+   "carded": false
   },
   {
    "id": "ko:lamentation",
@@ -765,7 +765,7 @@
    "review_count": 0,
    "streak": 0,
    "highlight": "",
-   "carded": true
+   "carded": false
   },
   {
    "id": "ko:crackpots",
@@ -817,7 +817,7 @@
    "review_count": 0,
    "streak": 0,
    "highlight": "",
-   "carded": true
+   "carded": false
   },
   {
    "id": "ko:unadulterated",
@@ -882,7 +882,7 @@
    "review_count": 0,
    "streak": 0,
    "highlight": "",
-   "carded": true
+   "carded": false
   },
   {
    "id": "ko:insofar",
@@ -1870,7 +1870,7 @@
    "review_count": 0,
    "streak": 0,
    "highlight": "",
-   "carded": true
+   "carded": false
   },
   {
    "id": "ko:believes",
@@ -2104,7 +2104,7 @@
    "review_count": 0,
    "streak": 0,
    "highlight": "",
-   "carded": true
+   "carded": false
   },
   {
    "id": "ko:manifold",
@@ -2143,7 +2143,7 @@
    "review_count": 0,
    "streak": 0,
    "highlight": "",
-   "carded": true
+   "carded": false
   },
   {
    "id": "ko:fared",
@@ -2273,7 +2273,7 @@
    "review_count": 0,
    "streak": 0,
    "highlight": "",
-   "carded": false
+   "carded": true
   },
   {
    "id": "ko:Affaire",
@@ -2312,7 +2312,7 @@
    "review_count": 0,
    "streak": 0,
    "highlight": "",
-   "carded": false
+   "carded": true
   },
   {
    "id": "ko:demagogy",
@@ -2442,7 +2442,7 @@
    "review_count": 0,
    "streak": 0,
    "highlight": "",
-   "carded": true
+   "carded": false
   },
   {
    "id": "ko:aloofness",
@@ -2468,7 +2468,7 @@
    "review_count": 0,
    "streak": 0,
    "highlight": "",
-   "carded": true
+   "carded": false
   },
   {
    "id": "ko:parasitical",
@@ -2481,7 +2481,7 @@
    "review_count": 0,
    "streak": 0,
    "highlight": "",
-   "carded": false
+   "carded": true
   },
   {
    "id": "ko:refute",
