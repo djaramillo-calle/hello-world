@@ -60,6 +60,8 @@ TUTOR_WEEKS = 3
 # it is the half Anki cannot give him: a card he reads silently teaches the meaning and never
 # tells him whether the mouth was right.
 VOCAB = REPO / "logs" / "reading" / "vocab.json"
+LIBRARY = REPO / "library"
+ALT_SENTENCES = 3        # how many carrier sentences a word may carry, counting the first
 NEW_ACTIVE = 6           # how many new words ride along with the flagged ones
 NEW_MIN_WORDS = 6        # a usage fragment shorter than this is not a sentence to repeat
 NEW_MAX_WORDS = 30
@@ -108,6 +110,56 @@ def passage_texts(practice_dir=PRACTICE):
         t = pi.passage_text(pid)
         if t: out.append(t)
     return out
+
+def book_texts(library=LIBRARY):
+    """Every processed book's full text. `library/` is gitignored (the EPUBs are copyrighted) and is
+    rebuilt from Drive at the start of each cloud-sync run, so this is present when the build runs and
+    simply empty when it is not — in which case a word keeps the one sentence it already had."""
+    out = []
+    for f in sorted(pathlib.Path(library).glob("*.json")) if pathlib.Path(library).is_dir() else []:
+        d = load_json(f, {})
+        t = " ".join(c.get("text", "") for c in (d.get("chunks") or []) if isinstance(c, dict))
+        if t: out.append(t)
+    return out
+
+def looks_clean(t):
+    """Whether a sentence pulled from a scanned book is fit to be read aloud.
+
+    The extraction carries the page's debris — footnote numbers welded to the next word ("5See"),
+    column markers ("1J"), stray single capitals. A human skims past them; a neural voice reads them
+    out and the assessment then scores him against a reference text nobody would say."""
+    if re.search(r"\b(?=\w*\d)(?=\w*[A-Za-z])\w+\b", t): return False      # 1J, 5See, p12
+    singles = [w for w in re.findall(r"\b[A-Za-z]\b", t) if w not in ("a", "A", "I")]
+    return len(singles) == 0
+
+def carriers(word, texts, keep=None, limit=ALT_SENTENCES, min_words=6, max_words=30):
+    """Up to [limit] DIFFERENT sentences from the books in which [word] actually appears, [keep] first.
+
+    Practising one sentence over and over is blocked practice: it makes the rehearsed sentence better
+    and does not carry. Varying the carrier is the contextual-interference effect, which costs
+    accuracy during practice and buys retention and transfer — and transfer is exactly what his own
+    data says is missing (2026-09-15: 98-99 on the sentence he had just heard, the same words flagged
+    inside fifteen to eighty-four minutes of continuous reading).
+
+    Never invented. A word with only one sentence in the books keeps the one it has."""
+    rx = re.compile(r"\b" + re.escape(word) + r"\b", re.I)
+    out = [keep] if keep else []
+    seen = {tidy(keep)} if keep else set()
+    cands = [t for text in texts for t in (tidy(x) for x in sentences(text))
+             if rx.search(t) and min_words <= len(t.split()) <= max_words and t[-1:] in ".!?"
+             and looks_clean(t)]
+    for t in sorted(cands, key=lambda x: len(x.split())):   # shortest first: easier to hold and repeat
+        if t in seen: continue
+        seen.add(t); out.append(t)
+        if len(out) >= limit: break
+    return out
+
+def todays(items, today=None):
+    """Which of a word's sentences is the live one. Rotates by DAY, not by run: cloud-sync runs
+    several times a day and the sentence must not change under him mid-session."""
+    if not items: return None
+    d = dt.date.fromisoformat(today or dt.date.today().isoformat())
+    return items[d.toordinal() % len(items)]
 
 def _load(name):
     import importlib.util
@@ -184,7 +236,11 @@ def tidy(text):
     # word broken across lines; keeping the hyphen is right in the first case and harmless in the
     # second, since the voice reads "imperial-ism" and "imperialism" the same way.
     t = re.sub(r"(\w)-\s+(\w)", r"\1-\2", t)
-    return re.sub(r"\s-(\w)", r" \1", t)          # a stray leading hyphen: as -well
+    t = re.sub(r"\s-(\w)", r" \1", t)              # a stray leading hyphen: as -well
+    # A footnote or page marker the extraction left on the end — "...favors an imperialist policy." P."
+    # — is not part of the sentence, and the voice reads it aloud as a word.
+    m = re.search(r"""([.!?][\u201d\u2019"']?)\s+[A-Za-z]{1,2}\.\s*$""", t)
+    return t[:m.end(1)] if m else t
 
 def usable_usage(word, usage, min_words=NEW_MIN_WORDS, max_words=NEW_MAX_WORDS):
     """The one sentence of KOReader's stored context that holds the word, or None.
@@ -297,15 +353,26 @@ def build(out=OUT, ledger_path=LEDGER, practice_dir=PRACTICE, render=True, today
     fresh = new_words(vocab, results, limit=max(0, NEW_ACTIVE - len(standing)), today=today)
     words += standing + fresh
     mark_used(vocab_path, vocab, [w["word"] for w in fresh])
+
+    # Each word carries every sentence the BOOKS give it, and today's is promoted to `sentence`.
+    # Varying the carrier is the point (see carriers()); rotating by day rather than by run keeps it
+    # from changing under him mid-session. `sentence`/`clip` stay the live pair so the build already
+    # on the phone works unchanged; `sentences` is additive, for an app build that picks per attempt.
+    books = book_texts()
     rendered = 0
     for w in words:
-        clip = out / w["clip"]
-        if render and not clip.exists():
-            try:
-                if tts(w["sentence"], clip): rendered += 1
-            except Exception as e:
-                print(f"sayit: clip for {w['id']} failed — {type(e).__name__}: {str(e)[:120]}", file=sys.stderr)
-        if not clip.exists(): w["clip"] = ""        # the app falls back to text-only rather than a dead path
+        alts = carriers(w["word"], books, keep=w["sentence"]) or [w["sentence"]]
+        w["sentences"] = [{"text": t, "clip": f"clips/{w['id']}-{i}.ogg"} for i, t in enumerate(alts)]
+        for entry in w["sentences"]:
+            clip = out / entry["clip"]
+            if render and not clip.exists():
+                try:
+                    if tts(entry["text"], clip): rendered += 1
+                except Exception as e:
+                    print(f"sayit: clip for {w['id']} failed — {type(e).__name__}: {str(e)[:120]}", file=sys.stderr)
+            if not clip.exists(): entry["clip"] = ""
+        live = todays(w["sentences"], today)
+        w["sentence"], w["clip"] = live["text"], live["clip"]
     dump_json(out / "words.json", {"version": 1, "written": _now(), "per_session": PER_SESSION,
                                    "words": words})
     return words, rendered
@@ -532,6 +599,8 @@ def selftest():
         assert tidy("spectacle , but") == "spectacle, but"
         assert tidy("of | twentieth- century") == "of twentieth-century"
         assert tidy("as -well.") == "as well."
+        assert tidy("favors an imperialist policy.\u201d P.") == "favors an imperialist policy.\u201d", "footnote marker"
+        assert tidy("He met Mr. Smith at the door.") == "He met Mr. Smith at the door.", "a real initial survives"
         full = "The theory that the Jews are always the scapegoat implies that anyone might have been."
         assert usable_usage("scapegoat", "cut mid clause and then. " + full) == full
         assert usable_usage("scapegoat", "a scapegoat sentence with no terminal stop") is None, "tail cut"
@@ -574,6 +643,25 @@ def selftest():
         ws, rendered = build(out, lp, pd, render=False, today="2026-09-13", vocab_path=vp)
         assert rendered == 0 and json.loads((out / "words.json").read_text())["per_session"] == PER_SESSION
         assert all(w["clip"] == "" for w in ws), ws
+        # every word carries its sentences; the live one rotates by day, never mid-day
+        assert all(w["sentences"] and w["sentence"] == todays(w["sentences"], "2026-09-13")["text"] for w in ws), ws
+        three = ["A one.", "B two.", "C three."]
+        assert todays(three, "2026-09-13") != todays(three, "2026-09-14"), "a new day, a new carrier"
+        assert todays(three, "2026-09-13") == todays(three, "2026-09-13"), "stable within the day"
+        assert todays([], "2026-09-13") is None and todays(["only one."], "2026-09-13") == "only one."
+        BOOK = ("The scapegoat was chosen long before anyone asked why. " * 1 +
+                "Nobody wanted to be the scapegoat of that particular year at all. " +
+                "He said scapegoat again and again until it meant nothing to him.")
+        c = carriers("scapegoat", [BOOK], keep="The scapegoat was chosen long before anyone asked why.")
+        assert len(c) == 3 and c[0] == "The scapegoat was chosen long before anyone asked why.", c
+        assert len(set(c)) == 3, "three different sentences, none repeated"
+        assert carriers("absent", [BOOK], keep="Kept anyway.") == ["Kept anyway."], "never invented"
+        assert not looks_clean("During the imperialist period neither the state nor the 1J, A.")
+        assert not looks_clean("5See the very instructive note on this imperialist question.")
+        assert looks_clean("The more conspicuous the power of totalitarianism the more secret it becomes.")
+        assert looks_clean("I gave a talk about it."), "a and I are words, not debris"
+        assert carriers("noise", ["The noise was the 1J, A. The noise was plain and clear enough."],
+                        keep=None) == ["The noise was plain and clear enough."], "page debris is not a carrier"
         assert {w["source"] for w in ws} <= {"flagged", "new"} and any(w["source"] == "new" for w in ws), ws
         # the zip is the whole coach→app payload
         (out / "clips").mkdir(exist_ok=True); (out / "clips" / "x.ogg").write_bytes(b"ogg")

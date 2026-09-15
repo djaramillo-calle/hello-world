@@ -208,6 +208,18 @@ retires or goes to the tutor.
   his: **he deletes the word in KOReader's Vocabulary Builder**, and `koreader-pull` marks it
   `dropped` (see below). `worth_saying` also runs over the words ALREADY on the list, so a change
   to the screen clears what it now rejects instead of leaving it standing.
+- **Several sentences per word, rotated by day** (`carriers`, `todays`; 2026-09-15, the user's idea).
+  Repeating one sentence is blocked practice: it improves the rehearsed sentence and does not carry.
+  Varying the carrier is the **contextual-interference effect** — worse during practice, better at
+  retention and *transfer* — and transfer is exactly what his data says is missing (98–99 on the
+  sentence he had just heard, the same words flagged inside 15–84 minutes of reading). The sentences
+  come from `library/<slug>.json` `chunks[].text`, **never invented**: a word with only one usable
+  sentence in the books keeps it. `sentences: [{text, clip}]` is additive and `sentence`/`clip` stay
+  the live pair, so the build already on the phone works unchanged; an app build could pick per
+  attempt instead. Rotation is by DAY, not by run — cloud-sync runs several times a day and the
+  sentence must not change under him mid-session. `looks_clean` rejects the scan's debris (a
+  footnote number welded to a word, "1J", stray single capitals): a human skims past them, a neural
+  voice reads them aloud and then scores him against a reference nobody would say.
 - **The unit is the word IN ITS SENTENCE, never alone.** His failures are connected-speech failures
   (unstressed syllables collapsing, final consonants dropping) and an isolated word is a different motor
   task. The sentence is one he actually read, taken from the passage the review named — never invented.
