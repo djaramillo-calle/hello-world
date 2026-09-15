@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "written": "2026-09-15T07:36:09Z",
+  "written": "2026-09-15T09:19:01Z",
   "written_by": "coach",
   "note": "From your reads: i/ii, schwa. 2 sessions done. Say the word you chose, aloud.",
   "trials_per_session": 40,
@@ -19,13 +19,13 @@
   ],
   "feedback": "full",
   "weights": {
-    "th": 0.41,
+    "th": 0.43,
     "s/z": 0.87,
     "i/ii": 1.0,
     "b/v": 0.45,
     "cat/cut": 0.3,
     "long-back": 0.15,
-    "j/y": 0.19,
+    "j/y": 0.21,
     "-ed": 0.28,
     "h": 0.24,
     "sh/ch": 0.15,

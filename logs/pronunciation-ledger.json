@@ -42,16 +42,16 @@
    "last": "2026-09-14"
   },
   "th": {
-   "count": 12,
+   "count": 13,
    "words": {
     "earth": 1,
     "this": 2,
-    "the": 3,
+    "the": 4,
     "than": 1,
     "other": 1,
     "death": 1
    },
-   "last": "2026-09-14"
+   "last": "2026-09-15"
   },
   "schwa": {
    "count": 21,
@@ -119,12 +119,13 @@
    "last": "2026-09-14"
   },
   "j/y": {
-   "count": 2,
+   "count": 3,
    "words": {
     "jewish": 1,
-    "jurists": 1
+    "jurists": 1,
+    "jews": 1
    },
-   "last": "2026-09-14"
+   "last": "2026-09-15"
   },
   "h": {
    "count": 5,
@@ -150,11 +151,12 @@
    "last": "2026-09-14"
   },
   "s-cluster": {
-   "count": 1,
+   "count": 2,
    "words": {
-    "stalin": 1
+    "stalin": 1,
+    "steady": 1
    },
-   "last": "2026-09-14"
+   "last": "2026-09-15"
   }
  },
  "words": {
@@ -263,8 +265,8 @@
    ]
   },
   "power": {
-   "count": 11,
-   "last": "2026-09-14",
+   "count": 12,
+   "last": "2026-09-15",
    "kinds": [
     "read"
    ],
@@ -407,8 +409,8 @@
    ]
   },
   "the": {
-   "count": 4,
-   "last": "2026-09-14",
+   "count": 5,
+   "last": "2026-09-15",
    "kinds": [
     "read"
    ],
@@ -620,11 +622,12 @@
    "carded": true
   },
   "only": {
-   "count": 1,
-   "last": "2026-09-13",
+   "count": 2,
+   "last": "2026-09-15",
    "kinds": [
     "read"
-   ]
+   ],
+   "carded": true
   },
   "his": {
    "count": 2,
@@ -816,11 +819,12 @@
    ]
   },
   "other": {
-   "count": 1,
-   "last": "2026-09-14",
+   "count": 2,
+   "last": "2026-09-15",
    "kinds": [
     "read"
-   ]
+   ],
+   "carded": true
   },
   "constitutional": {
    "count": 1,
@@ -837,11 +841,12 @@
    ]
   },
   "words": {
-   "count": 1,
-   "last": "2026-09-14",
+   "count": 2,
+   "last": "2026-09-15",
    "kinds": [
     "read"
-   ]
+   ],
+   "carded": true
   },
   "elements": {
    "count": 1,
@@ -908,11 +913,12 @@
    "carded": true
   },
   "country": {
-   "count": 1,
-   "last": "2026-09-14",
+   "count": 2,
+   "last": "2026-09-15",
    "kinds": [
     "read"
-   ]
+   ],
+   "carded": true
   },
   "most": {
    "count": 1,
@@ -955,11 +961,212 @@
    "kinds": [
     "read"
    ]
+  },
+  "visible": {
+   "count": 1,
+   "last": "2026-09-15",
+   "kinds": [
+    "read"
+   ]
+  },
+  "so": {
+   "count": 1,
+   "last": "2026-09-15",
+   "kinds": [
+    "read"
+   ]
+  },
+  "with": {
+   "count": 1,
+   "last": "2026-09-15",
+   "kinds": [
+    "read"
+   ]
+  },
+  "parasites": {
+   "count": 1,
+   "last": "2026-09-15",
+   "kinds": [
+    "read"
+   ]
+  },
+  "such": {
+   "count": 3,
+   "last": "2026-09-15",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "steady": {
+   "count": 2,
+   "last": "2026-09-15",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "real": {
+   "count": 1,
+   "last": "2026-09-15",
+   "kinds": [
+    "read"
+   ]
+  },
+  "when": {
+   "count": 1,
+   "last": "2026-09-15",
+   "kinds": [
+    "read"
+   ]
+  },
+  "similarly": {
+   "count": 1,
+   "last": "2026-09-15",
+   "kinds": [
+    "read"
+   ]
+  },
+  "came": {
+   "count": 2,
+   "last": "2026-09-15",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "jurisdiction": {
+   "count": 1,
+   "last": "2026-09-15",
+   "kinds": [
+    "read"
+   ]
+  },
+  "for": {
+   "count": 1,
+   "last": "2026-09-15",
+   "kinds": [
+    "read"
+   ]
+  },
+  "german": {
+   "count": 1,
+   "last": "2026-09-15",
+   "kinds": [
+    "read"
+   ]
+  },
+  "vast": {
+   "count": 1,
+   "last": "2026-09-15",
+   "kinds": [
+    "read"
+   ]
+  },
+  "jewry": {
+   "count": 1,
+   "last": "2026-09-15",
+   "kinds": [
+    "read"
+   ]
+  },
+  "oppression": {
+   "count": 2,
+   "last": "2026-09-15",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "their": {
+   "count": 1,
+   "last": "2026-09-15",
+   "kinds": [
+    "read"
+   ]
+  },
+  "jews": {
+   "count": 1,
+   "last": "2026-09-15",
+   "kinds": [
+    "read"
+   ]
+  },
+  "exploit": {
+   "count": 1,
+   "last": "2026-09-15",
+   "kinds": [
+    "read"
+   ]
+  },
+  "felt": {
+   "count": 2,
+   "last": "2026-09-15",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "function": {
+   "count": 1,
+   "last": "2026-09-15",
+   "kinds": [
+    "read"
+   ]
+  },
+  "had": {
+   "count": 1,
+   "last": "2026-09-15",
+   "kinds": [
+    "read"
+   ]
+  },
+  "tolerated": {
+   "count": 1,
+   "last": "2026-09-15",
+   "kinds": [
+    "read"
+   ]
+  },
+  "oppress": {
+   "count": 1,
+   "last": "2026-09-15",
+   "kinds": [
+    "read"
+   ]
+  },
+  "banks": {
+   "count": 1,
+   "last": "2026-09-15",
+   "kinds": [
+    "read"
+   ]
+  },
+  "whole": {
+   "count": 1,
+   "last": "2026-09-15",
+   "kinds": [
+    "read"
+   ]
+  },
+  "respected": {
+   "count": 1,
+   "last": "2026-09-15",
+   "kinds": [
+    "read"
+   ]
+  },
+  "here": {
+   "count": 1,
+   "last": "2026-09-15",
+   "kinds": [
+    "read"
+   ]
   }
  },
  "anchor": [],
- "recordings": 5,
- "updated": "2026-09-14T12:40:48Z",
+ "recordings": 6,
+ "updated": "2026-09-15T09:18:53Z",
  "reads": [
   {
    "date": "2026-09-10",
@@ -992,6 +1199,14 @@
    "fluency": 70.7,
    "completeness": 81.2,
    "pron": 74.3
+  },
+  {
+   "date": "2026-09-15",
+   "passage": "B091",
+   "accuracy": 83.3,
+   "fluency": 82.7,
+   "completeness": 82.7,
+   "pron": 68.1
   }
  ]
 }

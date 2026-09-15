@@ -1,6 +1,6 @@
 {
  "version": 1,
- "written": "2026-09-15T07:36:13Z",
+ "written": "2026-09-15T09:19:07Z",
  "per_session": 5,
  "words": [
   {
@@ -68,6 +68,20 @@
    "added": "2026-09-15"
   },
   {
+   "id": "its",
+   "word": "its",
+   "sentence": "Antisemitism reached its climax when Jews had similarly lost their public functions and their influence, and were left with nothing but their wealth.",
+   "clip": "clips/its.ogg",
+   "ipa": "",
+   "classes": [
+    "s/z"
+   ],
+   "flagged_on": 3,
+   "read_on": 4,
+   "miss_rate": 0.75,
+   "added": "2026-09-15"
+  },
+  {
    "id": "come",
    "word": "come",
    "sentence": "The subterranean stream of Western history has finally come to the surface and usurped the dignity of our tradition.",
@@ -89,6 +103,18 @@
    "flagged_on": 3,
    "read_on": 5,
    "miss_rate": 0.6,
+   "added": "2026-09-15"
+  },
+  {
+   "id": "only",
+   "word": "only",
+   "sentence": "As long as the aristocracy held vast powers of jurisdiction, they were not only tolerated but respected.",
+   "clip": "clips/only.ogg",
+   "ipa": "",
+   "classes": [],
+   "flagged_on": 2,
+   "read_on": 4,
+   "miss_rate": 0.5,
    "added": "2026-09-15"
   },
   {

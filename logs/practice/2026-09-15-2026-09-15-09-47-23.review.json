@@ -1,0 +1,262 @@
+{
+ "id": "2026-09-15-2026-09-15-09-47-23",
+ "source": "2026_09_15_09_47_23.mp3",
+ "recorded": "2026-09-15 09:06",
+ "kind": "read",
+ "passage": "B091",
+ "anchor": false,
+ "reviewed": "2026-09-15T09:18:53Z",
+ "fluency": {
+  "duration_s": 917.1,
+  "wpm": 95.4,
+  "words": 1458,
+  "filler_pct": 0.0,
+  "speech_rate_syll_s": 2.84,
+  "articulation_rate_syll_s": 3.9,
+  "avg_syllable_s": 0.256,
+  "f0_median_hz": 140.9,
+  "f0_range_semitones": 8.1,
+  "pause_count": 223,
+  "phonation_ratio": 0.73,
+  "mean_pause_s": 1.12
+ },
+ "pronunciation": {
+  "source": "azure",
+  "scripted": true,
+  "scores": {
+   "accuracy": 83.3,
+   "fluency": 82.7,
+   "completeness": 82.7,
+   "prosody": 45.9,
+   "pron": 68.1,
+   "prosody_us_ref": 45.9
+  },
+  "flagged": [
+   {
+    "word": "power",
+    "accuracy": 45.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "visible",
+    "accuracy": 50.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "so",
+    "accuracy": 80.0,
+    "error": "None"
+   },
+   {
+    "word": "with",
+    "accuracy": 45.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "parasites",
+    "accuracy": 25.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "such",
+    "accuracy": 95.0,
+    "error": "None"
+   },
+   {
+    "word": "steady",
+    "accuracy": 8.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "real",
+    "accuracy": 35.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "when",
+    "accuracy": 77.0,
+    "error": "None"
+   },
+   {
+    "word": "similarly",
+    "accuracy": 44.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "only",
+    "accuracy": 7.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "came",
+    "accuracy": 35.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "jurisdiction",
+    "accuracy": 94.0,
+    "error": "None"
+   },
+   {
+    "word": "came",
+    "accuracy": 80.0,
+    "error": "None"
+   },
+   {
+    "word": "for",
+    "accuracy": 92.0,
+    "error": "None"
+   },
+   {
+    "word": "german",
+    "accuracy": 62.0,
+    "error": "None"
+   },
+   {
+    "word": "vast",
+    "accuracy": 19.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "jewry",
+    "accuracy": 35.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "oppression",
+    "accuracy": 58.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "other",
+    "accuracy": 42.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "steady",
+    "accuracy": 29.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "such",
+    "accuracy": 50.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "their",
+    "accuracy": 93.0,
+    "error": "None"
+   },
+   {
+    "word": "such",
+    "accuracy": 99.0,
+    "error": "None"
+   },
+   {
+    "word": "jews",
+    "accuracy": 0.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "exploit",
+    "accuracy": 0.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "felt",
+    "accuracy": 1.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "function",
+    "accuracy": 63.0,
+    "error": "None"
+   },
+   {
+    "word": "words",
+    "accuracy": 19.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "had",
+    "accuracy": 53.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "tolerated",
+    "accuracy": 93.0,
+    "error": "None"
+   },
+   {
+    "word": "oppression",
+    "accuracy": 90.0,
+    "error": "None"
+   },
+   {
+    "word": "oppress",
+    "accuracy": 24.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "banks",
+    "accuracy": 46.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "the",
+    "accuracy": 58.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "felt",
+    "accuracy": 0.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "whole",
+    "accuracy": 52.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "respected",
+    "accuracy": 16.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "here",
+    "accuracy": 58.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "country",
+    "accuracy": 96.0,
+    "error": "None"
+   }
+  ],
+  "classes": {
+   "j/y": {
+    "n": 1,
+    "words": [
+     "jews"
+    ]
+   },
+   "th": {
+    "n": 1,
+    "words": [
+     "the"
+    ]
+   },
+   "s-cluster": {
+    "n": 1,
+    "words": [
+     "steady"
+    ]
+   }
+  }
+ },
+ "harvest": null,
+ "cards_added": 9,
+ "flags": [],
+ "passage_overlap": 0.97,
+ "void": false
+}
