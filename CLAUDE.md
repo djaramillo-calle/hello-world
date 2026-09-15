@@ -254,7 +254,13 @@ from an adversarially-verified tool investigation (workflow, 12 agents).
   `second_pass=True` restores it for a one-off comparison. **en-GB stays the
   score**: a US reference model marks down correct British pronunciation
   (non-rhotic r, the BATH/TRAP split) and the whole anchor series is en-GB —
-  changing the score locale would reset it, like changing a diagnostic form. Uploads audio to Azure; no-retention
+  changing the score locale would reset it, like changing a diagnostic form.
+  **One side effect, found 2026-09-15:** the single pass also asks for prosody,
+  and Azure folds prosody into `PronScore` once it is requested, so the ledger's
+  `pron` column is a different composite before and after that date (09-15 read
+  `pron` 68.1 with prosody 45.9, while every component beat the previous day).
+  **`accuracy`, `fluency` and `completeness` are per-dimension, unaffected, and
+  are the continuous lines to read** — `prosody` is a new line from 09-15. Uploads audio to Azure; no-retention
   terms verified 2026-08. Verified 2026-09-09 on the F0 free tier from the
   cloud (`scripts/azure-check.py`, report in `logs/azure-check.json`):
   scripted assessment, completeness, IPA phonemes and prosody all work.

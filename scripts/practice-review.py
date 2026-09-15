@@ -163,7 +163,13 @@ def update_ledger(ledger, review, date):
         W["count"] += 1; W["last"] = date
         if review["kind"] not in W["kinds"]: W["kinds"].append(review["kind"])
     if review["kind"] == "read" and review.get("passage") and pr["source"] == "azure":
-        entry = {"date": date, "passage": review["passage"], **{k: v for k, v in pr["scores"].items() if k in ("accuracy", "fluency", "completeness", "pron")}}
+        # prosody joined the row on 2026-09-15, when the en-GB pass started asking for it
+        # (one pass instead of two). Azure folds prosody into PronScore once it is requested,
+        # so `pron` BEFORE that date is a different composite and the column does not compare
+        # across it. accuracy, fluency and completeness are per-dimension and unaffected.
+        entry = {"date": date, "passage": review["passage"],
+                 **{k: v for k, v in pr["scores"].items()
+                    if k in ("accuracy", "fluency", "completeness", "prosody", "pron")}}
         if review.get("anchor"):
             ledger["anchor"].append(entry)
         ledger.setdefault("reads", []).append(entry)

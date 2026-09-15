@@ -1206,7 +1206,9 @@
    "accuracy": 83.3,
    "fluency": 82.7,
    "completeness": 82.7,
+   "prosody": 45.9,
    "pron": 68.1
   }
- ]
+ ],
+ "pron_note": "prosody entered the en-GB pass on 2026-09-15 (one pass instead of two); Azure folds it into PronScore, so `pron` is not comparable across that date. accuracy, fluency and completeness are unaffected and are the continuous lines."
 }
