@@ -8,13 +8,95 @@
      "file": "20260914T150652Z_under.json",
      "void": true,
      "note": "1.2s for 22 words (1100 wpm) — the recording stopped before the sentence did"
+    },
+    {
+     "at": "2026-09-15T11:12:01Z",
+     "file": "20260915T111201Z_under.json",
+     "accuracy": 99.0,
+     "fluency": 95.0,
+     "pron": 96.8,
+     "completeness": 100.0,
+     "flagged": [],
+     "source": "phone-azure"
     }
    ],
-   "best": null,
-   "last": null,
+   "best": 99.0,
+   "last": 99.0,
    "status": "active",
    "id": "under"
+  },
+  "impartial": {
+   "id": "impartial",
+   "attempts": [
+    {
+     "at": "2026-09-15T11:12:53Z",
+     "file": "20260915T111253Z_impartial.json",
+     "accuracy": 99.0,
+     "fluency": 96.0,
+     "pron": 97.4,
+     "completeness": 100.0,
+     "flagged": [],
+     "source": "phone-azure"
+    }
+   ],
+   "best": 99.0,
+   "last": 99.0,
+   "status": "active"
+  },
+  "situation": {
+   "id": "situation",
+   "attempts": [
+    {
+     "at": "2026-09-15T11:13:40Z",
+     "file": "20260915T111340Z_situation.json",
+     "accuracy": 99.0,
+     "fluency": 97.0,
+     "pron": 98.0,
+     "completeness": 100.0,
+     "flagged": [],
+     "source": "phone-azure"
+    }
+   ],
+   "best": 99.0,
+   "last": 99.0,
+   "status": "active"
+  },
+  "imperialist": {
+   "id": "imperialist",
+   "attempts": [
+    {
+     "at": "2026-09-15T11:14:13Z",
+     "file": "20260915T111413Z_imperialist.json",
+     "accuracy": 99.0,
+     "fluency": 95.0,
+     "pron": 96.8,
+     "completeness": 100.0,
+     "flagged": [],
+     "source": "phone-azure"
+    }
+   ],
+   "best": 99.0,
+   "last": 99.0,
+   "status": "active"
+  },
+  "our": {
+   "id": "our",
+   "attempts": [
+    {
+     "at": "2026-09-15T11:14:56Z",
+     "file": "20260915T111456Z_our.json",
+     "accuracy": 98.0,
+     "fluency": 97.0,
+     "pron": 97.8,
+     "completeness": 100.0,
+     "flagged": [],
+     "source": "phone-azure"
+    }
+   ],
+   "best": 98.0,
+   "last": 98.0,
+   "status": "active"
   }
  },
- "updated": "2026-09-14T18:33:06Z"
+ "updated": "2026-09-15T18:33:25Z"
 }
