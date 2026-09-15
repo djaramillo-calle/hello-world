@@ -41,10 +41,30 @@ MIN_FLAGGED = 2          # a word must have been flagged on this many recordings
 MIN_RATE = 0.25          # ...AND flagged on at least this share of the times it was actually read. A count
                          # alone promotes function words: "the" flagged 3x across 200 occurrences is noise,
                          # while "imperialist" flagged 3x out of 4 is broken. Rate separates them.
+COMMON_MIN_READS = 10    # ...but the rate is only believable when the occurrences were actually counted.
+                         # `library/` is gitignored, so in a cloud container the passage text is usually
+                         # missing and read_on collapses towards zero — on 2026-09-15 "under" came out at
+                         # 4 flags in 1 read, a rate of 4.0, and seven of the ten words offered were
+                         # function words ("all", "its", "come", "which"). So a word inside the commonest
+                         # TOO_COMMON needs this many COUNTED occurrences before its rate is trusted;
+                         # without them it is dropped, and rarity breaks ties among the rest.
 RETIRE_AT, RETIRE_HITS = 80.0, 2
 MIN_COMPLETENESS = 80.0   # a sentence he only half said never counts towards retiring the word
 MAX_WPM = 240.0           # above this nobody is speaking: the recording stopped before the sentence did
 TUTOR_WEEKS = 3
+
+# --- new words from the reading (source "new") ---------------------------------------------
+# A different problem from a flagged word. A flagged word is a motor habit to break: he says it
+# his way and Azure marks it. A word he looked up while reading he has never said at all — there
+# is no habit, there is no model. Hearing it once and saying it is exactly the intervention, and
+# it is the half Anki cannot give him: a card he reads silently teaches the meaning and never
+# tells him whether the mouth was right.
+VOCAB = REPO / "logs" / "reading" / "vocab.json"
+NEW_ACTIVE = 6           # how many new words ride along with the flagged ones
+NEW_MIN_WORDS = 6        # a usage fragment shorter than this is not a sentence to repeat
+NEW_MAX_WORDS = 30
+TOO_COMMON = 2000        # a word inside the commonest N in English needs no model: he has heard it
+WORDLISTS = REPO / ".cache" / "minimal-pairs" / "data" / "sources"
 
 def load_json(p, default):
     try: return json.loads(pathlib.Path(p).read_text(encoding="utf-8"))
@@ -86,10 +106,12 @@ def _load(name):
     spec = importlib.util.spec_from_file_location(name.replace("-", "_"), REPO / "scripts" / f"{name}.py")
     m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m); return m
 
-def pick(ledger, results, texts, max_active=MAX_ACTIVE, min_flagged=MIN_FLAGGED, min_rate=MIN_RATE, today=None):
+def pick(ledger, results, texts, max_active=MAX_ACTIVE, min_flagged=MIN_FLAGGED, min_rate=MIN_RATE,
+         today=None, lists=None):
     """Words he actually gets wrong, worst rate first, each with a sentence he has read.
     Ranked by how OFTEN he misses the word, not by how often it appears."""
     today = today or dt.date.today().isoformat()
+    _known, freq = lists if lists is not None else known_words()
     cand = []
     for w, W in (ledger.get("words") or {}).items():
         n = W.get("count", 0)
@@ -97,16 +119,110 @@ def pick(ledger, results, texts, max_active=MAX_ACTIVE, min_flagged=MIN_FLAGGED,
         st = ((results.get("words") or {}).get(w) or {}).get("status")
         if st in ("retired", "tutor"): continue
         seen = occurrences(w, texts)
-        rate = n / seen if seen else 1.0
+        rate = min(n / seen, 1.0) if seen else 1.0   # >1 would mean more flags than readings: uncounted
         if rate < min_rate: continue             # a word read 200 times and missed 3 is not the problem
+        rank = freq.get(w.lower(), 10 ** 9)
+        if rank < TOO_COMMON and seen < COMMON_MIN_READS: continue
         s = carrier(w, texts)
         if not s: continue                       # never invent a sentence he did not read
         cls = [c for c, L in (ledger.get("phonemes") or {}).items() if w in (L.get("words") or {})]
         cand.append((round(rate, 3), n, {"id": w, "word": w, "sentence": s, "clip": f"clips/{w}.ogg", "ipa": "",
                                          "classes": sorted(cls), "flagged_on": n, "read_on": seen,
-                                         "miss_rate": round(rate, 2), "added": today}))
-    cand.sort(key=lambda t: (-t[0], -t[1], t[2]["id"]))
+                                         "miss_rate": round(rate, 2), "rank": rank, "added": today}))
+    # rate first, then the RARER word: with read_on unreliable the rates bunch at 1.0, and
+    # "imperialist" is a better use of his evening than "our".
+    cand.sort(key=lambda t: (-t[0], -t[2]["rank"], -t[1], t[2]["id"]))
     return [c[2] for c in cand[:max_active]]
+
+def known_words(src=WORDLISTS):
+    """British pronunciation dictionary + frequency list, as a SOFT signal (see new_words).
+    Missing files simply mean the signal is unavailable, never that everything is junk."""
+    import csv
+    known, freq = set(), {}
+    try:
+        for row in csv.reader(open(pathlib.Path(src) / "britfone.main.3.0.1.csv", encoding="utf-8")):
+            if row: known.add(row[0].strip().lower().split("(")[0])
+    except OSError: pass
+    try:
+        for i, line in enumerate(open(pathlib.Path(src) / "en_50k.txt", encoding="utf-8")):
+            w = line.split()
+            if w: freq.setdefault(w[0].lower(), i)
+    except OSError: pass
+    return known, freq
+
+def tidy(text):
+    """KOReader's stored context carries its highlight marks: a space before the punctuation that
+    follows the looked-up word, and the hyphen of a line break the page kept. Left in, the clip
+    reads them as pauses and the reference text no longer matches what anyone would say."""
+    t = re.sub(r"\s+", " ", text or "").strip()
+    t = re.sub(r"\s+([,.;:!?\u2019\u201d)])", r"\1", t)
+    t = re.sub(r"([(\u2018\u201c])\s+", r"\1", t)
+    t = t.replace(" | ", " ")                     # KOReader's page-break marker
+    # "twentieth- century" is a hyphenated compound split by the page, far more often than it is one
+    # word broken across lines; keeping the hyphen is right in the first case and harmless in the
+    # second, since the voice reads "imperial-ism" and "imperialism" the same way.
+    t = re.sub(r"(\w)-\s+(\w)", r"\1-\2", t)
+    return re.sub(r"\s-(\w)", r" \1", t)          # a stray leading hyphen: as -well
+
+def usable_usage(word, usage, min_words=NEW_MIN_WORDS, max_words=NEW_MAX_WORDS):
+    """The one sentence of KOReader's stored context that holds the word, or None.
+
+    The Vocabulary Builder keeps a ~300-character window, not a sentence, so it usually starts and
+    ends mid-clause. Repeating half a clause is a worse motor task than repeating a sentence, so
+    the window is cut at sentence boundaries and only a whole one that contains the word is used."""
+    rx = re.compile(r"\b" + re.escape(word) + r"\b", re.I)
+    cands = [t for t in (tidy(x) for x in sentences(usage or ""))
+             # The window is cut at both ends: the first piece starts mid-clause (lower case) and the
+             # last one stops mid-clause (no terminal stop). Repeating half a clause is a worse motor
+             # task than repeating a sentence, so only a whole one counts.
+             if t[:1].isupper() and t[-1:] in ".!?" and rx.search(t)
+             and min_words <= len(t.split()) <= max_words]
+    return min(cands, key=lambda t: len(t.split())) if cands else None
+
+def new_words(vocab, results, limit=NEW_ACTIVE, today=None, lists=None):
+    """Words he looked up while reading, newest first, each in a sentence he actually met it in.
+
+    Three hard rejects, and one soft one:
+      * shape — not alphabetic, under three letters, or no vowel: OCR damage, not a word;
+      * a capital letter inside the sentence — Volga, Comintern, Quisling are names, not vocabulary;
+      * the commonest TOO_COMMON words — he has heard "that" and "in", they need no model.
+    The wordlists are NOT a gate. Tried as one they threw away conglomeration, erudition,
+    lamentation, denunciation, portentous and conflagration — 33 good words to catch 4 bits of OCR
+    damage. So a word the lists do not recognise is merely ranked last: newer, recognised words
+    come first and in practice he never reaches the junk."""
+    today = today or dt.date.today().isoformat()
+    known, freq = lists if lists is not None else known_words()
+    out = []
+    for v in reversed(vocab.get("lookups") or []):          # newest first: he just met it in context
+        w = (v.get("word") or "").strip()
+        if not w or v.get("carded"): continue
+        if not w.isalpha() or len(w) < 3 or not re.search(r"[aeiouy]", w.lower()): continue
+        if w[:1].isupper(): continue                        # a proper noun, not vocabulary
+        if freq.get(w.lower(), 10 ** 9) < TOO_COMMON: continue
+        wid = "new-" + w.lower()
+        st = ((results.get("words") or {}).get(wid) or {}).get("status")
+        if st in ("retired", "tutor", "parked"): continue
+        s = usable_usage(w, v.get("usage"))
+        if not s: continue
+        recognised = w.lower() in known or w.lower() in freq
+        out.append((0 if recognised else 1, len(out),
+                    {"id": wid, "word": w, "sentence": s, "clip": f"clips/{wid}.ogg", "ipa": "",
+                     "classes": [], "source": "new", "book": v.get("book") or "", "added": today}))
+    out.sort(key=lambda t: (t[0], t[1]))                    # recognised first, then newest
+    return [o[2] for o in out[:limit]]
+
+def mark_used(path, vocab, words):
+    """Claim these lookups so nothing offers them twice.
+
+    `carded` is the flag reading-cards.py already sets and respects; Say-it took the new words over
+    on 2026-09-15, so it is now the one that sets it. One flag, whichever side spends the lookup."""
+    if not words: return 0
+    want, n = {w.lower() for w in words}, 0
+    for v in vocab.get("lookups") or []:
+        if (v.get("word") or "").lower() in want and not v.get("carded"):
+            v["carded"] = True; n += 1
+    if n: dump_json(path, vocab)
+    return n
 
 def tts(text, dest, voice=VOICE, key=None, region=None):
     """Azure neural text-to-speech → Ogg/Opus. Key stays here; the phone only ever sees the bytes."""
@@ -125,10 +241,29 @@ def tts(text, dest, voice=VOICE, key=None, region=None):
 def _xml(s):
     return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace('"', "&quot;")
 
-def build(out=OUT, ledger_path=LEDGER, practice_dir=PRACTICE, render=True, today=None):
+def build(out=OUT, ledger_path=LEDGER, practice_dir=PRACTICE, render=True, today=None, vocab_path=VOCAB):
+    """The two halves of the drill, in one words.json.
+
+    `flagged` words come from the reads: a motor habit to break. `new` words come from the reading
+    lookups: a word he has never said, where the model clip IS the teaching and Anki's silent card
+    could never tell him whether the mouth was right. Both are the same unit — the word in a
+    sentence he actually met — so the app needs no change to show them; `source` is an extra field
+    an older build simply ignores."""
     out = pathlib.Path(out)
     ledger, results = load_json(ledger_path, {}), load_json(out / "results.json", {})
-    words = pick(ledger, results, passage_texts(practice_dir), today=today)
+    words = [dict(w, source="flagged") for w in pick(ledger, results, passage_texts(practice_dir), today=today)]
+    # New words must SURVIVE a rebuild. The claim (`carded`) stops a lookup being picked twice, so
+    # a word dropped from the list after one build would be gone for good, spent without ever being
+    # served. So the ones already on the list stay until they retire or park, and only the room left
+    # is topped up.
+    vocab = load_json(vocab_path, {})
+    done = {w for w, r in (results.get("words") or {}).items()
+            if r.get("status") in ("retired", "tutor", "parked")}
+    standing = [w for w in (load_json(out / "words.json", {}).get("words") or [])
+                if w.get("source") == "new" and w.get("id") not in done]
+    fresh = new_words(vocab, results, limit=max(0, NEW_ACTIVE - len(standing)), today=today)
+    words += standing + fresh
+    mark_used(vocab_path, vocab, [w["word"] for w in fresh])
     rendered = 0
     for w in words:
         clip = out / w["clip"]
@@ -138,7 +273,8 @@ def build(out=OUT, ledger_path=LEDGER, practice_dir=PRACTICE, render=True, today
             except Exception as e:
                 print(f"sayit: clip for {w['id']} failed — {type(e).__name__}: {str(e)[:120]}", file=sys.stderr)
         if not clip.exists(): w["clip"] = ""        # the app falls back to text-only rather than a dead path
-    dump_json(out / "words.json", {"version": 1, "written": _now(), "per_session": PER_SESSION, "words": words})
+    dump_json(out / "words.json", {"version": 1, "written": _now(), "per_session": PER_SESSION,
+                                   "words": words})
     return words, rendered
 
 def _now():
@@ -180,7 +316,10 @@ def status_for(rec, today=None, retire_at=RETIRE_AT, retire_hits=RETIRE_HITS, tu
     first = min((a["at"][:10] for a in real), default=None)
     if first and real:
         age = (dt.date.fromisoformat(today or dt.date.today().isoformat()) - dt.date.fromisoformat(first)).days
-        if age >= tutor_weeks * 7: return "tutor"
+        # A FLAGGED word still failing after three weeks is a motor problem a human should hear. A
+        # NEW word is not: he simply has not got it yet, or it is too rare to be worth more of his
+        # evening. It parks, and the slot goes to the next word off the reading.
+        if age >= tutor_weeks * 7: return "parked" if str(rec.get("id", "")).startswith("new-") else "tutor"
     return "active"
 
 def phone_score(src, stem):
@@ -226,7 +365,7 @@ def score(src, out=OUT, scorer=None, today=None, log=print):
             # Recorded, so it is never scored or re-examined, but it is not an attempt at the word:
             # it sets no score, starts no tutor clock and counts towards nothing.
             log(f"sayit: {side.name} void — {why}")
-            rec = results["words"].setdefault(wid, {"attempts": [], "best": None, "last": None, "status": "active"})
+            rec = results["words"].setdefault(wid, {"id": wid, "attempts": [], "best": None, "last": None, "status": "active"})
             rec["attempts"].append({"at": meta.get("started") or _now(), "file": side.name, "void": True, "note": why})
             n += 1
             continue
@@ -238,7 +377,7 @@ def score(src, out=OUT, scorer=None, today=None, log=print):
                 sc = dict((scorer or score_one)(audio, sentence), source="cloud")
             except Exception as e:
                 log(f"sayit: scoring {side.name} failed — {type(e).__name__}: {str(e)[:120]}"); continue
-        rec = results["words"].setdefault(wid, {"attempts": [], "best": None, "last": None, "status": "active"})
+        rec = results["words"].setdefault(wid, {"id": wid, "attempts": [], "best": None, "last": None, "status": "active"})
         rec["attempts"].append({"at": meta.get("started") or _now(), "file": side.name, **sc})
         accs = [a["accuracy"] for a in rec["attempts"] if not a.get("void") and a.get("accuracy") is not None]
         rec["best"] = max(accs) if accs else None
@@ -263,15 +402,25 @@ def selftest():
                             "nowhere": {"count": 5}, "the": {"count": 2}, "watched": {"count": 1}},
                   "phonemes": {"i/ii": {"words": {"imperialist": 2}}, "s/z": {"words": {"prophecy": 1}}}}
         assert occurrences("imperialist", texts) == 2 and occurrences("the", texts) >= 9
-        got = pick(ledger, {}, texts, today="2026-09-13")
+        LISTS = (set(), {"the": 1, "prophecy": 9000, "imperialist": 31690})
+        got = pick(ledger, {}, texts, today="2026-09-13", lists=LISTS)
         ids = [w["id"] for w in got]
         assert "imperialist" in ids and "prophecy" in ids, ids     # missed most of the times they were read
         assert "the" not in ids, ids                               # read 10 times, missed twice: not the problem
         assert "once" not in ids and "nowhere" not in ids and "watched" not in ids, ids   # under the count bar / no sentence
-        assert ids[0] == "prophecy", ids                            # 2 of 1 reads beats 3 of 2
-        assert got[0]["miss_rate"] >= 1.0 and got[0]["read_on"] == 1
+        assert ids[0] == "imperialist", ids     # both rates clamp to 1.0, so the rarer word goes first
+        assert all(w["miss_rate"] <= 1.0 for w in got), "more flags than readings is uncounted, not terrible"
+        # a common word whose occurrences were never counted is dropped, not promoted
+        blind = {"words": {"under": {"count": 4}}, "phonemes": {}}
+        SENT = "The whole thing went under the water again. "
+        assert pick(blind, {}, [SENT], today="2026-09-13",
+                    lists=(set(), {"under": 384})) == [], "top-2000 word, 1 counted read: not trusted"
+        assert [w["id"] for w in pick(blind, {}, [SENT * 12], today="2026-09-13",
+                                      lists=(set(), {"under": 384}))] == ["under"], "counted enough: trusted"
+        assert [w["id"] for w in pick(blind, {}, [SENT], today="2026-09-13",
+                                      lists=(set(), {}))] == ["under"], "a rare word needs no such proof"
         res = {"words": {"imperialist": {"status": "retired"}}}
-        assert [w["id"] for w in pick(ledger, res, texts)] == ["prophecy"], "retired words are not served again"
+        assert [w["id"] for w in pick(ledger, res, texts, lists=LISTS)] == ["prophecy"], "retired words are not served again"
         # status rules
         mk = lambda accs, first: {"attempts": [{"at": f"{first}T07:00:00Z", "accuracy": a} for a in accs]}
         assert status_for(mk([85.0, 91.0], "2026-09-01"), today="2026-09-13") == "retired"
@@ -339,12 +488,45 @@ def selftest():
         assert score(src, out, scorer=fake, today="2026-09-16", log=lambda *a: None)[0] == 0, "void is recorded once"
         vonly = {"attempts": [{"at": "2026-08-01", "file": "x.json", "void": True}]}
         assert status_for(vonly, today="2026-09-16") == "active", "void attempts start no tutor clock"
+        # --- new words from the reading ------------------------------------------------------
+        assert tidy("spectacle , but") == "spectacle, but"
+        assert tidy("of | twentieth- century") == "of twentieth-century"
+        assert tidy("as -well.") == "as well."
+        full = "The theory that the Jews are always the scapegoat implies that anyone might have been."
+        assert usable_usage("scapegoat", "cut mid clause and then. " + full) == full
+        assert usable_usage("scapegoat", "a scapegoat sentence with no terminal stop") is None, "tail cut"
+        assert usable_usage("scapegoat", "But nothing here names it at all.") is None, "must hold the word"
+        voc = {"lookups": [
+            {"word": "Volga", "usage": "He walked to the Volga and stopped there for a while."},
+            {"word": "that", "usage": "It was that thing he had wanted for a very long time."},
+            {"word": "xy", "usage": "Too short to be xy a word at all in this sentence."},
+            {"word": "Apmsesinsy", "usage": "A word Apmsesinsy the scanner invented on this page here."},
+            {"word": "deptived", "usage": "They were deptived of every right they had ever held."},
+            {"word": "spent", "usage": "Nothing here.", "carded": True},
+            {"word": "scapegoat", "usage": "unfinished start. " + full},
+        ]}
+        got = new_words(voc, {}, lists=({"scapegoat"}, {"that": 3, "scapegoat": 9000}))
+        ids = [w["id"] for w in got]
+        assert "new-volga" not in ids, "a proper noun is a name, not vocabulary"
+        assert "new-that" not in ids, "too common to need a model"
+        assert "new-xy" not in ids and "new-spent" not in ids, "shape reject; already spent"
+        assert "new-apmsesinsy" not in ids, "capitalised OCR damage falls to the proper-noun rule"
+        assert ids[0] == "new-scapegoat" and got[0]["sentence"] == full, got
+        assert ids[-1] == "new-deptived", "unrecognised ranks last, it is not thrown away"
+        assert got[0]["source"] == "new"
+        assert new_words(voc, {"words": {"new-scapegoat": {"status": "retired"}}},
+                         lists=({"scapegoat"}, {}))[0]["id"] != "new-scapegoat"
+        vp = td / "vocab.json"; dump_json(vp, voc)
+        v2 = load_json(vp, {}); assert mark_used(vp, v2, ["scapegoat"]) == 1
+        assert [x for x in load_json(vp, {})["lookups"] if x["word"] == "scapegoat"][0]["carded"] is True
+        assert mark_used(vp, load_json(vp, {}), ["scapegoat"]) == 0, "claimed once"
         # build without rendering still writes a usable words.json (clip blanked, never a dead path)
         lp = td / "ledger.json"; lp.write_text(json.dumps(ledger))
         pd = td / "practice"; pd.mkdir()
-        ws, rendered = build(out, lp, pd, render=False, today="2026-09-13")
+        ws, rendered = build(out, lp, pd, render=False, today="2026-09-13", vocab_path=vp)
         assert rendered == 0 and json.loads((out / "words.json").read_text())["per_session"] == PER_SESSION
         assert all(w["clip"] == "" for w in ws), ws
+        assert {w["source"] for w in ws} <= {"flagged", "new"} and any(w["source"] == "new" for w in ws), ws
         # the zip is the whole coach→app payload
         (out / "clips").mkdir(exist_ok=True); (out / "clips" / "x.ogg").write_bytes(b"ogg")
         z = pack(out)

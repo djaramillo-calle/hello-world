@@ -168,6 +168,29 @@ be scored on, inside the Minimal Pairs app. The loop: read aloud → Azure flags
 words he actually misses → he says the sentence in the app → the cloud scores that recording → the word
 retires or goes to the tutor.
 
+- **Two sources, one drill** (`source` on every word; added 2026-09-15 at the user's request):
+  `flagged` — words the reads caught him mispronouncing, a motor habit to break; and `new` —
+  words he looked up while READING, which he has never said at all. His argument for the second,
+  and it is right: an Anki card he reads silently teaches the meaning and never tells him whether
+  the mouth was right, and a brand-new word has no model to correct, so hearing one and being
+  scored is the whole intervention. `source` is an additive field — the app shows both without a
+  change, so it works on the build already on the phone. **Reading lookups no longer become Anki
+  cards** (`reading-cards.py`, `LOOKUPS_GO_TO_SAYIT`): the same lookup must not cost him two daily
+  obligations, and `carded` stays the shared "already spent" flag, now set by `sayit.py`. Cards
+  queued before that date still go up as the cap allows. A `new` word that is still active after
+  `TUTOR_WEEKS` goes to `parked`, never to `tutor`: not knowing a rare word is not a motor problem
+  for a human to hear. New words already on the list SURVIVE a rebuild — the claim would otherwise
+  spend a lookup that was never served.
+- **Selection needs the frequency list** (`.cache/minimal-pairs/data/sources`, the app repo's
+  clone): `library/` is gitignored, so in a cloud container the passage text is usually missing,
+  `read_on` collapses and the miss rate becomes meaningless — on 2026-09-15 "under" scored 4 flags
+  in 1 read (rate 4.0) and seven of ten offered words were function words. So the rate is clamped
+  at 1.0, a word inside the commonest `TOO_COMMON` needs `COMMON_MIN_READS` actually-counted
+  occurrences before its rate is believed, and rarity breaks the ties. For `new` words the lists
+  are a SOFT signal only — used as a gate they threw away *conglomeration*, *erudition*,
+  *lamentation* and *conflagration* to catch four bits of OCR damage — so an unrecognised word is
+  merely ranked last. Hard rejects there: shape (non-alpha, under three letters, no vowel), a
+  capital inside the sentence (*Volga*, *Comintern* are names), and the commonest words.
 - **The unit is the word IN ITS SENTENCE, never alone.** His failures are connected-speech failures
   (unstressed syllables collapsing, final consonants dropping) and an isolated word is a different motor
   task. The sentence is one he actually read, taken from the passage the review named — never invented.

@@ -1,44 +1,8 @@
 {
  "version": 1,
- "written": "2026-09-15T09:19:07Z",
+ "written": "2026-09-15T12:08:40Z",
  "per_session": 5,
  "words": [
-  {
-   "id": "under",
-   "word": "under",
-   "sentence": "This is not to deny that the unexpected revival of imperialist policies and methods takes place under vastly changed conditions and circumstances.",
-   "clip": "clips/under.ogg",
-   "ipa": "",
-   "classes": [],
-   "flagged_on": 4,
-   "read_on": 1,
-   "miss_rate": 4.0,
-   "added": "2026-09-15"
-  },
-  {
-   "id": "impartial",
-   "word": "impartial",
-   "sentence": "This is all the more deplorable as the need for an impartial, truthful treatment of Jewish history has recently become greater than it has ever been before.",
-   "clip": "clips/impartial.ogg",
-   "ipa": "",
-   "classes": [],
-   "flagged_on": 2,
-   "read_on": 1,
-   "miss_rate": 2.0,
-   "added": "2026-09-15"
-  },
-  {
-   "id": "situation",
-   "word": "situation",
-   "sentence": "And the situation has hardly changed since.",
-   "clip": "clips/situation.ogg",
-   "ipa": "",
-   "classes": [],
-   "flagged_on": 2,
-   "read_on": 1,
-   "miss_rate": 2.0,
-   "added": "2026-09-15"
-  },
   {
    "id": "imperialist",
    "word": "imperialist",
@@ -52,83 +16,89 @@
    ],
    "flagged_on": 3,
    "read_on": 2,
-   "miss_rate": 1.5,
-   "added": "2026-09-15"
-  },
-  {
-   "id": "our",
-   "word": "our",
-   "sentence": "The subterranean stream of Western history has finally come to the surface and usurped the dignity of our tradition.",
-   "clip": "clips/our.ogg",
-   "ipa": "",
-   "classes": [],
-   "flagged_on": 3,
-   "read_on": 3,
    "miss_rate": 1.0,
-   "added": "2026-09-15"
+   "rank": 31690,
+   "added": "2026-09-15",
+   "source": "flagged"
   },
   {
-   "id": "its",
-   "word": "its",
-   "sentence": "Antisemitism reached its climax when Jews had similarly lost their public functions and their influence, and were left with nothing but their wealth.",
-   "clip": "clips/its.ogg",
-   "ipa": "",
-   "classes": [
-    "s/z"
-   ],
-   "flagged_on": 3,
-   "read_on": 4,
-   "miss_rate": 0.75,
-   "added": "2026-09-15"
-  },
-  {
-   "id": "come",
-   "word": "come",
-   "sentence": "The subterranean stream of Western history has finally come to the surface and usurped the dignity of our tradition.",
-   "clip": "clips/come.ogg",
-   "ipa": "",
-   "classes": [],
-   "flagged_on": 2,
-   "read_on": 3,
-   "miss_rate": 0.67,
-   "added": "2026-09-15"
-  },
-  {
-   "id": "all",
-   "word": "all",
+   "id": "impartial",
+   "word": "impartial",
    "sentence": "This is all the more deplorable as the need for an impartial, truthful treatment of Jewish history has recently become greater than it has ever been before.",
-   "clip": "clips/all.ogg",
-   "ipa": "",
-   "classes": [],
-   "flagged_on": 3,
-   "read_on": 5,
-   "miss_rate": 0.6,
-   "added": "2026-09-15"
-  },
-  {
-   "id": "only",
-   "word": "only",
-   "sentence": "As long as the aristocracy held vast powers of jurisdiction, they were not only tolerated but respected.",
-   "clip": "clips/only.ogg",
+   "clip": "clips/impartial.ogg",
    "ipa": "",
    "classes": [],
    "flagged_on": 2,
-   "read_on": 4,
-   "miss_rate": 0.5,
+   "read_on": 1,
+   "miss_rate": 1.0,
+   "rank": 19395,
+   "added": "2026-09-15",
+   "source": "flagged"
+  },
+  {
+   "id": "new-scapegoat",
+   "word": "scapegoat",
+   "sentence": "The theory that the Jews are always the scapegoat implies that the scapegoat might have been anyone else as well.",
+   "clip": "clips/new-scapegoat.ogg",
+   "ipa": "",
+   "classes": [],
+   "source": "new",
+   "book": "Hannah_Arendt__The_Origins_of_Totalitarianism",
    "added": "2026-09-15"
   },
   {
-   "id": "which",
-   "word": "which",
-   "sentence": "This is the reality in which we live.",
-   "clip": "clips/which.ogg",
+   "id": "new-revolting",
+   "word": "revolting",
+   "sentence": "Only wealth without power or aloofness without a policy are felt to be parasitical, useless, revolting, because such conditions cut all the threads which tie men together.",
+   "clip": "clips/new-revolting.ogg",
    "ipa": "",
-   "classes": [
-    "i/ii"
-   ],
-   "flagged_on": 2,
-   "read_on": 7,
-   "miss_rate": 0.29,
+   "classes": [],
+   "source": "new",
+   "book": "Hannah_Arendt__The_Origins_of_Totalitarianism",
+   "added": "2026-09-15"
+  },
+  {
+   "id": "new-spectacle",
+   "word": "spectacle",
+   "sentence": "Persecution of powerless or power-losing groups may not be a very pleasant spectacle, but it does not spring from human meanness alone.",
+   "clip": "clips/new-spectacle.ogg",
+   "ipa": "",
+   "classes": [],
+   "source": "new",
+   "book": "Hannah_Arendt__The_Origins_of_Totalitarianism",
+   "added": "2026-09-15"
+  },
+  {
+   "id": "new-haste",
+   "word": "haste",
+   "sentence": "It was as though Moscow repeated in great haste all the stages of the October Revolution up to the emergence of totalitarian dictatorship.",
+   "clip": "clips/new-haste.ogg",
+   "ipa": "",
+   "classes": [],
+   "source": "new",
+   "book": "Hannah_Arendt__The_Origins_of_Totalitarianism",
+   "added": "2026-09-15"
+  },
+  {
+   "id": "new-ambitious",
+   "word": "ambitious",
+   "sentence": "Less well known but perhaps even more convincing is that Khrushchev’s own and most ambitious attempt at reversing the process of detotalitarization turned into a complete failure.",
+   "clip": "clips/new-ambitious.ogg",
+   "ipa": "",
+   "classes": [],
+   "source": "new",
+   "book": "Hannah_Arendt__The_Origins_of_Totalitarianism",
+   "added": "2026-09-15"
+  },
+  {
+   "id": "new-stave",
+   "word": "stave",
+   "sentence": "Soviets could afford sending enough aid to the defeated country to prevent mass starvation and to stave off a complete collapse of the economy in the year following the revolution.",
+   "clip": "clips/new-stave.ogg",
+   "ipa": "",
+   "classes": [],
+   "source": "new",
+   "book": "Hannah_Arendt__The_Origins_of_Totalitarianism",
    "added": "2026-09-15"
   }
  ]

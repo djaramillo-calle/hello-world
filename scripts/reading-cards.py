@@ -63,7 +63,17 @@ def build(vocab, max_cards=5):
 def backlog(pr, queue_path=None):
     return sum(1 for r in pr.load_queue(queue_path or pr.QUEUE) if r.get("status") == "queued")
 
-def run(vocab_path=VOCAB, queue_path=None, max_cards=5, now=None, backlog_cap=BACKLOG):
+# Say-it took the reading lookups over on 2026-09-15, at the user's decision. A new word is one he
+# has never SAID, and a card he reads silently teaches the meaning while telling him nothing about
+# the mouth; the drill plays a model and scores the attempt. Carding them here as well would double
+# a daily load against an Anki cap that is already full and a deck with no reviews in sixty days.
+# Nothing is deleted: the cards queued before that date still go up as room opens, and `carded` is
+# still the shared flag, now set by sayit.py instead.
+LOOKUPS_GO_TO_SAYIT = True
+
+def run(vocab_path=VOCAB, queue_path=None, max_cards=5, now=None, backlog_cap=BACKLOG,
+        lookups_to_sayit=LOOKUPS_GO_TO_SAYIT):
+    if lookups_to_sayit: return 0, 0
     pr = _pr()
     waiting = backlog(pr, queue_path)
     if backlog_cap and waiting >= backlog_cap: return 0, 0
@@ -91,9 +101,10 @@ def selftest():
     assert [u["word"] for u in used] == ["grandeur", "spurious"], [u["word"] for u in used]   # newest first, carded skipped
     with tempfile.TemporaryDirectory() as td:
         td = pathlib.Path(td); vp = td / "vocab.json"; vp.write_text(json.dumps(vocab)); q = td / "queue.tsv"
-        assert run(vp, q, 1, now="2026-09-10T12:00:00Z") == (1, 1)
-        assert run(vp, q, 5, now="2026-09-10T12:00:00Z") == (1, 1), "second run takes the remaining one only"
-        assert run(vp, q, 5) == (0, 0)
+        assert run(vp, q, 1, now="2026-09-10T12:00:00Z", lookups_to_sayit=False) == (1, 1)
+        assert run(vp, q, 5, now="2026-09-10T12:00:00Z", lookups_to_sayit=False) == (1, 1), "second run takes the remaining one only"
+        assert run(vp, q, 5, lookups_to_sayit=False) == (0, 0)
+        assert run(vp, q, 5, lookups_to_sayit=True) == (0, 0), "handed to Say it: this script cards no lookups"
         v2 = json.loads(vp.read_text()); assert all(x["carded"] for x in v2["lookups"])
         rows = [l for l in q.read_text().splitlines() if l and not l.startswith("#")]
         assert len(rows) == 3 and rows[1].split("\t")[3] == "lookup" and rows[1].split("\t")[7] == "queued", rows
@@ -103,8 +114,8 @@ def selftest():
         # distinct sentences: identical fronts would collapse under the queue's dedupe and hide the brake
         many = {"lookups": [{"word": f"wording{i}", "usage": f"the {i} quiet morning after a long wording{i} of the night", "ts": i} for i in range(9)]}
         vp.write_text(json.dumps(many))
-        assert run(vp, q, 5, now="2026-09-10T12:00:00Z", backlog_cap=3) == (3, 3), "fills only the room left"
-        assert run(vp, q, 5, now="2026-09-10T12:00:00Z", backlog_cap=3) == (0, 0), "at the cap: nothing"
+        assert run(vp, q, 5, now="2026-09-10T12:00:00Z", backlog_cap=3, lookups_to_sayit=False) == (3, 3), "fills only the room left"
+        assert run(vp, q, 5, now="2026-09-10T12:00:00Z", backlog_cap=3, lookups_to_sayit=False) == (0, 0), "at the cap: nothing"
         assert sum(1 for x in json.loads(vp.read_text())["lookups"] if x.get("carded")) == 3, "un-picked lookups stay available"
     print("reading-cards.py selftest: OK")
 
@@ -114,6 +125,8 @@ def main():
     added, used = run(max_cards=n)
     waiting = backlog(_pr())
     if used: print(f"reading-cards: {added} queued from {used} lookups ({waiting} waiting)")
+    elif LOOKUPS_GO_TO_SAYIT:
+        print(f"reading-cards: new lookups go to Say it since 2026-09-15 — none carded ({waiting} queued earlier still waiting)")
     elif waiting >= BACKLOG: print(f"reading-cards: {waiting} cards already waiting (cap {BACKLOG}) — no new lookups carded")
     else: print("reading-cards: nothing new to card")
     return 0
