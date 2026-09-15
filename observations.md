@@ -217,3 +217,51 @@ pronunciation of "under" — he has not been measured on it yet.
 **Data state**: 37 cards queued, 25 live on AnkiWeb, **0 reviews in 60
 days** — unchanged and still the week's real gap. No chat English to harvest
 today (the session was all tooling).
+
+---
+
+## 2026-09-15 — daily review
+
+**The SRS gap closed.** 36 reviews, 1,009 seconds (~17 minutes), on 2026-09-15.
+The deck had had **0 reviews in 60 days** every day since it was set up; 20 of
+the 25 cards moved from `new` to `young`. This is the first day the card half of
+the system did anything at all. Nothing else in the week matters as much.
+
+**First real Say-it session — five attempts, every one 98–99.** Suspicious on
+its face: these are the words Azure flagged as WRONG in his reads. Checked
+rather than assumed — the attempt durations are 12.2s/22 words, 12.4s/27,
+5.1s/7, 12.2s/22, 10.4s/19, i.e. 82–131 wpm of real connected speech, and
+`clip_played: 1` on all five. The scores are genuine.
+
+| word | accuracy | fluency | completeness |
+|------|----------|---------|--------------|
+| under | 99 | 95 | 100 |
+| impartial | 99 | 96 | 100 |
+| situation | 99 | 97 | 100 |
+| imperialist | 99 | 95 | 100 |
+| our | 98 | 97 | 100 |
+
+**What that actually means, and it is the useful finding:** he can say every one
+of these correctly when he has just heard a model and is saying one sentence
+with full attention. The reads that flagged the same words are 15 to 84 minutes
+of continuous Arendt. So the failure is not the motor capability — it is
+connected speech under load. Same shape as the fluency-vs-length finding
+yesterday (81.8 → 70.7 as reads got longer, recovering to 82.7 at 15 minutes).
+Two independent signals now point at endurance rather than articulation.
+
+**Defect this exposed, fixed today:** a word retired from Say-it was retired for
+ever, so all five would have left the drill at the next attempt while still
+being flagged in every read — the loop declaring victory on evidence that does
+not support it. A retired word now returns when a LATER read flags it again.
+
+**Minimal Pairs:** third session. Untrained accuracy s/z 40% (was 44%), cat/cut
+50%, sh/ch 50%, th 100%, schwa 100%. 3 cards queued from repeated misses.
+s/z is now under 80% for two consecutive weeks — the Friday review's rule says
+more weight, and `plan-from-ledger` has it at 1.0 already.
+
+**Reading:** 196 lookups, 72.4 minutes over 2 days this week, 7% ≈ B105.
+No recording today (the 09:47 read was yesterday's cycle).
+
+**Data state**: 49 cards queued, 25 live, and the 7-day window is still full, so
+nothing new could go up — but the deck is being reviewed now, which is what the
+queue was waiting for.

@@ -114,6 +114,13 @@ def _load(name):
     spec = importlib.util.spec_from_file_location(name.replace("-", "_"), REPO / "scripts" / f"{name}.py")
     m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m); return m
 
+def flagged_since(rec, last_flagged):
+    """Whether the ledger has flagged this word again SINCE its last attempt — the one thing that
+    brings a retired word back."""
+    if not last_flagged: return False
+    last_try = max((a["at"][:10] for a in rec.get("attempts") or []), default=None)
+    return bool(last_try) and last_flagged[:10] > last_try
+
 def pick(ledger, results, texts, max_active=MAX_ACTIVE, min_flagged=MIN_FLAGGED, min_rate=MIN_RATE,
          today=None, lists=None):
     """Words he actually gets wrong, worst rate first, each with a sentence he has read.
@@ -124,8 +131,15 @@ def pick(ledger, results, texts, max_active=MAX_ACTIVE, min_flagged=MIN_FLAGGED,
     for w, W in (ledger.get("words") or {}).items():
         n = W.get("count", 0)
         if n < min_flagged: continue
-        st = ((results.get("words") or {}).get(w) or {}).get("status")
-        if st in ("retired", "tutor"): continue
+        rec = (results.get("words") or {}).get(w) or {}
+        # A retired word comes BACK when a later read flags it again (2026-09-15). On his first real
+        # Say-it session every word scored 98-99 — genuine, the durations are 82-131 wpm of real
+        # speech — because he had just heard the model and was saying one sentence with full
+        # attention. The reads that flagged those same words are 15 to 84 minutes of continuous
+        # Arendt. So a high Say-it score does not mean the word is fixed; it means it is fixable
+        # when attended to, and the failure lives in connected speech under load. Retiring for ever
+        # on that evidence would hollow the drill out with false victories.
+        if rec.get("status") in ("retired", "tutor") and not flagged_since(rec, W.get("last")): continue
         seen = occurrences(w, texts)
         rate = min(n / seen, 1.0) if seen else 1.0   # >1 would mean more flags than readings: uncounted
         if rate < min_rate: continue             # a word read 200 times and missed 3 is not the problem
@@ -438,8 +452,15 @@ def selftest():
                                       lists=(set(), {"under": 384}))] == ["under"], "counted enough: trusted"
         assert [w["id"] for w in pick(blind, {}, [SENT], today="2026-09-13",
                                       lists=(set(), {}))] == ["under"], "a rare word needs no such proof"
-        res = {"words": {"imperialist": {"status": "retired"}}}
+        res = {"words": {"imperialist": {"status": "retired",
+                                         "attempts": [{"at": "2026-09-20T07:00:00Z", "accuracy": 99.0}]}}}
         assert [w["id"] for w in pick(ledger, res, texts, lists=LISTS)] == ["prophecy"], "retired words are not served again"
+        # ...unless a later read flags it again: saying one sentence well is not the same as saying
+        # it well inside eighty minutes of Arendt
+        assert not flagged_since(res["words"]["imperialist"], "2026-09-19")
+        assert flagged_since(res["words"]["imperialist"], "2026-09-21")
+        back = dict(ledger, words=dict(ledger["words"], imperialist={"count": 3, "last": "2026-09-21"}))
+        assert "imperialist" in [w["id"] for w in pick(back, res, texts, lists=LISTS)], "flagged again: back"
         # status rules
         mk = lambda accs, first: {"attempts": [{"at": f"{first}T07:00:00Z", "accuracy": a} for a in accs]}
         assert status_for(mk([85.0, 91.0], "2026-09-01"), today="2026-09-13") == "retired"
