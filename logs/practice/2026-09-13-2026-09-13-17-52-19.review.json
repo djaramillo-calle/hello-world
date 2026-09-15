@@ -1,0 +1,296 @@
+{
+ "id": "2026-09-13-2026-09-13-17-52-19",
+ "source": "2026_09_13_17_52_19.mp3",
+ "recorded": "2026-09-13 17:22",
+ "kind": "read",
+ "passage": "B029",
+ "anchor": false,
+ "reviewed": "2026-09-13T17:51:14Z",
+ "fluency": {
+  "duration_s": 1658.0,
+  "wpm": 97.7,
+  "words": 2700,
+  "filler_pct": 0.0,
+  "speech_rate_syll_s": 3.0,
+  "articulation_rate_syll_s": 3.96,
+  "avg_syllable_s": 0.252,
+  "f0_median_hz": 141.4,
+  "f0_range_semitones": 7.8,
+  "pause_count": 481,
+  "phonation_ratio": 0.76,
+  "mean_pause_s": 0.84
+ },
+ "pronunciation": {
+  "source": "azure",
+  "scripted": true,
+  "scores": {
+   "accuracy": 82.1,
+   "fluency": 74.6,
+   "completeness": 81.8,
+   "pron": 76.9,
+   "prosody_us_ref": 62.1
+  },
+  "flagged": [
+   {
+    "word": "prophecy",
+    "accuracy": 5.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "power",
+    "accuracy": 45.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "imperialist",
+    "accuracy": 45.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "only",
+    "accuracy": 35.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "the",
+    "accuracy": 57.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "his",
+    "accuracy": 59.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "imperialist",
+    "accuracy": 5.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "agent",
+    "accuracy": 45.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "overseas",
+    "accuracy": 17.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "inherent",
+    "accuracy": 12.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "imperialist",
+    "accuracy": 12.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "from",
+    "accuracy": 30.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "our",
+    "accuracy": 1.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "continental",
+    "accuracy": 44.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "said",
+    "accuracy": 0.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "eastern",
+    "accuracy": 4.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "which",
+    "accuracy": 29.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "central",
+    "accuracy": 0.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "this",
+    "accuracy": 9.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "expansion",
+    "accuracy": 44.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "under",
+    "accuracy": 51.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "nuclear",
+    "accuracy": 42.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "inherent",
+    "accuracy": 57.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "was",
+    "accuracy": 44.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "power",
+    "accuracy": 45.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "russia",
+    "accuracy": 49.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "secret",
+    "accuracy": 0.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "under",
+    "accuracy": 1.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "shifted",
+    "accuracy": 40.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "nation-state",
+    "accuracy": 2.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "power",
+    "accuracy": 45.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "under",
+    "accuracy": 6.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "come",
+    "accuracy": 35.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "which",
+    "accuracy": 58.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "deny",
+    "accuracy": 1.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "every",
+    "accuracy": 3.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "takes",
+    "accuracy": 4.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "his",
+    "accuracy": 51.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "under",
+    "accuracy": 13.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "has",
+    "accuracy": 30.0,
+    "error": "Mispronunciation"
+   }
+  ],
+  "classes": {
+   "-ed": {
+    "n": 3,
+    "words": [
+     "shifted",
+     "finished"
+    ]
+   },
+   "h": {
+    "n": 1,
+    "words": [
+     "has"
+    ]
+   },
+   "s/z": {
+    "n": 6,
+    "words": [
+     "prophecy",
+     "imperialist",
+     "policies",
+     "this",
+     "said"
+    ]
+   },
+   "i/ii": {
+    "n": 9,
+    "words": [
+     "imperialist",
+     "did",
+     "his",
+     "be",
+     "which",
+     "finished"
+    ]
+   },
+   "th": {
+    "n": 1,
+    "words": [
+     "the"
+    ]
+   },
+   "schwa": {
+    "n": 3,
+    "words": [
+     "imperialist",
+     "and",
+     "from"
+    ]
+   },
+   "b/v": {
+    "n": 1,
+    "words": [
+     "overseas"
+    ]
+   }
+  }
+ },
+ "harvest": null,
+ "cards_added": 6,
+ "flags": [],
+ "passage_overlap": 0.98
+}

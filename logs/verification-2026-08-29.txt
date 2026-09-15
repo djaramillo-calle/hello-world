@@ -1,0 +1,32 @@
+English Signal Check — verification run
+date: 2026-08-29T16:57:01Z
+node: v22.22.2
+commit: 07d9b20 (pre-commit working tree)
+
+=== FREQUENCY LIST ===
+  unique words: 1546   label used in UI: ~1500
+  duplicates remaining: 0
+    'the' in core list: true
+    'people' in core list: true
+    'because' in core list: true
+    'quagmire' in core list: false
+    'obdurate' in core list: false
+    'meander' in core list: false
+
+=== VOCAB VALIDITY GATE ===
+  h=1.00 f=0.00 -> ~8000 families   (knows everything, disciplined)
+  h=1.00 f=0.90 -> VOID   (marks yes on almost everything)
+  h=0.75 f=0.10 -> ~5800 families   (realistic strong learner)
+  h=0.60 f=0.31 -> VOID   (just over the gate)
+  h=0.60 f=0.29 -> ~3500 families   (just under the gate)
+
+=== C-TEST STILL 20 GAPS EACH ===
+  passage 1: 20 ok
+  passage 2: 20 ok
+  passage 3: 20 ok
+  passage 4: 20 ok
+
+=== BEYOND-CORE RATIO ON A SAMPLE TRANSCRIPT ===
+  words: 34  beyond core: 9 (26%)
+  reached: rewrite, authentication, layer, previous, implementation, fundamentally, incompatible, infrastructure, anticipated
+  MTLD: 46.2

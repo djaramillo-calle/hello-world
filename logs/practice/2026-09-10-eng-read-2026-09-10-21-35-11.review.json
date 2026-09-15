@@ -1,0 +1,298 @@
+{
+ "id": "2026-09-10-eng-read-2026-09-10-21-35-11",
+ "source": "eng read - 2026_09_10_21_35_11.mp3",
+ "recorded": "2026-09-10 20:49",
+ "kind": "read",
+ "passage": "B006",
+ "anchor": false,
+ "reviewed": "2026-09-10T21:01:10Z",
+ "fluency": {
+  "duration_s": 569.3,
+  "wpm": 75.8,
+  "words": 719,
+  "filler_pct": 0.0,
+  "speech_rate_syll_s": 2.38,
+  "articulation_rate_syll_s": 3.83,
+  "avg_syllable_s": 0.261,
+  "f0_median_hz": 125.0,
+  "f0_range_semitones": 6.0,
+  "pause_count": 181,
+  "phonation_ratio": 0.62,
+  "mean_pause_s": 1.19
+ },
+ "pronunciation": {
+  "source": "azure",
+  "scripted": true,
+  "scores": {
+   "accuracy": 83.1,
+   "fluency": 81.8,
+   "completeness": 82.9,
+   "pron": 80.4,
+   "prosody_us_ref": 62.9
+  },
+  "flagged": [
+   {
+    "word": "past",
+    "accuracy": 38.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "discard",
+    "accuracy": 10.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "are",
+    "accuracy": 52.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "all",
+    "accuracy": 41.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "our",
+    "accuracy": 52.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "simply",
+    "accuracy": 53.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "call",
+    "accuracy": 54.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "one",
+    "accuracy": 8.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "afford",
+    "accuracy": 27.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "all",
+    "accuracy": 42.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "think",
+    "accuracy": 43.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "simply",
+    "accuracy": 54.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "new",
+    "accuracy": 39.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "comprehend",
+    "accuracy": 46.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "usurped",
+    "accuracy": 28.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "power",
+    "accuracy": 45.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "past",
+    "accuracy": 19.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "merely",
+    "accuracy": 8.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "call",
+    "accuracy": 50.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "our",
+    "accuracy": 36.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "political",
+    "accuracy": 1.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "come",
+    "accuracy": 50.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "can",
+    "accuracy": 54.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "power",
+    "accuracy": 45.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "reality",
+    "accuracy": 2.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "earth",
+    "accuracy": 38.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "comprehend",
+    "accuracy": 9.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "dead",
+    "accuracy": 56.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "present",
+    "accuracy": 13.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "comprehend",
+    "accuracy": 46.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "merely",
+    "accuracy": 0.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "surface",
+    "accuracy": 1.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "of",
+    "accuracy": 39.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "rooted",
+    "accuracy": 2.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "can",
+    "accuracy": 44.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "bury",
+    "accuracy": 46.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "simply",
+    "accuracy": 58.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "past",
+    "accuracy": 46.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "must",
+    "accuracy": 37.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "needs",
+    "accuracy": 1.0,
+    "error": "Mispronunciation"
+   }
+  ],
+  "classes": {
+   "b/v": {
+    "n": 2,
+    "words": [
+     "bury",
+     "of"
+    ]
+   },
+   "s/z": {
+    "n": 4,
+    "words": [
+     "surface",
+     "this",
+     "principle",
+     "usurped"
+    ]
+   },
+   "th": {
+    "n": 2,
+    "words": [
+     "earth",
+     "this"
+    ]
+   },
+   "schwa": {
+    "n": 9,
+    "words": [
+     "tradition",
+     "as",
+     "of",
+     "political",
+     "a",
+     "principle",
+     "and"
+    ]
+   },
+   "i/ii": {
+    "n": 13,
+    "words": [
+     "rooted",
+     "in",
+     "tradition",
+     "hatred",
+     "we",
+     "political",
+     "into",
+     "will",
+     "simply",
+     "dignity"
+    ]
+   },
+   "-ed": {
+    "n": 1,
+    "words": [
+     "rooted"
+    ]
+   }
+  }
+ },
+ "harvest": null,
+ "cards_added": 9,
+ "flags": [],
+ "passage_overlap": 0.98
+}

@@ -1,0 +1,38 @@
+{
+ "2026-09-10": {
+  "min": 9.2,
+  "pages": 8,
+  "books": [
+   "KOReader Quickstart Guide",
+   "Hannah_Arendt__The_Origins_of_Totalitarianism"
+  ]
+ },
+ "2026-09-12": {
+  "min": 23.3,
+  "pages": 13,
+  "books": [
+   "Hannah_Arendt__The_Origins_of_Totalitarianism"
+  ]
+ },
+ "2026-09-13": {
+  "min": 19.3,
+  "pages": 11,
+  "books": [
+   "Hannah_Arendt__The_Origins_of_Totalitarianism"
+  ]
+ },
+ "2026-09-14": {
+  "min": 60.0,
+  "pages": 36,
+  "books": [
+   "Hannah_Arendt__The_Origins_of_Totalitarianism"
+  ]
+ },
+ "2026-09-15": {
+  "min": 12.4,
+  "pages": 11,
+  "books": [
+   "Hannah_Arendt__The_Origins_of_Totalitarianism"
+  ]
+ }
+}

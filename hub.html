@@ -1,0 +1,994 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>English Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;500;600&family=Public+Sans:wght@400;600&display=swap">
+
+<style>
+  /* Tokens — the English Runbook / Season Board system. */
+  :root {
+    --ground: #F1F2EF; --panel: #FBFBF9; --panel-2: #E7E9E4;
+    --ink: #16191A; --ink-soft: #57605C; --ink-faint: #6C7570;
+    --rule: #D6DAD3; --rule-soft: #E4E7E1;
+    --go: #0E6B4A; --go-wash: #DDEAE3;
+    --talk: #8A3B5E; --talk-wash: #F1E1E8;
+    --dial: #8A6210; --dial-wash: #F0E7D2;
+    --series: #2a78d6; --series-wash: rgba(42,120,214,0.12);
+    --bad: #A33A2A; --bad-wash: #F3E1DD;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #141715; --panel: #1B201D; --panel-2: #232925;
+      --ink: #E4E8E4; --ink-soft: #9AA49E; --ink-faint: #7B857F;
+      --rule: #2C332E; --rule-soft: #232A25;
+      --go: #5BC095; --go-wash: #163026;
+      --talk: #E087AC; --talk-wash: #362028;
+      --dial: #D3A445; --dial-wash: #322916;
+      --series: #3987e5; --series-wash: rgba(57,135,229,0.18);
+      --bad: #E58A78; --bad-wash: #3A2320;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #141715; --panel: #1B201D; --panel-2: #232925;
+    --ink: #E4E8E4; --ink-soft: #9AA49E; --ink-faint: #7B857F;
+    --rule: #2C332E; --rule-soft: #232A25;
+    --go: #5BC095; --go-wash: #163026;
+    --talk: #E087AC; --talk-wash: #362028;
+    --dial: #D3A445; --dial-wash: #322916;
+    --series: #3987e5; --series-wash: rgba(57,135,229,0.18);
+    --bad: #E58A78; --bad-wash: #3A2320;
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--ground); color: var(--ink);
+    font-family: "Public Sans", "Helvetica Neue", Arial, sans-serif;
+    font-size: 15.5px; line-height: 1.5; -webkit-font-smoothing: antialiased;
+  }
+  .mono { font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; }
+  .shell { max-width: 680px; margin: 0 auto; padding: 0 16px 92px; }
+
+  header {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
+    border-bottom: 2px solid var(--ink); padding: 22px 0 10px; margin-bottom: 14px;
+  }
+  h1 {
+    font-family: "Bricolage Grotesque", "Helvetica Neue", sans-serif;
+    font-weight: 800; font-size: clamp(1.5rem, 5vw, 1.9rem); letter-spacing: -0.025em; margin: 0; line-height: 1;
+  }
+  .metaline {
+    font-family: "IBM Plex Mono", monospace; font-size: 0.64rem; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--ink-faint); text-align: right;
+  }
+  h2 {
+    font-family: "Bricolage Grotesque", sans-serif; font-weight: 700; font-size: 1.05rem;
+    letter-spacing: -0.01em; margin: 22px 0 8px; text-wrap: balance;
+  }
+  h3 {
+    font-family: "IBM Plex Mono", monospace; font-size: 0.66rem; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); margin: 0 0 8px;
+  }
+  p { margin: 0 0 10px; }
+  .soft { color: var(--ink-soft); }
+  .faint { color: var(--ink-faint); }
+  .small { font-size: 0.84rem; }
+  a { color: var(--go); text-underline-offset: 2px; }
+
+  /* tabs */
+  nav.tabs {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 5;
+    background: var(--panel); border-top: 1px solid var(--rule);
+    display: flex; justify-content: center; padding: 6px max(8px, env(safe-area-inset-left)) max(8px, env(safe-area-inset-bottom));
+  }
+  nav.tabs button {
+    flex: 1 1 0; max-width: 170px; border: 0; background: transparent; color: var(--ink-soft);
+    font-family: "IBM Plex Mono", monospace; font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 10px 4px; cursor: pointer; border-radius: 3px;
+  }
+  nav.tabs button[aria-selected="true"] { color: var(--go); background: var(--go-wash); font-weight: 600; }
+  nav.tabs button:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px solid var(--go); outline-offset: 2px; }
+  section[role="tabpanel"] { display: none; }
+  section[role="tabpanel"].on { display: block; }
+
+  /* surfaces */
+  .panel { background: var(--panel); border: 1px solid var(--rule); border-radius: 3px; padding: 14px; }
+  .stack { display: grid; gap: 12px; }
+  .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .strip {
+    display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center;
+    background: var(--go-wash); border-left: 3px solid var(--go); padding: 10px 12px; font-size: 0.86rem;
+  }
+  .strip.pre { background: var(--dial-wash); border-color: var(--dial); }
+  .strip b { font-family: "IBM Plex Mono", monospace; font-size: 0.78rem; }
+
+  /* tiles */
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 8px; }
+  .tile { background: var(--panel); border: 1px solid var(--rule); border-radius: 3px; padding: 10px 12px; }
+  .tile .k { font-family: "IBM Plex Mono", monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); }
+  .tile .v { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; font-size: 1.6rem; line-height: 1.1; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+  .tile .v small { font-family: "IBM Plex Mono", monospace; font-weight: 400; font-size: 0.72rem; color: var(--ink-faint); letter-spacing: 0; }
+  .tile.ok { border-left: 3px solid var(--go); }
+  .tile.short { border-left: 3px solid var(--dial); }
+  .tile .s { font-family: "IBM Plex Mono", monospace; font-size: 0.64rem; color: var(--ink-faint); margin-top: 2px; }
+
+  /* prescription */
+  .slots { display: grid; gap: 0; border-top: 1px solid var(--rule); }
+  .slot { display: grid; grid-template-columns: 64px 1fr auto; gap: 10px; padding: 9px 0; border-bottom: 1px solid var(--rule-soft); align-items: baseline; font-size: 0.9rem; }
+  .slot .t { font-family: "IBM Plex Mono", monospace; font-size: 0.74rem; font-weight: 600; }
+  .slot .m { font-family: "IBM Plex Mono", monospace; font-size: 0.7rem; color: var(--ink-faint); white-space: nowrap; }
+  .slot .talkc { color: var(--talk); font-weight: 600; }
+  .slot .dialc { background: var(--dial-wash); padding: 1px 4px; border-radius: 2px; }
+
+  /* buttons */
+  button.btn {
+    font-family: "IBM Plex Mono", monospace; font-size: 0.74rem; letter-spacing: 0.04em;
+    padding: 9px 14px; border: 1px solid var(--rule); background: var(--panel); color: var(--ink);
+    border-radius: 3px; cursor: pointer;
+  }
+  button.btn.primary { background: var(--go); color: #fff; border-color: var(--go); font-weight: 600; }
+  :root[data-theme="dark"] button.btn.primary, :root:not([data-theme="light"]) button.btn.primary { color: var(--ground); }
+  @media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) button.btn.primary { color: #fff; } }
+  :root[data-theme="light"] button.btn.primary { color: #fff; }
+  button.btn.talk { background: var(--talk); border-color: var(--talk); color: #fff; font-weight: 600; }
+  button.btn.ghost { background: transparent; color: var(--ink-soft); }
+  button.btn:disabled { opacity: 0.5; cursor: default; }
+  button.btn.big { font-size: 0.86rem; padding: 14px 18px; width: 100%; }
+
+  /* log controls */
+  .field { display: grid; gap: 6px; }
+  .field label { font-family: "IBM Plex Mono", monospace; font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip {
+    font-family: "IBM Plex Mono", monospace; font-size: 0.74rem; padding: 7px 11px;
+    border: 1px solid var(--rule); border-radius: 999px; background: var(--panel); color: var(--ink); cursor: pointer;
+  }
+  .chip[aria-pressed="true"] { background: var(--go-wash); border-color: var(--go); color: var(--go); font-weight: 600; }
+  input[type="text"], input[type="date"], input[type="number"], textarea, select {
+    font: inherit; font-size: 0.9rem; padding: 8px 10px; border: 1px solid var(--rule); border-radius: 3px;
+    background: var(--panel); color: var(--ink); width: 100%;
+  }
+  textarea { min-height: 76px; resize: vertical; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  @media (max-width: 460px) { .grid2 { grid-template-columns: 1fr; } }
+
+  /* read */
+  .passage { font-size: 1.12rem; line-height: 1.8; margin: 0; }
+  .slot .readc { color: var(--go); font-weight: 600; }
+
+  /* talk */
+  .transcript { display: grid; gap: 8px; max-height: 46vh; overflow-y: auto; padding: 2px; }
+  .turn { padding: 8px 11px; border-radius: 3px; font-size: 0.92rem; max-width: 92%; }
+  .turn.u { background: var(--talk-wash); justify-self: end; border-right: 3px solid var(--talk); }
+  .turn.a { background: var(--panel-2); justify-self: start; }
+  .turn.i { background: transparent; color: var(--ink-faint); font-style: italic; justify-self: end; }
+  .turn .meta { font-family: "IBM Plex Mono", monospace; font-size: 0.62rem; color: var(--ink-faint); margin-top: 3px; }
+  .status { font-family: "IBM Plex Mono", monospace; font-size: 0.72rem; color: var(--ink-soft); min-height: 1.3em; }
+  .status.live { color: var(--talk); }
+  .pulse { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--talk); margin-right: 6px; vertical-align: middle; animation: pulse 1.1s infinite; }
+  @keyframes pulse { 0%,100% { opacity: 0.35; } 50% { opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) { .pulse { animation: none; } }
+  .harvest li { margin-bottom: 6px; }
+  .harvest code { font-family: "IBM Plex Mono", monospace; font-size: 0.82em; background: var(--panel-2); padding: 1px 4px; border-radius: 2px; }
+
+  /* week grid + chart */
+  table.load { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+  table.load th { font-family: "IBM Plex Mono", monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); text-align: left; padding: 6px 6px 6px 0; border-bottom: 1px solid var(--rule); }
+  table.load td { padding: 6px 6px 6px 0; border-bottom: 1px solid var(--rule-soft); font-family: "IBM Plex Mono", monospace; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  table.load td.day { color: var(--ink-soft); }
+  .dot { display: inline-block; width: 9px; height: 9px; border-radius: 2px; background: var(--rule); vertical-align: middle; }
+  .dot.y { background: var(--go); }
+  .scroller { overflow-x: auto; }
+  .chart svg { width: 100%; height: auto; display: block; }
+  .chart text { font-family: "IBM Plex Mono", monospace; font-size: 10px; fill: var(--ink-faint); }
+  .chart .bar { fill: var(--series); }
+  .chart .grid { stroke: var(--rule-soft); }
+  .chart .end { fill: var(--ink); font-weight: 600; }
+  .sessions { display: grid; gap: 8px; }
+  .sess { display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; padding: 10px 12px; background: var(--panel); border: 1px solid var(--rule); border-radius: 3px; font-size: 0.86rem; }
+  .sess .when { font-family: "IBM Plex Mono", monospace; font-size: 0.7rem; color: var(--ink-soft); }
+  .sess .nums { font-family: "IBM Plex Mono", monospace; font-size: 0.72rem; color: var(--ink-faint); grid-column: 1 / -1; }
+  details { border-top: 1px solid var(--rule); padding: 8px 0; }
+  summary { cursor: pointer; font-family: "IBM Plex Mono", monospace; font-size: 0.74rem; color: var(--ink-soft); }
+  .warn { background: var(--dial-wash); border-left: 3px solid var(--dial); padding: 8px 12px; font-size: 0.84rem; }
+  .err { background: var(--bad-wash); border-left: 3px solid var(--bad); padding: 8px 12px; font-size: 0.84rem; }
+  footer { border-top: 2px solid var(--ink); margin-top: 30px; padding-top: 10px; font-family: "IBM Plex Mono", monospace; font-size: 0.64rem; line-height: 1.7; color: var(--ink-faint); }
+</style>
+</head>
+<body>
+<div class="shell">
+
+<header>
+  <h1>English Hub</h1>
+  <div class="metaline" id="hdr-meta">connecting&hellip;</div>
+</header>
+
+<div id="offline" class="warn" hidden>This page stores nothing outside the Claude viewer. Open it from the artifact link so sessions and check-ins are saved.</div>
+
+<!-- ============ TODAY ============ -->
+<section id="tab-today" role="tabpanel" class="on">
+  <div class="strip pre" id="season-strip"><b>PRE-SEASON</b><span>No baseline yet. The season clock starts the Monday after the first Signal Check row.</span></div>
+
+  <h2 id="today-title">Today</h2>
+  <div class="slots" id="today-slots"></div>
+
+  <h2>This week vs floors</h2>
+  <div class="tiles" id="week-tiles"></div>
+  <p class="small faint" style="margin-top:6px">Load, not ability. Conversations count from Talk sessions and check-ins; SRS days come from the Anki export in git when the nightly sync runs, otherwise from your check-in.</p>
+
+  <h2>Yesterday</h2>
+  <div class="panel small" id="yesterday">Nothing logged.</div>
+
+  <h2>Coach readout</h2>
+  <div class="panel stack">
+    <p class="small soft" style="margin:0">The morning check. Reads this week's load, the last sessions' numbers and the dial, and answers in four lines. Formative only.</p>
+    <div class="row"><button class="btn primary" id="readout-btn">Read out this morning</button><span class="status" id="readout-status"></span></div>
+    <div id="readout" class="small" hidden></div>
+  </div>
+</section>
+
+<!-- ============ TALK ============ -->
+<section id="tab-talk" role="tabpanel">
+  <div class="panel stack" id="talk-setup">
+    <div class="grid2">
+      <div class="field"><label for="topic">This week's topic</label><input type="text" id="topic" placeholder="e.g. how my team plans a release"></div>
+      <div class="field"><label for="dial">Dial</label>
+        <select id="dial"><option>DEFAULT</option><option>DECODE</option><option>AUTOMATIZE</option><option>RANGE</option><option>USE</option></select></div>
+      <div class="field"><label for="stage">Stage</label>
+        <select id="stage"><option value="1">1 · SRS + one recorded page</option><option value="2">2 · + AI conversation, listening</option><option value="3">3 · full runbook</option></select></div>
+    </div>
+    <div class="field"><label for="crutch">Crutch words to ban (RANGE dial)</label><input type="text" id="crutch" placeholder="comma-separated, e.g. very, thing, good"></div>
+    <p class="small soft" style="margin:0">The standing brief is applied automatically: no reformulations, "sorry, what do you mean?" on breakdowns, three repeated errors every ten turns, pushback on opinions. Replies are kept short so they can be spoken.</p>
+    <button class="btn talk big" id="start-btn">Start a 20-minute AI conversation</button>
+    <div id="talk-unavailable" class="warn" hidden>Talking needs the Claude viewer and a browser with speech recognition (Chrome on Android or desktop). You can still type turns below.</div>
+  </div>
+
+  <div class="stack" id="talk-live" hidden>
+    <div class="row" style="justify-content:space-between">
+      <span class="mono small" id="talk-clock">00:00</span>
+      <span class="status" id="talk-status"></span>
+      <button class="btn ghost" id="end-btn">End &amp; harvest</button>
+    </div>
+    <div class="transcript" id="transcript"></div>
+    <div class="row">
+      <button class="btn talk" id="mic-btn">Hold to speak</button>
+      <button class="btn" id="handsfree-btn" aria-pressed="false">Hands-free: off</button>
+      <button class="btn ghost" id="repeat-btn">Repeat</button>
+    </div>
+    <div class="row">
+      <input type="text" id="typed" placeholder="or type a turn" style="flex:1 1 200px">
+      <button class="btn" id="send-btn">Send</button>
+    </div>
+  </div>
+
+  <div class="stack" id="talk-done" hidden>
+    <div class="strip"><b>SESSION SAVED</b><span id="done-summary"></span></div>
+    <div class="panel harvest" id="harvest"></div>
+    <button class="btn" id="again-btn">Back to setup</button>
+  </div>
+</section>
+
+<!-- ============ READ ============ -->
+<section id="tab-read" role="tabpanel">
+  <div class="strip"><b>READ ALOUD</b><span id="read-when">Three minutes after SRS. Read at a natural pace; do not restart if you stumble.</span></div>
+  <h2>Today's passage</h2>
+  <div class="panel stack">
+    <div class="row" style="justify-content:space-between"><span class="mono small" id="read-id"></span><span class="mono small faint" id="read-words"></span></div>
+    <p class="passage" id="read-text"></p>
+    <div class="strip"><b>RECORD AS</b><span class="mono" id="read-filename"></span><span class="small soft">then let it upload to EnglishPractice. The file is the check-in; the review, the ledger and the cards follow by themselves.</span></div>
+    <div class="row"><button class="btn ghost" id="read-other">Another passage</button><button class="btn ghost" id="read-back" hidden>Back one</button><button class="btn ghost" id="read-anchor">Show the anchor</button><button class="btn ghost" id="read-book" hidden>Short passages instead</button></div>
+    <div class="row small"><label class="btn ghost" for="book-file">Import a book…</label><input type="file" id="book-file" accept=".json,application/json" hidden><span class="faint" id="book-status">the <span class="mono">&lt;book&gt;.hub.json</span> file from Drive → EnglishPractice → library</span></div>
+  </div>
+  <h2>Today's drill</h2>
+  <div class="panel small" id="drill">No drill yet. The first scored recording builds the pronunciation ledger; the drill is generated from its top three confusion classes.</div>
+  <h2>Reading</h2>
+  <div class="panel small" id="reading">No reading data yet. Read the book in KOReader on the phone: your position, your minutes and your dictionary lookups (with the sentence each one appeared in) arrive here when the phone syncs — say each sentence aloud, then the word.</div>
+  <h2>Anchor trend</h2>
+  <div class="panel small" id="anchor-trend">The anchor passage is the pronunciation time trial: same text every Monday, scored against the reference. Its scores appear here after the first one.</div>
+</section>
+
+<!-- ============ LOG ============ -->
+<section id="tab-log" role="tabpanel">
+  <div class="panel stack">
+    <div class="row" style="justify-content:space-between">
+      <h3 style="margin:0">Check-in</h3>
+      <input type="date" id="log-date" style="width:auto">
+    </div>
+    <div class="field"><label>Attended listening</label>
+      <div class="chips" id="listen-chips">
+        <button class="chip" data-min="0">none</button><button class="chip" data-min="10">10&prime;</button><button class="chip" data-min="15">15&prime;</button><button class="chip" data-min="20">20&prime;</button><button class="chip" data-min="30">30&prime;+</button>
+      </div></div>
+    <div class="field"><label>SRS reviews, aloud</label>
+      <div class="chips" id="srs-chips"><button class="chip" data-v="1">done</button><button class="chip" data-v="0">skipped</button></div></div>
+    <div class="field"><label>Reading (narrow reading / Kindle)</label>
+      <div class="chips" id="read-chips"><button class="chip" data-min="0">none</button><button class="chip" data-min="15">15&prime;</button><button class="chip" data-min="30">30&prime;+</button></div></div>
+    <div class="field"><label>Conversations today (beyond Talk sessions, which log themselves)</label>
+      <div class="chips" id="conv-chips">
+        <button class="chip" data-k="tutor">tutor</button><button class="chip" data-k="circle">personal circle</button><button class="chip" data-k="work">work, real exchange</button>
+      </div></div>
+    <div class="field" id="tutor-extra" hidden>
+      <label>Tutor pushed you to self-repair?</label>
+      <div class="chips" id="repair-chips"><button class="chip" data-v="y">yes</button><button class="chip" data-v="n">no</button></div>
+      <label for="tutor-notes" style="margin-top:6px">Tutor's correction list (paste or type)</label>
+      <textarea id="tutor-notes" placeholder="one per line"></textarea>
+    </div>
+    <div class="field"><label>Recorded speaking (4/3/2 or practice memo uploaded)</label>
+      <div class="chips" id="rec-chips"><button class="chip" data-v="1">recorded</button><button class="chip" data-v="0">not today</button></div></div>
+    <div class="field"><label for="day-notes">Note</label><input type="text" id="day-notes" placeholder="e.g. tutor cancelled, did 20′ AI instead"></div>
+    <div class="row"><button class="btn primary" id="save-day">Save check-in</button><span class="status" id="save-status"></span></div>
+  </div>
+
+  <h2>Season settings</h2>
+  <div class="panel stack">
+    <div class="grid2">
+      <div class="field"><label for="baseline">Baseline date (first Signal Check)</label><input type="date" id="baseline"></div>
+      <div class="field"><label for="tutor-day">Tutor day</label>
+        <select id="tutor-day"><option value="4">Thursday</option><option value="2">Tuesday</option><option value="3">Wednesday</option><option value="5">Friday</option></select></div>
+    </div>
+    <div class="row"><button class="btn" id="save-cfg">Save settings</button><span class="status" id="cfg-status"></span></div>
+  </div>
+</section>
+
+<!-- ============ WEEK ============ -->
+<section id="tab-week" role="tabpanel">
+  <h2>Last 28 days</h2>
+  <div class="scroller"><table class="load" id="load-table"></table></div>
+  <h2>Talk sessions</h2>
+  <div class="chart" id="chart"></div>
+  <div class="sessions" id="sessions"></div>
+</section>
+
+<footer>
+  <div>English Hub &mdash; the sensor layer for the English Runbook. Sessions and check-ins are stored with this page; the coach reads them from git and from here.</div>
+  <div>Speech recognition text is normalised by the browser: word counts and turn lengths are reliable, filler counts are not (those come from recordings).</div>
+</footer>
+</div>
+
+<nav class="tabs" role="tablist">
+  <button role="tab" aria-selected="true" data-tab="today">Today</button>
+  <button role="tab" aria-selected="false" data-tab="read">Read</button>
+  <button role="tab" aria-selected="false" data-tab="talk">Talk</button>
+  <button role="tab" aria-selected="false" data-tab="log">Log</button>
+  <button role="tab" aria-selected="false" data-tab="week">Week</button>
+</nav>
+
+<script>
+(function () {
+  "use strict";
+  var $ = function (id) { return document.getElementById(id); };
+  var use = function (n) { return (window.claude && window.claude.use) ? window.claude.use(n) : Promise.resolve(null); };
+
+  /* ---------- date helpers (local time; the learner is in one zone) ---------- */
+  function iso(d) { var z = new Date(d.getTime() - d.getTimezoneOffset() * 60000); return z.toISOString().slice(0, 10); }
+  function fromIso(s) { var p = s.split("-"); return new Date(+p[0], +p[1] - 1, +p[2]); }
+  function addDays(d, n) { var x = new Date(d); x.setDate(x.getDate() + n); return x; }
+  function monday(d) { var x = new Date(d); var w = (x.getDay() + 6) % 7; x.setDate(x.getDate() - w); x.setHours(0, 0, 0, 0); return x; }
+  function fmtClock(s) { var m = Math.floor(s / 60), r = Math.floor(s % 60); return (m < 10 ? "0" : "") + m + ":" + (r < 10 ? "0" : "") + r; }
+  var DAYN = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  var today = new Date();
+
+  /* ---------- the runbook, as data ---------- */
+  var FLOOR = { conversations: 2, srs_days: 5, listening_days: 5, recordings: 1 };
+  var WEEK = {
+    1: [["06:45", "SRS aloud + read the ANCHOR passage, recorded (Read tab)", 13, "read"], ["13:00", "Narrow listening, current topic", 20], ["17:20", "Narrow reading, same topic + harvest 3–5 items into SRS, aloud", 20]],
+    2: [["06:45", "SRS aloud + 3′ read-aloud, recorded (Read tab)", 13, "read"], ["13:00", "Narrow listening", 20], ["17:20", "AI voice conversation, standing brief, week's topic + error harvest", 25, "talk"]],
+    3: [["06:45", "SRS aloud + 3′ read-aloud, recorded (Read tab)", 13, "read"], ["13:00", "Narrow listening", 20], ["17:20", "Read-aloud / shadow sandwich on this week's transcript + harvest", 20, "dial"]],
+    4: [["06:45", "SRS aloud + 3′ read-aloud, recorded (Read tab)", 13, "read"], ["13:00", "Narrow listening", 10], ["17:20", "Read-aloud warm-up ×3 + tutor session, standing booking", 35, "talk"]],
+    5: [["06:45", "SRS aloud + 3′ read-aloud, recorded (Read tab)", 13, "read"], ["13:00", "Narrow listening", 15], ["18:15", "Recorded 4/3/2 on a week topic + week close (check-in here)", 20]],
+    6: [["09:30", "Time-trial Saturdays only: Signal Check, rested", 60], ["—", "Optional: one personal-circle conversation", 0]],
+    0: [["—", "Optional: personal-circle conversation · monthly authentic-audio check", 0]]
+  };
+  /* Adherence stages (docs/COACH.md): 1 = SRS + one recorded page a day; 2 adds one AI conversation + listening; 3 = the full runbook. */
+  var PAGE = function (wd) { return ["06:45", wd === 1 ? "SRS aloud on the phone, then the ANCHOR passage read aloud, recorded (Read tab)" : "SRS aloud on the phone, then ONE page read aloud, recorded (KOReader or the Read tab)", 10, "read"]; };
+  var STAGES = {
+    1: { name: "stage 1 · SRS + one recorded page", floors: { srs_days: 5, recordings: 5 }, slots: function (wd) { return [PAGE(wd)]; } },
+    2: { name: "stage 2 · + AI conversation, listening", floors: { srs_days: 5, recordings: 5, conversations: 1, listening_days: 3 }, slots: function (wd) {
+      var b = [PAGE(wd)];
+      if (wd === 2) b.push(["17:20", "AI voice conversation, standing brief (Talk tab)", 20, "talk"]);
+      else if (wd >= 1 && wd <= 4) b.push(["13:00", "Narrow listening, current topic", 15]);
+      if (wd === 5) b.push(["18:15", "Week close (Log tab)", 2]);
+      return b; } },
+    3: { name: "stage 3 · full runbook", floors: FLOOR, slots: function (wd) { return WEEK[wd].slice(); } }
+  };
+  function stageNo() { var n = +cfg.stage || 1; return STAGES[n] ? n : 1; }
+  function readDates() {
+    var set = {};
+    if (ledgerDoc) ["anchor", "reads"].forEach(function (k) { (ledgerDoc[k] || []).forEach(function (e) { if (e && e.date) set[String(e.date).slice(0, 10)] = e; }); });
+    return set;
+  }
+  var WED_DIAL = {
+    DECODE: "Minimal-pair / HVPT drill on your own dictation errors — ≥4 voices, instant feedback",
+    AUTOMATIZE: "Second 4/3/2 run — same task as Tuesday's AI session, recorded",
+    RANGE: "Sandwich as default; harvest rises to 5/day and each item must appear in the next AI session"
+  };
+  var BRIEF = "You are my English conversation partner. This is a spoken conversation: I speak, my browser transcribes me, and your reply is read aloud, so answer in at most three short sentences of plain text with no lists, no markdown, no stage directions. Rules that never change: when I make an error, do NOT correct or reformulate me. Instead begin your reply with the exact words \"Sorry, what do you mean?\" or \"Sorry, say that again?\" and make me repair it myself; only after I have tried twice may you give the natural phrasing in one short sentence. Push back on my opinions so I must defend them, ask follow-up questions, and keep me talking more than you. Every ten of my turns, list the three errors I have repeated most, in one sentence each, then continue. Stay on the topic given. Do not praise me.";
+
+  /* ---------- state ---------- */
+  var db = null, sample = null;
+  var cfg = { dial: "DEFAULT", topic: "", crutch: "", baseline: "", tutor_day: 4, book_next: "", book_read: 0, stage: 1 };
+  var days = {};        // iso -> doc
+  var sessions = [];    // newest first
+  var unsub = [];
+
+  /* ---------- tabs ---------- */
+  document.querySelectorAll('nav.tabs [role="tab"]').forEach(function (b) {
+    b.addEventListener("click", function () {
+      document.querySelectorAll('nav.tabs [role="tab"]').forEach(function (x) { x.setAttribute("aria-selected", x === b ? "true" : "false"); });
+      document.querySelectorAll('section[role="tabpanel"]').forEach(function (s) { s.classList.toggle("on", s.id === "tab-" + b.dataset.tab); });
+      try { localStorage.setItem("hub.tab", b.dataset.tab); } catch (e) {}
+      window.scrollTo(0, 0);
+    });
+  });
+  try { var t0 = localStorage.getItem("hub.tab"); if (t0) { var tb = document.querySelector('nav.tabs [data-tab="' + t0 + '"]'); if (tb) tb.click(); } } catch (e) {}
+
+  /* ---------- season ---------- */
+  function season() {
+    if (!cfg.baseline) return null;
+    var b = fromIso(cfg.baseline);
+    var start = addDays(b, (8 - ((b.getDay() + 6) % 7 + 1)) % 7 || 7); // Monday after baseline
+    var week = Math.floor((today - start) / 864e5 / 7) + 1;
+    var trials = [5, 10, 12];
+    var next = null;
+    for (var i = 0; i < trials.length; i++) if (trials[i] >= week) { next = trials[i]; break; }
+    var nextDate = next ? addDays(start, (next - 1) * 7 + 5) : null;
+    return { start: start, week: week, next: next, nextDate: nextDate };
+  }
+  function renderSeason() {
+    var s = season(), el = $("season-strip");
+    if (!s || s.week < 1) {
+      el.className = "strip pre";
+      el.innerHTML = "<b>PRE-SEASON</b><span>" + (cfg.baseline ? "Season starts " + iso(s.start) + "." : "No baseline yet. Run the Signal Check, rested; enter the date under Log → Season settings.") + "</span>";
+      $("hdr-meta").textContent = "pre-season · dial " + cfg.dial;
+      return;
+    }
+    if (s.week > 12) {
+      el.className = "strip"; el.innerHTML = "<b>SEASON OVER</b><span>Week " + s.week + ". Run the season review and define the next race.</span>";
+      $("hdr-meta").textContent = "season done · dial " + cfg.dial; return;
+    }
+    var left = Math.ceil((s.nextDate - today) / 864e5);
+    el.className = "strip";
+    el.innerHTML = "<b>WEEK " + s.week + " / 12</b><span>" + (s.next === 12 ? "race week" : "time trial " + ([5, 10, 12].indexOf(s.next) + 1)) +
+      " in " + left + " day" + (left === 1 ? "" : "s") + " (" + DAYN[s.nextDate.getDay()] + " " + iso(s.nextDate) + ")</span><span>dial <b>" + cfg.dial + "</b></span>";
+    $("hdr-meta").textContent = "week " + s.week + " · dial " + cfg.dial;
+  }
+
+  /* ---------- today ---------- */
+  function renderToday() {
+    var wd = today.getDay();
+    var sn = stageNo(), ST = STAGES[sn];
+    $("today-title").textContent = DAYN[wd] + " " + iso(today) + " · " + ST.name + (sn === 3 && wd === 5 ? " · rest day, week close" : "");
+    var slots = ST.slots(wd);
+    if (sn === 3 && wd === 3 && WED_DIAL[cfg.dial]) slots[2] = ["17:20", WED_DIAL[cfg.dial] + " + harvest", 20, "dial"];
+    if (sn === 3 && wd === 0 && cfg.dial === "USE") slots = [["—", "USE dial: the personal-circle conversation is expected and logged this week", 0]];
+    $("today-slots").innerHTML = slots.map(function (s) {
+      var cls = s[3] === "talk" ? "talkc" : s[3] === "dial" ? "dialc" : s[3] === "read" ? "readc" : "";
+      return '<div class="slot"><span class="t">' + s[0] + '</span><span class="' + cls + '">' + s[1] + "</span><span class=\"m\">" + (s[2] ? s[2] + "′" : "") + "</span></div>";
+    }).join("") + (sn === 3 ? '<div class="slot"><span class="t">20:45</span><span>Before-bed cards, aloud</span><span class="m">5′</span></div>' : "");
+
+    var yk = iso(addDays(today, -1)), y = days[yk], R = readDates(), yr = R[yk];
+    var parts = [];
+    if (y) parts.push(describeDay(y));
+    if (yr) parts.push("read-aloud scored" + (yr.accuracy != null ? ": accuracy " + Math.round(yr.accuracy) + "%" : "") + (yr.fluency != null ? ", fluency " + Math.round(yr.fluency) + "%" : "") + (yr.passage ? " (" + yr.passage + ")" : ""));
+    var streak = 0, d = R[iso(today)] || (days[iso(today)] && days[iso(today)].recording) ? today : addDays(today, -1);
+    while (streak < 365) { var k = iso(d); if (R[k] || (days[k] && days[k].recording)) { streak++; d = addDays(d, -1); } else break; }
+    if (streak) parts.push("streak: " + streak + " day" + (streak > 1 ? "s" : "") + " with a recorded page");
+    $("yesterday").innerHTML = parts.length ? parts.join(" · ") : "Nothing logged for " + yk + ". One missed day costs nothing; two in a row is the signal.";
+  }
+  function describeDay(d) {
+    var bits = [];
+    if (d.listen_min != null) bits.push("listening " + d.listen_min + "′");
+    if (d.srs != null) bits.push("SRS " + (d.srs ? "done" : "skipped"));
+    if (d.read_min) bits.push("reading " + d.read_min + "′");
+    var c = d.conversations || {}; var cs = [];
+    if (c.ai) cs.push(c.ai + " AI"); if (c.tutor) cs.push("tutor"); if (c.circle) cs.push("circle"); if (c.work) cs.push("work");
+    if (cs.length) bits.push("conversations: " + cs.join(", "));
+    if (d.recording) bits.push("recorded");
+    if (d.tutor_repair) bits.push("tutor prompted self-repair: " + d.tutor_repair);
+    if (d.notes) bits.push("“" + d.notes + "”");
+    return bits.length ? bits.join(" · ") : "Checked in, nothing done.";
+  }
+
+  /* ---------- week ---------- */
+  function weekStats(mon) {
+    var st = { conversations: 0, human: 0, srs_days: 0, listening_days: 0, recordings: 0, listen_min: 0, talk_min: 0, days: [] }, R = readDates();
+    for (var i = 0; i < 7; i++) {
+      var k = iso(addDays(mon, i)), d = days[k] || null;
+      var c = d && d.conversations || {};
+      var n = (c.ai || 0) + (c.tutor || 0) + (c.circle || 0) + (c.work || 0);
+      st.conversations += n; st.human += (c.tutor || 0) + (c.circle || 0) + (c.work || 0);
+      if (d && d.srs) st.srs_days++;
+      if (d && d.listen_min >= 10) st.listening_days++;
+      st.listen_min += d && d.listen_min || 0;
+      if ((d && d.recording) || R[k]) st.recordings++;
+      st.talk_min += d && d.talk_min || 0;
+      st.days.push({ k: k, d: d });
+    }
+    return st;
+  }
+  function tile(k, v, floor, sub) {
+    var ok = v >= floor;
+    return '<div class="tile ' + (ok ? "ok" : "short") + '"><div class="k">' + k + '</div><div class="v">' + v + " <small>/ " + floor + "</small></div><div class=\"s\">" + (ok ? "floor met" : sub || "below floor") + "</div></div>";
+  }
+  function renderWeek() {
+    var st = weekStats(monday(today)), sn = stageNo(), F = STAGES[sn].floors, html = "";
+    if (sn === 1) html = tile("Recorded pages", st.recordings, F.recordings) + tile("SRS days", st.srs_days, F.srs_days);
+    else if (sn === 2) html = tile("Recorded pages", st.recordings, F.recordings) + tile("SRS days", st.srs_days, F.srs_days) +
+      tile("AI conversations", st.conversations, F.conversations) + tile("Listening days", st.listening_days, F.listening_days, st.listen_min + "′ so far");
+    else html = tile("Conversations", st.conversations, F.conversations, st.human ? "" : "none human yet") + tile("SRS days", st.srs_days, F.srs_days) +
+      tile("Listening days", st.listening_days, F.listening_days, st.listen_min + "′ so far") + tile("Recordings", st.recordings, F.recordings);
+    $("week-tiles").innerHTML = html;
+  }
+
+  /* ---------- 28-day table + chart ---------- */
+  function renderHistory() {
+    var rows = [];
+    for (var i = 27; i >= 0; i--) {
+      var dt = addDays(today, -i), k = iso(dt), d = days[k];
+      var c = d && d.conversations || {};
+      var n = (c.ai || 0) + (c.tutor || 0) + (c.circle || 0) + (c.work || 0);
+      rows.push("<tr><td class=\"day\">" + DAYN[dt.getDay()] + " " + k.slice(5) + "</td>" +
+        "<td>" + dot(d && d.srs) + "</td><td>" + (d && d.listen_min != null ? d.listen_min + "′" : "") + "</td>" +
+        "<td>" + (n || "") + (c.tutor ? " T" : "") + (c.ai ? " A" : "") + "</td><td>" + (d && d.talk_min ? d.talk_min + "′" : "") + "</td>" +
+        "<td>" + dot(d && d.recording) + "</td><td>" + (d && d.read_min ? d.read_min + "′" : "") + "</td></tr>");
+    }
+    $("load-table").innerHTML = "<thead><tr><th>Day</th><th>SRS</th><th>Listen</th><th>Conv</th><th>Talk</th><th>Rec</th><th>Read</th></tr></thead><tbody>" + rows.join("") + "</tbody>";
+
+    var ss = sessions.slice(0, 12).reverse();
+    if (!ss.length) { $("chart").innerHTML = '<p class="small faint">No Talk sessions yet. The first one draws the chart.</p>'; $("sessions").innerHTML = ""; return; }
+    var W = 640, H = 150, L = 34, R = 10, T = 12, B = 26, iw = W - L - R, ih = H - T - B;
+    var max = Math.max.apply(null, ss.map(function (s) { return s.learner_words || 0; }).concat([50]));
+    var step = max > 400 ? 200 : max > 200 ? 100 : 50, top = Math.ceil(max / step) * step;
+    var bw = Math.min(28, iw / ss.length * 0.6), gap = iw / ss.length;
+    var svg = '<svg viewBox="0 0 ' + W + " " + H + '" role="img" aria-label="Learner words per Talk session">';
+    for (var g = 0; g <= top; g += step) {
+      var yy = T + ih - g / top * ih;
+      svg += '<line class="grid" x1="' + L + '" x2="' + (W - R) + '" y1="' + yy + '" y2="' + yy + '"/><text x="' + (L - 6) + '" y="' + (yy + 3) + '" text-anchor="end">' + g + "</text>";
+    }
+    ss.forEach(function (s, i) {
+      var v = s.learner_words || 0, h = v / top * ih, x = L + gap * i + gap / 2 - bw / 2, y = T + ih - h;
+      svg += '<rect class="bar" x="' + x + '" y="' + y + '" width="' + bw + '" height="' + Math.max(h, 0) + '" rx="4"/>' +
+        '<rect class="bar" x="' + x + '" y="' + (T + ih - Math.min(h, 4)) + '" width="' + bw + '" height="' + Math.min(h, 4) + '"/>' +
+        '<text x="' + (x + bw / 2) + '" y="' + (H - 8) + '" text-anchor="middle">' + (s.started || "").slice(5, 10) + "</text>" +
+        (i === ss.length - 1 ? '<text class="end" x="' + (x + bw / 2) + '" y="' + (y - 4) + '" text-anchor="middle">' + v + "</text>" : "");
+    });
+    svg += "</svg>";
+    $("chart").innerHTML = '<h3>Your words per session</h3>' + svg;
+
+    $("sessions").innerHTML = sessions.slice(0, 20).map(function (s) {
+      var h = s.harvest || {};
+      return '<div class="sess"><span>' + (s.topic || "no topic") + '</span><span class="when">' + (s.started || "").slice(0, 16).replace("T", " ") + "</span>" +
+        '<span class="nums">' + Math.round((s.duration_s || 0) / 60) + "′ · " + (s.learner_turns || 0) + " turns · " + (s.learner_words || 0) + " words · " +
+        (s.learner_words && s.learner_turns ? Math.round(s.learner_words / s.learner_turns) + " w/turn · " : "") +
+        (s.learner_speak_s ? Math.round(s.learner_words / s.learner_speak_s * 60) + " wpm est · " : "") +
+        (s.repair_prompts || 0) + " repair prompts" + (h.repaired ? " · repaired: " + h.repaired : "") + "</span>" +
+        (h.errors && h.errors.length ? '<details style="grid-column:1/-1;border:0;padding:4px 0 0"><summary>' + h.errors.length + " errors harvested</summary><ul class=\"harvest small\">" +
+          h.errors.map(function (e) { return "<li><b>" + esc(e.pattern) + "</b> — <code>" + esc(e.example) + "</code> → " + esc(e.better) + "</li>"; }).join("") + "</ul></details>" : "") + "</div>";
+    }).join("");
+  }
+  function dot(v) { return '<span class="dot' + (v ? " y" : "") + '"></span>'; }
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+
+  /* ---------- read tab ---------- */
+  var passagesDoc = null, drillDoc = null, ledgerDoc = null, readOffset = 0, showAnchor = false;
+  /* The book: meta/book is the table of contents (chapters → document ids in collection `book`, each holding
+     ~110 passages B001…); cfg.book_next is the next unread passage id. Built by scripts/passage-import.py. */
+  var bookMeta = null, bookDocs = {}, bookLoading = null, bookOff = false;
+  var readingDoc = null;   // meta/reading — KOReader position, minutes and dictionary lookups (scripts/reading-hub.py, from git)
+  function renderReading() {
+    var k = readingDoc, rd = (k && k.reading) || {}, pr = k && k.progress;
+    if (!k || !(k.total || rd.last_day || pr)) return;
+    var html = "";
+    if (pr && pr.percentage != null) {
+      var here = bookMeta && !bookOff ? bookNextId() : null, jump = pr.passage && here && pr.passage !== here && pr.title === (bookMeta && bookMeta.title);
+      html += '<p style="margin:0 0 8px"><b>' + esc(pr.title || "The book") + "</b> — " + Math.round(pr.percentage * 100) + "% on the " + esc(pr.device || "phone") +
+        (pr.passage ? " ≈ passage " + esc(pr.passage) : "") + (pr.timestamp ? ' <span class="mono small faint">' + esc(String(pr.timestamp).slice(0, 10)) + "</span>" : "") +
+        (jump ? ' <button class="btn ghost" id="read-jump" data-passage="' + esc(pr.passage) + '">Back to the phone\u2019s position</button>' : ' <span class="faint small">· the passage below follows the phone</span>') + "</p>";
+    }
+    html += '<p class="mono small faint" style="margin:0 0 8px">reading ' + esc(rd.week_min || 0) + "′ on " + esc(rd.week_days || 0) + " days this week" +
+      (rd.yesterday_min ? " · yesterday " + esc(Math.round(rd.yesterday_min)) + "′" : "") + " · " + esc(k.total || 0) + " words · " + esc(k.this_week || 0) + " this week · " +
+      esc(k.carded || 0) + " carded" + (k.last_sync && k.last_sync.vocab ? " · synced " + esc(k.last_sync.vocab) : "") + "</p>";
+    html += (k.recent || []).slice(0, 12).map(function (w) {
+      return "<p style=\"margin:0 0 8px\"><b>" + esc(w.word || "") + "</b>" + (w.carded ? ' <span class="faint">· carded</span>' : "") +
+        (w.usage ? "<br><span class=\"soft\">" + esc(w.usage) + "</span>" : "") +
+        (w.book ? '<br><span class="mono small faint">' + esc(w.book) + (w.date ? " · " + esc(w.date) : "") + "</span>" : "") + "</p>";
+    }).join("");
+    $("reading").innerHTML = html + '<p class="faint small" style="margin:0">Say each sentence aloud, then the word on its own. Lookups are reading load, never a score.</p>';
+  }
+  $("reading").addEventListener("click", function (e) {
+    var b = e.target && e.target.id === "read-jump" ? e.target : null;
+    if (b && b.dataset.passage) { cfg.book_next = b.dataset.passage; showAnchor = false; bookOff = false; saveCfg(null); renderRead(); }
+  });
+  function bookNum(id) { return parseInt(String(id || "").replace(/^B/, ""), 10) || 0; }
+  function bookChapterFor(id) {
+    if (!bookMeta || !bookMeta.chapters) return null;
+    var n = bookNum(id);
+    for (var i = 0; i < bookMeta.chapters.length; i++) { var c = bookMeta.chapters[i]; if (n >= bookNum(c.first) && n <= bookNum(c.last)) return c; }
+    return null;
+  }
+  function bookPassage(id) {
+    var ch = bookChapterFor(id); if (!ch) return null;
+    var doc = bookDocs[ch.doc]; if (!doc) return { pending: ch };
+    var list = doc.chunks || [];
+    for (var i = 0; i < list.length; i++) if (list[i].id === id) return { p: list[i], ch: ch, idx: i, n: list.length };
+    return null;
+  }
+  function loadBookDoc(ch) {
+    if (!db || bookDocs[ch.doc] || bookLoading === ch.doc) return;
+    bookLoading = ch.doc;
+    db.doc("book/" + ch.doc).get().then(function (snap) { bookLoading = null; if (snap.exists) { bookDocs[ch.doc] = snap.data(); renderRead(); } },
+      function (e) { bookLoading = null; console.warn("book", e); });
+  }
+  /* The pointer follows the phone: when meta/reading carries a position in this book that is further on than
+     book_next, the Read tab offers that passage (KOReader is the reader; the Hub is where it is read aloud). */
+  function phonePassage() {
+    var pr = readingDoc && readingDoc.progress;
+    return pr && pr.passage && bookMeta && pr.title === bookMeta.title && cfg.book_follow !== false ? pr.passage : null;
+  }
+  function bookNextId() {
+    var own = cfg.book_next || (bookMeta && bookMeta.chapters && bookMeta.chapters.length ? bookMeta.chapters[0].first : null), ph = phonePassage();
+    return ph && bookNum(ph) > bookNum(own) ? ph : own;
+  }
+  var ANCHOR_FALLBACK = {"id": "A00", "title": "Thursday", "text": "Every Thursday I finish work a little early and walk to the station. The streets are already busy, and the sky is usually grey. I think about the week: what went well, what I should have done differently, and what I still want to build. At the gym I stretch, then I lift for an hour. My legs feel heavy after the intervals, but I have learned to trust the plan and not to judge a single session. Later, at home, I cook something simple: rice, vegetables, a bit of fish. I used to skip dinner when I was tired; now I know that recovery starts at the table. Before bed I review thirty cards aloud, very slowly, and I try to say each phrase the way a friend would say it. Then I switch off the light and let the day go."};
+  function todaysPassage() {
+    var P = passagesDoc || { anchor: ANCHOR_FALLBACK, passages: [] };
+    var list = P.passages || [];
+    if (showAnchor || (today.getDay() === 1 && readOffset === 0)) return { p: P.anchor || ANCHOR_FALLBACK, anchor: true };
+    if (bookMeta && !bookOff) {
+      var id = bookNextId(), b = id && bookPassage(id);
+      if (b && b.pending) { loadBookDoc(b.pending); return { p: { id: id, title: b.pending.title, text: "loading the chapter…" }, book: true, loading: true }; }
+      if (b && b.p) return { p: Object.assign({ title: b.ch.title }, b.p), book: true, ch: b.ch, idx: b.idx, n: b.n };
+    }
+    if (!list.length) return { p: P.anchor || ANCHOR_FALLBACK, anchor: true };
+    var idx = (Math.floor(today.getTime() / 864e5) + readOffset) % list.length;
+    return { p: list[idx], anchor: false };
+  }
+  function renderRead() {
+    var t = todaysPassage(), p = t.p || ANCHOR_FALLBACK;
+    var n = (p.text || "").split(/\s+/).filter(Boolean).length;
+    $("read-id").textContent = p.id + " · " + (p.title || "") + (t.anchor ? " · ANCHOR" : "") + (t.book && t.n ? " · " + (t.idx + 1) + "/" + t.n + " of the chapter" : "");
+    $("read-words").textContent = n + " words · about " + Math.max(1, Math.round(n / 130 * 60)) + "s";
+    $("read-text").textContent = p.text || "";
+    $("read-filename").textContent = "eng read " + p.id + (t.book ? "  (or any name — the transcript finds the passage)" : "");
+    $("read-when").textContent = t.anchor ? "The anchor: the same text every Monday. This is the pronunciation time trial — read it as you would any other day."
+      : t.book ? (bookMeta.title || "The book") + " — " + (t.ch ? t.ch.title : "") + ". Read it aloud here or from KOReader on the phone (the transcript finds the passage), then tap Done to move on. Scanned text: read what makes sense when a word is odd."
+      : "Three minutes after SRS. Read at a natural pace; do not restart if you stumble.";
+    $("read-other").textContent = t.book ? "Done — next passage" : "Another passage";
+    $("read-book").hidden = !bookMeta;
+    $("read-book").textContent = bookOff ? "Back to the book" : "Short passages instead";
+    $("read-back").hidden = !(t.book && bookNum(p.id) > 1);
+    if (drillDoc && drillDoc.classes && drillDoc.classes.length) {
+      $("drill").innerHTML = drillDoc.classes.map(function (c) {
+        return "<p><b>" + esc(c["class"]) + "</b> <span class=\"faint\">×" + esc(c.count) + "</span> — your words: " + esc((c.words || []).join(", ")) +
+          "<br><span class=\"mono small\">" + (c.pairs || []).map(function (pr) { return esc(pr[0]) + " / " + esc(pr[1]); }).join(" · ") + "</span></p>";
+      }).join("") + "<p class=\"faint small\" style=\"margin:0\">Say each pair three times, slowly then at speed. Record it as <span class=\"mono\">eng drill</span>.</p>";
+    }
+    renderReading();
+    if (ledgerDoc && ledgerDoc.anchor && ledgerDoc.anchor.length) {
+      var rows = ledgerDoc.anchor.slice(-8);
+      $("anchor-trend").innerHTML = '<table class="load"><thead><tr><th>Date</th><th>Accuracy</th><th>Fluency</th><th>Complete</th></tr></thead><tbody>' +
+        rows.map(function (r) { return "<tr><td class=\"day\">" + esc(r.date) + "</td><td>" + esc(r.accuracy == null ? "" : r.accuracy) + "</td><td>" + esc(r.fluency == null ? "" : r.fluency) + "</td><td>" + esc(r.completeness == null ? "" : r.completeness) + "</td></tr>"; }).join("") + "</tbody></table>";
+    }
+  }
+  $("read-other").addEventListener("click", function () {
+    showAnchor = false;
+    var t = todaysPassage();
+    if (t.book && t.p && !t.loading) { cfg.book_next = "B" + String(bookNum(t.p.id) + 1).padStart(3, "0"); cfg.book_read = (cfg.book_read || 0) + 1; saveCfg(null); }
+    else readOffset++;
+    renderRead();
+  });
+  $("read-back").addEventListener("click", function () {
+    var t = todaysPassage();
+    if (t.book && t.p && bookNum(t.p.id) > 1) { cfg.book_next = "B" + String(bookNum(t.p.id) - 1).padStart(3, "0"); saveCfg(null); renderRead(); }
+  });
+  $("read-book").addEventListener("click", function () { bookOff = !bookOff; showAnchor = false; renderRead(); });
+  /* The bookshelf: scripts/library-sync.py writes <slug>.hub.json next to each EPUB in Drive (meta/book + the
+     chapter documents). Importing it here stores the book in this page's own database — the text never has to
+     travel through a cloud session. Sequential writes: each document is ≤ 256 KiB, a book is ~20 of them. */
+  $("book-file").addEventListener("change", function () {
+    var f = this.files && this.files[0], st = $("book-status"); this.value = "";
+    if (!f) return;
+    if (!db) { st.textContent = "open the Hub from its artifact link to import"; return; }
+    st.textContent = "reading " + f.name + "…";
+    f.text().then(function (txt) {
+      var b = JSON.parse(txt), ids = Object.keys(b.docs || {});
+      if (!b.meta || !b.meta.chapters || !ids.length) throw new Error("not a book bundle (<slug>.hub.json)");
+      var i = 0;
+      function next() {
+        if (i >= ids.length) {
+          return db.doc("meta/book").set(b.meta).then(function () {
+            var fresh = !bookMeta || bookMeta.title !== b.meta.title;
+            bookMeta = b.meta; bookDocs = {}; bookOff = false;
+            if (fresh || !cfg.book_next) { cfg.book_next = b.meta.chapters[0].first; cfg.book_read = 0; saveCfg(null); }
+            st.textContent = "imported " + b.meta.title + " — " + b.meta.total + " passages in " + ids.length + " documents";
+            renderRead();
+          });
+        }
+        var id = ids[i++]; st.textContent = "storing " + i + "/" + ids.length + "…";
+        return db.doc("book/" + id).set(b.docs[id]).then(next);
+      }
+      return next();
+    }).catch(function (e) { st.textContent = "import failed: " + (e.message || e.code || e); });
+  });
+  $("read-anchor").addEventListener("click", function () { showAnchor = !showAnchor; this.textContent = showAnchor ? "Back to today's passage" : "Show the anchor"; renderRead(); });
+
+  /* ---------- log tab ---------- */
+  var L = { listen: null, srs: null, read: null, conv: {}, repair: null, rec: null };
+  function chipGroup(id, attr, onpick) {
+    var el = $(id);
+    el.addEventListener("click", function (ev) {
+      var b = ev.target.closest(".chip"); if (!b) return;
+      var multi = el.id === "conv-chips";
+      if (multi) { var on = b.getAttribute("aria-pressed") === "true"; b.setAttribute("aria-pressed", on ? "false" : "true"); }
+      else el.querySelectorAll(".chip").forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+      onpick(b);
+    });
+  }
+  chipGroup("listen-chips", "min", function (b) { L.listen = +b.dataset.min; });
+  chipGroup("srs-chips", "v", function (b) { L.srs = +b.dataset.v; });
+  chipGroup("read-chips", "min", function (b) { L.read = +b.dataset.min; });
+  chipGroup("conv-chips", "k", function (b) {
+    L.conv[b.dataset.k] = b.getAttribute("aria-pressed") === "true" ? 1 : 0;
+    $("tutor-extra").hidden = !L.conv.tutor;
+  });
+  chipGroup("repair-chips", "v", function (b) { L.repair = b.dataset.v; });
+  chipGroup("rec-chips", "v", function (b) { L.rec = +b.dataset.v; });
+  $("log-date").value = iso(today);
+  $("log-date").addEventListener("change", loadDayForm);
+  function pressChip(id, pred) { $(id).querySelectorAll(".chip").forEach(function (b) { b.setAttribute("aria-pressed", pred(b) ? "true" : "false"); }); }
+  function loadDayForm() {
+    var d = days[$("log-date").value] || {};
+    var c = d.conversations || {};
+    L = { listen: d.listen_min == null ? null : d.listen_min, srs: d.srs == null ? null : (d.srs ? 1 : 0), read: d.read_min == null ? null : d.read_min,
+          conv: { tutor: c.tutor || 0, circle: c.circle || 0, work: c.work || 0 }, repair: d.tutor_repair || null, rec: d.recording == null ? null : (d.recording ? 1 : 0) };
+    pressChip("listen-chips", function (b) { return L.listen != null && +b.dataset.min === Math.min(L.listen, 30); });
+    pressChip("srs-chips", function (b) { return L.srs != null && +b.dataset.v === L.srs; });
+    pressChip("read-chips", function (b) { return L.read != null && +b.dataset.min === Math.min(L.read, 30); });
+    pressChip("conv-chips", function (b) { return !!L.conv[b.dataset.k]; });
+    pressChip("repair-chips", function (b) { return b.dataset.v === L.repair; });
+    pressChip("rec-chips", function (b) { return L.rec != null && +b.dataset.v === L.rec; });
+    $("tutor-extra").hidden = !L.conv.tutor;
+    $("tutor-notes").value = d.tutor_notes || "";
+    $("day-notes").value = d.notes || "";
+  }
+  $("save-day").addEventListener("click", function () {
+    var k = $("log-date").value; if (!k) return;
+    var prev = days[k] || {};
+    var doc = Object.assign({}, prev, { date: k, updated: new Date().toISOString() });
+    if (L.listen != null) doc.listen_min = L.listen;
+    if (L.srs != null) doc.srs = !!L.srs;
+    if (L.read != null) doc.read_min = L.read;
+    doc.conversations = Object.assign({}, prev.conversations || {}, { tutor: L.conv.tutor || 0, circle: L.conv.circle || 0, work: L.conv.work || 0 });
+    if (L.conv.tutor) { if (L.repair) doc.tutor_repair = L.repair; doc.tutor_notes = $("tutor-notes").value.trim(); }
+    if (L.rec != null) doc.recording = !!L.rec;
+    doc.notes = $("day-notes").value.trim();
+    writeDay(k, doc, $("save-status"));
+  });
+  function writeDay(k, doc, statusEl) {
+    days[k] = doc; renderAll();
+    if (!db) { if (statusEl) statusEl.textContent = "not saved — open from the artifact link"; return Promise.resolve(); }
+    if (statusEl) statusEl.textContent = "saving…";
+    return db.doc("days/" + k).set(doc).then(function () { if (statusEl) statusEl.textContent = "saved " + k; },
+      function (e) { if (statusEl) statusEl.textContent = "save failed (" + e.code + ")"; });
+  }
+  $("save-cfg").addEventListener("click", function () {
+    cfg.baseline = $("baseline").value || ""; cfg.tutor_day = +$("tutor-day").value; saveCfg($("cfg-status"));
+  });
+  function saveCfg(statusEl) {
+    cfg.dial = $("dial").value; cfg.topic = $("topic").value.trim(); cfg.crutch = $("crutch").value.trim(); cfg.stage = +$("stage").value || 1;
+    renderAll();
+    if (!db) { if (statusEl) statusEl.textContent = "not saved — open from the artifact link"; return; }
+    db.doc("meta/config").set(Object.assign({ updated: new Date().toISOString() }, cfg)).then(function () { if (statusEl) statusEl.textContent = "saved"; },
+      function (e) { if (statusEl) statusEl.textContent = "save failed (" + e.code + ")"; });
+  }
+  ["dial", "topic", "crutch", "stage"].forEach(function (id) { $(id).addEventListener("change", function () { saveCfg(null); }); });
+  function fillCfg() {
+    $("dial").value = cfg.dial || "DEFAULT"; $("topic").value = cfg.topic || ""; $("crutch").value = cfg.crutch || ""; $("stage").value = String(stageNo());
+    $("baseline").value = cfg.baseline || ""; $("tutor-day").value = String(cfg.tutor_day || 4);
+  }
+
+  /* ---------- talk ---------- */
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition || null;
+  var rec = null, listening = false, handsfree = false, wantListen = false;
+  var S = null; // live session
+  var clockT = null, lastAssistant = "";
+  var utterStart = 0, utterFirst = 0;
+
+  function talkAvailable() { return !!sample; }
+  function setStatus(t, live) { var e = $("talk-status"); e.innerHTML = (live ? '<span class="pulse"></span>' : "") + esc(t); e.className = "status" + (live ? " live" : ""); }
+
+  $("start-btn").addEventListener("click", function () {
+    if (!talkAvailable()) { $("talk-unavailable").hidden = false; return; }
+    saveCfg(null);
+    S = { id: new Date().toISOString().replace(/[:.]/g, "-").slice(0, 19), kind: "ai", started: new Date().toISOString(), topic: cfg.topic || "", dial: cfg.dial,
+          turns: [], learner_turns: 0, learner_words: 0, learner_speak_s: 0, assistant_words: 0, repair_prompts: 0, duration_s: 0, harvest: null, transcriber: SR ? "web-speech" : "typed" };
+    $("talk-setup").hidden = true; $("talk-done").hidden = true; $("talk-live").hidden = false;
+    $("transcript").innerHTML = "";
+    $("mic-btn").disabled = !SR; if (!SR) setStatus("no speech recognition here — type your turns");
+    else setStatus("tap Hold to speak, or turn hands-free on");
+    clockT = setInterval(function () { var s = (Date.now() - Date.parse(S.started)) / 1000; $("talk-clock").textContent = fmtClock(s); if (s >= 1200 && s < 1201.5) setStatus("20 minutes — finish the thought, then End & harvest"); }, 500);
+    var opener = "Start the conversation on the topic \"" + (S.topic || "everyday life") + "\" with one short open question. One sentence.";
+    askAssistant(opener, true);
+  });
+
+  function addTurn(role, text, meta) {
+    var el = document.createElement("div"); el.className = "turn " + role;
+    el.innerHTML = esc(text) + (meta ? '<div class="meta">' + esc(meta) + "</div>" : "");
+    $("transcript").appendChild(el); $("transcript").scrollTop = 1e9; return el;
+  }
+  function learnerTurn(text, dur) {
+    text = text.trim(); if (!text || !S) return;
+    var words = text.split(/\s+/).length;
+    S.turns.push({ r: "u", t: text, at: Math.round((Date.now() - Date.parse(S.started)) / 1000), dur: dur ? Math.round(dur * 10) / 10 : null, w: words });
+    S.learner_turns++; S.learner_words += words; if (dur) S.learner_speak_s += dur;
+    if (/^sorry[,!]?\s/i.test(lastAssistant)) S.repair_prompts++;
+    addTurn("u", text, words + " words" + (dur ? " · " + Math.round(dur) + "s" : ""));
+    askAssistant(text, false);
+  }
+  function askAssistant(userText, isOpener) {
+    var turns = [{ role: "user", content: BRIEF + "\nTopic: " + (S.topic || "everyday life") + "." + (cfg.dial === "RANGE" && cfg.crutch ? " I am banning my crutch words: " + cfg.crutch + ". When I use one, say \"Sorry, another word?\" and make me paraphrase." : "") + (cfg.dial === "AUTOMATIZE" ? " Push me with follow-ups and mild time pressure: ask me to say it again faster and tighter." : "") }];
+    S.turns.slice(-30).forEach(function (t) { if (t.r === "u") turns.push({ role: "user", content: t.t }); else turns.push({ role: "assistant", content: t.t }); });
+    if (isOpener) turns.push({ role: "user", content: userText });
+    var el = addTurn("a", "…"); setStatus("thinking");
+    $("mic-btn").disabled = true;
+    sample(turns, { modelTier: "quick", cache: false, onText: function (u) { el.textContent = u.text; } }).then(function (r) {
+      var text = r.text.trim(); el.textContent = text; lastAssistant = text;
+      S.turns.push({ r: "a", t: text, at: Math.round((Date.now() - Date.parse(S.started)) / 1000), w: text.split(/\s+/).length });
+      S.assistant_words += text.split(/\s+/).length;
+      $("mic-btn").disabled = !SR;
+      speak(text, function () { if (handsfree && SR) startListening(); else setStatus("your turn"); });
+    }, function (e) {
+      el.textContent = "(no reply: " + e.code + ")"; el.className = "turn i";
+      $("mic-btn").disabled = !SR;
+      setStatus(e.code === "not_granted" ? "Claude access was declined — allow it to talk" : e.code === "rate_limited" ? "rate limited — wait a moment, then speak again" : "reply failed: " + e.code);
+    });
+  }
+  function speak(text, done) {
+    if (!window.speechSynthesis) { done(); return; }
+    try {
+      window.speechSynthesis.cancel();
+      var u = new SpeechSynthesisUtterance(text); u.lang = "en-GB"; u.rate = 1.0;
+      var voices = window.speechSynthesis.getVoices();
+      var v = voices.filter(function (x) { return /en-GB/i.test(x.lang); })[0] || voices.filter(function (x) { return /^en/i.test(x.lang); })[0];
+      if (v) u.voice = v;
+      var fired = false; var fin = function () { if (!fired) { fired = true; done(); } };
+      u.onend = fin; u.onerror = fin;
+      setStatus("speaking — tap Repeat to hear it again");
+      window.speechSynthesis.speak(u);
+      setTimeout(fin, Math.min(60000, 400 * text.split(/\s+/).length + 2000)); // Android sometimes drops onend
+    } catch (e) { done(); }
+  }
+  $("repeat-btn").addEventListener("click", function () { if (lastAssistant) speak(lastAssistant, function () { setStatus("your turn"); }); });
+
+  function startListening() {
+    if (!SR || listening || !S) return;
+    try {
+      rec = new SR(); rec.lang = "en-GB"; rec.interimResults = true; rec.continuous = false; rec.maxAlternatives = 1;
+      var finalText = "", interimEl = null;
+      rec.onstart = function () { listening = true; utterStart = Date.now(); utterFirst = 0; setStatus("listening", true); $("mic-btn").textContent = "Listening…"; };
+      rec.onresult = function (ev) {
+        var interim = "";
+        for (var i = ev.resultIndex; i < ev.results.length; i++) {
+          if (ev.results[i].isFinal) finalText += ev.results[i][0].transcript + " ";
+          else interim += ev.results[i][0].transcript;
+        }
+        if (!utterFirst) utterFirst = Date.now();
+        if (interim) { if (!interimEl) interimEl = addTurn("i", ""); interimEl.textContent = interim; }
+      };
+      rec.onerror = function (ev) {
+        listening = false;
+        if (ev.error === "no-speech" || ev.error === "aborted") { setStatus(handsfree ? "no speech heard — listening again" : "no speech heard"); if (handsfree && wantListen) setTimeout(startListening, 400); }
+        else if (ev.error === "not-allowed") { setStatus("microphone blocked — allow it in the browser, or type"); handsfree = false; $("handsfree-btn").setAttribute("aria-pressed", "false"); $("handsfree-btn").textContent = "Hands-free: off"; }
+        else setStatus("recognition error: " + ev.error);
+      };
+      rec.onend = function () {
+        listening = false; $("mic-btn").textContent = "Hold to speak";
+        if (interimEl) { interimEl.remove(); interimEl = null; }
+        if (finalText.trim()) { var dur = (Date.now() - (utterFirst || utterStart)) / 1000; learnerTurn(finalText, Math.max(1, dur)); }
+        else if (handsfree && wantListen && S) setTimeout(startListening, 400);
+      };
+      wantListen = true; rec.start();
+    } catch (e) { listening = false; setStatus("could not start the microphone"); }
+  }
+  function stopListening() { wantListen = false; if (rec && listening) { try { rec.stop(); } catch (e) {} } }
+  var mic = $("mic-btn");
+  var press = function (ev) { ev.preventDefault(); if (!listening) startListening(); };
+  var release = function (ev) { ev.preventDefault(); if (listening) { try { rec.stop(); } catch (e) {} } };
+  mic.addEventListener("pointerdown", press); mic.addEventListener("pointerup", release); mic.addEventListener("pointercancel", release); mic.addEventListener("pointerleave", release);
+  mic.addEventListener("keydown", function (ev) { if (ev.key === " " || ev.key === "Enter") press(ev); });
+  mic.addEventListener("keyup", function (ev) { if (ev.key === " " || ev.key === "Enter") release(ev); });
+  $("handsfree-btn").addEventListener("click", function () {
+    handsfree = !handsfree; this.setAttribute("aria-pressed", handsfree ? "true" : "false"); this.textContent = "Hands-free: " + (handsfree ? "on" : "off");
+    if (handsfree && !listening && !window.speechSynthesis.speaking) startListening(); if (!handsfree) stopListening();
+  });
+  $("send-btn").addEventListener("click", function () { var t = $("typed").value; $("typed").value = ""; learnerTurn(t, null); });
+  $("typed").addEventListener("keydown", function (ev) { if (ev.key === "Enter") { ev.preventDefault(); $("send-btn").click(); } });
+
+  $("end-btn").addEventListener("click", function () {
+    if (!S) return;
+    handsfree = false; stopListening(); try { window.speechSynthesis.cancel(); } catch (e) {}
+    clearInterval(clockT);
+    S.ended = new Date().toISOString(); S.duration_s = Math.round((Date.parse(S.ended) - Date.parse(S.started)) / 1000);
+    $("end-btn").disabled = true; setStatus("harvesting errors…");
+    var learner = S.turns.filter(function (t) { return t.r === "u"; }).map(function (t) { return t.t; }).join("\n");
+    var prompt = "Below are an adult English learner's turns (L1 Spanish, aiming at natural spoken English) from one AI voice conversation, transcribed by a browser (so spelling and fillers are the transcriber's, ignore them). Harvest for a spaced-repetition deck. Reply with only JSON: {\"errors\":[{\"pattern\":\"short name of the error type\",\"example\":\"the learner's exact words\",\"better\":\"the natural phrasing\"}],\"repeated\":[\"patterns that occurred 2+ times\"],\"repaired\":\"y|n|partial\",\"strengths\":[\"2 things done well, specific\"],\"cards\":[{\"front\":\"Say it: ...\",\"back\":\"...\"}]}. At most 6 errors, 3 cards. Focus on: article omission before abstract nouns, phrasal-verb avoidance, subject-verb agreement, countability, collocation. \"repaired\" = did the learner self-repair after a breakdown prompt.\n\nLEARNER TURNS:\n" + learner.slice(0, 20000);
+    var finish = function (h) {
+      S.harvest = h || null;
+      var k = S.started.slice(0, 10), prev = days[k] || { date: k };
+      var doc = Object.assign({}, prev, { date: k, updated: new Date().toISOString() });
+      doc.conversations = Object.assign({}, prev.conversations || {}, { ai: (prev.conversations && prev.conversations.ai || 0) + 1 });
+      doc.talk_min = (prev.talk_min || 0) + Math.round(S.duration_s / 60);
+      var saveS = db ? db.doc("sessions/" + S.id).set(S) : Promise.resolve();
+      saveS.then(function () { return writeDay(k, doc, null); }).then(function () {
+        sessions.unshift(S); renderAll();
+        $("talk-live").hidden = true; $("talk-done").hidden = false; $("end-btn").disabled = false;
+        $("done-summary").textContent = Math.round(S.duration_s / 60) + "′ · " + S.learner_turns + " turns · " + S.learner_words + " words · " + S.repair_prompts + " repair prompts" + (db ? "" : " · NOT stored (no viewer)");
+        $("harvest").innerHTML = h ? renderHarvest(h) : '<p class="small soft">No harvest this time (' + esc(S.harvest_error || "") + '). The transcript is saved; the Friday review will read it.</p>';
+      });
+    };
+    if (!S.learner_turns) { finish(null); return; }
+    sample.json(prompt, { modelTier: "default" }).then(function (h) { finish(h && typeof h === "object" ? h : null); }, function (e) { S.harvest_error = e.code; finish(null); });
+  });
+  function renderHarvest(h) {
+    var out = "<h3>Harvest</h3>";
+    if (h.errors && h.errors.length) out += "<ul class=\"small\">" + h.errors.map(function (e) { return "<li><b>" + esc(e.pattern) + "</b> — <code>" + esc(e.example) + "</code> → " + esc(e.better) + "</li>"; }).join("") + "</ul>";
+    if (h.repeated && h.repeated.length) out += '<p class="small"><b>Repeated:</b> ' + esc(h.repeated.join("; ")) + "</p>";
+    if (h.repaired) out += '<p class="small"><b>Self-repair after prompts:</b> ' + esc(h.repaired) + "</p>";
+    if (h.strengths && h.strengths.length) out += '<p class="small"><b>Strengths:</b> ' + esc(h.strengths.join("; ")) + "</p>";
+    if (h.cards && h.cards.length) out += '<p class="small"><b>Cards for the deck:</b></p><ul class="small">' + h.cards.map(function (c) { return "<li><code>" + esc(c.front) + "</code> → " + esc(c.back) + "</li>"; }).join("") + "</ul>";
+    return out;
+  }
+  $("again-btn").addEventListener("click", function () { S = null; $("talk-done").hidden = true; $("talk-setup").hidden = false; });
+
+  /* ---------- readout ---------- */
+  $("readout-btn").addEventListener("click", function () {
+    if (!sample) { $("readout-status").textContent = "needs the Claude viewer"; return; }
+    var mon = monday(today), st = weekStats(mon), last = weekStats(addDays(mon, -7));
+    var s = season();
+    var recent = sessions.slice(0, 3).map(function (x) { return (x.started || "").slice(0, 10) + ": " + Math.round((x.duration_s || 0) / 60) + "min, " + x.learner_turns + " turns, " + x.learner_words + " words, " + (x.repair_prompts || 0) + " repair prompts" + (x.harvest && x.harvest.repeated ? ", repeated: " + x.harvest.repeated.join("; ") : ""); }).join("\n");
+    var y = days[iso(addDays(today, -1))];
+    var prompt = "You are the coach for an adult English learner's training program (treat it like a running plan: load, floors, one lever per cycle). Today is " + DAYN[today.getDay()] + " " + iso(today) + ". " +
+      (s && s.week >= 1 && s.week <= 12 ? "Season week " + s.week + " of 12; next time trial " + iso(s.nextDate) + "." : "PRE-SEASON: baseline not run yet.") + " Dial: " + cfg.dial + ".\n" +
+      "Adherence " + STAGES[stageNo()].name + "; the floors this week are " + JSON.stringify(STAGES[stageNo()].floors) + " (stage 1 prescribes nothing but SRS and one recorded page a day; do not ask for conversations or listening before stage 2).\n" +
+      "Week-to-date load (Mon–today): conversations " + st.conversations + " (human " + st.human + "), SRS days " + st.srs_days + ", listening days " + st.listening_days + " (" + st.listen_min + " min), recorded pages " + st.recordings + ", AI talk " + st.talk_min + " min.\n" +
+      "Last week: conversations " + last.conversations + ", SRS days " + last.srs_days + ", listening days " + last.listening_days + ", recordings " + last.recordings + ".\n" +
+      "Yesterday: " + (y ? describeDay(y) : "nothing logged") + ".\nRecent AI sessions:\n" + (recent || "none") + "\n" +
+      "Today's plan: " + STAGES[stageNo()].slots(today.getDay()).map(function (x) { return x[0] + " " + x[1]; }).join("; ") + ".\n" +
+      "Write the morning readout in at most 4 short lines, plain text: (1) load status vs floors in one line, (2) the one thing that matters today and why, (3) one specific error pattern or strength to carry into today's speaking, if the sessions show one, (4) a straight, unsentimental note if something is slipping. No praise, no emojis, no headings.";
+    $("readout-status").textContent = "thinking…"; $("readout").hidden = false; $("readout").textContent = "";
+    sample(prompt, { modelTier: "quick", cache: false, onText: function (u) { $("readout").textContent = u.text; } }).then(function (r) { $("readout").textContent = r.text; $("readout-status").textContent = ""; },
+      function (e) { $("readout-status").textContent = e.code === "not_granted" ? "Claude access declined" : "failed: " + e.code; });
+  });
+
+  /* ---------- render all ---------- */
+  function renderAll() { renderSeason(); renderToday(); renderWeek(); renderHistory(); renderRead(); }
+  fillCfg(); renderAll(); loadDayForm();
+
+  /* ---------- connect ---------- */
+  use("sample").then(function (s) { sample = s; if (!s) $("talk-unavailable").hidden = false; });
+  use("db").then(function (d) {
+    db = d;
+    if (!d) { $("offline").hidden = false; $("hdr-meta").textContent = "not connected"; return; }
+    d.doc("meta/config").onSnapshot(function (snap) {
+      if (snap.exists) { cfg = Object.assign(cfg, snap.data()); fillCfg(); renderAll(); }
+    }, function (e) { console.warn("config", e); });
+    [["meta/passages", function (v) { passagesDoc = v; }], ["meta/drills", function (v) { drillDoc = v; }], ["meta/ledger", function (v) { ledgerDoc = v; }], ["meta/book", function (v) { bookMeta = v; }], ["meta/reading", function (v) { readingDoc = v; }]].forEach(function (pair) {
+      d.doc(pair[0]).onSnapshot(function (snap) { if (snap.exists) { pair[1](snap.data()); renderRead(); renderToday(); renderWeek(); } }, function (e) { console.warn(pair[0], e); });
+    });
+    var since = iso(addDays(today, -35));
+    d.collection("days").where("date", ">=", since).onSnapshot(function (snap) {
+      days = {}; snap.docs.forEach(function (x) { var v = x.data(); days[v.date || x.id] = v; });
+      renderAll(); loadDayForm();
+    }, function (e) { console.warn("days", e); });
+    d.collection("sessions").orderBy("started", "desc").limit(30).onSnapshot(function (snap) {
+      sessions = snap.docs.map(function (x) { return x.data(); });
+      renderAll();
+    }, function (e) { console.warn("sessions", e); });
+  });
+})();
+</script>
+</body>
+</html>

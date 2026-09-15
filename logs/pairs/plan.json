@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "written": "2026-09-15T18:33:21Z",
+  "written_by": "coach",
+  "note": "From your reads: i/ii, schwa. 3 sessions done. Say the word you chose, aloud.",
+  "trials_per_session": 40,
+  "untrained_ratio": 0.5,
+  "voices": [
+    "en-GB-SoniaNeural",
+    "en-GB-LibbyNeural",
+    "en-GB-HollieNeural",
+    "en-GB-RyanNeural",
+    "en-GB-ThomasNeural",
+    "en-GB-AlfieNeural"
+  ],
+  "band": [
+    "high",
+    "mid"
+  ],
+  "feedback": "full",
+  "weights": {
+    "th": 0.42,
+    "s/z": 0.95,
+    "i/ii": 1.0,
+    "b/v": 0.43,
+    "cat/cut": 0.33,
+    "long-back": 0.15,
+    "j/y": 0.2,
+    "-ed": 0.27,
+    "h": 0.24,
+    "sh/ch": 0.19,
+    "er/or": 0.15,
+    "schwa": 0.52,
+    "s-cluster": 0.0
+  }
+}
