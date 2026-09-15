@@ -64,16 +64,14 @@ NEW_ACTIVE = 6           # how many new words ride along with the flagged ones
 NEW_MIN_WORDS = 6        # a usage fragment shorter than this is not a sentence to repeat
 NEW_MAX_WORDS = 30
 TOO_COMMON = 2000        # flagged path: a word this common, flagged, is connected speech, not a problem
-TOO_COMMON_NEW = 15000   # new-word path, raised from 2000 on 2026-09-15 at the user's reading of his own
-                         # lookups: "these are very common words, which I know — they are likely mistakes
-                         # when I try to select a truly new word". A tap in KOReader lands where the finger
-                         # lands, so the lookup store is full of words he never meant to look up (and,
-                         # that, in, hatred, medieval, swift, glimpse, haste, spectacle). The threshold is
-                         # therefore about DELIBERATENESS, not about knowing the meaning: above it, he
-                         # chose the word. Note this does not throw away the Latinate cognates that look
-                         # easy to him — conglomeration, erudition, lamentation are not in the 50k list at
-                         # all, and they are the best targets of the lot: he knows what they mean from
-                         # Spanish and has never heard where the English stress falls.
+TOO_COMMON_NEW = 2000    # new-word path. Raised to 15000 on 2026-09-15 and put straight back the same day:
+                         # asked which lookups were mis-taps, he named function words only — "and, that,
+                         # in, under, all, its, come, which, only, our, situation", every one inside the
+                         # commonest ~1000 — and said he MEANT hatred, haste, spectacle, medieval, swift,
+                         # glimpse, comrades, sheer, midst. So the automatic screen only removes the
+                         # finger-slips, and judging which real word is worth his mouth is HIS call, made
+                         # by deleting the word in KOReader's Vocabulary Builder (koreader-pull then drops
+                         # it — see `dropped`). A threshold cannot tell a tap he meant from one he did not.
 WORDLISTS = REPO / ".cache" / "minimal-pairs" / "data" / "sources"
 
 def load_json(p, default):
@@ -216,7 +214,7 @@ def new_words(vocab, results, limit=NEW_ACTIVE, today=None, lists=None):
     out = []
     for v in reversed(vocab.get("lookups") or []):          # newest first: he just met it in context
         w = (v.get("word") or "").strip()
-        if not w or v.get("carded"): continue
+        if not w or v.get("carded") or v.get("dropped"): continue
         if not worth_saying(w, freq): continue
         wid = "new-" + w.lower()
         st = ((results.get("words") or {}).get(wid) or {}).get("status")
@@ -526,11 +524,13 @@ def selftest():
             {"word": "spent", "usage": "Nothing here.", "carded": True},
             {"word": "scapegoat", "usage": "unfinished start. " + full},
         ]}
+        voc["lookups"].append({"word": "erased", "usage": "He erased the whole thing in one go.", "dropped": True})
         got = new_words(voc, {}, lists=({"scapegoat"}, {"that": 3, "scapegoat": 16064}))
         ids = [w["id"] for w in got]
         assert "new-volga" not in ids, "a proper noun is a name, not vocabulary"
         assert "new-that" not in ids, "too common to need a model"
         assert "new-xy" not in ids and "new-spent" not in ids, "shape reject; already spent"
+        assert "new-erased" not in ids, "deleted in KOReader: his call, and it stands"
         assert "new-apmsesinsy" not in ids, "capitalised OCR damage falls to the proper-noun rule"
         assert ids[0] == "new-scapegoat" and got[0]["sentence"] == full, got
         assert ids[-1] == "new-deptived", "unrecognised ranks last, it is not thrown away"
@@ -538,8 +538,9 @@ def selftest():
         assert new_words(voc, {"words": {"new-scapegoat": {"status": "retired"}}},
                          lists=({"scapegoat"}, {}))[0]["id"] != "new-scapegoat"
         # a word he knows is a mis-tap, not a lookup: the bar is deliberateness, not meaning
-        assert not worth_saying("haste", {"haste": 10391}), "inside the commonest 15000: a mis-tap"
-        assert worth_saying("scapegoat", {"scapegoat": 16064}), "above it: he chose the word"
+        assert not worth_saying("and", {"and": 7}), "a function word is a finger-slip"
+        assert worth_saying("haste", {"haste": 10391}), "he meant this one: not the screen's call"
+        assert worth_saying("scapegoat", {"scapegoat": 16064})
         assert worth_saying("conglomeration", {}), "not in the 50k list at all: the best kind of target"
         assert not worth_saying("Volga", {}) and not worth_saying("xy", {}) and not worth_saying("psst", {})
         vp = td / "vocab.json"; dump_json(vp, voc)

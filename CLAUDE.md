@@ -110,6 +110,14 @@ one-off steps.
   when a Kindle is plugged in), `daily.json` (minutes per day, Europe/London),
   `progress.json` (percentage → passage id), `books.json` (KOReader document
   ids = partial MD5 of the file, written by `passage-import.py`).
+- **Curating the lookups (2026-09-15):** the user's own delete in KOReader's Vocabulary Builder is
+  how words leave the list — he is the only one who can tell a deliberate tap from a finger-slip.
+  `merge_vocab` used to ADD only, so a deletion on the phone reached nothing; a lookup that is
+  absent from a full read of the database is now marked `dropped` (and `carded`, so Say-it never
+  offers it) and **never erased** — the history stays and looking the word up again brings it back.
+  A safety rail: if more than `PRUNE_FLOOR` of the stored koreader lookups vanish at once that is
+  an emptied or reinstalled database, not an afternoon's curation, so it says so and changes
+  nothing.
 - **Cards:** `python3 scripts/reading-cards.py` (Mac before the Anki push;
   cloud daily) turns the newest un-carded lookups that have a usable sentence
   into production cards (front = the sentence with the word blanked, said
@@ -190,16 +198,16 @@ retires or goes to the tutor.
   are a SOFT signal only — used as a gate they threw away *conglomeration*, *erudition*,
   *lamentation* and *conflagration* to catch four bits of OCR damage — so an unrecognised word is
   merely ranked last. Hard rejects there (`worth_saying`): shape (non-alpha, under three letters,
-  no vowel), a capital inside the sentence (*Volga*, *Comintern* are names), and anything inside
-  the commonest `TOO_COMMON_NEW` (15,000, raised from 2,000 on 2026-09-15). **The bar is
-  DELIBERATENESS, not meaning** — the user's own reading of his lookups: "these are very common
-  words, which I know; they are likely mistakes when I try to select a truly new word". A tap in
-  KOReader lands where the finger lands, so the store is full of *and*, *that*, *hatred*,
-  *medieval*, *swift*, *haste*, *spectacle*. It costs nothing real: the Latinate cognates that
-  matter most (*conglomeration*, *erudition*, *lamentation*) are not in the 50k list at all — he
-  knows them from Spanish and has never heard where the English stress falls. `worth_saying` is
-  applied to the words ALREADY on the list too, so raising the bar clears out what it now rejects
-  instead of leaving it standing; a claimed lookup the bar later rejects is released.
+  no vowel), a capital inside the sentence (*Volga*, *Comintern*, *Stalin* are names), and anything
+  inside the commonest `TOO_COMMON_NEW` (2,000). **THE MACHINE SCREENS FINGER-SLIPS; THE USER
+  CURATES.** The threshold was raised to 15,000 on 2026-09-15 and put back the same day: asked
+  which lookups were mistakes, he named function words only — "and, that, in, under, all, its,
+  come, which, only, our, situation" — and said he *meant* *hatred*, *haste*, *spectacle*,
+  *medieval*, *swift*, *glimpse*, *comrades*, *sheer*, *midst*. No threshold can separate a tap he
+  meant from one he did not, so it only removes what a finger-slip looks like, and the judgement is
+  his: **he deletes the word in KOReader's Vocabulary Builder**, and `koreader-pull` marks it
+  `dropped` (see below). `worth_saying` also runs over the words ALREADY on the list, so a change
+  to the screen clears what it now rejects instead of leaving it standing.
 - **The unit is the word IN ITS SENTENCE, never alone.** His failures are connected-speech failures
   (unstressed syllables collapsing, final consonants dropping) and an isolated word is a different motor
   task. The sentence is one he actually read, taken from the passage the review named — never invented.

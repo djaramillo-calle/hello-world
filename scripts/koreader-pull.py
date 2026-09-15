@@ -166,7 +166,16 @@ def kosync_progress(books, user, key, server=KOSYNC_SERVER, fetch=kosync_get):
                 break
     return out
 
-def merge_vocab(store, new):
+# Deleting a word in KOReader's Vocabulary Builder is how the user curates the list — he is the only
+# one who can tell a tap he meant from a finger-slip, and a frequency threshold cannot (asked on
+# 2026-09-15, his mis-taps were all function words while "hatred", "haste", "medieval" and "swift"
+# were deliberate). merge_vocab only ever ADDED, so a deletion on the phone reached nothing.
+# A vanished lookup is now marked `dropped`, never removed: the history stays, and a mistake here
+# costs one edit rather than a lost word.
+PRUNE_FLOOR = 0.5   # an incoming set smaller than this share of what we hold is an emptied or fresh
+                    # database, not an afternoon's curation. Say so and change nothing.
+
+def merge_vocab(store, new, prune=False, log=None):
     known = {x["id"]: x for x in store.get("lookups", [])}
     added = 0
     for e in new:
@@ -174,18 +183,31 @@ def merge_vocab(store, new):
             for k in ("review_count", "streak", "highlight"):
                 if k in e: known[e["id"]][k] = e[k]
             if not known[e["id"]].get("usage") and e.get("usage"): known[e["id"]]["usage"] = e["usage"]
+            if known[e["id"]].pop("dropped", None) and log: log(f"koreader-pull: {e['id']} is back")
         else:
             store.setdefault("lookups", []).append(e); known[e["id"]] = e; added += 1
+    if prune and new:
+        here = {i for i, x in known.items() if (x.get("source") or "koreader") == "koreader"}
+        gone = here - {e["id"] for e in new}
+        if len(here) and len(here - gone) < PRUNE_FLOOR * len(here):
+            if log: log(f"koreader-pull: {len(gone)} of {len(here)} lookups missing — that is an emptied "
+                        f"database, not curation; nothing dropped")
+        else:
+            for i in gone:
+                if not known[i].get("dropped"):
+                    known[i]["dropped"] = True; known[i]["carded"] = True   # never offered again
+            if gone and log: log(f"koreader-pull: {len(gone)} lookup(s) deleted on the phone — dropped")
     return added
 
-def fold(vocab_rows, daily_new, positions, kosync, today=None, vocab=None, daily=None, progress=None, books=None):
+def fold(vocab_rows, daily_new, positions, kosync, today=None, vocab=None, daily=None, progress=None,
+         books=None, prune=False, log=None):
     """Pure merge of everything read; returns the four documents and a summary."""
     today = today or dt.date.today()
     vocab = vocab if vocab is not None else {"lookups": []}
     daily = daily if daily is not None else {}
     progress = progress if progress is not None else {}
     books = books if books is not None else []
-    added = merge_vocab(vocab, vocab_rows)
+    added = merge_vocab(vocab, vocab_rows, prune=prune, log=log)
     if vocab_rows: vocab["synced"] = today.isoformat()
     for k, v in daily_new.items(): daily[k] = v
     by_md5 = {b.get("partial_md5"): b for b in books if b.get("partial_md5")}
@@ -237,6 +259,18 @@ def selftest():
     books = [{"slug": "the-origins-of-totalitarianism", "title": "The Origins of Totalitarianism", "partial_md5": "bf906459a4b4ca58cf49e66906f9e730", "filename_md5": "x", "passages": 1433}]
     store = {"lookups": [{"id": "ko:respite", "word": "respite", "usage": "", "book": "The Origins of Totalitarianism", "ts": 1, "carded": True}]}
     vocab, d, prog, bks, s = fold(rows, daily, pos, {}, today=dt.date(2026, 9, 10), vocab=store, books=books)
+    # a word deleted in KOReader's Vocabulary Builder stops being offered, and is not erased
+    keep = [r for r in rows if r["id"] != rows[0]["id"]]
+    v2 = {"lookups": [dict(x) for x in vocab["lookups"]]}
+    merge_vocab(v2, keep, prune=True)
+    goner = [x for x in v2["lookups"] if x["id"] == rows[0]["id"]][0]
+    assert goner.get("dropped") and goner.get("carded"), goner
+    assert len(v2["lookups"]) == len(vocab["lookups"]), "dropped, never erased"
+    merge_vocab(v2, rows, prune=True)
+    assert not [x for x in v2["lookups"] if x["id"] == rows[0]["id"]][0].get("dropped"), "looked up again: back"
+    v3 = {"lookups": [{"id": f"ko:w{i}", "word": f"w{i}", "source": "koreader"} for i in range(10)]}
+    merge_vocab(v3, [{"id": "ko:w0", "word": "w0", "source": "koreader"}], prune=True)
+    assert not any(x.get("dropped") for x in v3["lookups"]), "an emptied database is not curation"
     assert s["vocab_added"] == 1 and vocab["lookups"][0]["carded"] and vocab["lookups"][0]["usage"] == "no respite for the victor", vocab
     assert prog["the-origins-of-totalitarianism"]["passage"] == "B174" and prog["the-origins-of-totalitarianism"]["source"] == "statistics", prog
     ks = kosync_progress(books, "u", "k", fetch=lambda path, u, k, srv: (200, {"percentage": 0.2, "device": "poco", "timestamp": 1788999999}) if path.endswith("bf906459a4b4ca58cf49e66906f9e730") else (502, {}))
@@ -271,8 +305,10 @@ def main():
         print("koreader-pull: no KOReader folder on this machine and no kosync credentials/books — skipped"); return 3
     store = load(VOCAB, None)
     if store is None: store = load(LEGACY_VOCAB, {"lookups": []})   # the Kindle bridge's old file, once
+    # A whole vocabulary database was read, so what is NOT in it he deleted on the phone.
     vocab, daily, progress, books, s = fold(vocab_rows, daily_new, positions, ks, vocab=store,
-                                            daily=load(DAILY, {}), progress=load(PROGRESS, {}), books=books)
+                                            daily=load(DAILY, {}), progress=load(PROGRESS, {}), books=books,
+                                            prune=bool(vocab_rows), log=print)
     dump(VOCAB, vocab); dump(DAILY, daily); dump(PROGRESS, progress); dump(BOOKS, books)
     where = f"folder {d}" if d else "kosync only"
     pos = "; ".join(f"{p.get('title')} {round((p.get('percentage') or 0) * 100)}% ≈ {p.get('passage')} ({p.get('source')})" for p in progress.values()) or "no position"
