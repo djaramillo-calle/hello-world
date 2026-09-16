@@ -5,7 +5,7 @@
  "kind": "read",
  "passage": "B007",
  "anchor": false,
- "reviewed": "2026-09-16T12:11:42Z",
+ "reviewed": "2026-09-16T12:43:07Z",
  "fluency": {
   "duration_s": 2224.5,
   "wpm": 82.5,
@@ -28,8 +28,7 @@
    "fluency": 90.5,
    "completeness": 95.0,
    "prosody": 51.7,
-   "pron": 76.4,
-   "prosody_us_ref": 51.7
+   "pron": 76.4
   },
   "flagged": [
    {
@@ -240,10 +239,11 @@
      "the"
     ]
    }
-  }
+  },
+  "locale": "en-GB"
  },
  "harvest": null,
- "cards_added": 7,
+ "cards_added": 6,
  "flags": [],
  "passage_overlap": 0.94,
  "void": false

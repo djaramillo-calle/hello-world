@@ -5,7 +5,7 @@
  "kind": "read",
  "passage": "B096",
  "anchor": false,
- "reviewed": "2026-09-16T12:11:42Z",
+ "reviewed": "2026-09-16T12:43:07Z",
  "fluency": {
   "duration_s": 1450.0,
   "wpm": 101.2,
@@ -28,8 +28,7 @@
    "fluency": 91.4,
    "completeness": 97.8,
    "prosody": 55.4,
-   "pron": 79.3,
-   "prosody_us_ref": 55.4
+   "pron": 79.3
   },
   "flagged": [
    {
@@ -253,10 +252,11 @@
      "spiritual"
     ]
    }
-  }
+  },
+  "locale": "en-GB"
  },
  "harvest": null,
- "cards_added": 7,
+ "cards_added": 6,
  "flags": [],
  "passage_overlap": 0.97,
  "void": false

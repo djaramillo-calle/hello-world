@@ -5,7 +5,7 @@
  "kind": "read",
  "passage": "B087",
  "anchor": false,
- "reviewed": "2026-09-16T12:11:42Z",
+ "reviewed": "2026-09-16T12:43:07Z",
  "fluency": {
   "duration_s": 917.1,
   "wpm": 95.4,
@@ -28,8 +28,7 @@
    "fluency": 91.5,
    "completeness": 97.9,
    "prosody": 55.8,
-   "pron": 79.5,
-   "prosody_us_ref": 55.8
+   "pron": 79.5
   },
   "flagged": [
    {
@@ -226,10 +225,11 @@
      "statisticians"
     ]
    }
-  }
+  },
+  "locale": "en-GB"
  },
  "harvest": null,
- "cards_added": 5,
+ "cards_added": 3,
  "flags": [],
  "passage_overlap": 0.95,
  "void": false

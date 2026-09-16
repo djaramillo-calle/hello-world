@@ -133,7 +133,12 @@ def pronunciation(rec, scripted):
                 e = out["classes"].setdefault(c, {"n": 0, "words": []}); e["n"] += 1
                 if w.get("word") and w["word"] not in e["words"]: e["words"].append(w["word"])
         pros = (az.get("en_us_targets") or {}).get("overall_prosody")
-        if pros is not None: out["scores"]["prosody_us_ref"] = pros
+        # Since 2026-09-16 there is ONE pass, so this is the same number as `prosody` above and
+        # repeating it under a second name would read like corroboration from a second opinion.
+        # Keep the key only for the old two-pass records, where it really was a separate view.
+        if pros is not None and pros != out["scores"].get("prosody"):
+            out["scores"]["prosody_us_ref"] = pros
+        out["locale"] = az.get("locale") or (az.get("en_gb") or {}).get("locale") or "en-GB"
     else:
         for s in rec.get("pronunciation_suspects") or []:
             out["flagged"].append({"word": s.get("word"), "confidence": s.get("p"), "error": "asr-low-confidence"})
@@ -167,7 +172,11 @@ def update_ledger(ledger, review, date):
         # (one pass instead of two). Azure folds prosody into PronScore once it is requested,
         # so `pron` BEFORE that date is a different composite and the column does not compare
         # across it. accuracy, fluency and completeness are per-dimension and unaffected.
-        entry = {"date": date, "passage": review["passage"],
+        # `locale` joined on 2026-09-16 and is load-bearing: the same audio, same reference and
+        # same transcript scored en-GB and then en-US moved prosody 52.0 -> 81.4 and pron
+        # 76.9 -> 87.9 (the 09-10 read). Rows of different locales are DIFFERENT SERIES; never
+        # draw one line through them.
+        entry = {"date": date, "passage": review["passage"], "locale": pr.get("locale") or "en-GB",
                  **{k: v for k, v in pr["scores"].items()
                     if k in ("accuracy", "fluency", "completeness", "prosody", "pron")}}
         if review.get("anchor"):
@@ -397,7 +406,12 @@ def rebuild_ledger(practice=PRACTICE, ledger_path=LEDGER, passages=None, queue_p
     caller compares and decides."""
     import tempfile
     P = passages if passages is not None else load_json(PASSAGES, {})
-    ledger = {}
+    # Hand-written annotation survives a rebuild. `*_note` and the frozen `phonemes_before_*`
+    # block are not derived from the records, so a fresh replay would silently delete the only
+    # written record of WHY a column changed meaning. (It did, on the first rebuild after the
+    # en-US switch.) Everything else is recomputed.
+    prior = load_json(ledger_path, {})
+    ledger = {k: v for k, v in prior.items() if k.endswith("_note") or k.startswith("phonemes_before_")}
     recs = [p for p in sorted(practice.glob("*.json"))
             if not p.name.startswith(".") and not p.name.endswith(".review.json")]
     tmpq = queue_path or (pathlib.Path(tempfile.mkdtemp()) / "queue.tsv")
