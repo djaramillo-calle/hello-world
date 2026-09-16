@@ -42,16 +42,16 @@
    "last": "2026-09-14"
   },
   "th": {
-   "count": 13,
+   "count": 14,
    "words": {
     "earth": 1,
-    "this": 2,
+    "this": 3,
     "the": 4,
     "than": 1,
     "other": 1,
     "death": 1
    },
-   "last": "2026-09-15"
+   "last": "2026-09-16"
   },
   "schwa": {
    "count": 21,
@@ -107,16 +107,17 @@
    "last": "2026-09-14"
   },
   "-ed": {
-   "count": 7,
+   "count": 8,
    "words": {
     "rooted": 1,
     "convinced": 1,
     "collected": 1,
     "shifted": 1,
     "finished": 1,
-    "tried": 1
+    "tried": 1,
+    "discarded": 1
    },
-   "last": "2026-09-14"
+   "last": "2026-09-16"
   },
   "j/y": {
    "count": 3,
@@ -388,18 +389,20 @@
    ]
   },
   "since": {
-   "count": 1,
-   "last": "2026-09-12",
+   "count": 2,
+   "last": "2026-09-16",
    "kinds": [
     "read"
-   ]
+   ],
+   "carded": true
   },
   "over": {
-   "count": 1,
-   "last": "2026-09-12",
+   "count": 2,
+   "last": "2026-09-16",
    "kinds": [
     "read"
-   ]
+   ],
+   "carded": true
   },
   "treatment": {
    "count": 1,
@@ -417,8 +420,8 @@
    "carded": true
   },
   "to": {
-   "count": 3,
-   "last": "2026-09-14",
+   "count": 4,
+   "last": "2026-09-16",
    "kinds": [
     "read"
    ],
@@ -477,8 +480,8 @@
    ]
   },
   "from": {
-   "count": 3,
-   "last": "2026-09-13",
+   "count": 4,
+   "last": "2026-09-16",
    "kinds": [
     "read"
    ],
@@ -622,8 +625,8 @@
    "carded": true
   },
   "only": {
-   "count": 2,
-   "last": "2026-09-15",
+   "count": 4,
+   "last": "2026-09-16",
    "kinds": [
     "read"
    ],
@@ -696,11 +699,12 @@
    ]
   },
   "this": {
-   "count": 1,
-   "last": "2026-09-13",
+   "count": 3,
+   "last": "2026-09-16",
    "kinds": [
     "read"
-   ]
+   ],
+   "carded": true
   },
   "expansion": {
    "count": 1,
@@ -921,11 +925,12 @@
    "carded": true
   },
   "most": {
-   "count": 1,
-   "last": "2026-09-14",
+   "count": 2,
+   "last": "2026-09-16",
    "kinds": [
     "read"
-   ]
+   ],
+   "carded": true
   },
   "death": {
    "count": 1,
@@ -1028,8 +1033,8 @@
    ]
   },
   "came": {
-   "count": 2,
-   "last": "2026-09-15",
+   "count": 3,
+   "last": "2026-09-16",
    "kinds": [
     "read"
    ],
@@ -1086,11 +1091,12 @@
    ]
   },
   "jews": {
-   "count": 1,
-   "last": "2026-09-15",
+   "count": 2,
+   "last": "2026-09-16",
    "kinds": [
     "read"
-   ]
+   ],
+   "carded": true
   },
   "exploit": {
    "count": 1,
@@ -1115,11 +1121,12 @@
    ]
   },
   "had": {
-   "count": 1,
-   "last": "2026-09-15",
+   "count": 2,
+   "last": "2026-09-16",
    "kinds": [
     "read"
-   ]
+   ],
+   "carded": true
   },
   "tolerated": {
    "count": 1,
@@ -1162,11 +1169,151 @@
    "kinds": [
     "read"
    ]
+  },
+  "discarded": {
+   "count": 1,
+   "last": "2026-09-16",
+   "kinds": [
+    "read"
+   ]
+  },
+  "nationally": {
+   "count": 1,
+   "last": "2026-09-16",
+   "kinds": [
+    "read"
+   ]
+  },
+  "serious": {
+   "count": 2,
+   "last": "2026-09-16",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "victory": {
+   "count": 3,
+   "last": "2026-09-16",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "by": {
+   "count": 2,
+   "last": "2026-09-16",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "isms": {
+   "count": 3,
+   "last": "2026-09-16",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "public": {
+   "count": 1,
+   "last": "2026-09-16",
+   "kinds": [
+    "read"
+   ]
+  },
+  "movements": {
+   "count": 1,
+   "last": "2026-09-16",
+   "kinds": [
+    "read"
+   ]
+  },
+  "been": {
+   "count": 2,
+   "last": "2026-09-16",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "prepared": {
+   "count": 1,
+   "last": "2026-09-16",
+   "kinds": [
+    "read"
+   ]
+  },
+  "growth": {
+   "count": 1,
+   "last": "2026-09-16",
+   "kinds": [
+    "read"
+   ]
+  },
+  "empire": {
+   "count": 1,
+   "last": "2026-09-16",
+   "kinds": [
+    "read"
+   ]
+  },
+  "if": {
+   "count": 2,
+   "last": "2026-09-16",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "result": {
+   "count": 2,
+   "last": "2026-09-16",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "consequences": {
+   "count": 1,
+   "last": "2026-09-16",
+   "kinds": [
+    "read"
+   ]
+  },
+  "what": {
+   "count": 1,
+   "last": "2026-09-16",
+   "kinds": [
+    "read"
+   ]
+  },
+  "up": {
+   "count": 1,
+   "last": "2026-09-16",
+   "kinds": [
+    "read"
+   ]
+  },
+  "crisis": {
+   "count": 1,
+   "last": "2026-09-16",
+   "kinds": [
+    "read"
+   ]
+  },
+  "guides": {
+   "count": 1,
+   "last": "2026-09-16",
+   "kinds": [
+    "read"
+   ]
   }
  },
  "anchor": [],
- "recordings": 6,
- "updated": "2026-09-15T09:18:53Z",
+ "recordings": 7,
+ "updated": "2026-09-16T09:01:23Z",
  "reads": [
   {
    "date": "2026-09-10",
@@ -1208,6 +1355,15 @@
    "completeness": 82.7,
    "prosody": 45.9,
    "pron": 68.1
+  },
+  {
+   "date": "2026-09-16",
+   "passage": "B107",
+   "accuracy": 82.4,
+   "fluency": 80.7,
+   "completeness": 82.5,
+   "prosody": 45.6,
+   "pron": 67.6
   }
  ],
  "pron_note": "prosody entered the en-GB pass on 2026-09-15 (one pass instead of two); Azure folds it into PronScore, so `pron` is not comparable across that date. accuracy, fluency and completeness are unaffected and are the continuous lines."

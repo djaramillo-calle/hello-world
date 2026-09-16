@@ -1,0 +1,256 @@
+{
+ "id": "2026-09-16-2026-09-16-09-02-35",
+ "source": "2026_09_16_09_02_35.mp3",
+ "recorded": "2026-09-16 08:45",
+ "kind": "read",
+ "passage": "B107",
+ "anchor": false,
+ "reviewed": "2026-09-16T09:01:23Z",
+ "fluency": {
+  "duration_s": 1450.0,
+  "wpm": 101.2,
+  "words": 2446,
+  "filler_pct": 0.0,
+  "speech_rate_syll_s": 2.97,
+  "articulation_rate_syll_s": 4.04,
+  "avg_syllable_s": 0.248,
+  "f0_median_hz": 124.5,
+  "f0_range_semitones": 7.8,
+  "pause_count": 424,
+  "phonation_ratio": 0.73,
+  "mean_pause_s": 0.91
+ },
+ "pronunciation": {
+  "source": "azure",
+  "scripted": true,
+  "scores": {
+   "accuracy": 82.4,
+   "fluency": 80.7,
+   "completeness": 82.5,
+   "prosody": 45.6,
+   "pron": 67.6,
+   "prosody_us_ref": 45.6
+  },
+  "flagged": [
+   {
+    "word": "over",
+    "accuracy": 47.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "discarded",
+    "accuracy": 9.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "nationally",
+    "accuracy": 88.0,
+    "error": "None"
+   },
+   {
+    "word": "serious",
+    "accuracy": 26.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "this",
+    "accuracy": 52.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "victory",
+    "accuracy": 10.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "from",
+    "accuracy": 28.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "by",
+    "accuracy": 80.0,
+    "error": "None"
+   },
+   {
+    "word": "isms",
+    "accuracy": 59.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "public",
+    "accuracy": 37.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "movements",
+    "accuracy": 1.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "had",
+    "accuracy": 50.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "been",
+    "accuracy": 80.0,
+    "error": "None"
+   },
+   {
+    "word": "isms",
+    "accuracy": 90.0,
+    "error": "None"
+   },
+   {
+    "word": "prepared",
+    "accuracy": 1.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "growth",
+    "accuracy": 7.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "been",
+    "accuracy": 87.0,
+    "error": "None"
+   },
+   {
+    "word": "empire",
+    "accuracy": 21.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "by",
+    "accuracy": 98.0,
+    "error": "None"
+   },
+   {
+    "word": "since",
+    "accuracy": 1.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "only",
+    "accuracy": 20.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "serious",
+    "accuracy": 5.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "if",
+    "accuracy": 94.0,
+    "error": "None"
+   },
+   {
+    "word": "victory",
+    "accuracy": 4.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "jews",
+    "accuracy": 43.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "this",
+    "accuracy": 58.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "result",
+    "accuracy": 0.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "only",
+    "accuracy": 33.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "consequences",
+    "accuracy": 7.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "came",
+    "accuracy": 65.0,
+    "error": "None"
+   },
+   {
+    "word": "victory",
+    "accuracy": 58.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "to",
+    "accuracy": 53.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "result",
+    "accuracy": 0.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "what",
+    "accuracy": 1.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "most",
+    "accuracy": 4.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "if",
+    "accuracy": 94.0,
+    "error": "None"
+   },
+   {
+    "word": "up",
+    "accuracy": 80.0,
+    "error": "None"
+   },
+   {
+    "word": "isms",
+    "accuracy": 53.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "crisis",
+    "accuracy": 71.0,
+    "error": "None"
+   },
+   {
+    "word": "guides",
+    "accuracy": 1.0,
+    "error": "Mispronunciation"
+   }
+  ],
+  "classes": {
+   "-ed": {
+    "n": 1,
+    "words": [
+     "discarded"
+    ]
+   },
+   "th": {
+    "n": 1,
+    "words": [
+     "this"
+    ]
+   }
+  }
+ },
+ "harvest": null,
+ "cards_added": 13,
+ "flags": [],
+ "passage_overlap": 1.0,
+ "void": false
+}
