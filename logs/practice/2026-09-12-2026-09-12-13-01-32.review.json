@@ -5,7 +5,7 @@
  "kind": "read",
  "passage": "B007",
  "anchor": false,
- "reviewed": "2026-09-16T12:43:07Z",
+ "reviewed": "2026-09-16T13:45:56Z",
  "fluency": {
   "duration_s": 2224.5,
   "wpm": 82.5,
@@ -24,27 +24,57 @@
   "source": "azure",
   "scripted": true,
   "scores": {
-   "accuracy": 93.6,
-   "fluency": 90.5,
-   "completeness": 95.0,
-   "prosody": 51.7,
-   "pron": 76.4
+   "accuracy": 88.4,
+   "fluency": 93.9,
+   "completeness": 91.6,
+   "prosody": 81.3,
+   "pron": 87.1
   },
   "flagged": [
    {
-    "word": "part",
-    "accuracy": 48.0,
+    "word": "antisemitism",
+    "accuracy": 80.0,
+    "error": "None"
+   },
+   {
+    "word": "answer",
+    "accuracy": 21.0,
     "error": "Mispronunciation"
    },
    {
     "word": "since",
-    "accuracy": 28.0,
+    "accuracy": 94.0,
+    "error": "None"
+   },
+   {
+    "word": "secular",
+    "accuracy": 70.0,
+    "error": "None"
+   },
+   {
+    "word": "was",
+    "accuracy": 91.0,
+    "error": "None"
+   },
+   {
+    "word": "thirteenth",
+    "accuracy": 57.0,
     "error": "Mispronunciation"
    },
    {
-    "word": "means",
-    "accuracy": 44.0,
+    "word": "thirteenth",
+    "accuracy": 14.0,
     "error": "Mispronunciation"
+   },
+   {
+    "word": "and",
+    "accuracy": 80.0,
+    "error": "None"
+   },
+   {
+    "word": "religious",
+    "accuracy": 82.0,
+    "error": "None"
    },
    {
     "word": "the",
@@ -53,197 +83,240 @@
    },
    {
     "word": "mutually",
-    "accuracy": 0.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "fallacious",
-    "accuracy": 57.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "antisemitic",
-    "accuracy": 46.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "world",
-    "accuracy": 4.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "considered",
-    "accuracy": 55.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "diaspora—that",
-    "accuracy": 10.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "two",
-    "accuracy": 46.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "outside",
-    "accuracy": 45.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "cohn’s",
-    "accuracy": 42.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "work",
-    "accuracy": 37.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "the",
-    "accuracy": 49.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "adherents",
-    "accuracy": 53.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "contrary",
-    "accuracy": 45.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "direct",
-    "accuracy": 55.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "jews",
-    "accuracy": 41.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "make",
-    "accuracy": 36.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "that",
-    "accuracy": 44.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "german",
-    "accuracy": 59.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "main",
-    "accuracy": 46.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "german",
-    "accuracy": 52.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "squared",
-    "accuracy": 51.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "work",
-    "accuracy": 21.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "member",
-    "accuracy": 4.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "sort",
     "accuracy": 11.0,
     "error": "Mispronunciation"
    },
    {
-    "word": "this",
-    "accuracy": 40.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "outside",
-    "accuracy": 44.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "racial",
-    "accuracy": 45.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "some",
-    "accuracy": 49.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "occurred",
-    "accuracy": 35.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "up",
-    "accuracy": 32.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "those",
-    "accuracy": 41.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "part",
-    "accuracy": 37.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "part",
-    "accuracy": 46.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "interest",
+    "word": "are",
     "accuracy": 53.0,
     "error": "Mispronunciation"
    },
    {
-    "word": "when",
-    "accuracy": 37.0,
+    "word": "is",
+    "accuracy": 58.0,
     "error": "Mispronunciation"
    },
    {
-    "word": "jewry",
-    "accuracy": 48.0,
+    "word": "frequently",
+    "accuracy": 51.0,
     "error": "Mispronunciation"
+   },
+   {
+    "word": "superstitions",
+    "accuracy": 70.0,
+    "error": "None"
+   },
+   {
+    "word": "that",
+    "accuracy": 91.0,
+    "error": "None"
+   },
+   {
+    "word": "fallacious",
+    "accuracy": 85.0,
+    "error": "None"
+   },
+   {
+    "word": "mischievous",
+    "accuracy": 44.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "world",
+    "accuracy": 73.0,
+    "error": "None"
+   },
+   {
+    "word": "antiquity",
+    "accuracy": 24.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "historically",
+    "accuracy": 79.0,
+    "error": "None"
+   },
+   {
+    "word": "the",
+    "accuracy": 35.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "matters",
+    "accuracy": 51.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "marked",
+    "accuracy": 56.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "between",
+    "accuracy": 52.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "roman",
+    "accuracy": 88.0,
+    "error": "None"
+   },
+   {
+    "word": "antiquity",
+    "accuracy": 29.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "goal",
+    "accuracy": 68.0,
+    "error": "None"
+   },
+   {
+    "word": "frequently",
+    "accuracy": 44.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "history",
+    "accuracy": 42.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "diaspora—that",
+    "accuracy": 19.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "the",
+    "accuracy": 58.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "this",
+    "accuracy": 94.0,
+    "error": "None"
+   },
+   {
+    "word": "hiatus",
+    "accuracy": 54.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "centuries",
+    "accuracy": 91.0,
+    "error": "None"
+   },
+   {
+    "word": "matters",
+    "accuracy": 14.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "masses",
+    "accuracy": 72.0,
+    "error": "None"
+   },
+   {
+    "word": "fifteenth",
+    "accuracy": 70.0,
+    "error": "None"
+   },
+   {
+    "word": "sixteenth",
+    "accuracy": 44.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "during",
+    "accuracy": 68.0,
+    "error": "None"
    }
   ],
   "classes": {
+   "cat/cut": {
+    "n": 5,
+    "words": [
+     "antisemitism",
+     "answer",
+     "antiquity",
+     "matters"
+    ]
+   },
+   "i/ii": {
+    "n": 11,
+    "words": [
+     "antisemitism",
+     "mutually",
+     "mischievous",
+     "antiquity",
+     "historically",
+     "the",
+     "between",
+     "fifteenth",
+     "sixteenth"
+    ]
+   },
+   "s/z": {
+    "n": 11,
+    "words": [
+     "answer",
+     "since",
+     "secular",
+     "was",
+     "is",
+     "superstitions",
+     "mischievous",
+     "matters",
+     "centuries"
+    ]
+   },
    "th": {
+    "n": 6,
+    "words": [
+     "thirteenth",
+     "the",
+     "that",
+     "this",
+     "sixteenth"
+    ]
+   },
+   "schwa": {
+    "n": 8,
+    "words": [
+     "mutually",
+     "superstitions",
+     "fallacious",
+     "mischievous",
+     "antiquity",
+     "between",
+     "diaspora—that",
+     "hiatus"
+    ]
+   },
+   "b/v": {
+    "n": 2,
+    "words": [
+     "mischievous",
+     "between"
+    ]
+   },
+   "-ed": {
     "n": 1,
     "words": [
-     "the"
+     "marked"
+    ]
+   },
+   "h": {
+    "n": 1,
+    "words": [
+     "history"
     ]
    }
   },
-  "locale": "en-GB"
+  "locale": "en-US"
  },
  "harvest": null,
- "cards_added": 6,
+ "cards_added": 9,
  "flags": [],
  "passage_overlap": 0.94,
  "void": false

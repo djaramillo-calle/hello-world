@@ -5,7 +5,7 @@
  "kind": "read",
  "passage": "B096",
  "anchor": false,
- "reviewed": "2026-09-16T12:43:07Z",
+ "reviewed": "2026-09-16T13:45:56Z",
  "fluency": {
   "duration_s": 1450.0,
   "wpm": 101.2,
@@ -24,239 +24,290 @@
   "source": "azure",
   "scripted": true,
   "scores": {
-   "accuracy": 96.4,
-   "fluency": 91.4,
-   "completeness": 97.8,
-   "prosody": 55.4,
-   "pron": 79.3
+   "accuracy": 95.6,
+   "fluency": 94.5,
+   "completeness": 97.7,
+   "prosody": 85.3,
+   "pron": 91.6
   },
   "flagged": [
    {
     "word": "nationally",
-    "accuracy": 88.0,
-    "error": "None"
-   },
-   {
-    "word": "innocent",
-    "accuracy": 42.0,
+    "accuracy": 23.0,
     "error": "Mispronunciation"
    },
    {
-    "word": "public",
-    "accuracy": 36.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "judgment",
-    "accuracy": 49.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "simply",
-    "accuracy": 47.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "coresponsible",
-    "accuracy": 1.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "discard",
-    "accuracy": 44.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "no",
-    "accuracy": 42.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "may",
-    "accuracy": 53.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "may",
-    "accuracy": 59.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "first",
-    "accuracy": 2.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "theory",
-    "accuracy": 59.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "temptation",
-    "accuracy": 29.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "machine",
-    "accuracy": 32.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "becoming",
-    "accuracy": 44.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "forgery",
-    "accuracy": 3.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "seriousness",
-    "accuracy": 52.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "and",
-    "accuracy": 5.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "unbiased",
-    "accuracy": 14.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "its",
-    "accuracy": 5.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "responsibility",
-    "accuracy": 44.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "tendencies",
-    "accuracy": 0.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "antisemitism",
-    "accuracy": 1.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "the",
-    "accuracy": 51.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "parts",
-    "accuracy": 42.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "hit",
-    "accuracy": 44.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "spiritual",
-    "accuracy": 12.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "reality",
-    "accuracy": 71.0,
-    "error": "None"
-   },
-   {
-    "word": "obvious",
-    "accuracy": 2.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "people",
-    "accuracy": 11.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "its",
-    "accuracy": 51.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "possible",
-    "accuracy": 44.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "its",
-    "accuracy": 57.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "its",
-    "accuracy": 40.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "and",
-    "accuracy": 17.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "uncomfortable",
-    "accuracy": 1.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "uncomfortable",
-    "accuracy": 45.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "responsibility",
-    "accuracy": 45.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "sophists",
+    "word": "world",
     "accuracy": 35.0,
     "error": "Mispronunciation"
    },
    {
-    "word": "comes",
-    "accuracy": 42.0,
+    "word": "through",
+    "accuracy": 91.0,
+    "error": "None"
+   },
+   {
+    "word": "instrument",
+    "accuracy": 5.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "groups",
+    "accuracy": 11.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "view",
+    "accuracy": 85.0,
+    "error": "None"
+   },
+   {
+    "word": "of",
+    "accuracy": 80.0,
+    "error": "None"
+   },
+   {
+    "word": "been",
+    "accuracy": 44.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "innocence",
+    "accuracy": 6.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "imply",
+    "accuracy": 48.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "coresponsible",
+    "accuracy": 6.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "coresponsible",
+    "accuracy": 37.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "victim",
+    "accuracy": 91.0,
+    "error": "None"
+   },
+   {
+    "word": "world’s",
+    "accuracy": 88.0,
+    "error": "None"
+   },
+   {
+    "word": "scapegoat",
+    "accuracy": 91.0,
+    "error": "None"
+   },
+   {
+    "word": "than",
+    "accuracy": 97.0,
+    "error": "None"
+   },
+   {
+    "word": "victims",
+    "accuracy": 94.0,
+    "error": "None"
+   },
+   {
+    "word": "point",
+    "accuracy": 88.0,
+    "error": "None"
+   },
+   {
+    "word": "that",
+    "accuracy": 97.0,
+    "error": "None"
+   },
+   {
+    "word": "hypocrisy",
+    "accuracy": 60.0,
+    "error": "None"
+   },
+   {
+    "word": "advanced",
+    "accuracy": 97.0,
+    "error": "None"
+   },
+   {
+    "word": "arbitrariness",
+    "accuracy": 73.0,
+    "error": "None"
+   },
+   {
+    "word": "russia",
+    "accuracy": 39.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "victim",
+    "accuracy": 94.0,
+    "error": "None"
+   },
+   {
+    "word": "terror—namely",
+    "accuracy": 52.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "that",
+    "accuracy": 97.0,
+    "error": "None"
+   },
+   {
+    "word": "executors",
+    "accuracy": 62.0,
+    "error": "None"
+   },
+   {
+    "word": "dealing",
+    "accuracy": 70.0,
+    "error": "None"
+   },
+   {
+    "word": "what",
+    "accuracy": 94.0,
+    "error": "None"
+   },
+   {
+    "word": "have",
+    "accuracy": 97.0,
+    "error": "None"
+   },
+   {
+    "word": "belated",
+    "accuracy": 73.0,
+    "error": "None"
+   },
+   {
+    "word": "victim",
+    "accuracy": 91.0,
+    "error": "None"
+   },
+   {
+    "word": "temptation",
+    "accuracy": 45.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "temptation",
+    "accuracy": 88.0,
+    "error": "None"
+   },
+   {
+    "word": "victim",
+    "accuracy": 94.0,
+    "error": "None"
+   },
+   {
+    "word": "adequate",
+    "accuracy": 34.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "strikes",
+    "accuracy": 38.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "caught",
+    "accuracy": 97.0,
+    "error": "None"
+   },
+   {
+    "word": "establish",
+    "accuracy": 48.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "regime",
+    "accuracy": 28.0,
     "error": "Mispronunciation"
    }
   ],
   "classes": {
    "b/v": {
+    "n": 8,
+    "words": [
+     "been",
+     "victim",
+     "victims",
+     "have",
+     "belated"
+    ]
+   },
+   "cat/cut": {
     "n": 1,
     "words": [
-     "public"
+     "nationally"
+    ]
+   },
+   "s/z": {
+    "n": 4,
+    "words": [
+     "innocence",
+     "coresponsible",
+     "executors",
+     "establish"
+    ]
+   },
+   "i/ii": {
+    "n": 7,
+    "words": [
+     "imply",
+     "victim",
+     "hypocrisy",
+     "executors",
+     "dealing",
+     "establish"
     ]
    },
    "th": {
-    "n": 2,
+    "n": 1,
     "words": [
-     "theory",
-     "the"
+     "than"
+    ]
+   },
+   "h": {
+    "n": 1,
+    "words": [
+     "hypocrisy"
+    ]
+   },
+   "-ed": {
+    "n": 1,
+    "words": [
+     "advanced"
+    ]
+   },
+   "schwa": {
+    "n": 4,
+    "words": [
+     "russia",
+     "belated",
+     "temptation",
+     "adequate"
     ]
    },
    "s-cluster": {
-    "n": 1,
+    "n": 2,
     "words": [
-     "spiritual"
+     "scapegoat",
+     "strikes"
     ]
    }
   },
-  "locale": "en-GB"
+  "locale": "en-US"
  },
  "harvest": null,
- "cards_added": 6,
+ "cards_added": 7,
  "flags": [],
  "passage_overlap": 0.97,
  "void": false

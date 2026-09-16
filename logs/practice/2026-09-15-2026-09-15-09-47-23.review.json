@@ -5,7 +5,7 @@
  "kind": "read",
  "passage": "B087",
  "anchor": false,
- "reviewed": "2026-09-16T12:43:07Z",
+ "reviewed": "2026-09-16T13:45:56Z",
  "fluency": {
   "duration_s": 917.1,
   "wpm": 95.4,
@@ -24,212 +24,297 @@
   "source": "azure",
   "scripted": true,
   "scores": {
-   "accuracy": 96.5,
-   "fluency": 91.5,
-   "completeness": 97.9,
-   "prosody": 55.8,
-   "pron": 79.5
+   "accuracy": 95.7,
+   "fluency": 94.6,
+   "completeness": 97.8,
+   "prosody": 85.7,
+   "pron": 91.8
   },
   "flagged": [
    {
     "word": "parties",
-    "accuracy": 3.0,
-    "error": "Mispronunciation"
+    "accuracy": 85.0,
+    "error": "None"
    },
    {
-    "word": "up",
-    "accuracy": 45.0,
-    "error": "Mispronunciation"
+    "word": "of",
+    "accuracy": 91.0,
+    "error": "None"
    },
    {
-    "word": "with",
-    "accuracy": 1.0,
-    "error": "Mispronunciation"
+    "word": "hope",
+    "accuracy": 91.0,
+    "error": "None"
    },
    {
     "word": "banded",
-    "accuracy": 51.0,
+    "accuracy": 6.0,
     "error": "Mispronunciation"
    },
    {
-    "word": "aware",
-    "accuracy": 34.0,
+    "word": "appear",
+    "accuracy": 26.0,
     "error": "Mispronunciation"
    },
    {
-    "word": "purpose",
-    "accuracy": 2.0,
+    "word": "for",
+    "accuracy": 49.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "hapsburg",
+    "accuracy": 4.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "real",
+    "accuracy": 4.0,
     "error": "Mispronunciation"
    },
    {
     "word": "jewish",
-    "accuracy": 42.0,
+    "accuracy": 4.0,
     "error": "Mispronunciation"
    },
    {
-    "word": "any",
-    "accuracy": 57.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "around",
-    "accuracy": 44.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "role",
-    "accuracy": 43.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "interesting",
-    "accuracy": 1.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "comprehensible",
-    "accuracy": 5.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "this",
-    "accuracy": 57.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "machine",
-    "accuracy": 30.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "contrived",
-    "accuracy": 55.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "nationalism",
-    "accuracy": 28.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "contrary",
-    "accuracy": 48.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "resentment",
-    "accuracy": 32.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "statisticians",
+    "word": "to",
     "accuracy": 94.0,
     "error": "None"
    },
    {
-    "word": "re",
-    "accuracy": 9.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "like",
-    "accuracy": 59.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "power",
-    "accuracy": 57.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "its",
-    "accuracy": 19.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "which",
-    "accuracy": 59.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "constitutes",
-    "accuracy": 74.0,
+    "word": "antisemitism",
+    "accuracy": 87.0,
     "error": "None"
    },
    {
-    "word": "would",
-    "accuracy": 1.0,
+    "word": "common-sense",
+    "accuracy": 59.0,
     "error": "Mispronunciation"
    },
    {
-    "word": "those",
-    "accuracy": 56.0,
+    "word": "that",
+    "accuracy": 91.0,
+    "error": "None"
+   },
+   {
+    "word": "centered",
+    "accuracy": 53.0,
     "error": "Mispronunciation"
    },
    {
-    "word": "importance",
-    "accuracy": 48.0,
-    "error": "Mispronunciation"
+    "word": "consistently",
+    "accuracy": 67.0,
+    "error": "None"
    },
    {
-    "word": "because",
-    "accuracy": 20.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "best",
-    "accuracy": 15.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "illustration—and",
+    "word": "aimed",
     "accuracy": 45.0,
     "error": "Mispronunciation"
    },
    {
-    "word": "its",
-    "accuracy": 11.0,
+    "word": "aimed",
+    "accuracy": 41.0,
     "error": "Mispronunciation"
    },
    {
-    "word": "reasons",
-    "accuracy": 56.0,
+    "word": "uprootedness",
+    "accuracy": 41.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "nazis",
+    "accuracy": 88.0,
+    "error": "None"
+   },
+   {
+    "word": "discovery",
+    "accuracy": 79.0,
+    "error": "None"
+   },
+   {
+    "word": "the",
+    "accuracy": 97.0,
+    "error": "None"
+   },
+   {
+    "word": "world",
+    "accuracy": 91.0,
+    "error": "None"
+   },
+   {
+    "word": "interesting",
+    "accuracy": 35.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "toward",
+    "accuracy": 91.0,
+    "error": "None"
+   },
+   {
+    "word": "demagogy",
+    "accuracy": 91.0,
+    "error": "None"
+   },
+   {
+    "word": "nazis",
+    "accuracy": 88.0,
+    "error": "None"
+   },
+   {
+    "word": "themselves",
+    "accuracy": 85.0,
+    "error": "None"
+   },
+   {
+    "word": "comprehensible",
+    "accuracy": 17.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "enough",
+    "accuracy": 97.0,
+    "error": "None"
+   },
+   {
+    "word": "the",
+    "accuracy": 94.0,
+    "error": "None"
+   },
+   {
+    "word": "hastily",
+    "accuracy": 85.0,
+    "error": "None"
+   },
+   {
+    "word": "contrived",
+    "accuracy": 86.0,
+    "error": "None"
+   },
+   {
+    "word": "hasty",
+    "accuracy": 85.0,
+    "error": "None"
+   },
+   {
+    "word": "explanations",
+    "accuracy": 88.0,
+    "error": "None"
+   },
+   {
+    "word": "has",
+    "accuracy": 97.0,
+    "error": "None"
+   },
+   {
+    "word": "antisemitism",
+    "accuracy": 85.0,
+    "error": "None"
+   },
+   {
+    "word": "xenophobic",
+    "accuracy": 52.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "outbursts",
+    "accuracy": 59.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "antisemitism",
+    "accuracy": 91.0,
+    "error": "None"
+   },
+   {
+    "word": "nationalism",
+    "accuracy": 57.0,
     "error": "Mispronunciation"
    }
   ],
   "classes": {
-   "-ed": {
-    "n": 2,
+   "b/v": {
+    "n": 3,
     "words": [
-     "banded",
+     "hapsburg",
+     "of",
+     "comprehensible"
+    ]
+   },
+   "h": {
+    "n": 3,
+    "words": [
+     "hapsburg",
+     "hope",
+     "has"
+    ]
+   },
+   "j/y": {
+    "n": 1,
+    "words": [
+     "jewish"
+    ]
+   },
+   "-ed": {
+    "n": 4,
+    "words": [
+     "centered",
+     "aimed",
      "contrived"
     ]
    },
-   "b/v": {
+   "s/z": {
+    "n": 12,
+    "words": [
+     "parties",
+     "common-sense",
+     "uprootedness",
+     "nazis",
+     "interesting",
+     "hastily",
+     "hasty",
+     "explanations",
+     "xenophobic",
+     "outbursts",
+     "nationalism"
+    ]
+   },
+   "schwa": {
+    "n": 5,
+    "words": [
+     "appear",
+     "to",
+     "uprootedness",
+     "comprehensible"
+    ]
+   },
+   "cat/cut": {
     "n": 2,
     "words": [
-     "banded",
-     "contrived"
+     "antisemitism",
+     "uprootedness"
+    ]
+   },
+   "i/ii": {
+    "n": 4,
+    "words": [
+     "discovery",
+     "enough",
+     "antisemitism"
     ]
    },
    "th": {
-    "n": 2,
+    "n": 3,
     "words": [
-     "this",
-     "those"
-    ]
-   },
-   "s-cluster": {
-    "n": 1,
-    "words": [
-     "statisticians"
+     "the",
+     "themselves"
     ]
    }
   },
-  "locale": "en-GB"
+  "locale": "en-US"
  },
  "harvest": null,
- "cards_added": 3,
+ "cards_added": 4,
  "flags": [],
  "passage_overlap": 0.95,
  "void": false

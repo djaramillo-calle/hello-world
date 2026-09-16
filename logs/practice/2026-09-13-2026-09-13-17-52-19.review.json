@@ -5,7 +5,7 @@
  "kind": "read",
  "passage": "B024",
  "anchor": false,
- "reviewed": "2026-09-16T12:43:07Z",
+ "reviewed": "2026-09-16T13:45:56Z",
  "fluency": {
   "duration_s": 1658.0,
   "wpm": 97.7,
@@ -24,232 +24,288 @@
   "source": "azure",
   "scripted": true,
   "scores": {
-   "accuracy": 95.4,
-   "fluency": 90.1,
-   "completeness": 96.4,
-   "prosody": 57.3,
-   "pron": 79.3
+   "accuracy": 96.0,
+   "fluency": 94.0,
+   "completeness": 98.2,
+   "prosody": 85.2,
+   "pron": 91.7
   },
   "flagged": [
    {
     "word": "could",
-    "accuracy": 33.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "could",
-    "accuracy": 40.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "could",
-    "accuracy": 38.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "the",
-    "accuracy": 55.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "definite",
-    "accuracy": 5.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "its",
-    "accuracy": 52.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "its",
-    "accuracy": 53.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "expansion",
-    "accuracy": 2.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "for",
-    "accuracy": 52.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "its",
-    "accuracy": 8.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "may",
-    "accuracy": 57.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "moral",
-    "accuracy": 5.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "apprehensions",
-    "accuracy": 64.0,
+    "accuracy": 91.0,
     "error": "None"
    },
    {
-    "word": "that",
-    "accuracy": 54.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "considered",
-    "accuracy": 55.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "france",
-    "accuracy": 2.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "jockeyed",
-    "accuracy": 25.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "that",
-    "accuracy": 43.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "went",
-    "accuracy": 51.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "emergence",
-    "accuracy": 47.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "world",
-    "accuracy": 5.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "detotalitarization",
-    "accuracy": 0.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "and",
-    "accuracy": 58.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "the",
-    "accuracy": 57.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "quo",
-    "accuracy": 44.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "handling",
-    "accuracy": 35.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "prerequisites",
-    "accuracy": 4.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "sterile",
-    "accuracy": 59.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "superpowers",
-    "accuracy": 0.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "development",
-    "accuracy": 56.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "the",
-    "accuracy": 49.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "nationally",
-    "accuracy": 45.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "territorially",
-    "accuracy": 1.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "territorially",
-    "accuracy": 2.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "the",
-    "accuracy": 48.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "power",
-    "accuracy": 51.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "power",
-    "accuracy": 44.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "the",
-    "accuracy": 50.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "geographic",
+    "word": "very",
     "accuracy": 7.0,
     "error": "Mispronunciation"
    },
    {
-    "word": "ultimately",
-    "accuracy": 53.0,
+    "word": "arely",
+    "accuracy": 38.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "imperialism",
+    "accuracy": 57.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "definite",
+    "accuracy": 51.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "imperialist",
+    "accuracy": 85.0,
+    "error": "None"
+   },
+   {
+    "word": "incongruity",
+    "accuracy": 69.0,
+    "error": "None"
+   },
+   {
+    "word": "nineteenth",
+    "accuracy": 88.0,
+    "error": "None"
+   },
+   {
+    "word": "started",
+    "accuracy": 94.0,
+    "error": "None"
+   },
+   {
+    "word": "expansion",
+    "accuracy": 12.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "than",
+    "accuracy": 97.0,
+    "error": "None"
+   },
+   {
+    "word": "this",
+    "accuracy": 91.0,
+    "error": "None"
+   },
+   {
+    "word": "version",
+    "accuracy": 88.0,
+    "error": "None"
+   },
+   {
+    "word": "conquests",
+    "accuracy": 76.0,
+    "error": "None"
+   },
+   {
+    "word": "liquidation",
+    "accuracy": 79.0,
+    "error": "None"
+   },
+   {
+    "word": "independence",
+    "accuracy": 41.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "momentous",
+    "accuracy": 88.0,
+    "error": "None"
+   },
+   {
+    "word": "this",
+    "accuracy": 94.0,
+    "error": "None"
+   },
+   {
+    "word": "weakness",
+    "accuracy": 88.0,
+    "error": "None"
+   },
+   {
+    "word": "scruples",
+    "accuracy": 94.0,
+    "error": "None"
+   },
+   {
+    "word": "apprehensions",
+    "accuracy": 85.0,
+    "error": "None"
+   },
+   {
+    "word": "rebellion",
+    "accuracy": 85.0,
+    "error": "None"
+   },
+   {
+    "word": "rebellion",
+    "accuracy": 65.0,
+    "error": "None"
+   },
+   {
+    "word": "much-feared",
+    "accuracy": 91.0,
+    "error": "None"
+   },
+   {
+    "word": "boomerang",
+    "accuracy": 94.0,
+    "error": "None"
+   },
+   {
+    "word": "authority",
+    "accuracy": 94.0,
+    "error": "None"
+   },
+   {
+    "word": "always",
+    "accuracy": 91.0,
+    "error": "None"
+   },
+   {
+    "word": "france",
+    "accuracy": 97.0,
+    "error": "None"
+   },
+   {
+    "word": "seine",
+    "accuracy": 76.0,
+    "error": "None"
+   },
+   {
+    "word": "point",
+    "accuracy": 94.0,
+    "error": "None"
+   },
+   {
+    "word": "between",
+    "accuracy": 54.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "soviet",
+    "accuracy": 65.0,
+    "error": "None"
+   },
+   {
+    "word": "upon",
+    "accuracy": 94.0,
+    "error": "None"
+   },
+   {
+    "word": "that",
+    "accuracy": 42.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "went",
+    "accuracy": 56.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "between",
+    "accuracy": 45.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "world",
+    "accuracy": 85.0,
+    "error": "None"
+   },
+   {
+    "word": "consequence",
+    "accuracy": 85.0,
+    "error": "None"
+   },
+   {
+    "word": "detotalitarization",
+    "accuracy": 12.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "situation",
+    "accuracy": 22.0,
     "error": "Mispronunciation"
    }
   ],
   "classes": {
-   "s-cluster": {
-    "n": 1,
+   "schwa": {
+    "n": 8,
     "words": [
-     "sterile"
+     "imperialism",
+     "than",
+     "liquidation",
+     "momentous",
+     "authority",
+     "between",
+     "soviet",
+     "that"
+    ]
+   },
+   "i/ii": {
+    "n": 13,
+    "words": [
+     "imperialism",
+     "imperialist",
+     "incongruity",
+     "this",
+     "weakness",
+     "rebellion",
+     "between",
+     "soviet",
+     "detotalitarization"
+    ]
+   },
+   "s/z": {
+    "n": 9,
+    "words": [
+     "imperialism",
+     "started",
+     "this",
+     "conquests",
+     "independence",
+     "scruples",
+     "apprehensions",
+     "france"
     ]
    },
    "b/v": {
+    "n": 6,
+    "words": [
+     "version",
+     "rebellion",
+     "between",
+     "soviet"
+    ]
+   },
+   "-ed": {
     "n": 1,
     "words": [
-     "development"
+     "much-feared"
+    ]
+   },
+   "cat/cut": {
+    "n": 1,
+    "words": [
+     "upon"
+    ]
+   },
+   "s-cluster": {
+    "n": 2,
+    "words": [
+     "started",
+     "scruples"
     ]
    }
   },
-  "locale": "en-GB"
+  "locale": "en-US"
  },
  "harvest": null,
- "cards_added": 6,
+ "cards_added": 3,
  "flags": [],
  "passage_overlap": 0.93,
  "void": false

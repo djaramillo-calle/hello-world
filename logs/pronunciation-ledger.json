@@ -160,40 +160,65 @@
    "last": "2026-09-15"
   }
  },
- "class_note": "The confusion classes are built from Azure's IPA phoneme symbols, and only en-US returns them named. The single en-GB pass run from 2026-09-14 to 2026-09-16 returned the scores and the n-best slots but every symbol EMPTY, so i/ii, schwa, s/z, cat/cut and j/y lost their source and the spelling-based fallback (classify_word) carried them alone. The counts below are therefore mixed: the 09-10 read contributes real phoneme evidence, the other five only spelling guesses. phonemes_before_2026_09_16 holds the old two-pass tallies. Treat class weights as provisional until en-US reads accumulate.",
- "locale_note": "SCORING LOCALE CHANGED TO en-US ON 2026-09-16, at the user's decision. Microsoft's docs make en-US the only locale that returns prosody AND named IPA phonemes. MEASURED, not assumed: the 2026-09-10 read (B003-B006) was re-run under en-US on the SAME audio, the SAME Whisper transcript and the SAME 749-word reference. Only the locale changed, and it moved prosody 52.0 -> 81.4, pron 76.9 -> 87.9, fluency 89.7 -> 93.6, accuracy 93.5 -> 90.3, completeness 94.9 -> 93.2. Phoneme names went from 0 of 55 to 70 of 70, with n-best alternatives. So en-GB and en-US rows are DIFFERENT SERIES and every read row now carries `locale`. Never draw one line through both. The five rows of 09-12 to 09-16 are still en-GB; whether to spend ~188 more minutes of Azure rescoring them into one consistent series is the user's call.",
+ "class_note": "The confusion classes are built from Azure's IPA phoneme symbols, and only en-US returns them named. The counts below come from the five en-US reads and are the first real phoneme evidence in this file — the en-GB single pass of 09-14 to 09-16 returned every symbol EMPTY, so the spelling-based fallback (classify_word) was carrying the classes alone and undercounting badly: i/ii 15 -> 50, s/z 8 -> 44, schwa 7 -> 32, b/v 9 -> 24. The 09-14 read still contributes spelling guesses only (see locale_note). phonemes_before_2026_09_16 holds the old two-pass tallies from before the regression.",
+ "locale_note": "SCORING LOCALE IS en-US SINCE 2026-09-16, at the user's decision. Microsoft's docs make en-US the only locale that returns prosody AND named IPA phonemes. Five of the six reads were re-assessed under it on the SAME audio, the SAME stored Whisper transcript and the SAME span reference — only the locale changed. Prosody moved from 52-59 to 81-86, fluency up about 3 points, accuracy and completeness within a point or two either way, and the SHAPE of the series held (09-12 still the weak read). So the locale changed the levels, not the trend. THE 09-14 READ IS STILL en-GB: at 84 minutes it is the longest, and the Azure F0 quota ran out before it could be re-assessed (CancellationReason.Error 1007, 'Quota exceeded'). Its prosody of 59.4 and pron of 80.6 are en-GB numbers and DO NOT belong on the same line as the rest; its accuracy, fluency and completeness are close enough to read with care. Re-run it after the quota resets: .venv-practice/bin/python scripts/rescore-reads.py --only 2026-09-14",
  "phonemes": {
   "schwa": {
-   "count": 7,
+   "count": 32,
    "words": {
     "tradition": 1,
     "deducing": 1,
     "denying": 1,
-    "imperialism": 1,
+    "imperialism": 2,
     "curious": 1,
     "incompatibility": 1,
-    "to": 1
+    "to": 2,
+    "mutually": 1,
+    "superstitions": 1,
+    "fallacious": 1,
+    "mischievous": 1,
+    "antiquity": 1,
+    "between": 2,
+    "diaspora—that": 1,
+    "hiatus": 1,
+    "than": 1,
+    "liquidation": 1,
+    "momentous": 1,
+    "authority": 1,
+    "soviet": 1,
+    "that": 1,
+    "appear": 1,
+    "uprootedness": 1,
+    "comprehensible": 1,
+    "russia": 1,
+    "belated": 1,
+    "temptation": 1,
+    "adequate": 1
    },
-   "last": "2026-09-10"
+   "last": "2026-09-16"
   },
   "-ed": {
-   "count": 5,
+   "count": 10,
    "words": {
     "dissolved": 1,
+    "marked": 1,
+    "much-feared": 1,
     "backward-directed": 1,
     "compared": 1,
-    "banded": 1,
-    "contrived": 1
+    "centered": 1,
+    "aimed": 1,
+    "contrived": 1,
+    "advanced": 1
    },
-   "last": "2026-09-15"
+   "last": "2026-09-16"
   },
   "i/ii": {
-   "count": 15,
+   "count": 50,
    "words": {
     "into": 1,
     "disintegration": 1,
     "history": 1,
-    "the": 1,
+    "the": 2,
     "precedents": 1,
     "submitting": 1,
     "unpremeditated": 1,
@@ -201,89 +226,170 @@
     "difficulties": 1,
     "curious": 1,
     "conspicuous": 1,
-    "incompatibility": 1
+    "incompatibility": 1,
+    "antisemitism": 2,
+    "mutually": 1,
+    "mischievous": 1,
+    "antiquity": 1,
+    "historically": 1,
+    "between": 2,
+    "fifteenth": 1,
+    "sixteenth": 1,
+    "imperialism": 1,
+    "imperialist": 1,
+    "incongruity": 1,
+    "this": 1,
+    "weakness": 1,
+    "rebellion": 1,
+    "soviet": 1,
+    "detotalitarization": 1,
+    "discovery": 1,
+    "enough": 1,
+    "imply": 1,
+    "victim": 1,
+    "hypocrisy": 1,
+    "executors": 1,
+    "dealing": 1,
+    "establish": 1
    },
-   "last": "2026-09-10"
+   "last": "2026-09-16"
   },
   "cat/cut": {
-   "count": 3,
+   "count": 12,
    "words": {
     "unrecognizable": 1,
     "submitting": 1,
-    "incompatibility": 1
+    "incompatibility": 1,
+    "antisemitism": 2,
+    "answer": 1,
+    "antiquity": 1,
+    "matters": 1,
+    "upon": 1,
+    "uprootedness": 1,
+    "nationally": 1
    },
-   "last": "2026-09-10"
+   "last": "2026-09-16"
   },
   "j/y": {
-   "count": 2,
+   "count": 3,
    "words": {
     "yield": 1,
-    "curious": 1
+    "curious": 1,
+    "jewish": 1
    },
-   "last": "2026-09-10"
+   "last": "2026-09-15"
   },
   "s/z": {
-   "count": 8,
+   "count": 44,
    "words": {
     "disintegration": 1,
     "because": 1,
     "submitting": 1,
-    "this": 1,
+    "this": 2,
     "factories": 1,
     "difficulties": 1,
     "curious": 1,
-    "conspicuous": 1
+    "conspicuous": 1,
+    "answer": 1,
+    "since": 1,
+    "secular": 1,
+    "was": 1,
+    "is": 1,
+    "superstitions": 1,
+    "mischievous": 1,
+    "matters": 1,
+    "centuries": 1,
+    "imperialism": 1,
+    "started": 1,
+    "conquests": 1,
+    "independence": 1,
+    "scruples": 1,
+    "apprehensions": 1,
+    "france": 1,
+    "parties": 1,
+    "common-sense": 1,
+    "uprootedness": 1,
+    "nazis": 1,
+    "interesting": 1,
+    "hastily": 1,
+    "hasty": 1,
+    "explanations": 1,
+    "xenophobic": 1,
+    "outbursts": 1,
+    "nationalism": 1,
+    "innocence": 1,
+    "coresponsible": 1,
+    "executors": 1,
+    "establish": 1
    },
-   "last": "2026-09-10"
+   "last": "2026-09-16"
   },
   "th": {
-   "count": 9,
+   "count": 14,
    "words": {
     "the": 3,
     "earth": 1,
-    "thou": 1,
+    "thirteenth": 1,
+    "that": 1,
     "this": 1,
-    "those": 1,
-    "theory": 1
+    "sixteenth": 1,
+    "thou": 1,
+    "themselves": 1,
+    "than": 1
    },
    "last": "2026-09-16"
   },
   "b/v": {
-   "count": 9,
+   "count": 24,
    "words": {
     "submitting": 1,
     "avowed": 1,
-    "development": 1,
+    "mischievous": 1,
+    "between": 2,
+    "version": 1,
+    "rebellion": 1,
+    "soviet": 1,
     "backward-directed": 1,
     "embarras": 1,
     "bearing": 1,
-    "banded": 1,
-    "contrived": 1,
-    "public": 1
-   },
-   "last": "2026-09-16"
-  },
-  "s-cluster": {
-   "count": 3,
-   "words": {
-    "sterile": 1,
-    "statisticians": 1,
-    "spiritual": 1
+    "hapsburg": 1,
+    "of": 1,
+    "comprehensible": 1,
+    "been": 1,
+    "victim": 1,
+    "victims": 1,
+    "have": 1,
+    "belated": 1
    },
    "last": "2026-09-16"
   },
   "h": {
-   "count": 1,
+   "count": 6,
    "words": {
-    "had": 1
+    "history": 1,
+    "had": 1,
+    "hapsburg": 1,
+    "hope": 1,
+    "has": 1,
+    "hypocrisy": 1
    },
-   "last": "2026-09-14"
+   "last": "2026-09-16"
+  },
+  "s-cluster": {
+   "count": 4,
+   "words": {
+    "started": 1,
+    "scruples": 1,
+    "scapegoat": 1,
+    "strikes": 1
+   },
+   "last": "2026-09-16"
   }
  },
  "words": {
   "world": {
-   "count": 5,
-   "last": "2026-09-13",
+   "count": 7,
+   "last": "2026-09-16",
    "kinds": [
     "read"
    ],
@@ -297,8 +403,8 @@
    ]
   },
   "that": {
-   "count": 4,
-   "last": "2026-09-13",
+   "count": 6,
+   "last": "2026-09-16",
    "kinds": [
     "read"
    ],
@@ -368,12 +474,11 @@
    ]
   },
   "because": {
-   "count": 2,
-   "last": "2026-09-15",
+   "count": 1,
+   "last": "2026-09-10",
    "kinds": [
     "read"
-   ],
-   "carded": true
+   ]
   },
   "lifeless": {
    "count": 1,
@@ -383,15 +488,16 @@
    ]
   },
   "history": {
-   "count": 1,
-   "last": "2026-09-10",
+   "count": 2,
+   "last": "2026-09-12",
    "kinds": [
     "read"
-   ]
+   ],
+   "carded": true
   },
   "the": {
-   "count": 11,
-   "last": "2026-09-16",
+   "count": 8,
+   "last": "2026-09-15",
    "kinds": [
     "read"
    ],
@@ -412,19 +518,20 @@
    ]
   },
   "and": {
-   "count": 4,
-   "last": "2026-09-16",
+   "count": 2,
+   "last": "2026-09-12",
    "kinds": [
     "read"
    ],
    "carded": true
   },
   "are": {
-   "count": 1,
-   "last": "2026-09-10",
+   "count": 2,
+   "last": "2026-09-12",
    "kinds": [
     "read"
-   ]
+   ],
+   "carded": true
   },
   "earth": {
    "count": 1,
@@ -462,8 +569,8 @@
    ]
   },
   "this": {
-   "count": 6,
-   "last": "2026-09-15",
+   "count": 7,
+   "last": "2026-09-14",
    "kinds": [
     "read"
    ],
@@ -498,11 +605,12 @@
    ]
   },
   "imperialism": {
-   "count": 1,
-   "last": "2026-09-10",
+   "count": 2,
+   "last": "2026-09-13",
    "kinds": [
     "read"
-   ]
+   ],
+   "carded": true
   },
   "difficulties": {
    "count": 1,
@@ -547,19 +655,27 @@
    ]
   },
   "to": {
-   "count": 1,
-   "last": "2026-09-10",
-   "kinds": [
-    "read"
-   ]
-  },
-  "part": {
-   "count": 5,
-   "last": "2026-09-14",
+   "count": 2,
+   "last": "2026-09-15",
    "kinds": [
     "read"
    ],
    "carded": true
+  },
+  "antisemitism": {
+   "count": 4,
+   "last": "2026-09-15",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "answer": {
+   "count": 1,
+   "last": "2026-09-12",
+   "kinds": [
+    "read"
+   ]
   },
   "since": {
    "count": 1,
@@ -568,7 +684,30 @@
     "read"
    ]
   },
-  "means": {
+  "secular": {
+   "count": 1,
+   "last": "2026-09-12",
+   "kinds": [
+    "read"
+   ]
+  },
+  "was": {
+   "count": 2,
+   "last": "2026-09-14",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "thirteenth": {
+   "count": 2,
+   "last": "2026-09-12",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "religious": {
    "count": 1,
    "last": "2026-09-12",
    "kinds": [
@@ -582,6 +721,28 @@
     "read"
    ]
   },
+  "is": {
+   "count": 1,
+   "last": "2026-09-12",
+   "kinds": [
+    "read"
+   ]
+  },
+  "frequently": {
+   "count": 2,
+   "last": "2026-09-12",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "superstitions": {
+   "count": 1,
+   "last": "2026-09-12",
+   "kinds": [
+    "read"
+   ]
+  },
   "fallacious": {
    "count": 1,
    "last": "2026-09-12",
@@ -589,20 +750,64 @@
     "read"
    ]
   },
-  "antisemitic": {
+  "mischievous": {
    "count": 1,
    "last": "2026-09-12",
    "kinds": [
     "read"
    ]
   },
-  "considered": {
+  "antiquity": {
    "count": 2,
+   "last": "2026-09-12",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "historically": {
+   "count": 1,
+   "last": "2026-09-12",
+   "kinds": [
+    "read"
+   ]
+  },
+  "matters": {
+   "count": 2,
+   "last": "2026-09-12",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "marked": {
+   "count": 1,
+   "last": "2026-09-12",
+   "kinds": [
+    "read"
+   ]
+  },
+  "between": {
+   "count": 3,
    "last": "2026-09-13",
    "kinds": [
     "read"
    ],
    "carded": true
+  },
+  "roman": {
+   "count": 1,
+   "last": "2026-09-12",
+   "kinds": [
+    "read"
+   ]
+  },
+  "goal": {
+   "count": 1,
+   "last": "2026-09-12",
+   "kinds": [
+    "read"
+   ]
   },
   "diaspora—that": {
    "count": 1,
@@ -611,162 +816,42 @@
     "read"
    ]
   },
-  "two": {
-   "count": 2,
-   "last": "2026-09-14",
-   "kinds": [
-    "read"
-   ],
-   "carded": true
-  },
-  "outside": {
-   "count": 2,
-   "last": "2026-09-12",
-   "kinds": [
-    "read"
-   ],
-   "carded": true
-  },
-  "cohn’s": {
+  "hiatus": {
    "count": 1,
    "last": "2026-09-12",
    "kinds": [
     "read"
    ]
   },
-  "work": {
-   "count": 2,
-   "last": "2026-09-12",
-   "kinds": [
-    "read"
-   ],
-   "carded": true
-  },
-  "adherents": {
+  "centuries": {
    "count": 1,
    "last": "2026-09-12",
    "kinds": [
     "read"
    ]
   },
-  "contrary": {
-   "count": 3,
-   "last": "2026-09-15",
-   "kinds": [
-    "read"
-   ],
-   "carded": true
-  },
-  "direct": {
-   "count": 2,
-   "last": "2026-09-14",
-   "kinds": [
-    "read"
-   ],
-   "carded": true
-  },
-  "jews": {
+  "masses": {
    "count": 1,
    "last": "2026-09-12",
    "kinds": [
     "read"
    ]
   },
-  "make": {
+  "fifteenth": {
    "count": 1,
    "last": "2026-09-12",
    "kinds": [
     "read"
    ]
   },
-  "german": {
-   "count": 4,
-   "last": "2026-09-14",
-   "kinds": [
-    "read"
-   ],
-   "carded": true
-  },
-  "main": {
+  "sixteenth": {
    "count": 1,
    "last": "2026-09-12",
    "kinds": [
     "read"
    ]
   },
-  "squared": {
-   "count": 1,
-   "last": "2026-09-12",
-   "kinds": [
-    "read"
-   ]
-  },
-  "member": {
-   "count": 1,
-   "last": "2026-09-12",
-   "kinds": [
-    "read"
-   ]
-  },
-  "sort": {
-   "count": 1,
-   "last": "2026-09-12",
-   "kinds": [
-    "read"
-   ]
-  },
-  "racial": {
-   "count": 1,
-   "last": "2026-09-12",
-   "kinds": [
-    "read"
-   ]
-  },
-  "some": {
-   "count": 1,
-   "last": "2026-09-12",
-   "kinds": [
-    "read"
-   ]
-  },
-  "occurred": {
-   "count": 1,
-   "last": "2026-09-12",
-   "kinds": [
-    "read"
-   ]
-  },
-  "up": {
-   "count": 2,
-   "last": "2026-09-15",
-   "kinds": [
-    "read"
-   ],
-   "carded": true
-  },
-  "those": {
-   "count": 2,
-   "last": "2026-09-15",
-   "kinds": [
-    "read"
-   ],
-   "carded": true
-  },
-  "interest": {
-   "count": 1,
-   "last": "2026-09-12",
-   "kinds": [
-    "read"
-   ]
-  },
-  "when": {
-   "count": 1,
-   "last": "2026-09-12",
-   "kinds": [
-    "read"
-   ]
-  },
-  "jewry": {
+  "during": {
    "count": 1,
    "last": "2026-09-12",
    "kinds": [
@@ -774,12 +859,25 @@
    ]
   },
   "could": {
-   "count": 3,
+   "count": 1,
    "last": "2026-09-13",
    "kinds": [
     "read"
-   ],
-   "carded": true
+   ]
+  },
+  "very": {
+   "count": 1,
+   "last": "2026-09-13",
+   "kinds": [
+    "read"
+   ]
+  },
+  "arely": {
+   "count": 1,
+   "last": "2026-09-13",
+   "kinds": [
+    "read"
+   ]
   },
   "definite": {
    "count": 1,
@@ -788,13 +886,33 @@
     "read"
    ]
   },
-  "its": {
-   "count": 10,
-   "last": "2026-09-16",
+  "imperialist": {
+   "count": 1,
+   "last": "2026-09-13",
    "kinds": [
     "read"
-   ],
-   "carded": true
+   ]
+  },
+  "incongruity": {
+   "count": 1,
+   "last": "2026-09-13",
+   "kinds": [
+    "read"
+   ]
+  },
+  "nineteenth": {
+   "count": 1,
+   "last": "2026-09-13",
+   "kinds": [
+    "read"
+   ]
+  },
+  "started": {
+   "count": 1,
+   "last": "2026-09-13",
+   "kinds": [
+    "read"
+   ]
   },
   "expansion": {
    "count": 1,
@@ -803,22 +921,57 @@
     "read"
    ]
   },
-  "for": {
-   "count": 1,
-   "last": "2026-09-13",
-   "kinds": [
-    "read"
-   ]
-  },
-  "may": {
-   "count": 3,
+  "than": {
+   "count": 2,
    "last": "2026-09-16",
    "kinds": [
     "read"
    ],
    "carded": true
   },
-  "moral": {
+  "version": {
+   "count": 1,
+   "last": "2026-09-13",
+   "kinds": [
+    "read"
+   ]
+  },
+  "conquests": {
+   "count": 1,
+   "last": "2026-09-13",
+   "kinds": [
+    "read"
+   ]
+  },
+  "liquidation": {
+   "count": 1,
+   "last": "2026-09-13",
+   "kinds": [
+    "read"
+   ]
+  },
+  "independence": {
+   "count": 1,
+   "last": "2026-09-13",
+   "kinds": [
+    "read"
+   ]
+  },
+  "momentous": {
+   "count": 1,
+   "last": "2026-09-13",
+   "kinds": [
+    "read"
+   ]
+  },
+  "weakness": {
+   "count": 1,
+   "last": "2026-09-13",
+   "kinds": [
+    "read"
+   ]
+  },
+  "scruples": {
    "count": 1,
    "last": "2026-09-13",
    "kinds": [
@@ -832,6 +985,42 @@
     "read"
    ]
   },
+  "rebellion": {
+   "count": 2,
+   "last": "2026-09-13",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "much-feared": {
+   "count": 1,
+   "last": "2026-09-13",
+   "kinds": [
+    "read"
+   ]
+  },
+  "boomerang": {
+   "count": 1,
+   "last": "2026-09-13",
+   "kinds": [
+    "read"
+   ]
+  },
+  "authority": {
+   "count": 1,
+   "last": "2026-09-13",
+   "kinds": [
+    "read"
+   ]
+  },
+  "always": {
+   "count": 1,
+   "last": "2026-09-13",
+   "kinds": [
+    "read"
+   ]
+  },
   "france": {
    "count": 1,
    "last": "2026-09-13",
@@ -839,7 +1028,29 @@
     "read"
    ]
   },
-  "jockeyed": {
+  "seine": {
+   "count": 1,
+   "last": "2026-09-13",
+   "kinds": [
+    "read"
+   ]
+  },
+  "point": {
+   "count": 2,
+   "last": "2026-09-16",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "soviet": {
+   "count": 1,
+   "last": "2026-09-13",
+   "kinds": [
+    "read"
+   ]
+  },
+  "upon": {
    "count": 1,
    "last": "2026-09-13",
    "kinds": [
@@ -853,7 +1064,7 @@
     "read"
    ]
   },
-  "emergence": {
+  "consequence": {
    "count": 1,
    "last": "2026-09-13",
    "kinds": [
@@ -867,80 +1078,7 @@
     "read"
    ]
   },
-  "quo": {
-   "count": 1,
-   "last": "2026-09-13",
-   "kinds": [
-    "read"
-   ]
-  },
-  "handling": {
-   "count": 1,
-   "last": "2026-09-13",
-   "kinds": [
-    "read"
-   ]
-  },
-  "prerequisites": {
-   "count": 1,
-   "last": "2026-09-13",
-   "kinds": [
-    "read"
-   ]
-  },
-  "sterile": {
-   "count": 1,
-   "last": "2026-09-13",
-   "kinds": [
-    "read"
-   ]
-  },
-  "superpowers": {
-   "count": 1,
-   "last": "2026-09-13",
-   "kinds": [
-    "read"
-   ]
-  },
-  "development": {
-   "count": 1,
-   "last": "2026-09-13",
-   "kinds": [
-    "read"
-   ]
-  },
-  "nationally": {
-   "count": 2,
-   "last": "2026-09-16",
-   "kinds": [
-    "read"
-   ],
-   "carded": true
-  },
-  "territorially": {
-   "count": 2,
-   "last": "2026-09-13",
-   "kinds": [
-    "read"
-   ],
-   "carded": true
-  },
-  "power": {
-   "count": 3,
-   "last": "2026-09-15",
-   "kinds": [
-    "read"
-   ],
-   "carded": true
-  },
-  "geographic": {
-   "count": 1,
-   "last": "2026-09-13",
-   "kinds": [
-    "read"
-   ]
-  },
-  "ultimately": {
+  "situation": {
    "count": 1,
    "last": "2026-09-13",
    "kinds": [
@@ -955,8 +1093,8 @@
    ]
   },
   "first": {
-   "count": 3,
-   "last": "2026-09-16",
+   "count": 2,
+   "last": "2026-09-14",
    "kinds": [
     "read"
    ],
@@ -970,13 +1108,21 @@
    ]
   },
   "what": {
+   "count": 2,
+   "last": "2026-09-16",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "backward-directed": {
    "count": 1,
    "last": "2026-09-14",
    "kinds": [
     "read"
    ]
   },
-  "backward-directed": {
+  "direct": {
    "count": 1,
    "last": "2026-09-14",
    "kinds": [
@@ -991,6 +1137,13 @@
    ]
   },
   "1no": {
+   "count": 1,
+   "last": "2026-09-14",
+   "kinds": [
+    "read"
+   ]
+  },
+  "its": {
    "count": 1,
    "last": "2026-09-14",
    "kinds": [
@@ -1018,6 +1171,14 @@
     "read"
    ]
   },
+  "german": {
+   "count": 2,
+   "last": "2026-09-14",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
   "boris": {
    "count": 1,
    "last": "2026-09-14",
@@ -1040,12 +1201,11 @@
    ]
   },
   "obvious": {
-   "count": 2,
-   "last": "2026-09-16",
+   "count": 1,
+   "last": "2026-09-14",
    "kinds": [
     "read"
-   ],
-   "carded": true
+   ]
   },
   "td": {
    "count": 1,
@@ -1089,7 +1249,29 @@
     "read"
    ]
   },
+  "part": {
+   "count": 2,
+   "last": "2026-09-14",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "two": {
+   "count": 1,
+   "last": "2026-09-14",
+   "kinds": [
+    "read"
+   ]
+  },
   "compared": {
+   "count": 1,
+   "last": "2026-09-14",
+   "kinds": [
+    "read"
+   ]
+  },
+  "contrary": {
    "count": 1,
    "last": "2026-09-14",
    "kinds": [
@@ -1104,13 +1286,6 @@
    ]
   },
   "war": {
-   "count": 1,
-   "last": "2026-09-14",
-   "kinds": [
-    "read"
-   ]
-  },
-  "was": {
    "count": 1,
    "last": "2026-09-14",
    "kinds": [
@@ -1145,7 +1320,15 @@
     "read"
    ]
   },
-  "with": {
+  "of": {
+   "count": 2,
+   "last": "2026-09-16",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "hope": {
    "count": 1,
    "last": "2026-09-15",
    "kinds": [
@@ -1159,14 +1342,28 @@
     "read"
    ]
   },
-  "aware": {
+  "appear": {
    "count": 1,
    "last": "2026-09-15",
    "kinds": [
     "read"
    ]
   },
-  "purpose": {
+  "for": {
+   "count": 1,
+   "last": "2026-09-15",
+   "kinds": [
+    "read"
+   ]
+  },
+  "hapsburg": {
+   "count": 1,
+   "last": "2026-09-15",
+   "kinds": [
+    "read"
+   ]
+  },
+  "real": {
    "count": 1,
    "last": "2026-09-15",
    "kinds": [
@@ -1180,21 +1377,51 @@
     "read"
    ]
   },
-  "any": {
+  "common-sense": {
    "count": 1,
    "last": "2026-09-15",
    "kinds": [
     "read"
    ]
   },
-  "around": {
+  "centered": {
    "count": 1,
    "last": "2026-09-15",
    "kinds": [
     "read"
    ]
   },
-  "role": {
+  "consistently": {
+   "count": 1,
+   "last": "2026-09-15",
+   "kinds": [
+    "read"
+   ]
+  },
+  "aimed": {
+   "count": 2,
+   "last": "2026-09-15",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "uprootedness": {
+   "count": 1,
+   "last": "2026-09-15",
+   "kinds": [
+    "read"
+   ]
+  },
+  "nazis": {
+   "count": 2,
+   "last": "2026-09-15",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "discovery": {
    "count": 1,
    "last": "2026-09-15",
    "kinds": [
@@ -1208,6 +1435,27 @@
     "read"
    ]
   },
+  "toward": {
+   "count": 1,
+   "last": "2026-09-15",
+   "kinds": [
+    "read"
+   ]
+  },
+  "demagogy": {
+   "count": 1,
+   "last": "2026-09-15",
+   "kinds": [
+    "read"
+   ]
+  },
+  "themselves": {
+   "count": 1,
+   "last": "2026-09-15",
+   "kinds": [
+    "read"
+   ]
+  },
   "comprehensible": {
    "count": 1,
    "last": "2026-09-15",
@@ -1215,15 +1463,56 @@
     "read"
    ]
   },
-  "machine": {
-   "count": 2,
-   "last": "2026-09-16",
+  "enough": {
+   "count": 1,
+   "last": "2026-09-15",
    "kinds": [
     "read"
-   ],
-   "carded": true
+   ]
+  },
+  "hastily": {
+   "count": 1,
+   "last": "2026-09-15",
+   "kinds": [
+    "read"
+   ]
   },
   "contrived": {
+   "count": 1,
+   "last": "2026-09-15",
+   "kinds": [
+    "read"
+   ]
+  },
+  "hasty": {
+   "count": 1,
+   "last": "2026-09-15",
+   "kinds": [
+    "read"
+   ]
+  },
+  "explanations": {
+   "count": 1,
+   "last": "2026-09-15",
+   "kinds": [
+    "read"
+   ]
+  },
+  "has": {
+   "count": 1,
+   "last": "2026-09-15",
+   "kinds": [
+    "read"
+   ]
+  },
+  "xenophobic": {
+   "count": 1,
+   "last": "2026-09-15",
+   "kinds": [
+    "read"
+   ]
+  },
+  "outbursts": {
    "count": 1,
    "last": "2026-09-15",
    "kinds": [
@@ -1237,105 +1526,56 @@
     "read"
    ]
   },
-  "resentment": {
-   "count": 1,
-   "last": "2026-09-15",
-   "kinds": [
-    "read"
-   ]
-  },
-  "statisticians": {
-   "count": 1,
-   "last": "2026-09-15",
-   "kinds": [
-    "read"
-   ]
-  },
-  "re": {
-   "count": 1,
-   "last": "2026-09-15",
-   "kinds": [
-    "read"
-   ]
-  },
-  "like": {
-   "count": 1,
-   "last": "2026-09-15",
-   "kinds": [
-    "read"
-   ]
-  },
-  "which": {
-   "count": 1,
-   "last": "2026-09-15",
-   "kinds": [
-    "read"
-   ]
-  },
-  "constitutes": {
-   "count": 1,
-   "last": "2026-09-15",
-   "kinds": [
-    "read"
-   ]
-  },
-  "would": {
-   "count": 1,
-   "last": "2026-09-15",
-   "kinds": [
-    "read"
-   ]
-  },
-  "importance": {
-   "count": 1,
-   "last": "2026-09-15",
-   "kinds": [
-    "read"
-   ]
-  },
-  "best": {
-   "count": 1,
-   "last": "2026-09-15",
-   "kinds": [
-    "read"
-   ]
-  },
-  "illustration—and": {
-   "count": 1,
-   "last": "2026-09-15",
-   "kinds": [
-    "read"
-   ]
-  },
-  "reasons": {
-   "count": 1,
-   "last": "2026-09-15",
-   "kinds": [
-    "read"
-   ]
-  },
-  "innocent": {
+  "nationally": {
    "count": 1,
    "last": "2026-09-16",
    "kinds": [
     "read"
    ]
   },
-  "public": {
+  "through": {
    "count": 1,
    "last": "2026-09-16",
    "kinds": [
     "read"
    ]
   },
-  "judgment": {
+  "instrument": {
    "count": 1,
    "last": "2026-09-16",
    "kinds": [
     "read"
    ]
   },
-  "simply": {
+  "groups": {
+   "count": 1,
+   "last": "2026-09-16",
+   "kinds": [
+    "read"
+   ]
+  },
+  "view": {
+   "count": 1,
+   "last": "2026-09-16",
+   "kinds": [
+    "read"
+   ]
+  },
+  "been": {
+   "count": 1,
+   "last": "2026-09-16",
+   "kinds": [
+    "read"
+   ]
+  },
+  "innocence": {
+   "count": 1,
+   "last": "2026-09-16",
+   "kinds": [
+    "read"
+   ]
+  },
+  "imply": {
    "count": 1,
    "last": "2026-09-16",
    "kinds": [
@@ -1343,27 +1583,99 @@
    ]
   },
   "coresponsible": {
+   "count": 2,
+   "last": "2026-09-16",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "victim": {
+   "count": 4,
+   "last": "2026-09-16",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "world’s": {
    "count": 1,
    "last": "2026-09-16",
    "kinds": [
     "read"
    ]
   },
-  "discard": {
+  "scapegoat": {
    "count": 1,
    "last": "2026-09-16",
    "kinds": [
     "read"
    ]
   },
-  "no": {
+  "victims": {
    "count": 1,
    "last": "2026-09-16",
    "kinds": [
     "read"
    ]
   },
-  "theory": {
+  "hypocrisy": {
+   "count": 1,
+   "last": "2026-09-16",
+   "kinds": [
+    "read"
+   ]
+  },
+  "advanced": {
+   "count": 1,
+   "last": "2026-09-16",
+   "kinds": [
+    "read"
+   ]
+  },
+  "arbitrariness": {
+   "count": 1,
+   "last": "2026-09-16",
+   "kinds": [
+    "read"
+   ]
+  },
+  "russia": {
+   "count": 1,
+   "last": "2026-09-16",
+   "kinds": [
+    "read"
+   ]
+  },
+  "terror—namely": {
+   "count": 1,
+   "last": "2026-09-16",
+   "kinds": [
+    "read"
+   ]
+  },
+  "executors": {
+   "count": 1,
+   "last": "2026-09-16",
+   "kinds": [
+    "read"
+   ]
+  },
+  "dealing": {
+   "count": 1,
+   "last": "2026-09-16",
+   "kinds": [
+    "read"
+   ]
+  },
+  "have": {
+   "count": 1,
+   "last": "2026-09-16",
+   "kinds": [
+    "read"
+   ]
+  },
+  "belated": {
    "count": 1,
    "last": "2026-09-16",
    "kinds": [
@@ -1371,41 +1683,6 @@
    ]
   },
   "temptation": {
-   "count": 1,
-   "last": "2026-09-16",
-   "kinds": [
-    "read"
-   ]
-  },
-  "becoming": {
-   "count": 1,
-   "last": "2026-09-16",
-   "kinds": [
-    "read"
-   ]
-  },
-  "forgery": {
-   "count": 1,
-   "last": "2026-09-16",
-   "kinds": [
-    "read"
-   ]
-  },
-  "seriousness": {
-   "count": 1,
-   "last": "2026-09-16",
-   "kinds": [
-    "read"
-   ]
-  },
-  "unbiased": {
-   "count": 1,
-   "last": "2026-09-16",
-   "kinds": [
-    "read"
-   ]
-  },
-  "responsibility": {
    "count": 2,
    "last": "2026-09-16",
    "kinds": [
@@ -1413,78 +1690,35 @@
    ],
    "carded": true
   },
-  "tendencies": {
+  "adequate": {
    "count": 1,
    "last": "2026-09-16",
    "kinds": [
     "read"
    ]
   },
-  "antisemitism": {
+  "strikes": {
    "count": 1,
    "last": "2026-09-16",
    "kinds": [
     "read"
    ]
   },
-  "parts": {
+  "caught": {
    "count": 1,
    "last": "2026-09-16",
    "kinds": [
     "read"
    ]
   },
-  "hit": {
+  "establish": {
    "count": 1,
    "last": "2026-09-16",
    "kinds": [
     "read"
    ]
   },
-  "spiritual": {
-   "count": 1,
-   "last": "2026-09-16",
-   "kinds": [
-    "read"
-   ]
-  },
-  "reality": {
-   "count": 1,
-   "last": "2026-09-16",
-   "kinds": [
-    "read"
-   ]
-  },
-  "people": {
-   "count": 1,
-   "last": "2026-09-16",
-   "kinds": [
-    "read"
-   ]
-  },
-  "possible": {
-   "count": 1,
-   "last": "2026-09-16",
-   "kinds": [
-    "read"
-   ]
-  },
-  "uncomfortable": {
-   "count": 2,
-   "last": "2026-09-16",
-   "kinds": [
-    "read"
-   ],
-   "carded": true
-  },
-  "sophists": {
-   "count": 1,
-   "last": "2026-09-16",
-   "kinds": [
-    "read"
-   ]
-  },
-  "comes": {
+  "regime": {
    "count": 1,
    "last": "2026-09-16",
    "kinds": [
@@ -1494,7 +1728,7 @@
  },
  "anchor": [],
  "recordings": 7,
- "updated": "2026-09-16T12:43:07Z",
+ "updated": "2026-09-16T13:45:56Z",
  "reads": [
   {
    "date": "2026-09-10",
@@ -1509,22 +1743,22 @@
   {
    "date": "2026-09-12",
    "passage": "B007",
-   "locale": "en-GB",
-   "accuracy": 93.6,
-   "fluency": 90.5,
-   "completeness": 95.0,
-   "prosody": 51.7,
-   "pron": 76.4
+   "locale": "en-US",
+   "accuracy": 88.4,
+   "fluency": 93.9,
+   "completeness": 91.6,
+   "prosody": 81.3,
+   "pron": 87.1
   },
   {
    "date": "2026-09-13",
    "passage": "B024",
-   "locale": "en-GB",
-   "accuracy": 95.4,
-   "fluency": 90.1,
-   "completeness": 96.4,
-   "prosody": 57.3,
-   "pron": 79.3
+   "locale": "en-US",
+   "accuracy": 96.0,
+   "fluency": 94.0,
+   "completeness": 98.2,
+   "prosody": 85.2,
+   "pron": 91.7
   },
   {
    "date": "2026-09-14",
@@ -1539,22 +1773,23 @@
   {
    "date": "2026-09-15",
    "passage": "B087",
-   "locale": "en-GB",
-   "accuracy": 96.5,
-   "fluency": 91.5,
-   "completeness": 97.9,
-   "prosody": 55.8,
-   "pron": 79.5
+   "locale": "en-US",
+   "accuracy": 95.7,
+   "fluency": 94.6,
+   "completeness": 97.8,
+   "prosody": 85.7,
+   "pron": 91.8
   },
   {
    "date": "2026-09-16",
    "passage": "B096",
-   "locale": "en-GB",
-   "accuracy": 96.4,
-   "fluency": 91.4,
-   "completeness": 97.8,
-   "prosody": 55.4,
-   "pron": 79.3
+   "locale": "en-US",
+   "accuracy": 95.6,
+   "fluency": 94.5,
+   "completeness": 97.7,
+   "prosody": 85.3,
+   "pron": 91.6
   }
- ]
+ ],
+ "quota_note": "The Azure Speech resource is F0 (free): 5 audio hours a month, and the month is spent as of 2026-09-16 — the rescores took roughly 3 hours on top of the reads' own ingests. Until it resets or the resource moves to S0, new recordings will transcribe (Whisper is local) but will NOT be scored: practice-ingest will see the same 1007 'Quota exceeded' cancellation. This is the coach's own resource; the phone's Say-it scoring uses the user's separate one and is unaffected."
 }
