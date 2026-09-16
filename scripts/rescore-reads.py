@@ -55,6 +55,7 @@ def plan(only=None, pi=None):
             "was": d.get("passage"), "was_ref": len((pi.passage_text(d.get("passage")) or "").split()),
             "first": first, "last": last, "reference": text, "cover": cover,
             "spoken": len(tr.split()), "ref": len((text or "").split()),
+            "locale": (d.get("azure") or {}).get("locale"),
         })
     return rows
 
@@ -124,9 +125,20 @@ def main():
     ap.add_argument("--dry", action="store_true", help="report the spans and call nothing")
     ap.add_argument("--only", help="substring of the log file name")
     ap.add_argument("--limit", type=int, help="stop after this many")
+    ap.add_argument("--force", action="store_true",
+                    help="re-assess even a record already scored in the target locale")
     a = ap.parse_args()
     pi = _load("practice-ingest")
+    azure_pa = _load("azure_pa")
     rows = [r for r in plan(a.only, pi) if r["first"]]
+    # A record already carrying the locale we would score it in has nothing to gain and costs its
+    # own duration against the quota. Skip it unless asked. (The 09-10 read was rescored on its
+    # own on 2026-09-16 to measure the en-GB -> en-US difference; the rest followed after.)
+    if not a.force:
+        skip = [r for r in rows if r["locale"] == azure_pa.LOCALE]
+        rows = [r for r in rows if r["locale"] != azure_pa.LOCALE]
+        for r in skip:
+            print(f"  {r['file'].name[:10]}: already {azure_pa.LOCALE} — skipped (--force to redo)")
     if not rows:
         print("rescore-reads: nothing with a detectable span (is library/ present?)")
         return 3
@@ -145,7 +157,6 @@ def main():
     if venv_bin.is_dir():
         import os
         os.environ["PATH"] = f"{venv_bin}:{os.environ.get('PATH', '')}"
-    azure_pa = _load("azure_pa")
     done = 0
     with tempfile.TemporaryDirectory() as td:
         work = pathlib.Path(td)
