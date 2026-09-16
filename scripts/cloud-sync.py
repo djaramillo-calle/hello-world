@@ -119,7 +119,12 @@ def sync_library(drv, work, log=print, dry=False):
     return done
 
 def sync_recordings(drv, work, log=print, dry=False, skip_audio=False):
-    """New audio under the recording roots → work/recordings; returns the number downloaded."""
+    """New audio under the recording roots → work/recordings; returns (count, state-to-keep).
+
+    The caller writes the state only once the INGEST has succeeded. Writing it here cost a whole
+    recording on 2026-09-16: a `timeout` killed the run fifteen minutes into Whisper, the marker
+    already said "downloaded", and the next run would have skipped a read that was never scored.
+    A recording is the one thing in this pipeline that cannot be regenerated."""
     state = load_json(DRIVE_STATE, {})
     dest = work / "recordings"; n = 0
     seen_folders = set()
@@ -138,8 +143,7 @@ def sync_recordings(drv, work, log=print, dry=False, skip_audio=False):
                 drv.download(f["id"], dest / rel)
                 state[f["id"]] = {"name": rel, "md5": f.get("md5Checksum"), "size": f.get("size"), "modified": f.get("modifiedTime")}
                 n += 1
-    if not dry and n: dump_json(DRIVE_STATE, state)
-    return n
+    return n, state
 
 def sync_reading(drv, work, log=print, dry=False):
     """The phone's KOReader databases when they changed → koreader-pull --dir."""
@@ -211,14 +215,18 @@ def main():
     try: sync_library(drv, work, dry=dry)
     except (SystemExit, Exception) as e:   # the shelf must never block the recordings
         print(f"cloud-sync: library step failed — {type(e).__name__}: {str(e)[:200]}")
-    n = sync_recordings(drv, work, dry=dry, skip_audio=skip_audio)
+    n, rec_state = sync_recordings(drv, work, dry=dry, skip_audio=skip_audio)
     if n and not skip_audio:
         if run(["bash", SCRIPTS / "cloud-setup.sh"]) != 0: print("cloud-sync: practice venv FAILED — recordings left for next run"); n = 0
     if n and not skip_audio:
         env = {**os.environ, "PATH": f"{REPO / '.venv-practice' / 'bin'}:{os.environ.get('PATH', '')}"}
         if run([REPO / ".venv-practice" / "bin" / "python", SCRIPTS / "practice-ingest.py", "--source", work / "recordings"], env=env) != 0:
-            print("cloud-sync: practice ingest FAILED")
-        run([sys.executable, SCRIPTS / "practice-review.py"])
+            print("cloud-sync: practice ingest FAILED — the recordings stay unmarked and come back next run")
+        else:
+            if not dry: dump_json(DRIVE_STATE, rec_state)   # marked downloaded ONLY once it is ingested
+            run([sys.executable, SCRIPTS / "practice-review.py"])
+    elif n and skip_audio and not dry:
+        dump_json(DRIVE_STATE, rec_state)
     if sync_reading(drv, work, dry=dry) and not dry:
         run([sys.executable, SCRIPTS / "koreader-pull.py", "--dir", work / "koreader"])
     elif not dry:
@@ -301,9 +309,14 @@ def selftest():
         knames = {f["name"] for f in drv.children("EnglishPractice/koreader")}
         assert "Test_Author__A_Small_Book.txt" in knames and "Old__Gone.epub" not in knames and "statistics.sqlite3" in knames, knames
         assert drv.copied == ["EnglishPractice/library/Test_Author__A_Small_Book.txt"] and drv.trashed == ["EnglishPractice/koreader/Old__Gone.epub"]
-        n = sync_recordings(drv, work, log=logs.append)
+        n, st = sync_recordings(drv, work, log=logs.append)
         assert n == 1 and (work / "recordings" / "sub" / "eng read.m4a").read_bytes() == b"audio", n
-        assert sync_recordings(drv, work, log=logs.append) == 0, "second pass: nothing new"
+        # the state is RETURNED, not written: an ingest that dies must not leave the recording marked
+        assert not DRIVE_STATE.exists() or not json.loads(DRIVE_STATE.read_text()), "not written by the download"
+        assert st and all("md5" in v for v in st.values()), st
+        assert sync_recordings(drv, work, log=logs.append)[0] == 1, "unmarked: it comes back next run"
+        dump_json(DRIVE_STATE, st)                                  # what the caller does once the ingest succeeded
+        assert sync_recordings(drv, work, log=logs.append)[0] == 0, "marked: nothing new"
         assert sync_reading(drv, work, log=logs.append) is True and (work / "koreader" / "statistics.sqlite3").exists()
         assert sync_reading(drv, work, log=logs.append) is False
         (root / "EnglishPractice" / "koreader" / "statistics.sqlite3").write_bytes(b"s2")
