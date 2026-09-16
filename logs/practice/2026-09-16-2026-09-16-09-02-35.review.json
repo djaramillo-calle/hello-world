@@ -3,9 +3,9 @@
  "source": "2026_09_16_09_02_35.mp3",
  "recorded": "2026-09-16 08:45",
  "kind": "read",
- "passage": "B107",
+ "passage": "B096",
  "anchor": false,
- "reviewed": "2026-09-16T09:01:23Z",
+ "reviewed": "2026-09-16T12:11:42Z",
  "fluency": {
   "duration_s": 1450.0,
   "wpm": 101.2,
@@ -24,233 +24,240 @@
   "source": "azure",
   "scripted": true,
   "scores": {
-   "accuracy": 82.4,
-   "fluency": 80.7,
-   "completeness": 82.5,
-   "prosody": 45.6,
-   "pron": 67.6,
-   "prosody_us_ref": 45.6
+   "accuracy": 96.4,
+   "fluency": 91.4,
+   "completeness": 97.8,
+   "prosody": 55.4,
+   "pron": 79.3,
+   "prosody_us_ref": 55.4
   },
   "flagged": [
-   {
-    "word": "over",
-    "accuracy": 47.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "discarded",
-    "accuracy": 9.0,
-    "error": "Mispronunciation"
-   },
    {
     "word": "nationally",
     "accuracy": 88.0,
     "error": "None"
    },
    {
-    "word": "serious",
-    "accuracy": 26.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "this",
-    "accuracy": 52.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "victory",
-    "accuracy": 10.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "from",
-    "accuracy": 28.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "by",
-    "accuracy": 80.0,
-    "error": "None"
-   },
-   {
-    "word": "isms",
-    "accuracy": 59.0,
+    "word": "innocent",
+    "accuracy": 42.0,
     "error": "Mispronunciation"
    },
    {
     "word": "public",
-    "accuracy": 37.0,
+    "accuracy": 36.0,
     "error": "Mispronunciation"
    },
    {
-    "word": "movements",
+    "word": "judgment",
+    "accuracy": 49.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "simply",
+    "accuracy": 47.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "coresponsible",
     "accuracy": 1.0,
     "error": "Mispronunciation"
    },
    {
-    "word": "had",
-    "accuracy": 50.0,
+    "word": "discard",
+    "accuracy": 44.0,
     "error": "Mispronunciation"
    },
    {
-    "word": "been",
-    "accuracy": 80.0,
-    "error": "None"
-   },
-   {
-    "word": "isms",
-    "accuracy": 90.0,
-    "error": "None"
-   },
-   {
-    "word": "prepared",
-    "accuracy": 1.0,
+    "word": "no",
+    "accuracy": 42.0,
     "error": "Mispronunciation"
    },
    {
-    "word": "growth",
-    "accuracy": 7.0,
+    "word": "may",
+    "accuracy": 53.0,
     "error": "Mispronunciation"
    },
    {
-    "word": "been",
-    "accuracy": 87.0,
-    "error": "None"
-   },
-   {
-    "word": "empire",
-    "accuracy": 21.0,
+    "word": "may",
+    "accuracy": 59.0,
     "error": "Mispronunciation"
    },
    {
-    "word": "by",
-    "accuracy": 98.0,
-    "error": "None"
-   },
-   {
-    "word": "since",
-    "accuracy": 1.0,
+    "word": "first",
+    "accuracy": 2.0,
     "error": "Mispronunciation"
    },
    {
-    "word": "only",
-    "accuracy": 20.0,
+    "word": "theory",
+    "accuracy": 59.0,
     "error": "Mispronunciation"
    },
    {
-    "word": "serious",
+    "word": "temptation",
+    "accuracy": 29.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "machine",
+    "accuracy": 32.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "becoming",
+    "accuracy": 44.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "forgery",
+    "accuracy": 3.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "seriousness",
+    "accuracy": 52.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "and",
     "accuracy": 5.0,
     "error": "Mispronunciation"
    },
    {
-    "word": "if",
-    "accuracy": 94.0,
-    "error": "None"
-   },
-   {
-    "word": "victory",
-    "accuracy": 4.0,
+    "word": "unbiased",
+    "accuracy": 14.0,
     "error": "Mispronunciation"
    },
    {
-    "word": "jews",
-    "accuracy": 43.0,
+    "word": "its",
+    "accuracy": 5.0,
     "error": "Mispronunciation"
    },
    {
-    "word": "this",
-    "accuracy": 58.0,
+    "word": "responsibility",
+    "accuracy": 44.0,
     "error": "Mispronunciation"
    },
    {
-    "word": "result",
+    "word": "tendencies",
     "accuracy": 0.0,
     "error": "Mispronunciation"
    },
    {
-    "word": "only",
-    "accuracy": 33.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "consequences",
-    "accuracy": 7.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "came",
-    "accuracy": 65.0,
-    "error": "None"
-   },
-   {
-    "word": "victory",
-    "accuracy": 58.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "to",
-    "accuracy": 53.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "result",
-    "accuracy": 0.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "what",
+    "word": "antisemitism",
     "accuracy": 1.0,
     "error": "Mispronunciation"
    },
    {
-    "word": "most",
-    "accuracy": 4.0,
+    "word": "the",
+    "accuracy": 51.0,
     "error": "Mispronunciation"
    },
    {
-    "word": "if",
-    "accuracy": 94.0,
-    "error": "None"
-   },
-   {
-    "word": "up",
-    "accuracy": 80.0,
-    "error": "None"
-   },
-   {
-    "word": "isms",
-    "accuracy": 53.0,
+    "word": "parts",
+    "accuracy": 42.0,
     "error": "Mispronunciation"
    },
    {
-    "word": "crisis",
+    "word": "hit",
+    "accuracy": 44.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "spiritual",
+    "accuracy": 12.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "reality",
     "accuracy": 71.0,
     "error": "None"
    },
    {
-    "word": "guides",
+    "word": "obvious",
+    "accuracy": 2.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "people",
+    "accuracy": 11.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "its",
+    "accuracy": 51.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "possible",
+    "accuracy": 44.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "its",
+    "accuracy": 57.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "its",
+    "accuracy": 40.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "and",
+    "accuracy": 17.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "uncomfortable",
     "accuracy": 1.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "uncomfortable",
+    "accuracy": 45.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "responsibility",
+    "accuracy": 45.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "sophists",
+    "accuracy": 35.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "comes",
+    "accuracy": 42.0,
     "error": "Mispronunciation"
    }
   ],
   "classes": {
-   "-ed": {
+   "b/v": {
     "n": 1,
     "words": [
-     "discarded"
+     "public"
     ]
    },
    "th": {
+    "n": 2,
+    "words": [
+     "theory",
+     "the"
+    ]
+   },
+   "s-cluster": {
     "n": 1,
     "words": [
-     "this"
+     "spiritual"
     ]
    }
   }
  },
  "harvest": null,
- "cards_added": 13,
+ "cards_added": 7,
  "flags": [],
- "passage_overlap": 1.0,
+ "passage_overlap": 0.97,
  "void": false
 }

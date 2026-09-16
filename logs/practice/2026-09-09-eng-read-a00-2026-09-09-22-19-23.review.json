@@ -5,7 +5,7 @@
  "kind": "read",
  "passage": "A00",
  "anchor": false,
- "reviewed": "2026-09-09T21:36:50Z",
+ "reviewed": "2026-09-16T12:11:41Z",
  "fluency": {
   "duration_s": 32.8,
   "wpm": 111.5,
@@ -44,5 +44,6 @@
  "flags": [
   "transcript matches only 10% of passage A00 — wrong text or wrong id; scripted scores discarded, no anchor row, pronunciation from the ASR screen only"
  ],
- "passage_overlap": 0.1
+ "passage_overlap": 0.1,
+ "void": false
 }

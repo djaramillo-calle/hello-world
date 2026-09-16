@@ -382,6 +382,36 @@ def render_md(r):
     for fl in r["flags"]: L.append(f"- flag: {fl}")
     return "\n".join(L) + "\n"
 
+def rebuild_ledger(practice=PRACTICE, ledger_path=LEDGER, passages=None, queue_path=None, log=print):
+    """Replay every stored recording into a FRESH ledger, and refresh every .review.json with it.
+
+    The ledger is incremental — update_ledger adds to what is already there — so when the records
+    themselves change it cannot be corrected in place. On 2026-09-16 the rescore changed all six
+    reads: the scores, and the flagged words with them, because the old flags came from comparing
+    his speech against a reference that was a fraction of what he read. Those flags are what
+    `words{}` and `phonemes{}` are built from, and `words{}` is what Say-it picks from — so the
+    contamination reached the drill.
+
+    Cards are written to a THROWAWAY queue by default. Rebuilding must not re-queue or duplicate
+    what is already in `cards/queue.tsv`, and cards already added to Anki cannot be unsent; the
+    caller compares and decides."""
+    import tempfile
+    P = passages if passages is not None else load_json(PASSAGES, {})
+    ledger = {}
+    recs = [p for p in sorted(practice.glob("*.json"))
+            if not p.name.startswith(".") and not p.name.endswith(".review.json")]
+    tmpq = queue_path or (pathlib.Path(tempfile.mkdtemp()) / "queue.tsv")
+    for p in recs:
+        review, ledger = review_one(p, "none", ledger, P, tmpq)
+        p.with_name(p.stem + ".review.json").write_text(json.dumps(review, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+        p.with_name(p.stem + ".review.md").write_text(render_md(review), encoding="utf-8")
+        log(f"  {p.stem[:10]} {review['kind']}{' ' + review['passage'] if review.get('passage') else ''}: "
+            f"flagged {len(review['pronunciation']['flagged'])}")
+    ledger_path.parent.mkdir(parents=True, exist_ok=True)
+    ledger_path.write_text(json.dumps(ledger, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+    return ledger, len(recs), tmpq
+
+
 def run(practice=PRACTICE, llm="auto", ledger_path=LEDGER, queue_path=QUEUE, drills=DRILLS, passages=None):
     ledger = load_json(ledger_path, {})
     P = passages if passages is not None else load_json(PASSAGES, {})
@@ -465,6 +495,14 @@ def selftest():
 
 def main():
     if "--selftest" in sys.argv: return selftest()
+    if "--rebuild-ledger" in sys.argv:
+        print("practice-review: rebuilding the ledger from every stored recording")
+        ledger, n, q = rebuild_ledger()
+        cls = {k: v.get("count") for k, v in (ledger.get("phonemes") or {}).items()}
+        print(f"practice-review: {n} recording(s) replayed · {len(ledger.get('words') or {})} words · "
+              f"classes {dict(sorted(cls.items(), key=lambda kv: -kv[1]))}")
+        print(f"practice-review: cards went to {q} (throwaway); cards/queue.tsv untouched")
+        return
     llm = sys.argv[sys.argv.index("--llm") + 1] if "--llm" in sys.argv else "auto"
     done = run(llm=llm)
     if not done: print("practice-review: nothing new"); return

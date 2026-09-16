@@ -3,9 +3,9 @@
  "source": "2026_09_12_13_01_32.mp3",
  "recorded": "2026-09-12 12:43",
  "kind": "read",
- "passage": "B016",
+ "passage": "B007",
  "anchor": false,
- "reviewed": "2026-09-12T13:12:42Z",
+ "reviewed": "2026-09-16T12:11:42Z",
  "fluency": {
   "duration_s": 2224.5,
   "wpm": 82.5,
@@ -24,36 +24,27 @@
   "source": "azure",
   "scripted": true,
   "scores": {
-   "accuracy": 81.9,
-   "fluency": 78.8,
-   "completeness": 82.1,
-   "pron": 78.3,
-   "prosody_us_ref": 56.6
+   "accuracy": 93.6,
+   "fluency": 90.5,
+   "completeness": 95.0,
+   "prosody": 51.7,
+   "pron": 76.4,
+   "prosody_us_ref": 51.7
   },
   "flagged": [
    {
-    "word": "products",
-    "accuracy": 53.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "deplorable",
-    "accuracy": 0.0,
+    "word": "part",
+    "accuracy": 48.0,
     "error": "Mispronunciation"
    },
    {
     "word": "since",
-    "accuracy": 33.0,
+    "accuracy": 28.0,
     "error": "Mispronunciation"
    },
    {
-    "word": "over",
-    "accuracy": 22.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "treatment",
-    "accuracy": 58.0,
+    "word": "means",
+    "accuracy": 44.0,
     "error": "Mispronunciation"
    },
    {
@@ -62,255 +53,191 @@
     "error": "Mispronunciation"
    },
    {
-    "word": "to",
-    "accuracy": 55.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "conform",
-    "accuracy": 43.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "its",
-    "accuracy": 52.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "its",
-    "accuracy": 56.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "documentary",
-    "accuracy": 1.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "period",
-    "accuracy": 14.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "convinced",
+    "word": "mutually",
     "accuracy": 0.0,
     "error": "Mispronunciation"
    },
    {
-    "word": "situation",
-    "accuracy": 36.0,
+    "word": "fallacious",
+    "accuracy": 57.0,
     "error": "Mispronunciation"
    },
    {
-    "word": "examples",
-    "accuracy": 37.0,
+    "word": "antisemitic",
+    "accuracy": 46.0,
     "error": "Mispronunciation"
    },
    {
-    "word": "from",
-    "accuracy": 47.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "impartial",
-    "accuracy": 1.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "is",
-    "accuracy": 52.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "war",
-    "accuracy": 45.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "sometimes",
-    "accuracy": 1.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "recently",
-    "accuracy": 5.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "jewish",
-    "accuracy": 32.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "anybody",
-    "accuracy": 51.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "single",
-    "accuracy": 0.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "over-all",
+    "word": "world",
     "accuracy": 4.0,
     "error": "Mispronunciation"
    },
    {
-    "word": "presentation",
-    "accuracy": 47.0,
+    "word": "considered",
+    "accuracy": 55.0,
     "error": "Mispronunciation"
    },
    {
-    "word": "situation",
+    "word": "diaspora—that",
+    "accuracy": 10.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "two",
+    "accuracy": 46.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "outside",
     "accuracy": 45.0,
     "error": "Mispronunciation"
    },
    {
-    "word": "sources",
-    "accuracy": 0.0,
+    "word": "cohn’s",
+    "accuracy": 42.0,
     "error": "Mispronunciation"
    },
    {
-    "word": "its",
-    "accuracy": 0.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "historical",
-    "accuracy": 58.0,
+    "word": "work",
+    "accuracy": 37.0,
     "error": "Mispronunciation"
    },
    {
     "word": "the",
-    "accuracy": 52.0,
+    "accuracy": 49.0,
     "error": "Mispronunciation"
    },
    {
-    "word": "more",
-    "accuracy": 58.0,
+    "word": "adherents",
+    "accuracy": 53.0,
     "error": "Mispronunciation"
    },
    {
-    "word": "after",
-    "accuracy": 22.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "from",
-    "accuracy": 44.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "is",
-    "accuracy": 50.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "convinced",
-    "accuracy": 8.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "impartial",
-    "accuracy": 16.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "before",
+    "word": "contrary",
     "accuracy": 45.0,
     "error": "Mispronunciation"
    },
    {
-    "word": "greater",
-    "accuracy": 26.0,
+    "word": "direct",
+    "accuracy": 55.0,
     "error": "Mispronunciation"
    },
    {
-    "word": "did",
+    "word": "jews",
+    "accuracy": 41.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "make",
+    "accuracy": 36.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "that",
+    "accuracy": 44.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "german",
+    "accuracy": 59.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "main",
+    "accuracy": 46.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "german",
     "accuracy": 52.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "squared",
+    "accuracy": 51.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "work",
+    "accuracy": 21.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "member",
+    "accuracy": 4.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "sort",
+    "accuracy": 11.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "this",
+    "accuracy": 40.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "outside",
+    "accuracy": 44.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "racial",
+    "accuracy": 45.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "some",
+    "accuracy": 49.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "occurred",
+    "accuracy": 35.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "up",
+    "accuracy": 32.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "those",
+    "accuracy": 41.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "part",
+    "accuracy": 37.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "part",
+    "accuracy": 46.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "interest",
+    "accuracy": 53.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "when",
+    "accuracy": 37.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "jewry",
+    "accuracy": 48.0,
     "error": "Mispronunciation"
    }
   ],
   "classes": {
-   "b/v": {
-    "n": 7,
-    "words": [
-     "over",
-     "convinced",
-     "anybody",
-     "over-all",
-     "before",
-     "subject",
-     "but"
-    ]
-   },
    "th": {
-    "n": 4,
-    "words": [
-     "the",
-     "this",
-     "than"
-    ]
-   },
-   "-ed": {
-    "n": 2,
-    "words": [
-     "convinced",
-     "collected"
-    ]
-   },
-   "j/y": {
     "n": 1,
     "words": [
-     "jewish"
-    ]
-   },
-   "h": {
-    "n": 2,
-    "words": [
-     "historical",
-     "had"
-    ]
-   },
-   "i/ii": {
-    "n": 7,
-    "words": [
-     "this",
-     "did",
-     "since",
-     "material",
-     "collected",
-     "recently",
-     "in"
-    ]
-   },
-   "s/z": {
-    "n": 6,
-    "words": [
-     "this",
-     "since",
-     "jews",
-     "organize",
-     "its"
-    ]
-   },
-   "schwa": {
-    "n": 4,
-    "words": [
-     "deplorable",
-     "but",
-     "material"
-    ]
-   },
-   "cat/cut": {
-    "n": 5,
-    "words": [
-     "after",
-     "subject",
-     "than",
-     "sometimes",
-     "had"
+     "the"
     ]
    }
   }
@@ -318,5 +245,6 @@
  "harvest": null,
  "cards_added": 7,
  "flags": [],
- "passage_overlap": 0.98
+ "passage_overlap": 0.94,
+ "void": false
 }

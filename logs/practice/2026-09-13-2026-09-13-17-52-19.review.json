@@ -3,9 +3,9 @@
  "source": "2026_09_13_17_52_19.mp3",
  "recorded": "2026-09-13 17:22",
  "kind": "read",
- "passage": "B029",
+ "passage": "B024",
  "anchor": false,
- "reviewed": "2026-09-13T17:51:14Z",
+ "reviewed": "2026-09-16T12:11:42Z",
  "fluency": {
   "duration_s": 1658.0,
   "wpm": 97.7,
@@ -24,31 +24,127 @@
   "source": "azure",
   "scripted": true,
   "scores": {
-   "accuracy": 82.1,
-   "fluency": 74.6,
-   "completeness": 81.8,
-   "pron": 76.9,
-   "prosody_us_ref": 62.1
+   "accuracy": 95.4,
+   "fluency": 90.1,
+   "completeness": 96.4,
+   "prosody": 57.3,
+   "pron": 79.3,
+   "prosody_us_ref": 57.3
   },
   "flagged": [
    {
-    "word": "prophecy",
+    "word": "could",
+    "accuracy": 33.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "could",
+    "accuracy": 40.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "could",
+    "accuracy": 38.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "the",
+    "accuracy": 55.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "definite",
     "accuracy": 5.0,
     "error": "Mispronunciation"
    },
    {
-    "word": "power",
-    "accuracy": 45.0,
+    "word": "its",
+    "accuracy": 52.0,
     "error": "Mispronunciation"
    },
    {
-    "word": "imperialist",
-    "accuracy": 45.0,
+    "word": "its",
+    "accuracy": 53.0,
     "error": "Mispronunciation"
    },
    {
-    "word": "only",
-    "accuracy": 35.0,
+    "word": "expansion",
+    "accuracy": 2.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "for",
+    "accuracy": 52.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "its",
+    "accuracy": 8.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "may",
+    "accuracy": 57.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "moral",
+    "accuracy": 5.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "apprehensions",
+    "accuracy": 64.0,
+    "error": "None"
+   },
+   {
+    "word": "that",
+    "accuracy": 54.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "considered",
+    "accuracy": 55.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "france",
+    "accuracy": 2.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "jockeyed",
+    "accuracy": 25.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "that",
+    "accuracy": 43.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "went",
+    "accuracy": 51.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "emergence",
+    "accuracy": 47.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "world",
+    "accuracy": 5.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "detotalitarization",
+    "accuracy": 0.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "and",
+    "accuracy": 58.0,
     "error": "Mispronunciation"
    },
    {
@@ -57,240 +153,104 @@
     "error": "Mispronunciation"
    },
    {
-    "word": "his",
-    "accuracy": 59.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "imperialist",
-    "accuracy": 5.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "agent",
-    "accuracy": 45.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "overseas",
-    "accuracy": 17.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "inherent",
-    "accuracy": 12.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "imperialist",
-    "accuracy": 12.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "from",
-    "accuracy": 30.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "our",
-    "accuracy": 1.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "continental",
+    "word": "quo",
     "accuracy": 44.0,
     "error": "Mispronunciation"
    },
    {
-    "word": "said",
-    "accuracy": 0.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "eastern",
-    "accuracy": 4.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "which",
-    "accuracy": 29.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "central",
-    "accuracy": 0.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "this",
-    "accuracy": 9.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "expansion",
-    "accuracy": 44.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "under",
-    "accuracy": 51.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "nuclear",
-    "accuracy": 42.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "inherent",
-    "accuracy": 57.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "was",
-    "accuracy": 44.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "power",
-    "accuracy": 45.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "russia",
-    "accuracy": 49.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "secret",
-    "accuracy": 0.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "under",
-    "accuracy": 1.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "shifted",
-    "accuracy": 40.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "nation-state",
-    "accuracy": 2.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "power",
-    "accuracy": 45.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "under",
-    "accuracy": 6.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "come",
+    "word": "handling",
     "accuracy": 35.0,
     "error": "Mispronunciation"
    },
    {
-    "word": "which",
-    "accuracy": 58.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "deny",
-    "accuracy": 1.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "every",
-    "accuracy": 3.0,
-    "error": "Mispronunciation"
-   },
-   {
-    "word": "takes",
+    "word": "prerequisites",
     "accuracy": 4.0,
     "error": "Mispronunciation"
    },
    {
-    "word": "his",
+    "word": "sterile",
+    "accuracy": 59.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "superpowers",
+    "accuracy": 0.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "development",
+    "accuracy": 56.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "the",
+    "accuracy": 49.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "nationally",
+    "accuracy": 45.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "territorially",
+    "accuracy": 1.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "territorially",
+    "accuracy": 2.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "the",
+    "accuracy": 48.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "power",
     "accuracy": 51.0,
     "error": "Mispronunciation"
    },
    {
-    "word": "under",
-    "accuracy": 13.0,
+    "word": "power",
+    "accuracy": 44.0,
     "error": "Mispronunciation"
    },
    {
-    "word": "has",
-    "accuracy": 30.0,
+    "word": "the",
+    "accuracy": 50.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "geographic",
+    "accuracy": 7.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "ultimately",
+    "accuracy": 53.0,
     "error": "Mispronunciation"
    }
   ],
   "classes": {
-   "-ed": {
-    "n": 3,
-    "words": [
-     "shifted",
-     "finished"
-    ]
-   },
-   "h": {
+   "s-cluster": {
     "n": 1,
     "words": [
-     "has"
-    ]
-   },
-   "s/z": {
-    "n": 6,
-    "words": [
-     "prophecy",
-     "imperialist",
-     "policies",
-     "this",
-     "said"
-    ]
-   },
-   "i/ii": {
-    "n": 9,
-    "words": [
-     "imperialist",
-     "did",
-     "his",
-     "be",
-     "which",
-     "finished"
-    ]
-   },
-   "th": {
-    "n": 1,
-    "words": [
-     "the"
-    ]
-   },
-   "schwa": {
-    "n": 3,
-    "words": [
-     "imperialist",
-     "and",
-     "from"
+     "sterile"
     ]
    },
    "b/v": {
     "n": 1,
     "words": [
-     "overseas"
+     "development"
     ]
    }
   }
  },
  "harvest": null,
- "cards_added": 6,
+ "cards_added": 5,
  "flags": [],
- "passage_overlap": 0.98
+ "passage_overlap": 0.93,
+ "void": false
 }
