@@ -139,6 +139,23 @@ MIN_PASSAGE_OVERLAP = 0.5   # same threshold as practice-review's guard
 MIN_SPAN_COVER = 0.5        # bigram coverage for a chunk to count as part of what he read
 SPAN_GAP = 1                # chunks he skimmed may dip below the bar without ending the span
 
+# A scripted assessment is only meaningful when the reference is roughly what he SAID. The six
+# correctly-matched reads sit at 0.96–1.10 spoken-to-reference words; the single-chunk matcher that
+# shipped until 2026-09-16 produced 4.1, 9.1, 17.5, 23.3 and 56.8 and the scores it returned looked
+# entirely plausible — around 82 — which is why nobody noticed for a week. The band is deliberately
+# four times wider than the observed spread: Whisper loses words on poor audio and a skimmed chunk
+# inflates the reference. Outside it the recording is scored UNSCRIPTED rather than scored wrongly:
+# a missing number can be recovered later, a plausible wrong one corrupts the series and everything
+# read from it.
+MIN_REF_RATIO, MAX_REF_RATIO = 0.70, 1.40
+
+def ref_ratio_ok(spoken_words, reference, lo=MIN_REF_RATIO, hi=MAX_REF_RATIO):
+    """(ok, ratio) for a candidate scripted reference. No reference, or no words: not ok."""
+    n = len((reference or "").split())
+    if not n or not spoken_words: return False, 0.0
+    r = spoken_words / n
+    return lo <= r <= hi, round(r, 2)
+
 def _toks(t):
     return re.findall(r"[a-z']+", (t or "").lower())
 
@@ -241,20 +258,31 @@ def ingest_one(path, out_dir, azure):
         # twelve-minute reading against one 160-word chunk measured something, but not the reading.
         first, last, span_text, cover = detect_span(transcript)
         detected, overlap = detect_passage(transcript)
+        spoken = len(words)
         note, reference, span = None, None, None
         if first:
-            span = {"first": first, "last": last, "chunks": None, "cover": cover,
-                    "ref_words": len(span_text.split())}
-            pid, kind, reference, overlap = first, "read", span_text, cover
-            note = (f"read {first}–{last} ({cover:.0%} bigram cover, {span['ref_words']} reference words)"
-                    if first != last else f"read {first} ({cover:.0%} bigram cover)")
-        elif detected and detected != pid:
-            note = f"passage {detected} detected from the transcript ({overlap:.0%} overlap)" + (f"; name said {pid}" if pid else "; file was not named")
-            kind, pid = "read", detected
-            reference = passage_text(pid)
-        elif kind == "read" and pid and detected:
-            reference = passage_text(pid)
-        elif kind == "read" and pid and not detected:
+            span = {"first": first, "last": last, "cover": cover, "ref_words": len(span_text.split())}
+            pid, kind, overlap = first, "read", cover
+            ok, ratio = ref_ratio_ok(spoken, span_text)
+            span["ratio"] = ratio
+            where = f"{first}–{last}" if first != last else first
+            if ok:
+                reference = span_text
+                note = f"read {where} ({cover:.0%} bigram cover, {span['ref_words']} reference words, ratio {ratio})"
+            else:
+                note = (f"read {where} but he said {spoken} words against {span['ref_words']} of reference "
+                        f"(ratio {ratio}, outside {MIN_REF_RATIO}–{MAX_REF_RATIO}) — scored unscripted")
+        elif detected:
+            cand = passage_text(detected)
+            ok, ratio = ref_ratio_ok(spoken, cand)
+            if ok:
+                kind, pid, reference = "read", detected, cand
+                note = (f"passage {detected} detected from the transcript ({overlap:.0%} overlap, ratio {ratio})"
+                        if detected != pid else None)
+            else:
+                note = (f"passage {detected} matched at {overlap:.0%} but he said {spoken} words against "
+                        f"{len((cand or '').split())} of reference (ratio {ratio}) — scored unscripted")
+        elif kind == "read" and pid:
             note = f"name says {pid} but the transcript covers only {overlap:.0%} of it — scored unscripted"
         record = {
             "source": path.name,
@@ -321,6 +349,18 @@ def selftest():
     assert (one, lastone) == ("B001", "B001"), "a single chunk is a run of one"
     assert detect_span("nothing in this sentence appears in that book at all", C)[0] is None
     assert detect_span("", C) == (None, None, None, 0.0) and detect_span("words", []) == (None, None, None, 0.0)
+
+    # --- the reference must be roughly what he SAID (user's safeguard, 2026-09-16) ---
+    ref = " ".join(["w"] * 100)
+    assert ref_ratio_ok(100, ref) == (True, 1.0)
+    assert ref_ratio_ok(96, ref)[0] and ref_ratio_ok(110, ref)[0], "the observed 0.96-1.10 band passes"
+    assert ref_ratio_ok(140, ref)[0] and ref_ratio_ok(70, ref)[0], "the edges pass"
+    assert not ref_ratio_ok(141, ref)[0] and not ref_ratio_ok(69, ref)[0], "outside does not"
+    # the ratios the single-chunk matcher actually produced, all rejected
+    for spoken in (410, 910, 1750, 2330, 5680):
+        assert not ref_ratio_ok(spoken, ref)[0], spoken
+    assert ref_ratio_ok(61, " ".join(["w"] * 143)) == (False, 0.43), "a partial read of the anchor is not scripted"
+    assert ref_ratio_ok(0, ref) == (False, 0.0) and ref_ratio_ok(100, "") == (False, 0.0)
     # unigram overlap cannot do this: an unrelated chunk shares most of its WORDS with a long reading
     assert detect_passage(said, {"passages": C, "_with_library": False})[0] in ("B001", "B002", "B003"), \
         "the old matcher finds one chunk of the run and calls it the passage"

@@ -88,7 +88,15 @@ def fetch(source, dest, drv=None):
 
 
 def rescore(row, pi, azure_pa, work):
-    """One read: re-run the assessment against the span and rewrite the record in place."""
+    """One read: re-run the assessment against the span and rewrite the record in place.
+
+    The same word-count guard the ingest uses: a reference that is not roughly what he said must
+    never be scored scripted, or this tool would spend Azure minutes re-creating the very fault it
+    exists to repair."""
+    ok, ratio = pi.ref_ratio_ok(row["spoken"], row["reference"])
+    if not ok:
+        return None, (f"{row['file'].name[:10]} {row['first']}–{row['last']}: {row['spoken']} words said "
+                      f"against {row['ref']} of reference (ratio {ratio}) — refused, not rescored")
     audio = fetch(row["source"], work / ("audio" + pathlib.Path(row["source"]).suffix))
     if not audio:
         return None, f"{row['source']}: not on Drive any more — skipped"
@@ -100,7 +108,8 @@ def rescore(row, pi, azure_pa, work):
     d["passage"] = row["first"]
     d["scripted"] = True
     d["passage_overlap"] = row["cover"]
-    d["span"] = {"first": row["first"], "last": row["last"], "cover": row["cover"], "ref_words": row["ref"]}
+    d["span"] = {"first": row["first"], "last": row["last"], "cover": row["cover"],
+                 "ref_words": row["ref"], "ratio": ratio}
     d["kind_note"] = (f"rescored {row['first']}–{row['last']} ({row['cover']:.0%} bigram cover, "
                       f"{row['ref']} reference words); was {row['was']} alone ({row['was_ref']} words)")
     d["rescored"] = True
@@ -126,7 +135,8 @@ def main():
     for r in rows:
         print(f"  {r['file'].name[:10]}  {r['was']} ({r['was_ref']}w) → {r['first']}–{r['last']} "
               f"({r['ref']}w, {r['cover']:.0%} cover), spoken {r['spoken']}w, "
-              f"ratio {r['spoken'] / max(1, r['ref']):.2f}")
+              f"ratio {r['spoken'] / max(1, r['ref']):.2f}"
+              f"{'' if pi.ref_ratio_ok(r['spoken'], r['reference'])[0] else '  ← OUT OF BAND, will be refused'}")
     if a.dry:
         return 0
     # to_wav shells out to ffmpeg, which lives in the practice venv — cloud-sync puts it on PATH
