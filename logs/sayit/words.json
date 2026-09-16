@@ -1,13 +1,13 @@
 {
  "version": 1,
- "written": "2026-09-15T20:52:04Z",
+ "written": "2026-09-16T07:36:18Z",
  "per_session": 5,
  "words": [
   {
    "id": "imperialist",
    "word": "imperialist",
-   "sentence": "The complicity of all parliamentary parties in imperialist programs is a matter of record.",
-   "clip": "clips/imperialist-2.ogg",
+   "sentence": "This is not to deny that the unexpected revival of imperialist policies and methods takes place under vastly changed conditions and circumstances.",
+   "clip": "clips/imperialist-0.ogg",
    "ipa": "",
    "classes": [
     "i/ii",
@@ -18,7 +18,7 @@
    "read_on": 2,
    "miss_rate": 1.0,
    "rank": 31690,
-   "added": "2026-09-15",
+   "added": "2026-09-16",
    "source": "flagged",
    "sentences": [
     {
@@ -38,15 +38,15 @@
   {
    "id": "impartial",
    "word": "impartial",
-   "sentence": "This is all the more deplorable as the need for an impartial, truthful treatment of Jewish history has recently become greater than it has ever been before.",
-   "clip": "clips/impartial-0.ogg",
+   "sentence": "Impartiality of law in the Dreyfus case, impartial law in the case of the religious orders.",
+   "clip": "clips/impartial-1.ogg",
    "ipa": "",
    "classes": [],
    "flagged_on": 2,
    "read_on": 1,
    "miss_rate": 1.0,
    "rank": 19395,
-   "added": "2026-09-15",
+   "added": "2026-09-16",
    "source": "flagged",
    "sentences": [
     {
@@ -63,7 +63,7 @@
    "id": "new-scapegoat",
    "word": "scapegoat",
    "sentence": "Even Fichte, the favorite modern scapegoat for German race-thinking, hardly ever went beyond the limits of nationalism.",
-   "clip": "clips/new-scapegoat-2.ogg",
+   "clip": "clips/new-scapegoat-0.ogg",
    "ipa": "",
    "classes": [],
    "source": "new",
@@ -71,7 +71,7 @@
    "added": "2026-09-15",
    "sentences": [
     {
-     "text": "Yet this explanation of antisemitism, like the scapegoat theory and for similar reasons, has outlived its refutation by reality.",
+     "text": "Even Fichte, the favorite modern scapegoat for German race-thinking, hardly ever went beyond the limits of nationalism.",
      "clip": "clips/new-scapegoat-0.ogg"
     },
     {
@@ -79,7 +79,7 @@
      "clip": "clips/new-scapegoat-1.ogg"
     },
     {
-     "text": "Even Fichte, the favorite modern scapegoat for German race-thinking, hardly ever went beyond the limits of nationalism.",
+     "text": "Yet this explanation of antisemitism, like the scapegoat theory and for similar reasons, has outlived its refutation by reality.",
      "clip": "clips/new-scapegoat-2.ogg"
     }
    ]
@@ -105,7 +105,7 @@
    "id": "new-conspicuous",
    "word": "conspicuous",
    "sentence": "The more conspicuous the power of totalitarianism the more secret become its true goals.",
-   "clip": "clips/new-conspicuous-2.ogg",
+   "clip": "clips/new-conspicuous-0.ogg",
    "ipa": "",
    "classes": [],
    "source": "new",
@@ -113,7 +113,7 @@
    "added": "2026-09-15",
    "sentences": [
     {
-     "text": "Or, the curious contradiction between the totalitarian movements’ avowed cynical “realism” and their conspicuous disdain of the whole texture of reality.",
+     "text": "The more conspicuous the power of totalitarianism the more secret become its true goals.",
      "clip": "clips/new-conspicuous-0.ogg"
     },
     {
@@ -121,7 +121,7 @@
      "clip": "clips/new-conspicuous-1.ogg"
     },
     {
-     "text": "The more conspicuous the power of totalitarianism the more secret become its true goals.",
+     "text": "Or, the curious contradiction between the totalitarian movements’ avowed cynical “realism” and their conspicuous disdain of the whole texture of reality.",
      "clip": "clips/new-conspicuous-2.ogg"
     }
    ]
@@ -129,8 +129,8 @@
   {
    "id": "new-parasitical",
    "word": "parasitical",
-   "sentence": "Only wealth without power or aloofness without a policy are felt to be parasitical, useless, revolting, because such conditions cut all the threads which tie men together.",
-   "clip": "clips/new-parasitical-0.ogg",
+   "sentence": "More important, it protected its owners against the menacing prospect of remaining entirely superfluous and parasitical.",
+   "clip": "clips/new-parasitical-1.ogg",
    "ipa": "",
    "classes": [],
    "source": "new",
@@ -150,8 +150,8 @@
   {
    "id": "new-uprootedness",
    "word": "uprootedness",
-   "sentence": "Only the horror of the final catastrophe, and even more the homelessness and uprootedness of the survivors, made the “Jewish question” so prominent in our everyday political life.",
-   "clip": "clips/new-uprootedness-0.ogg",
+   "sentence": "Uprootedness can be the preliminary condition for superfluousness, just as isolation can (but must not) be the preliminary condition for loneliness.",
+   "clip": "clips/new-uprootedness-1.ogg",
    "ipa": "",
    "classes": [],
    "source": "new",
