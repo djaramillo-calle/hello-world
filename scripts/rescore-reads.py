@@ -104,6 +104,13 @@ def rescore(row, pi, azure_pa, work):
     wav = work / "rec.wav"
     pi.to_wav(audio, wav)
     r = azure_pa.dual_locale_assessment(str(wav), reference_text=row["reference"])
+    # Never overwrite a good record with a bad assessment. On 2026-09-16 the 84-minute read timed
+    # out, came back with `overall: {}` and 0 words, and was written straight over scores that had
+    # taken 84 minutes of quota to earn. The old record is the better of the two; keep it.
+    scored = (r.get("en_gb") or {}).get("overall") or {}
+    if not scored or not (r.get("en_gb") or {}).get("word_count"):
+        return None, (f"{row['file'].name[:10]} {row['first']}–{row['last']}: assessment came back "
+                      f"empty — record left as it was")
     d = row["record"]
     d["azure"] = r
     d["passage"] = row["first"]

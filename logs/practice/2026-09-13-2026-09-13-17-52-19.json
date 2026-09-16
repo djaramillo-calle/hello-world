@@ -7,7 +7,7 @@
  "passage": "B024",
  "scripted": true,
  "passage_overlap": 0.89,
- "kind_note": "rescored B024–B038 (89% bigram cover, 2580 reference words); was B029 alone (154 words)",
+ "kind_note": "rescored B024–B038 (89% bigram cover, 2580 reference words); was B024 alone (175 words)",
  "words": 2700,
  "fillers": 0,
  "wpm": 97.7,
@@ -16328,2228 +16328,1727 @@
  ],
  "azure": {
   "scripted": true,
+  "locale": "en-US",
   "en_gb": {
    "overall": {
-    "accuracy": 95.4,
-    "fluency": 90.1,
-    "completeness": 96.4,
-    "prosody": 57.3,
-    "pron": 79.3
+    "accuracy": 96.0,
+    "fluency": 94.0,
+    "completeness": 98.2,
+    "prosody": 85.2,
+    "pron": 91.7
    },
    "flagged_words": [
     {
      "word": "could",
-     "accuracy": 33.0,
-     "error": "Mispronunciation",
+     "accuracy": 91.0,
+     "error": "None",
      "phonemes": [
       {
-       "ph": "",
-       "score": 44.0,
+       "ph": "d",
+       "score": 58.0,
        "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 22.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 33.0,
-       "heard": [
-        "",
-        "",
-        ""
+        "l",
+        "d",
+        "p"
        ]
       }
      ]
     },
     {
-     "word": "could",
-     "accuracy": 40.0,
+     "word": "very",
+     "accuracy": 7.0,
      "error": "Mispronunciation",
      "phonemes": [
       {
-       "ph": "",
-       "score": 37.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
+       "ph": "ɛɹ",
        "score": 30.0,
        "heard": [
-        "",
-        "",
-        ""
+        "ɝ",
+        "ɛɹ",
+        "v"
        ]
       }
      ]
     },
     {
-     "word": "could",
+     "word": "arely",
      "accuracy": 38.0,
+     "error": "Mispronunciation"
+    },
+    {
+     "word": "imperialism",
+     "accuracy": 57.0,
      "error": "Mispronunciation",
      "phonemes": [
       {
-       "ph": "",
-       "score": 38.0,
+       "ph": "ə",
+       "score": 50.0,
        "heard": [
-        "",
-        "",
-        ""
+        "ə",
+        "ɹ",
+        "l"
        ]
       },
       {
-       "ph": "",
-       "score": 34.0,
+       "ph": "l",
+       "score": 44.0,
        "heard": [
-        "",
-        "",
-        ""
+        "l",
+        "ɹ",
+        "d"
        ]
       },
       {
-       "ph": "",
-       "score": 42.0,
+       "ph": "ɪ",
+       "score": 50.0,
        "heard": [
-        "",
-        "",
-        ""
+        "i",
+        "ɪ",
+        "l"
+       ]
+      },
+      {
+       "ph": "z",
+       "score": 51.0,
+       "heard": [
+        "z",
+        "ð",
+        "s"
+       ]
+      },
+      {
+       "ph": "m",
+       "score": 43.0,
+       "heard": [
+        "m",
+        "k",
+        "ə"
        ]
       }
      ]
-    },
-    {
-     "word": "the",
-     "accuracy": 55.0,
-     "error": "Mispronunciation"
     },
     {
      "word": "definite",
-     "accuracy": 5.0,
+     "accuracy": 51.0,
      "error": "Mispronunciation",
      "phonemes": [
       {
-       "ph": "",
-       "score": 5.0,
+       "ph": "ɛ",
+       "score": 27.0,
        "heard": [
-        "",
-        "",
-        ""
+        "ə",
+        "ɪ",
+        "ɛ"
        ]
       },
       {
-       "ph": "",
-       "score": 5.0,
+       "ph": "f",
+       "score": 34.0,
        "heard": [
-        "",
-        "",
-        ""
+        "f",
+        "ə",
+        "v"
        ]
       },
       {
-       "ph": "",
-       "score": 4.0,
+       "ph": "n",
+       "score": 41.0,
        "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 3.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 4.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 4.0,
-       "heard": [
-        "",
-        "",
-        ""
+        "n",
+        "t",
+        "m"
        ]
       }
      ]
     },
     {
-     "word": "its",
-     "accuracy": 52.0,
-     "error": "Mispronunciation"
+     "word": "imperialist",
+     "accuracy": 85.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "ɪ",
+       "score": 58.0,
+       "heard": [
+        "ɪ",
+        "i",
+        "m"
+       ]
+      }
+     ]
     },
     {
-     "word": "its",
-     "accuracy": 53.0,
-     "error": "Mispronunciation"
+     "word": "incongruity",
+     "accuracy": 69.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "ɪ",
+       "score": 57.0,
+       "heard": [
+        "ɪ",
+        "n",
+        "i"
+       ]
+      },
+      {
+       "ph": "t",
+       "score": 59.0,
+       "heard": [
+        "t",
+        "ə",
+        "d"
+       ]
+      },
+      {
+       "ph": "i",
+       "score": 55.0,
+       "heard": [
+        "i",
+        "t",
+        "d"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "nineteenth",
+     "accuracy": 88.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "n",
+       "score": 34.0,
+       "heard": [
+        "i",
+        "ə",
+        "θ"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "started",
+     "accuracy": 94.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "s",
+       "score": 33.0,
+       "heard": [
+        "ə",
+        "ð",
+        "s"
+       ]
+      }
+     ]
     },
     {
      "word": "expansion",
-     "accuracy": 2.0,
+     "accuracy": 12.0,
      "error": "Mispronunciation",
      "phonemes": [
       {
-       "ph": "",
-       "score": 2.0,
+       "ph": "n",
+       "score": 14.0,
        "heard": [
-        "",
-        "",
-        ""
+        "æ",
+        "ŋ",
+        "n"
        ]
       },
       {
-       "ph": "",
-       "score": 2.0,
+       "ph": "n",
+       "score": 43.0,
        "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 2.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 2.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 1.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 1.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 1.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 1.0,
-       "heard": [
-        "",
-        "",
-        ""
+        "ŋ",
+        "n",
+        "k"
        ]
       }
      ]
     },
     {
-     "word": "for",
-     "accuracy": 52.0,
-     "error": "Mispronunciation"
-    },
-    {
-     "word": "its",
-     "accuracy": 8.0,
-     "error": "Mispronunciation",
+     "word": "than",
+     "accuracy": 97.0,
+     "error": "None",
      "phonemes": [
       {
-       "ph": "",
-       "score": 8.0,
+       "ph": "ə",
+       "score": 58.0,
        "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 8.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 8.0,
-       "heard": [
-        "",
-        "",
-        ""
+        "ə",
+        "ɛ",
+        "ð"
        ]
       }
      ]
     },
     {
-     "word": "may",
-     "accuracy": 57.0,
-     "error": "Mispronunciation"
+     "word": "this",
+     "accuracy": 91.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "ɪ",
+       "score": 30.0,
+       "heard": [
+        "i",
+        "z",
+        "ɪ"
+       ]
+      },
+      {
+       "ph": "s",
+       "score": 18.0,
+       "heard": [
+        "z",
+        "n",
+        "s"
+       ]
+      }
+     ]
     },
     {
-     "word": "moral",
-     "accuracy": 5.0,
+     "word": "version",
+     "accuracy": 88.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "v",
+       "score": 38.0,
+       "heard": [
+        "b",
+        "u",
+        "v"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "conquests",
+     "accuracy": 76.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "s",
+       "score": 40.0,
+       "heard": [
+        "z",
+        "s",
+        "ə"
+       ]
+      },
+      {
+       "ph": "s",
+       "score": 57.0,
+       "heard": [
+        "z",
+        "s",
+        "t"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "liquidation",
+     "accuracy": 79.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "ə",
+       "score": 47.0,
+       "heard": [
+        "ɪ",
+        "w",
+        "d"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "independence",
+     "accuracy": 41.0,
      "error": "Mispronunciation",
      "phonemes": [
       {
-       "ph": "",
-       "score": 4.0,
+       "ph": "s",
+       "score": 34.0,
        "heard": [
-        "",
-        "",
-        ""
+        "s",
+        "z",
+        "t"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "momentous",
+     "accuracy": 88.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "t",
+       "score": 55.0,
+       "heard": [
+        "t",
+        "ɹ",
+        "d"
+       ]
+      },
+      {
+       "ph": "ə",
+       "score": 19.0,
+       "heard": [
+        "ɹ",
+        "oʊ",
+        "u"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "this",
+     "accuracy": 94.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "ɪ",
+       "score": 57.0,
+       "heard": [
+        "i",
+        "d",
+        "z"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "weakness",
+     "accuracy": 88.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "i",
+       "score": 56.0,
+       "heard": [
+        "ɪ",
+        "g",
+        "i"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "scruples",
+     "accuracy": 94.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "s",
+       "score": 49.0,
+       "heard": [
+        "s",
+        "z",
+        "t"
        ]
       }
      ]
     },
     {
      "word": "apprehensions",
-     "accuracy": 64.0,
+     "accuracy": 85.0,
      "error": "None",
      "phonemes": [
       {
-       "ph": "",
-       "score": 37.0,
+       "ph": "n",
+       "score": 18.0,
        "heard": [
-        "",
-        "",
-        ""
+        "n",
+        "d",
+        "m"
+       ]
+      },
+      {
+       "ph": "z",
+       "score": 18.0,
+       "heard": [
+        "n",
+        "d",
+        "t"
        ]
       }
      ]
     },
     {
-     "word": "that",
-     "accuracy": 54.0,
-     "error": "Mispronunciation"
-    },
-    {
-     "word": "considered",
-     "accuracy": 55.0,
-     "error": "Mispronunciation",
+     "word": "rebellion",
+     "accuracy": 85.0,
+     "error": "None",
      "phonemes": [
       {
-       "ph": "",
-       "score": 44.0,
+       "ph": "b",
+       "score": 29.0,
        "heard": [
-        "",
-        "",
-        ""
+        "v",
+        "b",
+        "p"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "rebellion",
+     "accuracy": 65.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "ɪ",
+       "score": 57.0,
+       "heard": [
+        "ɪ",
+        "ə",
+        "ɛ"
+       ]
+      },
+      {
+       "ph": "b",
+       "score": 36.0,
+       "heard": [
+        "v",
+        "b",
+        "ə"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "much-feared",
+     "accuracy": 91.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "d",
+       "score": 32.0,
+       "heard": [
+        "ɹ",
+        "b",
+        "p"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "boomerang",
+     "accuracy": 94.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "ŋ",
+       "score": 43.0,
+       "heard": [
+        "n",
+        "ə",
+        "d"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "authority",
+     "accuracy": 94.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "ə",
+       "score": 56.0,
+       "heard": [
+        "ɔ",
+        "aʊ",
+        "æ"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "always",
+     "accuracy": 91.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "eɪ",
+       "score": 12.0,
+       "heard": [
+        "ɪ",
+        "eɪ",
+        "z"
        ]
       }
      ]
     },
     {
      "word": "france",
-     "accuracy": 2.0,
-     "error": "Mispronunciation",
+     "accuracy": 97.0,
+     "error": "None",
      "phonemes": [
       {
-       "ph": "",
-       "score": 2.0,
+       "ph": "s",
+       "score": 58.0,
        "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 2.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 1.0,
-       "heard": [
-        "",
-        "",
-        ""
+        "z",
+        "s",
+        "d"
        ]
       }
      ]
     },
     {
-     "word": "jockeyed",
-     "accuracy": 25.0,
+     "word": "seine",
+     "accuracy": 76.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "eɪ",
+       "score": 42.0,
+       "heard": [
+        "i",
+        "ɛ",
+        "ə"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "point",
+     "accuracy": 94.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "t",
+       "score": 23.0,
+       "heard": [
+        "t",
+        "ə",
+        "n"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "between",
+     "accuracy": 54.0,
      "error": "Mispronunciation",
      "phonemes": [
       {
-       "ph": "",
-       "score": 26.0,
+       "ph": "b",
+       "score": 43.0,
        "heard": [
-        "",
-        "",
-        ""
+        "b",
+        "p",
+        "ɹ"
        ]
       },
       {
-       "ph": "",
-       "score": 25.0,
+       "ph": "ə",
+       "score": 39.0,
        "heard": [
-        "",
-        "",
-        ""
+        "b",
+        "p",
+        "d"
        ]
       },
       {
-       "ph": "",
-       "score": 26.0,
+       "ph": "t",
+       "score": 53.0,
        "heard": [
-        "",
-        "",
-        ""
+        "t",
+        "d",
+        "p"
        ]
       },
       {
-       "ph": "",
+       "ph": "w",
+       "score": 43.0,
+       "heard": [
+        "ə",
+        "t",
+        "u"
+       ]
+      },
+      {
+       "ph": "i",
+       "score": 27.0,
+       "heard": [
+        "ɪ",
+        "ə",
+        "n"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "soviet",
+     "accuracy": 65.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "v",
+       "score": 46.0,
+       "heard": [
+        "v",
+        "ɪ",
+        "b"
+       ]
+      },
+      {
+       "ph": "i",
+       "score": 4.0,
+       "heard": [
+        "ɪ",
+        "ɛ",
+        "ə"
+       ]
+      },
+      {
+       "ph": "ə",
        "score": 20.0,
        "heard": [
-        "",
-        "",
-        ""
+        "ɪ",
+        "d",
+        "t"
        ]
-      },
+      }
+     ]
+    },
+    {
+     "word": "upon",
+     "accuracy": 94.0,
+     "error": "None",
+     "phonemes": [
       {
-       "ph": "",
-       "score": 28.0,
+       "ph": "ʌ",
+       "score": 33.0,
        "heard": [
-        "",
-        "",
-        ""
+        "ə",
+        "u",
+        "ʊ"
        ]
       }
      ]
     },
     {
      "word": "that",
-     "accuracy": 43.0,
+     "accuracy": 42.0,
      "error": "Mispronunciation",
      "phonemes": [
       {
-       "ph": "",
-       "score": 30.0,
+       "ph": "ə",
+       "score": 48.0,
        "heard": [
-        "",
-        "",
-        ""
+        "t",
+        "ə",
+        "ʌ"
+       ]
+      },
+      {
+       "ph": "t",
+       "score": 7.0,
+       "heard": [
+        "t",
+        "θ",
+        "d"
        ]
       }
      ]
     },
     {
      "word": "went",
-     "accuracy": 51.0,
+     "accuracy": 56.0,
      "error": "Mispronunciation",
      "phonemes": [
       {
-       "ph": "",
-       "score": 40.0,
+       "ph": "ɛ",
+       "score": 19.0,
        "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 35.0,
-       "heard": [
-        "",
-        "",
-        ""
+        "ɛ",
+        "n",
+        "eɪ"
        ]
       }
      ]
     },
     {
-     "word": "emergence",
-     "accuracy": 47.0,
+     "word": "between",
+     "accuracy": 45.0,
      "error": "Mispronunciation",
      "phonemes": [
       {
-       "ph": "",
+       "ph": "b",
+       "score": 33.0,
+       "heard": [
+        "ɪ",
+        "d",
+        "b"
+       ]
+      },
+      {
+       "ph": "i",
+       "score": 38.0,
+       "heard": [
+        "ɪ",
+        "d",
+        "t"
+       ]
+      },
+      {
+       "ph": "t",
        "score": 43.0,
        "heard": [
-        "",
-        "",
-        ""
+        "d",
+        "t",
+        "dʒ"
+       ]
+      },
+      {
+       "ph": "w",
+       "score": 31.0,
+       "heard": [
+        "u",
+        "ɪ",
+        "j"
+       ]
+      },
+      {
+       "ph": "i",
+       "score": 43.0,
+       "heard": [
+        "u",
+        "ɪ",
+        "j"
        ]
       }
      ]
     },
     {
      "word": "world",
-     "accuracy": 5.0,
-     "error": "Mispronunciation",
+     "accuracy": 85.0,
+     "error": "None",
      "phonemes": [
       {
-       "ph": "",
-       "score": 4.0,
+       "ph": "l",
+       "score": 43.0,
        "heard": [
-        "",
-        "",
-        ""
+        "ɹ",
+        "l",
+        "d"
        ]
-      },
+      }
+     ]
+    },
+    {
+     "word": "consequence",
+     "accuracy": 85.0,
+     "error": "None",
+     "phonemes": [
       {
-       "ph": "",
-       "score": 4.0,
+       "ph": "ɔ",
+       "score": 28.0,
        "heard": [
-        "",
-        "",
-        ""
+        "ɑ",
+        "k",
+        "ʌ"
        ]
       }
      ]
     },
     {
      "word": "detotalitarization",
-     "accuracy": 0.0,
-     "error": "Mispronunciation"
-    },
-    {
-     "word": "and",
-     "accuracy": 58.0,
-     "error": "Mispronunciation"
-    },
-    {
-     "word": "the",
-     "accuracy": 57.0,
-     "error": "Mispronunciation"
-    },
-    {
-     "word": "quo",
-     "accuracy": 44.0,
+     "accuracy": 12.0,
      "error": "Mispronunciation",
      "phonemes": [
       {
-       "ph": "",
-       "score": 43.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 38.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      }
-     ]
-    },
-    {
-     "word": "handling",
-     "accuracy": 35.0,
-     "error": "Mispronunciation",
-     "phonemes": [
-      {
-       "ph": "",
-       "score": 26.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 28.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 30.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 31.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 31.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      }
-     ]
-    },
-    {
-     "word": "prerequisites",
-     "accuracy": 4.0,
-     "error": "Mispronunciation",
-     "phonemes": [
-      {
-       "ph": "",
+       "ph": "ɪ",
        "score": 4.0,
        "heard": [
-        "",
-        "",
-        ""
+        "i",
+        "ɹ",
+        "ɪ"
        ]
       },
       {
-       "ph": "",
-       "score": 3.0,
+       "ph": "n",
+       "score": 20.0,
        "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 3.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 3.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 4.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 4.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 4.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 3.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 3.0,
-       "heard": [
-        "",
-        "",
-        ""
+        "i",
+        "t",
+        "d"
        ]
       }
      ]
     },
     {
-     "word": "sterile",
-     "accuracy": 59.0,
+     "word": "situation",
+     "accuracy": 22.0,
      "error": "Mispronunciation"
-    },
+    }
+   ],
+   "word_count": 1944,
+   "locale": "en-US"
+  },
+  "en_us_targets": {
+   "overall_prosody": 85.2,
+   "phoneme_findings": [
     {
-     "word": "superpowers",
-     "accuracy": 0.0,
-     "error": "Mispronunciation"
-    },
-    {
-     "word": "development",
-     "accuracy": 56.0,
-     "error": "Mispronunciation"
-    },
-    {
-     "word": "the",
-     "accuracy": 49.0,
-     "error": "Mispronunciation"
-    },
-    {
-     "word": "nationally",
-     "accuracy": 45.0,
-     "error": "Mispronunciation",
+     "word": "could",
+     "accuracy": 91.0,
+     "error": "None",
      "phonemes": [
       {
-       "ph": "",
-       "score": 41.0,
+       "ph": "d",
+       "score": 58.0,
        "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 40.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 38.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 36.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 37.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 32.0,
-       "heard": [
-        "",
-        "",
-        ""
+        "l",
+        "d",
+        "p"
        ]
       }
      ]
     },
     {
-     "word": "territorially",
-     "accuracy": 1.0,
-     "error": "Mispronunciation",
-     "phonemes": [
-      {
-       "ph": "",
-       "score": 1.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 1.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 1.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 1.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 1.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 1.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 1.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 1.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 1.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 1.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 1.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      }
-     ]
-    },
-    {
-     "word": "territorially",
-     "accuracy": 2.0,
-     "error": "Mispronunciation",
-     "phonemes": [
-      {
-       "ph": "",
-       "score": 2.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 1.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 1.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 2.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 2.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 2.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 2.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 2.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 2.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 2.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 2.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      }
-     ]
-    },
-    {
-     "word": "the",
-     "accuracy": 48.0,
-     "error": "Mispronunciation"
-    },
-    {
-     "word": "power",
-     "accuracy": 51.0,
-     "error": "Mispronunciation",
-     "phonemes": [
-      {
-       "ph": "",
-       "score": 43.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      }
-     ]
-    },
-    {
-     "word": "power",
-     "accuracy": 44.0,
-     "error": "Mispronunciation",
-     "phonemes": [
-      {
-       "ph": "",
-       "score": 37.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 36.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      }
-     ]
-    },
-    {
-     "word": "the",
-     "accuracy": 50.0,
-     "error": "Mispronunciation",
-     "phonemes": [
-      {
-       "ph": "",
-       "score": 42.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      }
-     ]
-    },
-    {
-     "word": "geographic",
+     "word": "very",
      "accuracy": 7.0,
      "error": "Mispronunciation",
      "phonemes": [
       {
-       "ph": "",
-       "score": 6.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 6.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 6.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 6.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 6.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 6.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 4.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      }
-     ]
-    },
-    {
-     "word": "ultimately",
-     "accuracy": 53.0,
-     "error": "Mispronunciation",
-     "phonemes": [
-      {
-       "ph": "",
-       "score": 44.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      }
-     ]
-    }
-   ],
-   "word_count": 1945
-  },
-  "en_us_targets": {
-   "overall_prosody": 57.3,
-   "phoneme_findings": [
-    {
-     "word": "could",
-     "accuracy": 33.0,
-     "error": "Mispronunciation",
-     "phonemes": [
-      {
-       "ph": "",
-       "score": 44.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 22.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 33.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      }
-     ]
-    },
-    {
-     "word": "could",
-     "accuracy": 40.0,
-     "error": "Mispronunciation",
-     "phonemes": [
-      {
-       "ph": "",
-       "score": 37.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
+       "ph": "ɛɹ",
        "score": 30.0,
        "heard": [
-        "",
-        "",
-        ""
+        "ɝ",
+        "ɛɹ",
+        "v"
        ]
       }
      ]
     },
     {
-     "word": "could",
-     "accuracy": 38.0,
+     "word": "imperialism",
+     "accuracy": 57.0,
      "error": "Mispronunciation",
      "phonemes": [
       {
-       "ph": "",
-       "score": 38.0,
+       "ph": "ə",
+       "score": 50.0,
        "heard": [
-        "",
-        "",
-        ""
+        "ə",
+        "ɹ",
+        "l"
        ]
       },
       {
-       "ph": "",
-       "score": 34.0,
+       "ph": "l",
+       "score": 44.0,
        "heard": [
-        "",
-        "",
-        ""
+        "l",
+        "ɹ",
+        "d"
        ]
       },
       {
-       "ph": "",
-       "score": 42.0,
+       "ph": "ɪ",
+       "score": 50.0,
        "heard": [
-        "",
-        "",
-        ""
+        "i",
+        "ɪ",
+        "l"
+       ]
+      },
+      {
+       "ph": "z",
+       "score": 51.0,
+       "heard": [
+        "z",
+        "ð",
+        "s"
+       ]
+      },
+      {
+       "ph": "m",
+       "score": 43.0,
+       "heard": [
+        "m",
+        "k",
+        "ə"
        ]
       }
      ]
     },
     {
      "word": "definite",
-     "accuracy": 5.0,
+     "accuracy": 51.0,
      "error": "Mispronunciation",
      "phonemes": [
       {
-       "ph": "",
-       "score": 5.0,
+       "ph": "ɛ",
+       "score": 27.0,
        "heard": [
-        "",
-        "",
-        ""
+        "ə",
+        "ɪ",
+        "ɛ"
        ]
       },
       {
-       "ph": "",
-       "score": 5.0,
+       "ph": "f",
+       "score": 34.0,
        "heard": [
-        "",
-        "",
-        ""
+        "f",
+        "ə",
+        "v"
        ]
       },
       {
-       "ph": "",
-       "score": 4.0,
+       "ph": "n",
+       "score": 41.0,
        "heard": [
-        "",
-        "",
-        ""
+        "n",
+        "t",
+        "m"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "imperialist",
+     "accuracy": 85.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "ɪ",
+       "score": 58.0,
+       "heard": [
+        "ɪ",
+        "i",
+        "m"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "incongruity",
+     "accuracy": 69.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "ɪ",
+       "score": 57.0,
+       "heard": [
+        "ɪ",
+        "n",
+        "i"
        ]
       },
       {
-       "ph": "",
-       "score": 3.0,
+       "ph": "t",
+       "score": 59.0,
        "heard": [
-        "",
-        "",
-        ""
+        "t",
+        "ə",
+        "d"
        ]
       },
       {
-       "ph": "",
-       "score": 4.0,
+       "ph": "i",
+       "score": 55.0,
        "heard": [
-        "",
-        "",
-        ""
+        "i",
+        "t",
+        "d"
        ]
-      },
+      }
+     ]
+    },
+    {
+     "word": "nineteenth",
+     "accuracy": 88.0,
+     "error": "None",
+     "phonemes": [
       {
-       "ph": "",
-       "score": 4.0,
+       "ph": "n",
+       "score": 34.0,
        "heard": [
-        "",
-        "",
-        ""
+        "i",
+        "ə",
+        "θ"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "started",
+     "accuracy": 94.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "s",
+       "score": 33.0,
+       "heard": [
+        "ə",
+        "ð",
+        "s"
        ]
       }
      ]
     },
     {
      "word": "expansion",
-     "accuracy": 2.0,
+     "accuracy": 12.0,
      "error": "Mispronunciation",
      "phonemes": [
       {
-       "ph": "",
-       "score": 2.0,
+       "ph": "n",
+       "score": 14.0,
        "heard": [
-        "",
-        "",
-        ""
+        "æ",
+        "ŋ",
+        "n"
        ]
       },
       {
-       "ph": "",
-       "score": 2.0,
+       "ph": "n",
+       "score": 43.0,
        "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 2.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 2.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 1.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 1.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 1.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 1.0,
-       "heard": [
-        "",
-        "",
-        ""
+        "ŋ",
+        "n",
+        "k"
        ]
       }
      ]
     },
     {
-     "word": "its",
-     "accuracy": 8.0,
-     "error": "Mispronunciation",
+     "word": "than",
+     "accuracy": 97.0,
+     "error": "None",
      "phonemes": [
       {
-       "ph": "",
-       "score": 8.0,
+       "ph": "ə",
+       "score": 58.0,
        "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 8.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 8.0,
-       "heard": [
-        "",
-        "",
-        ""
+        "ə",
+        "ɛ",
+        "ð"
        ]
       }
      ]
     },
     {
-     "word": "moral",
-     "accuracy": 5.0,
+     "word": "this",
+     "accuracy": 91.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "ɪ",
+       "score": 30.0,
+       "heard": [
+        "i",
+        "z",
+        "ɪ"
+       ]
+      },
+      {
+       "ph": "s",
+       "score": 18.0,
+       "heard": [
+        "z",
+        "n",
+        "s"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "version",
+     "accuracy": 88.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "v",
+       "score": 38.0,
+       "heard": [
+        "b",
+        "u",
+        "v"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "conquests",
+     "accuracy": 76.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "s",
+       "score": 40.0,
+       "heard": [
+        "z",
+        "s",
+        "ə"
+       ]
+      },
+      {
+       "ph": "s",
+       "score": 57.0,
+       "heard": [
+        "z",
+        "s",
+        "t"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "liquidation",
+     "accuracy": 79.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "ə",
+       "score": 47.0,
+       "heard": [
+        "ɪ",
+        "w",
+        "d"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "independence",
+     "accuracy": 41.0,
      "error": "Mispronunciation",
      "phonemes": [
       {
-       "ph": "",
-       "score": 4.0,
+       "ph": "s",
+       "score": 34.0,
        "heard": [
-        "",
-        "",
-        ""
+        "s",
+        "z",
+        "t"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "momentous",
+     "accuracy": 88.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "t",
+       "score": 55.0,
+       "heard": [
+        "t",
+        "ɹ",
+        "d"
+       ]
+      },
+      {
+       "ph": "ə",
+       "score": 19.0,
+       "heard": [
+        "ɹ",
+        "oʊ",
+        "u"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "this",
+     "accuracy": 94.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "ɪ",
+       "score": 57.0,
+       "heard": [
+        "i",
+        "d",
+        "z"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "weakness",
+     "accuracy": 88.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "i",
+       "score": 56.0,
+       "heard": [
+        "ɪ",
+        "g",
+        "i"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "scruples",
+     "accuracy": 94.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "s",
+       "score": 49.0,
+       "heard": [
+        "s",
+        "z",
+        "t"
        ]
       }
      ]
     },
     {
      "word": "apprehensions",
-     "accuracy": 64.0,
+     "accuracy": 85.0,
      "error": "None",
      "phonemes": [
       {
-       "ph": "",
-       "score": 37.0,
+       "ph": "n",
+       "score": 18.0,
        "heard": [
-        "",
-        "",
-        ""
+        "n",
+        "d",
+        "m"
+       ]
+      },
+      {
+       "ph": "z",
+       "score": 18.0,
+       "heard": [
+        "n",
+        "d",
+        "t"
        ]
       }
      ]
     },
     {
-     "word": "considered",
-     "accuracy": 55.0,
-     "error": "Mispronunciation",
+     "word": "rebellion",
+     "accuracy": 85.0,
+     "error": "None",
      "phonemes": [
       {
-       "ph": "",
-       "score": 44.0,
+       "ph": "b",
+       "score": 29.0,
        "heard": [
-        "",
-        "",
-        ""
+        "v",
+        "b",
+        "p"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "rebellion",
+     "accuracy": 65.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "ɪ",
+       "score": 57.0,
+       "heard": [
+        "ɪ",
+        "ə",
+        "ɛ"
+       ]
+      },
+      {
+       "ph": "b",
+       "score": 36.0,
+       "heard": [
+        "v",
+        "b",
+        "ə"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "much-feared",
+     "accuracy": 91.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "d",
+       "score": 32.0,
+       "heard": [
+        "ɹ",
+        "b",
+        "p"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "boomerang",
+     "accuracy": 94.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "ŋ",
+       "score": 43.0,
+       "heard": [
+        "n",
+        "ə",
+        "d"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "authority",
+     "accuracy": 94.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "ə",
+       "score": 56.0,
+       "heard": [
+        "ɔ",
+        "aʊ",
+        "æ"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "always",
+     "accuracy": 91.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "eɪ",
+       "score": 12.0,
+       "heard": [
+        "ɪ",
+        "eɪ",
+        "z"
        ]
       }
      ]
     },
     {
      "word": "france",
-     "accuracy": 2.0,
-     "error": "Mispronunciation",
+     "accuracy": 97.0,
+     "error": "None",
      "phonemes": [
       {
-       "ph": "",
-       "score": 2.0,
+       "ph": "s",
+       "score": 58.0,
        "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 2.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 1.0,
-       "heard": [
-        "",
-        "",
-        ""
+        "z",
+        "s",
+        "d"
        ]
       }
      ]
     },
     {
-     "word": "jockeyed",
-     "accuracy": 25.0,
+     "word": "seine",
+     "accuracy": 76.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "eɪ",
+       "score": 42.0,
+       "heard": [
+        "i",
+        "ɛ",
+        "ə"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "point",
+     "accuracy": 94.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "t",
+       "score": 23.0,
+       "heard": [
+        "t",
+        "ə",
+        "n"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "between",
+     "accuracy": 54.0,
      "error": "Mispronunciation",
      "phonemes": [
       {
-       "ph": "",
-       "score": 26.0,
+       "ph": "b",
+       "score": 43.0,
        "heard": [
-        "",
-        "",
-        ""
+        "b",
+        "p",
+        "ɹ"
        ]
       },
       {
-       "ph": "",
-       "score": 25.0,
+       "ph": "ə",
+       "score": 39.0,
        "heard": [
-        "",
-        "",
-        ""
+        "b",
+        "p",
+        "d"
        ]
       },
       {
-       "ph": "",
-       "score": 26.0,
+       "ph": "t",
+       "score": 53.0,
        "heard": [
-        "",
-        "",
-        ""
+        "t",
+        "d",
+        "p"
        ]
       },
       {
-       "ph": "",
+       "ph": "w",
+       "score": 43.0,
+       "heard": [
+        "ə",
+        "t",
+        "u"
+       ]
+      },
+      {
+       "ph": "i",
+       "score": 27.0,
+       "heard": [
+        "ɪ",
+        "ə",
+        "n"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "soviet",
+     "accuracy": 65.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "v",
+       "score": 46.0,
+       "heard": [
+        "v",
+        "ɪ",
+        "b"
+       ]
+      },
+      {
+       "ph": "i",
+       "score": 4.0,
+       "heard": [
+        "ɪ",
+        "ɛ",
+        "ə"
+       ]
+      },
+      {
+       "ph": "ə",
        "score": 20.0,
        "heard": [
-        "",
-        "",
-        ""
+        "ɪ",
+        "d",
+        "t"
        ]
-      },
+      }
+     ]
+    },
+    {
+     "word": "upon",
+     "accuracy": 94.0,
+     "error": "None",
+     "phonemes": [
       {
-       "ph": "",
-       "score": 28.0,
+       "ph": "ʌ",
+       "score": 33.0,
        "heard": [
-        "",
-        "",
-        ""
+        "ə",
+        "u",
+        "ʊ"
        ]
       }
      ]
     },
     {
      "word": "that",
-     "accuracy": 43.0,
+     "accuracy": 42.0,
      "error": "Mispronunciation",
      "phonemes": [
       {
-       "ph": "",
-       "score": 30.0,
+       "ph": "ə",
+       "score": 48.0,
        "heard": [
-        "",
-        "",
-        ""
+        "t",
+        "ə",
+        "ʌ"
+       ]
+      },
+      {
+       "ph": "t",
+       "score": 7.0,
+       "heard": [
+        "t",
+        "θ",
+        "d"
        ]
       }
      ]
     },
     {
      "word": "went",
-     "accuracy": 51.0,
+     "accuracy": 56.0,
      "error": "Mispronunciation",
      "phonemes": [
       {
-       "ph": "",
-       "score": 40.0,
+       "ph": "ɛ",
+       "score": 19.0,
        "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 35.0,
-       "heard": [
-        "",
-        "",
-        ""
+        "ɛ",
+        "n",
+        "eɪ"
        ]
       }
      ]
     },
     {
-     "word": "emergence",
-     "accuracy": 47.0,
+     "word": "between",
+     "accuracy": 45.0,
      "error": "Mispronunciation",
      "phonemes": [
       {
-       "ph": "",
+       "ph": "b",
+       "score": 33.0,
+       "heard": [
+        "ɪ",
+        "d",
+        "b"
+       ]
+      },
+      {
+       "ph": "i",
+       "score": 38.0,
+       "heard": [
+        "ɪ",
+        "d",
+        "t"
+       ]
+      },
+      {
+       "ph": "t",
        "score": 43.0,
        "heard": [
-        "",
-        "",
-        ""
+        "d",
+        "t",
+        "dʒ"
+       ]
+      },
+      {
+       "ph": "w",
+       "score": 31.0,
+       "heard": [
+        "u",
+        "ɪ",
+        "j"
+       ]
+      },
+      {
+       "ph": "i",
+       "score": 43.0,
+       "heard": [
+        "u",
+        "ɪ",
+        "j"
        ]
       }
      ]
     },
     {
      "word": "world",
-     "accuracy": 5.0,
-     "error": "Mispronunciation",
+     "accuracy": 85.0,
+     "error": "None",
      "phonemes": [
       {
-       "ph": "",
-       "score": 4.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 4.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      }
-     ]
-    },
-    {
-     "word": "quo",
-     "accuracy": 44.0,
-     "error": "Mispronunciation",
-     "phonemes": [
-      {
-       "ph": "",
+       "ph": "l",
        "score": 43.0,
        "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 38.0,
-       "heard": [
-        "",
-        "",
-        ""
+        "ɹ",
+        "l",
+        "d"
        ]
       }
      ]
     },
     {
-     "word": "handling",
-     "accuracy": 35.0,
-     "error": "Mispronunciation",
+     "word": "consequence",
+     "accuracy": 85.0,
+     "error": "None",
      "phonemes": [
       {
-       "ph": "",
-       "score": 26.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
+       "ph": "ɔ",
        "score": 28.0,
        "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 30.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 31.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 31.0,
-       "heard": [
-        "",
-        "",
-        ""
+        "ɑ",
+        "k",
+        "ʌ"
        ]
       }
      ]
     },
     {
-     "word": "prerequisites",
-     "accuracy": 4.0,
+     "word": "detotalitarization",
+     "accuracy": 12.0,
      "error": "Mispronunciation",
      "phonemes": [
       {
-       "ph": "",
+       "ph": "ɪ",
        "score": 4.0,
        "heard": [
-        "",
-        "",
-        ""
+        "i",
+        "ɹ",
+        "ɪ"
        ]
       },
       {
-       "ph": "",
-       "score": 3.0,
+       "ph": "n",
+       "score": 20.0,
        "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 3.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 3.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 4.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 4.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 4.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 3.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 3.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      }
-     ]
-    },
-    {
-     "word": "nationally",
-     "accuracy": 45.0,
-     "error": "Mispronunciation",
-     "phonemes": [
-      {
-       "ph": "",
-       "score": 41.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 40.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 38.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 36.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 37.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 32.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      }
-     ]
-    },
-    {
-     "word": "territorially",
-     "accuracy": 1.0,
-     "error": "Mispronunciation",
-     "phonemes": [
-      {
-       "ph": "",
-       "score": 1.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 1.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 1.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 1.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 1.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 1.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 1.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 1.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 1.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 1.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 1.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      }
-     ]
-    },
-    {
-     "word": "territorially",
-     "accuracy": 2.0,
-     "error": "Mispronunciation",
-     "phonemes": [
-      {
-       "ph": "",
-       "score": 2.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 1.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 1.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 2.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 2.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 2.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 2.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 2.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 2.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 2.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 2.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      }
-     ]
-    },
-    {
-     "word": "power",
-     "accuracy": 51.0,
-     "error": "Mispronunciation",
-     "phonemes": [
-      {
-       "ph": "",
-       "score": 43.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      }
-     ]
-    },
-    {
-     "word": "power",
-     "accuracy": 44.0,
-     "error": "Mispronunciation",
-     "phonemes": [
-      {
-       "ph": "",
-       "score": 37.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 36.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      }
-     ]
-    },
-    {
-     "word": "the",
-     "accuracy": 50.0,
-     "error": "Mispronunciation",
-     "phonemes": [
-      {
-       "ph": "",
-       "score": 42.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      }
-     ]
-    },
-    {
-     "word": "geographic",
-     "accuracy": 7.0,
-     "error": "Mispronunciation",
-     "phonemes": [
-      {
-       "ph": "",
-       "score": 6.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 6.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 6.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 6.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 6.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 6.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      },
-      {
-       "ph": "",
-       "score": 4.0,
-       "heard": [
-        "",
-        "",
-        ""
-       ]
-      }
-     ]
-    },
-    {
-     "word": "ultimately",
-     "accuracy": 53.0,
-     "error": "Mispronunciation",
-     "phonemes": [
-      {
-       "ph": "",
-       "score": 44.0,
-       "heard": [
-        "",
-        "",
-        ""
+        "i",
+        "t",
+        "d"
        ]
       }
      ]
     }
    ]
   },
-  "note": "en-GB is the score; the phonemes come from that same pass"
+  "note": "en-US is the score, the phonemes and the prosody — the only locale documented to return all three (see the docstring)"
  },
  "span": {
   "first": "B024",
   "last": "B038",
   "cover": 0.89,
-  "ref_words": 2580
+  "ref_words": 2580,
+  "ratio": 1.05
  },
  "rescored": true
 }

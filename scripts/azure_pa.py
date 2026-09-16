@@ -26,6 +26,26 @@ LOCALE = "en-US"   # see dual_locale_assessment: the only locale documented to r
 # "iː" was added for the en-GB experiment and is kept: it costs nothing.
 TARGET_PHONEMES = {"i", "iː", "ɪ", "b", "v", "d͡ʒ", "dʒ", "j", "θ", "ð", "ə", "z", "s", "d", "t"}
 
+def _duration_s(wav):
+    """Seconds of audio, from the WAV header. 0.0 when it cannot be read."""
+    try:
+        import wave, contextlib
+        with contextlib.closing(wave.open(str(wav), "rb")) as f:
+            return f.getnframes() / float(f.getframerate() or 1)
+    except Exception:
+        return 0.0
+
+
+def _wait_for(wav):
+    """How long to wait for continuous recognition, scaled to the audio.
+
+    A fixed 600s was fine until the reads got long: 37 minutes of audio finished well inside it,
+    84 minutes did not, and the timeout looked exactly like a successful assessment of nothing.
+    Observed throughput is roughly 4x real time, so half the duration plus five minutes leaves
+    about a doubling of headroom. It is a ceiling on waiting, not on spending."""
+    return max(600.0, _duration_s(wav) / 2 + 300)
+
+
 def _assess(wav, locale, phoneme_pass, reference_text=""):
     import azure.cognitiveservices.speech as speechsdk
     cfg = speechsdk.SpeechConfig(
@@ -47,18 +67,32 @@ def _assess(wav, locale, phoneme_pass, reference_text=""):
     rec = speechsdk.SpeechRecognizer(speech_config=cfg, language=locale, audio_config=audio)
     pa.apply_to(rec)
 
-    utterances, done = [], threading.Event()
+    utterances, done, cancelled = [], threading.Event(), []
     def on_recognized(evt):
         raw = evt.result.properties.get(
             speechsdk.PropertyId.SpeechServiceResponse_JsonResult)
         if raw:
             utterances.append(json.loads(raw))
+    def on_cancelled(evt):
+        d = getattr(evt, "cancellation_details", None) or getattr(evt.result, "cancellation_details", None)
+        if d is not None and str(getattr(d, "reason", "")).endswith("Error"):
+            cancelled.append(f"{d.reason}: {getattr(d, 'error_details', '')}"[:300])
+        done.set()
     rec.recognized.connect(on_recognized)
     rec.session_stopped.connect(lambda evt: done.set())
-    rec.canceled.connect(lambda evt: done.set())
+    rec.canceled.connect(on_cancelled)
     rec.start_continuous_recognition()
-    done.wait(timeout=600)
+    finished = done.wait(timeout=_wait_for(wav))
     rec.stop_continuous_recognition()
+    # A silent return of nothing is how the 2026-09-14 read (84 minutes) came back with an empty
+    # assessment, and the rescore wrote that emptiness over a good record. A run that did not
+    # finish, or that Azure cancelled with an error, is a FAILURE and must say so — the caller
+    # decides what to keep, and cannot decide about an exception it never saw.
+    if cancelled:
+        raise RuntimeError(f"Azure cancelled the assessment — {cancelled[0]}")
+    if not finished:
+        raise TimeoutError(
+            f"Azure assessment did not finish within {_wait_for(wav):.0f}s for {_duration_s(wav):.0f}s of audio")
     return utterances
 
 def _aggregate(utterances, phoneme_pass):
@@ -159,6 +193,12 @@ def selftest():
     for k in ("en_gb", "en_us_targets", "scripted", "locale", "note"):
         assert f'"{k}"' in src, f"callers read {k}; it must stay in the returned shape"
     assert "phoneme_pass=True" in src, "named IPA phonemes are the reason for this locale"
+    # the wait must grow with the audio: a fixed ceiling silently "succeeded" on an 84-minute read
+    assert _wait_for("/nonexistent.wav") == 600.0, "unreadable audio falls back to the old floor"
+    src2 = inspect.getsource(_assess)
+    assert "_wait_for(wav)" in src2, "the wait must be scaled, not fixed"
+    assert "raise TimeoutError" in src2 and "raise RuntimeError" in src2, \
+        "an assessment that did not finish must raise, not return nothing"
     print("azure_pa.py selftest: OK")
     return 0
 
