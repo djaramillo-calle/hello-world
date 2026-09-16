@@ -136,6 +136,51 @@ def recording_kind(name):
     return "free", None
 
 MIN_PASSAGE_OVERLAP = 0.5   # same threshold as practice-review's guard
+MIN_SPAN_COVER = 0.5        # bigram coverage for a chunk to count as part of what he read
+SPAN_GAP = 1                # chunks he skimmed may dip below the bar without ending the span
+
+def _toks(t):
+    return re.findall(r"[a-z']+", (t or "").lower())
+
+def _bigrams(ws):
+    return {(ws[i], ws[i + 1]) for i in range(len(ws) - 1)}
+
+def detect_span(transcript, chunks=None, min_cover=MIN_SPAN_COVER, gap=SPAN_GAP):
+    """The RUN of consecutive book chunks this transcript is a reading of.
+
+    He reads several chunks in a sitting — nine of them on 2026-09-15 — and detect_passage returned
+    only one, so Azure scored twelve minutes of speech against 160 words of reference: a ratio of
+    9:1, and 57:1 on the eighty-four-minute read. Whatever that measured, it was not the reading.
+
+    Unigram overlap cannot find the run: a 164-word chunk shares most of its words with any long
+    passage of the same book, so unrelated chunks scored 0.9 and the "best" one was arbitrary.
+    BIGRAM coverage separates cleanly — on 2026-09-15 the nine chunks he read scored 0.77 to 0.95
+    and every other chunk in the book scored 0.23 or less.
+
+    Returns (first_id, last_id, text, mean_cover) or (None, None, None, 0.0)."""
+    chunks = library_chunks() if chunks is None else chunks
+    tb = _bigrams(_toks(transcript))
+    if not tb or not chunks: return None, None, None, 0.0
+    cov = []
+    for c in chunks:
+        cb = _bigrams(_toks(c.get("text")))
+        cov.append(len(cb & tb) / len(cb) if cb else 0.0)
+    best = (0.0, -1, -1)                       # (total cover, start, end) — longest strong run wins
+    i = 0
+    while i < len(chunks):
+        if cov[i] < min_cover: i += 1; continue
+        j, last, misses = i, i, 0
+        while j + 1 < len(chunks) and misses <= gap:
+            j += 1
+            if cov[j] >= min_cover: last, misses = j, 0
+            else: misses += 1
+        run = sum(cov[i:last + 1])
+        if run > best[0]: best = (run, i, last)
+        i = last + 1
+    _, a, b = best
+    if a < 0: return None, None, None, 0.0
+    text = " ".join(c["text"] for c in chunks[a:b + 1])
+    return chunks[a]["id"], chunks[b]["id"], text, round(sum(cov[a:b + 1]) / (b - a + 1), 2)
 
 def library_chunks():
     """Book passages from library/*.json (built by scripts/passage-import.py; gitignored, copyrighted)."""
@@ -191,14 +236,26 @@ def ingest_one(path, out_dir, azure):
         words, duration = transcribe(wav)
         # The transcript decides the passage: an un-named file that reads A00 is scored as A00, and a
         # name that says A00 while the words are R03's is corrected. Conversations never match a passage.
-        detected, overlap = detect_passage(" ".join(w["w"] for w in words))
-        note = None
-        if detected and detected != pid:
+        transcript = " ".join(w["w"] for w in words)
+        # He reads a RUN of chunks in a sitting, so the reference has to be the whole run: scoring a
+        # twelve-minute reading against one 160-word chunk measured something, but not the reading.
+        first, last, span_text, cover = detect_span(transcript)
+        detected, overlap = detect_passage(transcript)
+        note, reference, span = None, None, None
+        if first:
+            span = {"first": first, "last": last, "chunks": None, "cover": cover,
+                    "ref_words": len(span_text.split())}
+            pid, kind, reference, overlap = first, "read", span_text, cover
+            note = (f"read {first}–{last} ({cover:.0%} bigram cover, {span['ref_words']} reference words)"
+                    if first != last else f"read {first} ({cover:.0%} bigram cover)")
+        elif detected and detected != pid:
             note = f"passage {detected} detected from the transcript ({overlap:.0%} overlap)" + (f"; name said {pid}" if pid else "; file was not named")
             kind, pid = "read", detected
+            reference = passage_text(pid)
+        elif kind == "read" and pid and detected:
+            reference = passage_text(pid)
         elif kind == "read" and pid and not detected:
             note = f"name says {pid} but the transcript covers only {overlap:.0%} of it — scored unscripted"
-        reference = passage_text(pid) if (kind == "read" and detected) else None
         record = {
             "source": path.name,
             "recorded": datetime.fromtimestamp(path.stat().st_mtime).strftime("%Y-%m-%d %H:%M"),
@@ -208,6 +265,7 @@ def ingest_one(path, out_dir, azure):
             "passage": pid,
             "scripted": bool(reference),
             "passage_overlap": overlap,
+            "span": span,
             "kind_note": note,
             **analyse(words, duration),
             "praat": praat_metrics(wav),
@@ -245,6 +303,27 @@ def selftest():
     assert detect_passage("the station was busy this morning, the train late again", P)[0] == "R01"
     assert detect_passage("two world wars in one generation separated by a chain of local wars", P)[0] is None
     assert detect_passage("", P) == (None, 0.0)
+
+    # --- detect_span: he reads a RUN of chunks, and the reference must be the whole run ---
+    C = [{"id": f"B{i:03d}", "text": t} for i, t in enumerate([
+        "The aristocracy held vast powers of jurisdiction and were tolerated but respected widely.",
+        "When noblemen lost their privileges among others the privilege to exploit the peasantry.",
+        "They had nothing left but the memory of a station they no longer occupied at all.",
+        "Entirely unrelated material about the migration of seabirds across the northern ocean.",
+        "A further unrelated paragraph concerning the cultivation of orchards in warm valleys.",
+    ], start=1)]
+    said = " ".join(c["text"] for c in C[:3]).lower()
+    a, b, text, cov = detect_span(said, C)
+    assert (a, b) == ("B001", "B003"), (a, b)
+    assert len(text.split()) == sum(len(c["text"].split()) for c in C[:3]), "the reference is the whole run"
+    assert cov > 0.9, cov
+    one, lastone, t1, _ = detect_span(C[0]["text"].lower(), C)
+    assert (one, lastone) == ("B001", "B001"), "a single chunk is a run of one"
+    assert detect_span("nothing in this sentence appears in that book at all", C)[0] is None
+    assert detect_span("", C) == (None, None, None, 0.0) and detect_span("words", []) == (None, None, None, 0.0)
+    # unigram overlap cannot do this: an unrelated chunk shares most of its WORDS with a long reading
+    assert detect_passage(said, {"passages": C, "_with_library": False})[0] in ("B001", "B002", "B003"), \
+        "the old matcher finds one chunk of the run and calls it the passage"
     assert recording_kind("eng read A00 - 2026_09_09.m4a") == ("read", "A00")
     assert recording_kind("1788988987643 - 2026_09_09_22_19_23.m4a") == ("free", None)
     assert recording_kind("eng ai.m4a") == ("ai", None)
