@@ -1,182 +1,88 @@
 {
  "version": 1,
- "written": "2026-09-16T09:01:52Z",
+ "written": "2026-09-16T18:32:35Z",
  "per_session": 5,
  "words": [
   {
-   "id": "imperialist",
-   "word": "imperialist",
-   "sentence": "This is not to deny that the unexpected revival of imperialist policies and methods takes place under vastly changed conditions and circumstances.",
-   "clip": "clips/imperialist-0.ogg",
+   "id": "coresponsible",
+   "word": "coresponsible",
+   "sentence": "And it does not simply cease to be coresponsible because it became the victim of the world’s injustice and cruelty.",
+   "clip": "clips/coresponsible-0.ogg",
    "ipa": "",
    "classes": [
-    "i/ii",
-    "s/z",
-    "schwa"
-   ],
-   "flagged_on": 3,
-   "read_on": 2,
-   "miss_rate": 1.0,
-   "rank": 31690,
-   "added": "2026-09-16",
-   "source": "flagged",
-   "sentences": [
-    {
-     "text": "This is not to deny that the unexpected revival of imperialist policies and methods takes place under vastly changed conditions and circumstances.",
-     "clip": "clips/imperialist-0.ogg"
-    },
-    {
-     "text": "point from the older colonial to imperialist services.",
-     "clip": "clips/imperialist-1.ogg"
-    },
-    {
-     "text": "The complicity of all parliamentary parties in imperialist programs is a matter of record.",
-     "clip": "clips/imperialist-2.ogg"
-    }
-   ]
-  },
-  {
-   "id": "impartial",
-   "word": "impartial",
-   "sentence": "Impartiality of law in the Dreyfus case, impartial law in the case of the religious orders.",
-   "clip": "clips/impartial-1.ogg",
-   "ipa": "",
-   "classes": [],
-   "flagged_on": 2,
-   "read_on": 1,
-   "miss_rate": 1.0,
-   "rank": 19395,
-   "added": "2026-09-16",
-   "source": "flagged",
-   "sentences": [
-    {
-     "text": "This is all the more deplorable as the need for an impartial, truthful treatment of Jewish history has recently become greater than it has ever been before.",
-     "clip": "clips/impartial-0.ogg"
-    },
-    {
-     "text": "Impartiality of law in the Dreyfus case, impartial law in the case of the religious orders.",
-     "clip": "clips/impartial-1.ogg"
-    }
-   ]
-  },
-  {
-   "id": "result",
-   "word": "result",
-   "sentence": "Their immediate result has been to expose all those components of our history which up to now had been hidden from our view.",
-   "clip": "clips/result-0.ogg",
-   "ipa": "",
-   "classes": [],
-   "flagged_on": 2,
-   "read_on": 1,
-   "miss_rate": 1.0,
-   "rank": 2245,
-   "added": "2026-09-16",
-   "source": "flagged",
-   "sentences": [
-    {
-     "text": "Their immediate result has been to expose all those components of our history which up to now had been hidden from our view.",
-     "clip": "clips/result-0.ogg"
-    },
-    {
-     "text": "The result was the same in both cases.",
-     "clip": "clips/result-1.ogg"
-    },
-    {
-     "text": "The result is that a great amount of highly interesting material has been neglected.",
-     "clip": "clips/result-2.ogg"
-    }
-   ]
-  },
-  {
-   "id": "historical",
-   "word": "historical",
-   "sentence": "Such perplexities of historiography, however, are very minor consequences, considering the profound upheavals of our time and their effect upon the historical structures of Western mankind.",
-   "clip": "clips/historical-0.ogg",
-   "ipa": "",
-   "classes": [
-    "h"
-   ],
-   "flagged_on": 2,
-   "read_on": 4,
-   "miss_rate": 0.5,
-   "rank": 6553,
-   "added": "2026-09-16",
-   "source": "flagged",
-   "sentences": [
-    {
-     "text": "Such perplexities of historiography, however, are very minor consequences, considering the profound upheavals of our time and their effect upon the historical structures of Western mankind.",
-     "clip": "clips/historical-0.ogg"
-    },
-    {
-     "text": "It is patently false in a historical sense.",
-     "clip": "clips/historical-1.ogg"
-    },
-    {
-     "text": "Historical pessimism from Burckhardt to Spengler springs essentially from this consideration.",
-     "clip": "clips/historical-2.ogg"
-    }
-   ]
-  },
-  {
-   "id": "jews",
-   "word": "jews",
-   "sentence": "Antisemitism reached its climax when Jews had similarly lost their public functions and their influence, and were left with nothing but their wealth.",
-   "clip": "clips/jews-0.ogg",
-   "ipa": "",
-   "classes": [
-    "j/y",
     "s/z"
    ],
    "flagged_on": 2,
-   "read_on": 5,
-   "miss_rate": 0.4,
-   "rank": 3246,
+   "read_on": 1,
+   "miss_rate": 1.0,
+   "rank": 1000000000,
    "added": "2026-09-16",
    "source": "flagged",
    "sentences": [
     {
-     "text": "Antisemitism reached its climax when Jews had similarly lost their public functions and their influence, and were left with nothing but their wealth.",
-     "clip": "clips/jews-0.ogg"
-    },
-    {
-     "text": "Jews are in his view “people who...",
-     "clip": "clips/jews-1.ogg"
-    },
-    {
-     "text": "Something very similar happened to the Jews.",
-     "clip": "clips/jews-2.ogg"
+     "text": "And it does not simply cease to be coresponsible because it became the victim of the world’s injustice and cruelty.",
+     "clip": "clips/coresponsible-0.ogg"
     }
    ]
   },
   {
-   "id": "this",
-   "word": "this",
-   "sentence": "This is the reality in which we live.",
-   "clip": "clips/this-0.ogg",
+   "id": "nazis",
+   "word": "nazis",
+   "sentence": "The failure to take seriously what the Nazis themselves said is comprehensible enough.",
+   "clip": "clips/nazis-0.ogg",
    "ipa": "",
    "classes": [
-    "i/ii",
-    "s/z",
-    "th"
+    "s/z"
    ],
-   "flagged_on": 3,
-   "read_on": 10,
-   "miss_rate": 0.3,
-   "rank": 16,
+   "flagged_on": 2,
+   "read_on": 2,
+   "miss_rate": 1.0,
+   "rank": 6375,
    "added": "2026-09-16",
    "source": "flagged",
    "sentences": [
     {
-     "text": "This is the reality in which we live.",
-     "clip": "clips/this-0.ogg"
+     "text": "The failure to take seriously what the Nazis themselves said is comprehensible enough.",
+     "clip": "clips/nazis-0.ogg"
     },
     {
-     "text": "“How is this to be secured?",
-     "clip": "clips/this-1.ogg"
+     "text": "evinced the sadistic streak of the Nazis.",
+     "clip": "clips/nazis-1.ogg"
     },
     {
-     "text": "This, moreover, had next to nothing.",
-     "clip": "clips/this-2.ogg"
+     "text": "It has already been noticed that the Nazis were not simple nationalists.",
+     "clip": "clips/nazis-2.ogg"
+    }
+   ]
+  },
+  {
+   "id": "that",
+   "word": "that",
+   "sentence": "I used to skip dinner when I was tired; now I know that recovery starts at the table.",
+   "clip": "clips/that-0.ogg",
+   "ipa": "",
+   "classes": [
+    "schwa",
+    "th"
+   ],
+   "flagged_on": 6,
+   "read_on": 16,
+   "miss_rate": 0.38,
+   "rank": 8,
+   "added": "2026-09-16",
+   "source": "flagged",
+   "sentences": [
+    {
+     "text": "I used to skip dinner when I was tired; now I know that recovery starts at the table.",
+     "clip": "clips/that-0.ogg"
+    },
+    {
+     "text": "It shows that the SS guarding the..",
+     "clip": "clips/that-1.ogg"
+    },
+    {
+     "text": "Not that anybody began to doubt the irre-.",
+     "clip": "clips/that-2.ogg"
     }
    ]
   },
@@ -250,7 +156,7 @@
   {
    "id": "new-parasitical",
    "word": "parasitical",
-   "sentence": "Only wealth without power or aloofness without a policy are felt to be parasitical, useless, revolting, because such conditions cut all the threads which tie men together.",
+   "sentence": "More important, it protected its owners against the menacing prospect of remaining entirely superfluous and parasitical.",
    "clip": "clips/new-parasitical-1.ogg",
    "ipa": "",
    "classes": [],
@@ -259,11 +165,11 @@
    "added": "2026-09-15",
    "sentences": [
     {
-     "text": "More important, it protected its owners against the menacing prospect of remaining entirely superfluous and parasitical.",
+     "text": "Only wealth without power or aloofness without a policy are felt to be parasitical, useless, revolting, because such conditions cut all the threads which tie men together.",
      "clip": "clips/new-parasitical-0.ogg"
     },
     {
-     "text": "Only wealth without power or aloofness without a policy are felt to be parasitical, useless, revolting, because such conditions cut all the threads which tie men together.",
+     "text": "More important, it protected its owners against the menacing prospect of remaining entirely superfluous and parasitical.",
      "clip": "clips/new-parasitical-1.ogg"
     }
    ]
@@ -271,7 +177,7 @@
   {
    "id": "new-uprootedness",
    "word": "uprootedness",
-   "sentence": "Only the horror of the final catastrophe, and even more the homelessness and uprootedness of the survivors, made the “Jewish question” so prominent in our everyday political life.",
+   "sentence": "Uprootedness can be the preliminary condition for superfluousness, just as isolation can (but must not) be the preliminary condition for loneliness.",
    "clip": "clips/new-uprootedness-1.ogg",
    "ipa": "",
    "classes": [],
@@ -280,11 +186,11 @@
    "added": "2026-09-15",
    "sentences": [
     {
-     "text": "Uprootedness can be the preliminary condition for superfluousness, just as isolation can (but must not) be the preliminary condition for loneliness.",
+     "text": "Only the horror of the final catastrophe, and even more the homelessness and uprootedness of the survivors, made the “Jewish question” so prominent in our everyday political life.",
      "clip": "clips/new-uprootedness-0.ogg"
     },
     {
-     "text": "Only the horror of the final catastrophe, and even more the homelessness and uprootedness of the survivors, made the “Jewish question” so prominent in our everyday political life.",
+     "text": "Uprootedness can be the preliminary condition for superfluousness, just as isolation can (but must not) be the preliminary condition for loneliness.",
      "clip": "clips/new-uprootedness-1.ogg"
     }
    ]
