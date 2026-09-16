@@ -59,17 +59,29 @@ def plan(only=None, pi=None):
     return rows
 
 
+def stamp(name):
+    """The recorder's timestamp inside a file name — the only part that is stable.
+
+    The stored `source` is not always the name on Drive: practice-ingest normalises it, so
+    "eng read B006 - 2026_09_10_21_35_11.mp3" is recorded as "eng read - 2026_09_10_21_35_11.mp3"
+    and an exact-name lookup finds nothing."""
+    import re
+    m = re.search(r"\d{4}_\d{2}_\d{2}_\d{2}_\d{2}_\d{2}", name or "")
+    return m.group(0) if m else None
+
+
 def fetch(source, dest, drv=None):
-    """The original audio, by name, from the recording roots on Drive."""
+    """The original audio from the recording roots on Drive, matched by name or by timestamp."""
     cs = _load("cloud-sync")
     if drv is None:
         import drive
         drv = cs.Drive(drive.load_key())
+    want = stamp(source)
     for root in cs.RECORDING_ROOTS:
         folders = drv.resolve_all(root) if hasattr(drv, "resolve_all") else [drv.resolve(root)]
         for folder in [x for x in folders if x]:
             for rel, f in drv.walk(folder["id"]):
-                if f["name"] == source:
+                if f["name"] == source or (want and stamp(f["name"]) == want and "duplicate" not in f["name"]):
                     drv.download(f["id"], dest)
                     return dest
     return None
@@ -77,9 +89,9 @@ def fetch(source, dest, drv=None):
 
 def rescore(row, pi, azure_pa, work):
     """One read: re-run the assessment against the span and rewrite the record in place."""
-    audio = fetch(row["source"], work / row["source"])
+    audio = fetch(row["source"], work / ("audio" + pathlib.Path(row["source"]).suffix))
     if not audio:
-        return f"{row['source']}: not on Drive any more — skipped"
+        return None, f"{row['source']}: not on Drive any more — skipped"
     wav = work / "rec.wav"
     pi.to_wav(audio, wav)
     r = azure_pa.dual_locale_assessment(str(wav), reference_text=row["reference"])
@@ -94,8 +106,8 @@ def rescore(row, pi, azure_pa, work):
     d["rescored"] = True
     row["file"].write_text(json.dumps(d, indent=1, ensure_ascii=False), encoding="utf-8")
     gb = (r.get("en_gb") or {}).get("overall") or {}
-    return (f"{row['file'].name[:10]} {row['first']}–{row['last']}: accuracy {gb.get('accuracy')} "
-            f"fluency {gb.get('fluency')} completeness {gb.get('completeness')} prosody {gb.get('prosody')}")
+    return True, (f"{row['file'].name[:10]} {row['first']}–{row['last']}: accuracy {gb.get('accuracy')} "
+                  f"fluency {gb.get('fluency')} completeness {gb.get('completeness')} prosody {gb.get('prosody')}")
 
 
 def main():
@@ -117,6 +129,12 @@ def main():
               f"ratio {r['spoken'] / max(1, r['ref']):.2f}")
     if a.dry:
         return 0
+    # to_wav shells out to ffmpeg, which lives in the practice venv — cloud-sync puts it on PATH
+    # and a direct run must do the same.
+    venv_bin = REPO / ".venv-practice" / "bin"
+    if venv_bin.is_dir():
+        import os
+        os.environ["PATH"] = f"{venv_bin}:{os.environ.get('PATH', '')}"
     azure_pa = _load("azure_pa")
     done = 0
     with tempfile.TemporaryDirectory() as td:
@@ -125,8 +143,9 @@ def main():
             if a.limit and done >= a.limit:
                 break
             try:
-                print("  " + rescore(r, pi, azure_pa, work))
-                done += 1
+                ok, msg = rescore(r, pi, azure_pa, work)
+                print("  " + msg)
+                done += 1 if ok else 0      # a missing recording is skipped, not rescored
             except Exception as e:
                 print(f"  {r['file'].name[:10]}: FAILED — {type(e).__name__}: {str(e)[:160]}")
                 break          # a quota or credential failure will hit every one; stop, do not burn them
