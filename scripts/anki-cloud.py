@@ -26,6 +26,28 @@ REPO = pathlib.Path(__file__).resolve().parent.parent
 VENV = REPO / ".venv-anki"
 DECK, MODEL, CAP = "English Runbook", "Basic", 25
 STATS_OUT = REPO / "logs" / "anki-stats.json"
+# anki-stats.json is a SNAPSHOT: `reviews_per_day_since_last_export` holds only the days since the
+# previous export, and the file is overwritten every run. So 2026-09-15's 36 reviews would have
+# vanished from it at the next export and survived only in git history (found 2026-09-16). This is
+# the permanent per-day log: days are only ever added or corrected upwards, never dropped.
+DAYS_OUT = REPO / "logs" / "anki-days.json"
+
+def fold_days(new, path=DAYS_OUT):
+    """Merge one export's per-day review counts into the permanent log. Returns (added, total)."""
+    try: store = json.loads(pathlib.Path(path).read_text(encoding="utf-8"))
+    except (OSError, ValueError): store = {"version": 1, "days": {}}
+    days = store.setdefault("days", {})
+    added = 0
+    for d, n in (new or {}).items():
+        if not isinstance(n, int): continue
+        if days.get(d, -1) < n:            # an export can only ever see MORE of a day, never less
+            if d not in days: added += 1
+            days[d] = n
+    store["updated"] = dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    store["days"] = dict(sorted(days.items()))
+    pathlib.Path(path).parent.mkdir(exist_ok=True)
+    pathlib.Path(path).write_text(json.dumps(store, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+    return added, len(days)
 
 def _load(name):
     spec = importlib.util.spec_from_file_location(name.replace("-", "_"), REPO / "scripts" / f"{name}.py")
@@ -117,6 +139,7 @@ def export_stats(col_path, today=None):
     s["source"] = "ankiweb (cloud, anki-cloud.py)"
     STATS_OUT.parent.mkdir(exist_ok=True)
     tmp = STATS_OUT.with_suffix(".json.tmp"); tmp.write_text(json.dumps(s, indent=1, ensure_ascii=False), encoding="utf-8"); tmp.replace(STATS_OUT)
+    fold_days(s.get("reviews_per_day_since_last_export"))
     return s
 
 def run(user, password, dry=False, check=False, log=print):
@@ -159,6 +182,19 @@ def selftest():
     src = pathlib.Path(__file__).read_text(encoding="utf-8")
     calls = re.findall(r"full_upload_or_download\((.*?)\)", src)
     assert calls and all("upload=False" in c for c in calls), "this script must never full-upload a collection: %r" % calls
+
+    # the permanent per-day log: a snapshot may only ever ADD to it
+    import tempfile
+    with tempfile.TemporaryDirectory() as td:
+        f = pathlib.Path(td) / "days.json"
+        assert fold_days({"2026-09-15": 36}, f) == (1, 1)
+        assert fold_days({"2026-09-15": 36}, f) == (0, 1), "the same export again changes nothing"
+        assert fold_days({"2026-09-16": 12}, f) == (1, 2), "a later export adds its own days"
+        assert fold_days({"2026-09-15": 5}, f) == (0, 2), "a smaller count never overwrites a larger"
+        assert json.loads(f.read_text())["days"] == {"2026-09-15": 36, "2026-09-16": 12}
+        assert fold_days({}, f) == (0, 2) and fold_days(None, f) == (0, 2), "an empty export is not a loss"
+        assert fold_days({"2026-09-17": "x"}, f) == (0, 2), "junk is ignored"
+        assert list(json.loads(f.read_text())["days"]) == sorted(json.loads(f.read_text())["days"]), "kept in order"
     ensure_anki()
     from anki.collection import Collection
     with tempfile.TemporaryDirectory() as td:
