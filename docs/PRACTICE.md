@@ -29,12 +29,16 @@ syllables per second and articulation rate, pause count and mean pause
 (de Jong & Wempe), pitch median and range. Trend, not target.
 
 **Pronunciation** —
-- *Read-aloud*: Azure Pronunciation Assessment in **scripted mode**, en-GB
-  reference: accuracy, fluency, completeness, per-word errors
-  (mispronunciation, omission, insertion); the en-US pass adds phoneme
-  identities so each flagged word maps to a **confusion class** for a
-  Spanish speaker: `th`, `b/v`, `i/ii`, `j/y`, `s/z`, `-ed`, `schwa`,
-  `s-cluster`, `h`, `cat/cut`. The anchor passage's scores are kept as a
+- *Read-aloud*: Azure Pronunciation Assessment in **scripted mode**, ONE
+  **en-US** pass since 2026-09-16 (see CLAUDE.md for why the locale moved):
+  accuracy, fluency, completeness, prosody, per-word errors
+  (mispronunciation, omission, insertion), and the IPA phoneme identities
+  that map each flagged word to a **confusion class** for a Spanish
+  speaker: `th`, `b/v`, `i/ii`, `j/y`, `s/z`, `-ed`, `schwa`, `s-cluster`,
+  `h`, `cat/cut`. Only en-US returns those names; under en-GB they came
+  back empty and the classes fell back to spelling guesses. Every ledger
+  read row carries `locale` — en-GB and en-US rows are different series and
+  must never share a line. The anchor passage's scores are kept as a
   series: the pronunciation time trial, weekly.
 - *Conversation*: unscripted assessment (rougher) and Whisper low-confidence
   words as a screen. Never a verdict; the tutor confirms the top suspects
@@ -152,7 +156,8 @@ re-run it after adding the Drive account. Set `AZURE_SPEECH_KEY` and
 `AZURE_SPEECH_REGION` in `~/.config/english-runbook/env` to turn on the
 pronunciation assessment. `python3 scripts/azure-check.py` (stock python3,
 no venv) synthesises one sentence with Azure TTS, assesses it in scripted
-en-GB and phoneme/prosody en-US mode, and writes `logs/azure-check.json`.
+en-US mode (score, phonemes and prosody in one pass), and writes
+`logs/azure-check.json`.
 Result on 2026-09-09, F0 free tier, uksouth: assessment OK, scripted
 completeness OK, IPA phonemes OK, prosody OK — nothing needs the paid tier.
 

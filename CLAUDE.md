@@ -296,23 +296,40 @@ from an adversarially-verified tool investigation (workflow, 12 agents).
   de Jong & Wempe pause/rate metrics, pitch stats, low-confidence
   pronunciation suspects. Idempotent (content-hash state file).
 - **Azure pronunciation assessment** (`scripts/azure_pa.py`) activates when
-  `AZURE_SPEECH_KEY` + `AZURE_SPEECH_REGION` are set. **ONE en-GB pass since
-  2026-09-14**, carrying the score, the IPA phonemes and prosody together. It
-  was two passes (en-GB for the score, en-US for phoneme identities), which
-  billed every recording twice against a 5-audio-hour/month free tier and went
-  over it on 2026-09-14 with a single 84-minute read. The phoneme alphabet,
-  n-best phonemes and prosody are a config flag, not a property of the US
-  model, so the second pass bought only a US reference view of the same audio.
-  `second_pass=True` restores it for a one-off comparison. **en-GB stays the
-  score**: a US reference model marks down correct British pronunciation
-  (non-rhotic r, the BATH/TRAP split) and the whole anchor series is en-GB —
-  changing the score locale would reset it, like changing a diagnostic form.
-  **One side effect, found 2026-09-15:** the single pass also asks for prosody,
-  and Azure folds prosody into `PronScore` once it is requested, so the ledger's
-  `pron` column is a different composite before and after that date (09-15 read
-  `pron` 68.1 with prosody 45.9, while every component beat the previous day).
-  **`accuracy`, `fluency` and `completeness` are per-dimension, unaffected, and
-  are the continuous lines to read** — `prosody` is a new line from 09-15. Uploads audio to Azure; no-retention
+  `AZURE_SPEECH_KEY` + `AZURE_SPEECH_REGION` are set. **ONE en-US pass since
+  2026-09-16**, carrying the score, the IPA phonemes and prosody together.
+  It was two passes (en-GB score + en-US phonemes), which billed every
+  recording twice and blew the 5-audio-hour/month free tier on 2026-09-14;
+  the fix collapsed them into one, but into en-GB, and that was wrong.
+  **Microsoft's own docs: prosody "is only available in the `en-US` locale",
+  the IPA alphabet is en-US only, and "only `en-US` provides phoneme name
+  alongside scores. Other locales receive phoneme scores without names."**
+  The en-GB single pass returned 550 EMPTY phoneme symbols, so the confusion
+  classes silently fell back to spelling guesses, and it returned a prosody
+  number for a locale that does not support the feature. The user chose en-US
+  outright on 2026-09-16: he lives in the UK now and may not later, and the
+  09-14 objection (non-rhotic r, the BATH/TRAP split) never applied to an
+  L1-Spanish speaker who is rhotic and has neither.
+  **MEASURED on the same audio, transcript and reference** (five reads
+  rescored): prosody 52–59 → 81–86, fluency +3, accuracy and completeness
+  within a point or two, and the shape of the series held. Named phonemes
+  went from 0 to 70/70 and the class counts roughly tripled (i/ii 15→50,
+  s/z 8→44, schwa 7→32). **en-GB and en-US rows are DIFFERENT SERIES** —
+  every ledger read row carries `locale`; never draw one line through both.
+  The 09-14 read is still en-GB (the quota ran out mid-rescore); re-run it
+  with `scripts/rescore-reads.py --only 2026-09-14` once the quota resets.
+  **Also true since 2026-09-15:** asking for prosody makes Azure fold it into
+  `PronScore`, so `pron` is a different composite before and after that date.
+  **`accuracy`, `fluency` and `completeness` are per-dimension** — but they
+  too shift with the locale, so read them within a locale, not across it.
+  **The F0 tier is 5 audio hours a month and 2026-09 is spent** (the rescores
+  cost ~3h on top of the ingests): until it resets or the resource moves to
+  S0, recordings transcribe (Whisper is local) but come back unscored with
+  `CancellationReason.Error 1007, Quota exceeded`. The wait for continuous
+  recognition scales with the audio and a run that does not finish RAISES —
+  a fixed 600s ceiling once made an 84-minute read look like a successful
+  assessment of nothing, and the empty result was written over good scores.
+  Uploads audio to Azure; no-retention
   terms verified 2026-08. Verified 2026-09-09 on the F0 free tier from the
   cloud (`scripts/azure-check.py`, report in `logs/azure-check.json`):
   scripted assessment, completeness, IPA phonemes and prosody all work.
