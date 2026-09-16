@@ -18,10 +18,12 @@ endpoint returns them flat — _aggregate reads the SDK shape.
 """
 import json, os, threading
 
-# IPA phonemes involved in the L1-Spanish confusion set
+LOCALE = "en-US"   # see dual_locale_assessment: the only locale documented to return prosody AND
+                   # named IPA phonemes. The user chose it outright on 2026-09-16.
+
+# en-US IPA phonemes involved in the L1-Spanish confusion set
 # (i:/ɪ, b/v, dʒ/j, θ/ð, schwa, word-final d/t for -ed endings, z/s).
-# Read from the en-GB pass since 2026-09-14; every symbol here is shared by both
-# reference models, plus the length-marked en-GB spellings of the long vowels.
+# "iː" was added for the en-GB experiment and is kept: it costs nothing.
 TARGET_PHONEMES = {"i", "iː", "ɪ", "b", "v", "d͡ʒ", "dʒ", "j", "θ", "ð", "ə", "z", "s", "d", "t"}
 
 def _assess(wav, locale, phoneme_pass, reference_text=""):
@@ -99,36 +101,72 @@ def _aggregate(utterances, phoneme_pass):
                or w.get("phonemes")]
     return {"overall": overall, "flagged_words": flagged[:40], "word_count": len(words)}
 
-def dual_locale_assessment(wav, reference_text=None, second_pass=False):
-    """ONE en-GB pass carrying the score, the IPA phonemes and prosody (2026-09-14).
+def dual_locale_assessment(wav, reference_text=None, locale=LOCALE):
+    """ONE en-US pass carrying the score, the IPA phonemes and prosody (2026-09-16).
 
-    It used to be two passes, en-GB for the score and en-US for phoneme identities, which
-    billed every recording twice against a 5-audio-hour free tier. The phoneme alphabet,
-    the n-best phonemes and prosody are a config flag, not a property of the US model, so
-    en-GB returns all three itself and the second pass bought nothing but a US reference
-    view of the same audio.
+    The locale is en-US because Microsoft's own documentation makes it the only one that works:
+    prosody assessment "is only available in the en-US locale", the IPA phoneme alphabet is
+    supported in en-US alone, and "only en-US provides phoneme name alongside scores. Other
+    locales receive phoneme scores without names."
 
-    The name and the returned shape are unchanged so callers keep working; `en_us_targets`
-    now holds the en-GB pass's own phonemes. `second_pass=True` restores the old US pass
-    for a one-off comparison — never for routine scoring, and never as a score: a US
-    reference model marks down correct British pronunciation (non-rhotic r, the BATH/TRAP
-    split) and the anchor series is en-GB throughout.
+    That last line is not theory. Between 2026-09-14 and 2026-09-16 this ran as a single en-GB
+    pass and every phoneme came back with an EMPTY name — 550 of them, against 0 in the records
+    that still held an en-US pass — so the i/ii, schwa, s/z, cat/cut and j/y confusion classes
+    silently lost their source, and with them the Minimal Pairs contrast weights that are
+    computed from them. Azure did return a prosody number for en-GB, but for an undocumented
+    locale, which is not something to measure a person against.
 
-    With reference_text (a read-aloud passage) the pass runs SCRIPTED: accuracy is judged
-    against the known words and CompletenessScore + Omission/Insertion errors become
-    meaningful. Without it (conversation, 4/3/2) the assessment is unscripted — a rougher
-    screen."""
-    gb = _aggregate(_assess(wav, "en-GB", phoneme_pass=True, reference_text=reference_text), phoneme_pass=True)
-    src, note = gb, "en-GB is the score; the phonemes come from that same pass"
-    if second_pass:
-        src = _aggregate(_assess(wav, "en-US", phoneme_pass=True, reference_text=reference_text), phoneme_pass=True)
-        note = "en-GB is the score; phonemes from an extra en-US pass (US reference model)"
+    The user chose en-US outright (2026-09-16): he lives in the UK now and may not later, and a
+    US reference model was never the threat to him it would be to a British speaker — the
+    objection raised on 09-14 was non-rhotic /r/ and the BATH/TRAP split, and as an L1-Spanish
+    speaker he is rhotic and has neither.
+
+    The key names `en_gb` and `en_us_targets` are kept: they are read by practice-review,
+    practice-ingest, sayit and the Hub, and renaming them across a working pipeline buys nothing.
+    `en_gb` means "the scoring pass"; `locale` inside it says which it actually was.
+
+    With reference_text the pass runs SCRIPTED: accuracy is judged against the known words and
+    CompletenessScore + Omission/Insertion errors become meaningful. Without it the assessment is
+    unscripted — a rougher screen, but prosody is documented for both."""
+    r = _aggregate(_assess(wav, locale, phoneme_pass=True, reference_text=reference_text), phoneme_pass=True)
+    r["locale"] = locale
     return {
         "scripted": bool(reference_text),
-        "en_gb": gb,
+        "locale": locale,
+        "en_gb": r,
         "en_us_targets": {
-            "overall_prosody": src["overall"].get("prosody"),
-            "phoneme_findings": [w for w in src["flagged_words"] if w.get("phonemes")],
+            "overall_prosody": r["overall"].get("prosody"),
+            "phoneme_findings": [w for w in r["flagged_words"] if w.get("phonemes")],
         },
-        "note": note,
+        "note": f"{locale} is the score, the phonemes and the prosody — the only locale documented "
+                f"to return all three (see the docstring)",
     }
+
+
+def selftest():
+    """Import-level checks only: the real assessment needs a key, audio and the SDK.
+
+    This exists because on 2026-09-16 a bad edit left `locale=LOCALE` in the signature with no
+    LOCALE defined, and every check in check.sh still passed — nothing imported this module, so a
+    NameError sat in the hot path of the whole recording pipeline, undetected."""
+    import inspect
+    assert LOCALE == "en-US", LOCALE
+    assert inspect.signature(dual_locale_assessment).parameters["locale"].default == LOCALE
+    # one pass, not two: the second call was what blew the free tier on 2026-09-14
+    src = inspect.getsource(dual_locale_assessment)
+    assert src.count("_assess(") == 1, "the assessment must make exactly one pass: %d" % src.count("_assess(")
+    assert TARGET_PHONEMES and all(isinstance(x, str) and x for x in TARGET_PHONEMES)
+    for k in ("en_gb", "en_us_targets", "scripted", "locale", "note"):
+        assert f'"{k}"' in src, f"callers read {k}; it must stay in the returned shape"
+    assert "phoneme_pass=True" in src, "named IPA phonemes are the reason for this locale"
+    print("azure_pa.py selftest: OK")
+    return 0
+
+
+if __name__ == "__main__":
+    import sys
+    # This module is a library — azure-check.py is the thing you run against the live service.
+    if "--selftest" not in sys.argv:
+        print("azure_pa.py is a library; use --selftest, or scripts/azure-check.py to test the service")
+        sys.exit(2)
+    sys.exit(selftest())
