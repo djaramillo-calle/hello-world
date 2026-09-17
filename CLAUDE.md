@@ -299,8 +299,13 @@ from an adversarially-verified tool investigation (workflow, 12 agents).
   `AZURE_SPEECH_KEY` + `AZURE_SPEECH_REGION` are set. **ONE en-US pass since
   2026-09-16**, carrying the score, the IPA phonemes and prosody together.
   It was two passes (en-GB score + en-US phonemes), which billed every
-  recording twice and blew the 5-audio-hour/month free tier on 2026-09-14;
-  the fix collapsed them into one, but into en-GB, and that was wrong.
+  recording twice; the fix collapsed them into one, but into en-GB, and that
+  was wrong. (The 09-14 commit says the free tier blew that day. It did not:
+  that was arithmetic in a commit message, not an Azure error. Azure served
+  ~374 minutes PAST the 300-minute allowance and only refused on 09-16, which
+  is why the 09-15 and 09-16 reads scored fine when the count said they
+  should not have. F0 enforcement lags — do not read a successful call as
+  proof there is quota left.)
   **Microsoft's own docs: prosody "is only available in the `en-US` locale",
   the IPA alphabet is en-US only, and "only `en-US` provides phoneme name
   alongside scores. Other locales receive phoneme scores without names."**
@@ -322,10 +327,20 @@ from an adversarially-verified tool investigation (workflow, 12 agents).
   `PronScore`, so `pron` is a different composite before and after that date.
   **`accuracy`, `fluency` and `completeness` are per-dimension** — but they
   too shift with the locale, so read them within a locale, not across it.
-  **The F0 tier is 5 audio hours a month and 2026-09 is spent** (the rescores
-  cost ~3h on top of the ingests): until it resets or the resource moves to
-  S0, recordings transcribe (Whisper is local) but come back unscored with
-  `CancellationReason.Error 1007, Quota exceeded`. The wait for continuous
+  **The F0 tier is 5 audio hours a month and 2026-09 is spent**: until it
+  resets or the resource moves to S0, recordings transcribe (Whisper is
+  local) but come back unscored with `CancellationReason.Error 1007, Quota
+  exceeded`. The month's accounting, 2026-09-09 to 2026-09-16: 363 min of
+  ingests (162 of them the wasted second pass), 197 min to repair the broken
+  span matcher, 114+ min for the locale switch — **674–757 min, 2.2–2.5x the
+  allowance**, of which only ~201 min was first-pass work on new audio.
+  **F0 was never viable at this load**: he records ~25 min/day, so 300 free
+  minutes last ~12 days even with one pass and zero rescoring. S0 bills
+  pronunciation assessment as standard real-time speech-to-text, ~$1.32 per
+  audio hour (~1.7p/min, ~33p for a 20-minute read) — about $17/month at his
+  rate. **F0 is a $0 SKU: it never draws on an Azure free-account credit, so
+  a $200 trial credit does nothing for it** — the resource has to be moved to
+  S0 to spend it, and that credit expires 30 days after sign-up. The wait for continuous
   recognition scales with the audio and a run that does not finish RAISES —
   a fixed 600s ceiling once made an 84-minute read look like a successful
   assessment of nothing, and the empty result was written over good scores.
