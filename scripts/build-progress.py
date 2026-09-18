@@ -63,7 +63,11 @@ def load_data(repo=REPO, today=None):
     pdir = repo / "logs" / "practice"
     if pdir.exists():
         for f in sorted(pdir.glob("*.json")):
-            if f.name.startswith("."): continue
+            # .review.json sits beside every record and carries `source` but no wpm/words, so
+            # globbing *.json counted every recording TWICE and left the newest entry with a
+            # null wpm — the board read "16 practice recordings on file; latest ... at — wpm"
+            # when there were 8.
+            if f.name.startswith(".") or f.name.endswith(".review.json"): continue
             try:
                 r = json.loads(f.read_text(encoding="utf-8"))
                 practice.append({"date": str(r.get("recorded", ""))[:10], "wpm": r.get("wpm"),

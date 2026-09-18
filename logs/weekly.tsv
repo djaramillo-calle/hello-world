@@ -3,3 +3,4 @@
 # Auto columns from repo data (hub + listening + reading sensors fill conversations/human_conversations/listening_days/reading_min when present); --set overrides in writing.
 week_start	srs_days	reviews	recordings	rec_wpm_mean	rec_filler_pct	conversations	human_conversations	listening_days	reading_min	talk_min	pairs_sessions	pairs_untrained_pct	dial	stage	floor_ok	notes
 2026-09-07	0	0	4	91.9	0.0	0	0	1	51.8	0	2	80.5	DEFAULT	1	no	
+2026-09-14	1	36	3	99.7	0.0	0	0	0	90.1	0	1	76.9	DEFAULT	1	no	

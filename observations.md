@@ -265,3 +265,73 @@ No recording today (the 09:47 read was yesterday's cycle).
 **Data state**: 49 cards queued, 25 live, and the 7-day window is still full, so
 nothing new could go up — but the deck is being reviewed now, which is what the
 queue was waiting for.
+
+## 2026-09-18 — weekly digest 3 (week of 2026-09-14)
+
+**Load, both floors missed.** Recorded pages 3/5 (Mon 14, Tue 15, Wed 16 — none
+Thu 17 or Fri 18). SRS days 1/5 (Tue 15 only, 36 reviews, ~17 minutes). Reading
+90.1 minutes on 3 days, nothing since Wednesday. One Minimal Pairs session
+(Mon), untrained accuracy 76.9%. Zero conversations. The deck grew from 25 to 44
+cards this week and 24 of them are still `new`, so the queue is now ahead of the
+practice rather than behind it.
+
+**RETRACTION — the endurance hypothesis is dead, and it was mine.** The 09-15
+entry says fluency fell 81.8 → 70.7 as the reads got longer and calls it a
+second independent signal for "connected speech under load". Both numbers came
+from the broken span matcher, which scored whole recordings against ~160 words
+of reference. With the reference repaired and one scoring locale, fluency does
+not decay with length at all:
+
+| read | minutes | fluency |
+|---|---|---|
+| 09-10 | 9.5 | 93.6 |
+| 09-15 | 15.3 | 94.6 |
+| 09-16 | 24.2 | 94.5 |
+| 09-13 | 27.6 | 94.0 |
+| 09-12 | 37.1 | 93.9 |
+
+Flat across a fourfold range. The 84-minute read is not on this list because it
+is still en-GB (the Azure quota ran out mid-rescore), so the one case that could
+actually test endurance is the one we cannot yet see. **Treat "he tires" as
+unsupported until that read is rescored.** What survives from 09-15 is the
+narrower and better-evidenced point: he scores 98–99 on a sentence he has just
+heard, and the same words are flagged inside a long read. That is a transfer
+gap, which is what the rotating carriers were built for — it is not a stamina
+measurement.
+
+**The instrument changed, which resets what the numbers mean.** Scoring moved to
+en-US on 09-16 (Microsoft documents prosody and named IPA phonemes as en-US
+only). Measured on identical audio: prosody 52–59 → 81–86. So the "flat,
+monotone delivery" reading of those low fifties was an artefact of asking en-GB
+for a feature it does not support. Five of six reads are rescored; ledger rows
+carry `locale` and the two sets must never share a line.
+
+**Confusion classes have real phoneme evidence for the first time in a week.**
+The en-GB pass returned every IPA symbol empty, so spelling guesses were
+carrying the classes alone and undercounting badly: i/ii 15 → 50, s/z 8 → 44,
+schwa 7 → 32, b/v 9 → 24.
+
+**Minimal Pairs agrees with the ledger, which is new.** Untrained accuracy s/z
+40% (W38) after 44% (W37) — two weeks under 80%, already at weight 1.00 — and
+i/ii 66.7% in both weeks, weight 0.88. Those are exactly the ledger's top two
+classes. Two independent sensors, one perception and one production, now point
+at the same two contrasts. cat/cut and sh/ch at 50% are single-digit trial
+counts and mean nothing yet.
+
+**Chat English — WATCHING, not a pattern.** Three small function words dropped
+in fast technical messages this week: "the total number of minutes audio
+processed" (of), "how much was per minute" (it), "as 200 worth of tokens"
+($/dollars'). Different structures, so by the two-occurrence rule none of them
+is a PATTERN. Logged because of where it might converge: schwa is his third
+confusion class at 32, and unstressed function words are precisely what collapse
+in connected speech. **This is a hypothesis about one week of typing, not a
+finding, and nothing from it goes near tracking.tsv.** Chat is written,
+self-paced and technical; it cannot measure speech.
+
+**No cards queued from this digest.** Nothing crossed the pattern line, 43 cards
+are already queued, and the 25/week cap is spent. Adding more would be noise.
+
+**Flag:** Azure F0 is out of quota for September (the month's full accounting is
+in CLAUDE.md). Recordings still transcribe locally; they just get no scores. The
+09-14 read stays stranded in en-GB until the quota resets or the resource moves
+to S0.
