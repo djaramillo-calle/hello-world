@@ -1,0 +1,216 @@
+{
+ "version": 1,
+ "written": "2026-09-19T18:32:22Z",
+ "per_session": 5,
+ "words": [
+  {
+   "id": "coresponsible",
+   "word": "coresponsible",
+   "sentence": "And it does not simply cease to be coresponsible because it became the victim of the world’s injustice and cruelty.",
+   "clip": "clips/coresponsible-0.ogg",
+   "ipa": "",
+   "classes": [
+    "s/z"
+   ],
+   "flagged_on": 2,
+   "read_on": 1,
+   "miss_rate": 1.0,
+   "rank": 1000000000,
+   "added": "2026-09-19",
+   "source": "flagged",
+   "sentences": [
+    {
+     "text": "And it does not simply cease to be coresponsible because it became the victim of the world’s injustice and cruelty.",
+     "clip": "clips/coresponsible-0.ogg"
+    }
+   ]
+  },
+  {
+   "id": "nazis",
+   "word": "nazis",
+   "sentence": "The failure to take seriously what the Nazis themselves said is comprehensible enough.",
+   "clip": "clips/nazis-0.ogg",
+   "ipa": "",
+   "classes": [
+    "s/z"
+   ],
+   "flagged_on": 2,
+   "read_on": 2,
+   "miss_rate": 1.0,
+   "rank": 6375,
+   "added": "2026-09-19",
+   "source": "flagged",
+   "sentences": [
+    {
+     "text": "The failure to take seriously what the Nazis themselves said is comprehensible enough.",
+     "clip": "clips/nazis-0.ogg"
+    },
+    {
+     "text": "evinced the sadistic streak of the Nazis.",
+     "clip": "clips/nazis-1.ogg"
+    },
+    {
+     "text": "It has already been noticed that the Nazis were not simple nationalists.",
+     "clip": "clips/nazis-2.ogg"
+    }
+   ]
+  },
+  {
+   "id": "that",
+   "word": "that",
+   "sentence": "I used to skip dinner when I was tired; now I know that recovery starts at the table.",
+   "clip": "clips/that-0.ogg",
+   "ipa": "",
+   "classes": [
+    "schwa",
+    "th"
+   ],
+   "flagged_on": 6,
+   "read_on": 16,
+   "miss_rate": 0.38,
+   "rank": 8,
+   "added": "2026-09-19",
+   "source": "flagged",
+   "sentences": [
+    {
+     "text": "I used to skip dinner when I was tired; now I know that recovery starts at the table.",
+     "clip": "clips/that-0.ogg"
+    },
+    {
+     "text": "It shows that the SS guarding the..",
+     "clip": "clips/that-1.ogg"
+    },
+    {
+     "text": "Not that anybody began to doubt the irre-.",
+     "clip": "clips/that-2.ogg"
+    }
+   ]
+  },
+  {
+   "id": "new-scapegoat",
+   "word": "scapegoat",
+   "sentence": "Yet this explanation of antisemitism, like the scapegoat theory and for similar reasons, has outlived its refutation by reality.",
+   "clip": "clips/new-scapegoat-0.ogg",
+   "ipa": "",
+   "classes": [],
+   "source": "new",
+   "book": "Hannah_Arendt__The_Origins_of_Totalitarianism",
+   "added": "2026-09-15",
+   "sentences": [
+    {
+     "text": "Yet this explanation of antisemitism, like the scapegoat theory and for similar reasons, has outlived its refutation by reality.",
+     "clip": "clips/new-scapegoat-0.ogg"
+    },
+    {
+     "text": "It is true that the scapegoat theory in its purely arbitrary form never appears in print.",
+     "clip": "clips/new-scapegoat-1.ogg"
+    },
+    {
+     "text": "Even Fichte, the favorite modern scapegoat for German race-thinking, hardly ever went beyond the limits of nationalism.",
+     "clip": "clips/new-scapegoat-2.ogg"
+    }
+   ]
+  },
+  {
+   "id": "new-stave",
+   "word": "stave",
+   "sentence": "Soviets could afford sending enough aid to the defeated country to prevent mass starvation and to stave off a complete collapse of the economy in the year following the revolution.",
+   "clip": "clips/new-stave-0.ogg",
+   "ipa": "",
+   "classes": [],
+   "source": "new",
+   "book": "Hannah_Arendt__The_Origins_of_Totalitarianism",
+   "added": "2026-09-15",
+   "sentences": [
+    {
+     "text": "Soviets could afford sending enough aid to the defeated country to prevent mass starvation and to stave off a complete collapse of the economy in the year following the revolution.",
+     "clip": "clips/new-stave-0.ogg"
+    }
+   ]
+  },
+  {
+   "id": "new-conspicuous",
+   "word": "conspicuous",
+   "sentence": "Or, the curious contradiction between the totalitarian movements’ avowed cynical “realism” and their conspicuous disdain of the whole texture of reality.",
+   "clip": "clips/new-conspicuous-0.ogg",
+   "ipa": "",
+   "classes": [],
+   "source": "new",
+   "book": "Hannah_Arendt__The_Origins_of_Totalitarianism",
+   "added": "2026-09-15",
+   "sentences": [
+    {
+     "text": "Or, the curious contradiction between the totalitarian movements’ avowed cynical “realism” and their conspicuous disdain of the whole texture of reality.",
+     "clip": "clips/new-conspicuous-0.ogg"
+    },
+    {
+     "text": "They are the most conspicuous characteristics of society today...",
+     "clip": "clips/new-conspicuous-1.ogg"
+    },
+    {
+     "text": "The more conspicuous the power of totalitarianism the more secret become its true goals.",
+     "clip": "clips/new-conspicuous-2.ogg"
+    }
+   ]
+  },
+  {
+   "id": "new-parasitical",
+   "word": "parasitical",
+   "sentence": "Only wealth without power or aloofness without a policy are felt to be parasitical, useless, revolting, because such conditions cut all the threads which tie men together.",
+   "clip": "clips/new-parasitical-0.ogg",
+   "ipa": "",
+   "classes": [],
+   "source": "new",
+   "book": "Hannah_Arendt__The_Origins_of_Totalitarianism",
+   "added": "2026-09-15",
+   "sentences": [
+    {
+     "text": "Only wealth without power or aloofness without a policy are felt to be parasitical, useless, revolting, because such conditions cut all the threads which tie men together.",
+     "clip": "clips/new-parasitical-0.ogg"
+    },
+    {
+     "text": "More important, it protected its owners against the menacing prospect of remaining entirely superfluous and parasitical.",
+     "clip": "clips/new-parasitical-1.ogg"
+    }
+   ]
+  },
+  {
+   "id": "new-uprootedness",
+   "word": "uprootedness",
+   "sentence": "Only the horror of the final catastrophe, and even more the homelessness and uprootedness of the survivors, made the “Jewish question” so prominent in our everyday political life.",
+   "clip": "clips/new-uprootedness-0.ogg",
+   "ipa": "",
+   "classes": [],
+   "source": "new",
+   "book": "Hannah_Arendt__The_Origins_of_Totalitarianism",
+   "added": "2026-09-15",
+   "sentences": [
+    {
+     "text": "Only the horror of the final catastrophe, and even more the homelessness and uprootedness of the survivors, made the “Jewish question” so prominent in our everyday political life.",
+     "clip": "clips/new-uprootedness-0.ogg"
+    },
+    {
+     "text": "Uprootedness can be the preliminary condition for superfluousness, just as isolation can (but must not) be the preliminary condition for loneliness.",
+     "clip": "clips/new-uprootedness-1.ogg"
+    }
+   ]
+  },
+  {
+   "id": "new-chagrin",
+   "word": "chagrin",
+   "sentence": "Stalin paid to his late colleague and rival in total domination with whom, much to his chagrin, he had not been able to come to a lasting agreement.",
+   "clip": "clips/new-chagrin-0.ogg",
+   "ipa": "",
+   "classes": [],
+   "source": "new",
+   "book": "Hannah_Arendt__The_Origins_of_Totalitarianism",
+   "added": "2026-09-15",
+   "sentences": [
+    {
+     "text": "Stalin paid to his late colleague and rival in total domination with whom, much to his chagrin, he had not been able to come to a lasting agreement.",
+     "clip": "clips/new-chagrin-0.ogg"
+    }
+   ]
+  }
+ ]
+}

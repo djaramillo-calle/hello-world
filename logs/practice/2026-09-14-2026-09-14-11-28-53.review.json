@@ -1,0 +1,271 @@
+{
+ "id": "2026-09-14-2026-09-14-11-28-53",
+ "source": "2026_09_14_11_28_53.mp3",
+ "recorded": "2026-09-14 12:07",
+ "kind": "read",
+ "passage": "B039",
+ "anchor": false,
+ "reviewed": "2026-09-16T13:45:56Z",
+ "fluency": {
+  "duration_s": 5019.2,
+  "wpm": 102.6,
+  "words": 8581,
+  "filler_pct": 0.0,
+  "speech_rate_syll_s": 3.13,
+  "articulation_rate_syll_s": 4.11,
+  "avg_syllable_s": 0.243,
+  "f0_median_hz": 150.1,
+  "f0_range_semitones": 8.8,
+  "pause_count": 1415,
+  "phonation_ratio": 0.76,
+  "mean_pause_s": 0.84
+ },
+ "pronunciation": {
+  "source": "azure",
+  "scripted": true,
+  "scores": {
+   "accuracy": 96.1,
+   "fluency": 91.0,
+   "completeness": 97.2,
+   "prosody": 59.4,
+   "pron": 80.6
+  },
+  "flagged": [
+   {
+    "word": "manuscript",
+    "accuracy": 34.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "first",
+    "accuracy": 52.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "governments",
+    "accuracy": 52.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "what",
+    "accuracy": 0.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "this",
+    "accuracy": 9.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "backward-directed",
+    "accuracy": 0.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "direct",
+    "accuracy": 46.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "tendency",
+    "accuracy": 1.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "1no",
+    "accuracy": 42.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "its",
+    "accuracy": 4.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "notwithstanding",
+    "accuracy": 14.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "disquieting",
+    "accuracy": 54.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "secret",
+    "accuracy": 31.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "german",
+    "accuracy": 57.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "boris",
+    "accuracy": 39.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "had",
+    "accuracy": 54.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "able",
+    "accuracy": 50.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "obvious",
+    "accuracy": 2.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "td",
+    "accuracy": 92.0,
+    "error": "None"
+   },
+   {
+    "word": "selections",
+    "accuracy": 49.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "embarras",
+    "accuracy": 59.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "twelve",
+    "accuracy": 16.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "bearing",
+    "accuracy": 56.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "paperback",
+    "accuracy": 6.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "part",
+    "accuracy": 45.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "part",
+    "accuracy": 50.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "two",
+    "accuracy": 55.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "first",
+    "accuracy": 3.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "this",
+    "accuracy": 13.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "the",
+    "accuracy": 47.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "compared",
+    "accuracy": 0.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "contrary",
+    "accuracy": 46.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "thou",
+    "accuracy": 56.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "war",
+    "accuracy": 56.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "was",
+    "accuracy": 53.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "documentary",
+    "accuracy": 42.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "remain",
+    "accuracy": 48.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "this",
+    "accuracy": 59.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "although",
+    "accuracy": 53.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "german",
+    "accuracy": 54.0,
+    "error": "Mispronunciation"
+   }
+  ],
+  "classes": {
+   "-ed": {
+    "n": 2,
+    "words": [
+     "backward-directed",
+     "compared"
+    ]
+   },
+   "b/v": {
+    "n": 3,
+    "words": [
+     "backward-directed",
+     "embarras",
+     "bearing"
+    ]
+   },
+   "h": {
+    "n": 1,
+    "words": [
+     "had"
+    ]
+   },
+   "th": {
+    "n": 1,
+    "words": [
+     "thou"
+    ]
+   }
+  },
+  "locale": "en-GB"
+ },
+ "harvest": null,
+ "cards_added": 4,
+ "flags": [],
+ "passage_overlap": 0.95,
+ "void": false
+}

@@ -1,0 +1,23 @@
+{
+  "name": "english-signal-check",
+  "version": "2.0.0",
+  "description": "Self-administered English diagnostic battery + test suite",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "node scripts/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/djaramillo-calle/hello-world.git"
+  },
+  "bugs": {
+    "url": "https://github.com/djaramillo-calle/hello-world/issues"
+  },
+  "homepage": "https://github.com/djaramillo-calle/hello-world#readme",
+  "dependencies": {
+    "jsdom": "^30.0.1"
+  },
+  "private": true
+}

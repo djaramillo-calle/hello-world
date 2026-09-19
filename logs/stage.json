@@ -1,0 +1,5 @@
+{
+ "stage": 1,
+ "since": "2026-09-10",
+ "_": "Adherence stages (docs/COACH.md). 1 = SRS aloud + one recorded page a day; floors: srs_days 5, recordings 5. 2 = + one AI conversation (Tue) + listening; 3 = full runbook (tutor, floors 2 conversations ≥1 human, listening 5). The coach proposes a promotion at the Friday review when the rule is met; the user confirms with 'stage N'. Mirrored to the Hub as meta/config.stage."
+}

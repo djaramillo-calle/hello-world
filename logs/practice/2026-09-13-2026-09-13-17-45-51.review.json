@@ -1,0 +1,53 @@
+{
+ "id": "2026-09-13-2026-09-13-17-45-51",
+ "source": "2026_09_13_17_45_51.mp3",
+ "recorded": "2026-09-13 17:22",
+ "kind": "free",
+ "passage": null,
+ "anchor": false,
+ "reviewed": "2026-09-16T13:45:56Z",
+ "fluency": {
+  "duration_s": 197.2,
+  "wpm": 1.5,
+  "words": 5,
+  "filler_pct": 0.0,
+  "speech_rate_syll_s": 0.07,
+  "articulation_rate_syll_s": 0.92,
+  "avg_syllable_s": 1.089,
+  "f0_median_hz": 108.9,
+  "f0_range_semitones": 2.8,
+  "pause_count": 12,
+  "phonation_ratio": 0.08,
+  "mean_pause_s": 15.16
+ },
+ "pronunciation": {
+  "source": "azure",
+  "scripted": false,
+  "scores": {
+   "accuracy": 99.0,
+   "fluency": 100.0,
+   "completeness": 100.0,
+   "pron": 99.4,
+   "prosody_us_ref": 65.8
+  },
+  "flagged": [],
+  "classes": {
+   "th": {
+    "n": 1,
+    "words": [
+     "that"
+    ]
+   }
+  },
+  "locale": "en-GB"
+ },
+ "harvest": {
+  "status": "skipped",
+  "reason": "too little speech"
+ },
+ "cards_added": 0,
+ "flags": [
+  "only 5 words in 3.3′ — not practice; scores are noise, nothing entered the ledger or the cards"
+ ],
+ "void": true
+}
