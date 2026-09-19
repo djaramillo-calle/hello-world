@@ -21,9 +21,9 @@ The method (Witt & Young's GOP, computed on a CTC phoneme recogniser):
      supported something else more. It is a log ratio, so it has no natural scale — `score`
      is a convenience mapping for reading, never the thing to correlate on.
 
-SCOPE, and it matters: this produces accuracy and the phonemes, and completeness falls out of
-the alignment. It does NOT produce fluency or prosody, and must never be presented as if it
-did — that is exactly the mistake en-GB's unsupported prosody number caused on 09-14.
+SCOPE, and it matters: this produces accuracy and the per-phoneme scores. It does NOT produce
+fluency, prosody, or completeness, and must never be presented as if it did — that is exactly
+the mistake en-GB's unsupported prosody number caused on 09-14.
 """
 import argparse, json, math, sys
 
@@ -179,8 +179,11 @@ class Scorer:
             "phones": phones,
             "n_phones": len(phones),
             "aligned": len(scored),
-            # completeness falls out of the alignment: phones the audio never supported at all
-            "completeness": round(100.0 * len(scored) / max(1, len(phones)), 1),
+            # NO completeness. It was here, defined as aligned/total, and measurement on 300
+            # utterances returned exactly 100.0 every single time — of course it did: CTC forced
+            # alignment must traverse every state, so every phone gets frames whatever the audio
+            # says. A number that cannot vary is not a measurement. Real completeness needs a FREE
+            # decode compared against the reference to catch skipped words; that is unbuilt.
             "accuracy": round(sum(p["score"] for p in scored) / len(scored), 1) if scored else None,
         }
 

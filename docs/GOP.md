@@ -26,9 +26,8 @@ from, so it can replace:
 - Azure per-phoneme identities and scores → `th`, `b/v`, `i/ii`, `j/y`, `s/z`,
   `-ed`, `schwa`, `s-cluster`, `h`, `cat/cut` (`PH2CLASS` already exists in
   `scripts/practice-review.py` and is reused unchanged)
-- Azure `completeness` (coverage of the reference by the alignment)
 
-It does **not** produce `fluency` or `prosody`. Those are separate measurements
+It does **not** produce `fluency`, `prosody` or `completeness`. Those are separate measurements
 and we already compute their ingredients locally — pause structure and
 articulation rate (de Jong & Wempe) and pitch (parselmouth) are in
 `practice-ingest.py` today and cost nothing. Whether a defensible fluency number
@@ -103,3 +102,44 @@ us this: every read row already carries `locale`; it gains `engine`. Azure rows
 and GOP rows are **different series** and never share a line. The switch is
 dated in CLAUDE.md and in the ledger's notes, and the reason is recorded with
 the numbers that justified it.
+
+
+## Results
+
+### 2026-09-19 — first run, GOP alone (Azure's half awaits quota)
+
+300 utterances, seeded sample of the `test` split, 1,171s of audio scored in 159s
+(**7.4× realtime, one CPU core**).
+
+| GOP accuracy vs | Pearson | Spearman |
+|---|---|---|
+| human accuracy | **+0.538** | +0.473 |
+| human total | +0.560 | +0.483 |
+| human fluency | +0.538 | +0.454 |
+| human prosody | +0.535 | +0.467 |
+
+**It correlates about equally with all four, and that is the labels, not the
+scorer.** The obvious worry is that GOP measures one undifferentiated "good
+speaker" factor. So the human sub-scores were checked against *each other*:
+accuracy vs total r=0.944, fluency vs prosody r=0.916, accuracy vs prosody
+r=0.789. The raters do not separate these dimensions either, so nothing can be
+concluded about GOP's discrimination from this set. Not evidence in favour —
+absence of evidence, recorded so it is not later read as a pass.
+
+**Practically it finds the bad reads.** Mean GOP on the worst human quartile is
+51.1 against 74.0 for the rest. Of the 94 lowest-GOP utterances, 56 are truly in
+the worst quartile against 29.5 expected by chance — nearly double.
+
+**A bug this measurement caught, in my own code.** `completeness` was defined as
+aligned phones / total phones and came back as exactly 100.0 on all 300
+utterances. It had to: CTC forced alignment must traverse every state, so every
+phone is assigned frames no matter what the audio contains. A quantity that
+cannot vary is not a measurement. It is removed rather than reported, and
+completeness is struck from the scope above. Real completeness needs a free
+decode compared against the reference to catch skipped words; that is not built.
+(The set could not have validated it anyway — human completeness is 10.0/10 for
+essentially every utterance.)
+
+**Still outstanding for the primary criterion:** Azure on this same seeded
+sample (~20 minutes of audio, ~$0.44 on S0). Until that exists there is no
+head-to-head, and +0.538 on its own decides nothing.
