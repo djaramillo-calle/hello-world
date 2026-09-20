@@ -327,20 +327,23 @@ from an adversarially-verified tool investigation (workflow, 12 agents).
   `PronScore`, so `pron` is a different composite before and after that date.
   **`accuracy`, `fluency` and `completeness` are per-dimension** — but they
   too shift with the locale, so read them within a locale, not across it.
-  **The F0 tier is 5 audio hours a month and 2026-09 is spent**: until it
-  resets or the resource moves to S0, recordings transcribe (Whisper is
-  local) but come back unscored with `CancellationReason.Error 1007, Quota
-  exceeded`. The month's accounting, 2026-09-09 to 2026-09-16: 363 min of
-  ingests (162 of them the wasted second pass), 197 min to repair the broken
-  span matcher, 114+ min for the locale switch — **674–757 min, 2.2–2.5x the
-  allowance**, of which only ~201 min was first-pass work on new audio.
-  **F0 was never viable at this load**: he records ~25 min/day, so 300 free
-  minutes last ~12 days even with one pass and zero rescoring. S0 bills
-  pronunciation assessment as standard real-time speech-to-text, ~$1.32 per
-  audio hour (~1.7p/min, ~33p for a 20-minute read) — about $17/month at his
-  rate. **F0 is a $0 SKU: it never draws on an Azure free-account credit, so
-  a $200 trial credit does nothing for it** — the resource has to be moved to
-  S0 to spend it, and that credit expires 30 days after sign-up. The wait for continuous
+  **NOT a monthly-quota problem — corrected 2026-09-20.** For four days this
+  file said September's 5 free audio hours were spent and the loop was blocked.
+  That was wrong, twice over, and both errors were inference dressed as fact.
+  Measured instead: `scripts/azure-check.py` against the live service returns
+  token 200, scripted en-GB 200/Success and en-US with IPA phonemes and prosody
+  91.3. Short assessments work RIGHT NOW. What fails is **one long request**:
+  the 83.7-minute read is refused with `CancellationReason.Error 1007, Quota
+  exceeded`, while 9.5, 15.3, 24.2, 27.6 and 37.1-minute reads all rescored
+  normally. So there is a ceiling on a SINGLE continuous-recognition request
+  somewhere above ~37 minutes, and Azure reports hitting it as "Quota exceeded"
+  — the same words as an exhausted allowance, which is what misled me.
+  **Consequences:** a long read must be CHUNKED, not sent whole (unbuilt; the
+  09-14 read stays en-GB until it is). Never read 1007 as "the month is gone"
+  without probing with a short utterance first — that probe costs seconds and
+  settles it. S0 costs ~$1.32/audio hour; F0 is a $0 SKU and never draws on an
+  Azure free-account credit, so a trial credit does nothing until the resource's
+  pricing tier is changed. The wait for continuous
   recognition scales with the audio and a run that does not finish RAISES —
   a fixed 600s ceiling once made an 84-minute read look like a successful
   assessment of nothing, and the empty result was written over good scores.
