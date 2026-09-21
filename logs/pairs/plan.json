@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "written": "2026-09-21T07:36:22Z",
+  "written": "2026-09-21T09:50:46Z",
   "written_by": "coach",
   "note": "From your reads: i/ii, s/z. 4 sessions done. Say the word you chose, aloud.",
   "trials_per_session": 40,
@@ -23,18 +23,18 @@
   "levels": {},
   "weekly_minutes_target": 20,
   "weights": {
-    "th": 0.34,
+    "th": 0.35,
     "s/z": 1.0,
-    "i/ii": 0.93,
-    "b/v": 0.44,
-    "cat/cut": 0.32,
+    "i/ii": 0.95,
+    "b/v": 0.47,
+    "cat/cut": 0.31,
     "long-back": 0.15,
-    "j/y": 0.19,
-    "-ed": 0.27,
-    "h": 0.22,
+    "j/y": 0.18,
+    "-ed": 0.26,
+    "h": 0.23,
     "sh/ch": 0.17,
     "er/or": 0.15,
-    "schwa": 0.54,
+    "schwa": 0.58,
     "s-cluster": 0.0
   }
 }

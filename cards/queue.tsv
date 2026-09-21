@@ -89,3 +89,12 @@ c00085	2026-09-16T09:01:23Z	2026-09-16-2026-09-16-09-02-35	read	Say it (pronunci
 c00086	2026-09-16T09:01:23Z	2026-09-16-2026-09-16-09-02-35	read	Say it (pronunciation, clear): if	if	auto read	queued	
 c00087	2026-09-16T09:01:23Z	2026-09-16-2026-09-16-09-02-35	read	Say it (pronunciation, clear): result	result	auto read	queued	
 c00088	2026-09-21T07:36:21Z	minimal-pairs	drill	Say it (pronunciation, b/v): vote	vote  — heard wrong 2× in the pairs drill (b/v)	pronunciation pairs	queued	
+c00089	2026-09-21T09:50:39Z	2026-09-21-2026-09-21-10-26-40	read	Say it (pronunciation, h): had	had  — watch: h	auto read	queued	
+c00090	2026-09-21T09:50:39Z	2026-09-21-2026-09-21-10-26-40	read	Say it (pronunciation, i/ii/j/y): jewish	jewish  — watch: i/ii, j/y	auto read	queued	
+c00091	2026-09-21T09:50:39Z	2026-09-21-2026-09-21-10-26-40	read	Say it (pronunciation, s/z): process	process  — watch: s/z	auto read	queued	
+c00092	2026-09-21T09:50:39Z	2026-09-21-2026-09-21-10-26-40	read	Say it (pronunciation, clear): nineteenth	nineteenth	auto read	queued	
+c00093	2026-09-21T09:50:39Z	2026-09-21-2026-09-21-10-26-40	read	Say it (pronunciation, i/ii/s/z): its	its  — watch: i/ii, s/z	auto read	queued	
+c00094	2026-09-21T09:50:39Z	2026-09-21-2026-09-21-10-26-40	read	Say it (pronunciation, clear): concept	concept	auto read	queued	
+c00095	2026-09-21T09:50:39Z	2026-09-21-2026-09-21-10-26-40	read	Say it (pronunciation, s/z/b/v): liberties	liberties  — watch: s/z, b/v	auto read	queued	
+c00096	2026-09-21T09:50:39Z	2026-09-21-2026-09-21-10-26-40	read	Say it (pronunciation, schwa/s/z): citizenship	citizenship  — watch: schwa, s/z	auto read	queued	
+c00097	2026-09-21T09:50:39Z	2026-09-21-2026-09-21-10-26-40	read	Say it (pronunciation, schwa/s-cluster): special	special  — watch: schwa, s-cluster	auto read	queued	

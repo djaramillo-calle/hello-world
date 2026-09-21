@@ -1,6 +1,6 @@
 {
  "version": 1,
- "written": "2026-09-21T07:44:12Z",
+ "written": "2026-09-21T09:50:58Z",
  "per_session": 5,
  "words": [
   {
@@ -22,6 +22,29 @@
     {
      "text": "And it does not simply cease to be coresponsible because it became the victim of the world’s injustice and cruelty.",
      "clip": "clips/coresponsible-0.ogg"
+    }
+   ]
+  },
+  {
+   "id": "liberties",
+   "word": "liberties",
+   "sentence": "Jewish restrictions and\\_privileges had to be abolished together with all other special rights and liberties.",
+   "clip": "clips/liberties-0.ogg",
+   "ipa": "",
+   "classes": [
+    "b/v",
+    "s/z"
+   ],
+   "flagged_on": 2,
+   "read_on": 1,
+   "miss_rate": 1.0,
+   "rank": 16349,
+   "added": "2026-09-21",
+   "source": "flagged",
+   "sentences": [
+    {
+     "text": "Jewish restrictions and\\_privileges had to be abolished together with all other special rights and liberties.",
+     "clip": "clips/liberties-0.ogg"
     }
    ]
   },
@@ -65,9 +88,9 @@
     "schwa",
     "th"
    ],
-   "flagged_on": 6,
-   "read_on": 16,
-   "miss_rate": 0.38,
+   "flagged_on": 7,
+   "read_on": 17,
+   "miss_rate": 0.41,
    "rank": 8,
    "added": "2026-09-21",
    "source": "flagged",
@@ -87,9 +110,70 @@
    ]
   },
   {
+   "id": "jewish",
+   "word": "jewish",
+   "sentence": "A Hidden Tradition,” in Jewish Social Studies, Vol.",
+   "clip": "clips/jewish-2.ogg",
+   "ipa": "",
+   "classes": [
+    "i/ii",
+    "j/y"
+   ],
+   "flagged_on": 3,
+   "read_on": 10,
+   "miss_rate": 0.3,
+   "rank": 3098,
+   "added": "2026-09-21",
+   "source": "flagged",
+   "sentences": [
+    {
+     "text": "Jewish restrictions and\\_privileges had to be abolished together with all other special rights and liberties.",
+     "clip": "clips/jewish-0.ogg"
+    },
+    {
+     "text": "A Hidden Tradition,” Jewish Social Studies, vol.",
+     "clip": "clips/jewish-1.ogg"
+    },
+    {
+     "text": "A Hidden Tradition,” in Jewish Social Studies, Vol.",
+     "clip": "clips/jewish-2.ogg"
+    }
+   ]
+  },
+  {
+   "id": "had",
+   "word": "had",
+   "sentence": "This, moreover, had next to nothing.",
+   "clip": "clips/had-2.ogg",
+   "ipa": "",
+   "classes": [
+    "h"
+   ],
+   "flagged_on": 3,
+   "read_on": 10,
+   "miss_rate": 0.3,
+   "rank": 91,
+   "added": "2026-09-21",
+   "source": "flagged",
+   "sentences": [
+    {
+     "text": "Jewish restrictions and\\_privileges had to be abolished together with all other special rights and liberties.",
+     "clip": "clips/had-0.ogg"
+    },
+    {
+     "text": "The play had to be suspended.",
+     "clip": "clips/had-1.ogg"
+    },
+    {
+     "text": "This, moreover, had next to nothing.",
+     "clip": "clips/had-2.ogg"
+    }
+   ]
+  },
+  {
    "id": "new-scapegoat",
    "word": "scapegoat",
-   "sentence": "Even Fichte, the favorite modern scapegoat for German race-thinking, hardly ever went beyond the limits of nationalism.",
+   "sentence": "Yet this explanation of antisemitism, like the scapegoat theory and for similar reasons, has outlived its refutation by reality.",
    "clip": "clips/new-scapegoat-2.ogg",
    "ipa": "",
    "classes": [],
@@ -98,7 +182,7 @@
    "added": "2026-09-15",
    "sentences": [
     {
-     "text": "Yet this explanation of antisemitism, like the scapegoat theory and for similar reasons, has outlived its refutation by reality.",
+     "text": "Even Fichte, the favorite modern scapegoat for German race-thinking, hardly ever went beyond the limits of nationalism.",
      "clip": "clips/new-scapegoat-0.ogg"
     },
     {
@@ -106,7 +190,7 @@
      "clip": "clips/new-scapegoat-1.ogg"
     },
     {
-     "text": "Even Fichte, the favorite modern scapegoat for German race-thinking, hardly ever went beyond the limits of nationalism.",
+     "text": "Yet this explanation of antisemitism, like the scapegoat theory and for similar reasons, has outlived its refutation by reality.",
      "clip": "clips/new-scapegoat-2.ogg"
     }
    ]
@@ -131,7 +215,7 @@
   {
    "id": "new-conspicuous",
    "word": "conspicuous",
-   "sentence": "The more conspicuous the power of totalitarianism the more secret become its true goals.",
+   "sentence": "Or, the curious contradiction between the totalitarian movements’ avowed cynical “realism” and their conspicuous disdain of the whole texture of reality.",
    "clip": "clips/new-conspicuous-2.ogg",
    "ipa": "",
    "classes": [],
@@ -140,7 +224,7 @@
    "added": "2026-09-15",
    "sentences": [
     {
-     "text": "Or, the curious contradiction between the totalitarian movements’ avowed cynical “realism” and their conspicuous disdain of the whole texture of reality.",
+     "text": "The more conspicuous the power of totalitarianism the more secret become its true goals.",
      "clip": "clips/new-conspicuous-0.ogg"
     },
     {
@@ -148,7 +232,7 @@
      "clip": "clips/new-conspicuous-1.ogg"
     },
     {
-     "text": "The more conspicuous the power of totalitarianism the more secret become its true goals.",
+     "text": "Or, the curious contradiction between the totalitarian movements’ avowed cynical “realism” and their conspicuous disdain of the whole texture of reality.",
      "clip": "clips/new-conspicuous-2.ogg"
     }
    ]

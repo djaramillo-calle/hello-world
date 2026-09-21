@@ -164,7 +164,7 @@
  "locale_note": "SCORING LOCALE IS en-US SINCE 2026-09-16, at the user's decision. Microsoft's docs make en-US the only locale that returns prosody AND named IPA phonemes. Five of the six reads were re-assessed under it on the SAME audio, the SAME stored Whisper transcript and the SAME span reference — only the locale changed. Prosody moved from 52-59 to 81-86, fluency up about 3 points, accuracy and completeness within a point or two either way, and the SHAPE of the series held (09-12 still the weak read). So the locale changed the levels, not the trend. THE 09-14 READ IS STILL en-GB: at 84 minutes it is the longest, and a single request that long is refused outright (CancellationReason.Error 1007, 'Quota exceeded' — NOT the month; see quota_note). Its prosody of 59.4 and pron of 80.6 are en-GB numbers and DO NOT belong on the same line as the rest; its accuracy, fluency and completeness are close enough to read with care. It stays stranded until long reads are CHUNKED, which is unbuilt. Re-run only after that: .venv-practice/bin/python scripts/rescore-reads.py --only 2026-09-14",
  "phonemes": {
   "schwa": {
-   "count": 32,
+   "count": 39,
    "words": {
     "tradition": 1,
     "deducing": 1,
@@ -193,9 +193,15 @@
     "russia": 1,
     "belated": 1,
     "temptation": 1,
-    "adequate": 1
+    "adequate": 1,
+    "citizenship": 1,
+    "and\\_privileges": 1,
+    "hesitantly": 1,
+    "development": 1,
+    "tolerated": 1,
+    "special": 1
    },
-   "last": "2026-09-16"
+   "last": "2026-09-21"
   },
   "-ed": {
    "count": 10,
@@ -213,12 +219,12 @@
    "last": "2026-09-16"
   },
   "i/ii": {
-   "count": 50,
+   "count": 59,
    "words": {
     "into": 1,
     "disintegration": 1,
     "history": 1,
-    "the": 2,
+    "the": 3,
     "precedents": 1,
     "submitting": 1,
     "unpremeditated": 1,
@@ -250,12 +256,19 @@
     "hypocrisy": 1,
     "executors": 1,
     "dealing": 1,
-    "establish": 1
+    "establish": 1,
+    "granted": 1,
+    "equivocalities": 1,
+    "equality": 1,
+    "edicts": 1,
+    "edict": 1,
+    "jewish": 1,
+    "its": 1
    },
-   "last": "2026-09-16"
+   "last": "2026-09-21"
   },
   "cat/cut": {
-   "count": 12,
+   "count": 13,
    "words": {
     "unrecognizable": 1,
     "submitting": 1,
@@ -266,9 +279,10 @@
     "matters": 1,
     "upon": 1,
     "uprootedness": 1,
-    "nationally": 1
+    "nationally": 1,
+    "granted": 1
    },
-   "last": "2026-09-16"
+   "last": "2026-09-21"
   },
   "j/y": {
    "count": 3,
@@ -280,7 +294,7 @@
    "last": "2026-09-15"
   },
   "s/z": {
-   "count": 44,
+   "count": 52,
    "words": {
     "disintegration": 1,
     "because": 1,
@@ -320,27 +334,31 @@
     "innocence": 1,
     "coresponsible": 1,
     "executors": 1,
-    "establish": 1
+    "establish": 1,
+    "liberties": 1,
+    "citizenship": 1,
+    "process": 1,
+    "its": 1
    },
-   "last": "2026-09-16"
+   "last": "2026-09-21"
   },
   "th": {
-   "count": 14,
+   "count": 16,
    "words": {
-    "the": 3,
+    "the": 4,
     "earth": 1,
     "thirteenth": 1,
-    "that": 1,
+    "that": 2,
     "this": 1,
     "sixteenth": 1,
     "thou": 1,
     "themselves": 1,
     "than": 1
    },
-   "last": "2026-09-16"
+   "last": "2026-09-21"
   },
   "b/v": {
-   "count": 24,
+   "count": 29,
    "words": {
     "submitting": 1,
     "avowed": 1,
@@ -353,37 +371,42 @@
     "embarras": 1,
     "bearing": 1,
     "hapsburg": 1,
-    "of": 1,
+    "of": 2,
     "comprehensible": 1,
     "been": 1,
     "victim": 1,
     "victims": 1,
     "have": 1,
-    "belated": 1
+    "belated": 1,
+    "breakdown": 1,
+    "liberties": 1
    },
-   "last": "2026-09-16"
+   "last": "2026-09-21"
   },
   "h": {
-   "count": 6,
+   "count": 7,
    "words": {
     "history": 1,
     "had": 1,
     "hapsburg": 1,
     "hope": 1,
     "has": 1,
-    "hypocrisy": 1
+    "hypocrisy": 1,
+    "homogeneity": 1
    },
-   "last": "2026-09-16"
+   "last": "2026-09-21"
   },
   "s-cluster": {
-   "count": 4,
+   "count": 6,
    "words": {
     "started": 1,
     "scruples": 1,
     "scapegoat": 1,
-    "strikes": 1
+    "strikes": 1,
+    "state": 1,
+    "special": 1
    },
-   "last": "2026-09-16"
+   "last": "2026-09-21"
   }
  },
  "words": {
@@ -403,8 +426,8 @@
    ]
   },
   "that": {
-   "count": 6,
-   "last": "2026-09-16",
+   "count": 7,
+   "last": "2026-09-21",
    "kinds": [
     "read"
    ],
@@ -496,8 +519,8 @@
    "carded": true
   },
   "the": {
-   "count": 8,
-   "last": "2026-09-15",
+   "count": 10,
+   "last": "2026-09-21",
    "kinds": [
     "read"
    ],
@@ -518,8 +541,8 @@
    ]
   },
   "and": {
-   "count": 2,
-   "last": "2026-09-12",
+   "count": 3,
+   "last": "2026-09-21",
    "kinds": [
     "read"
    ],
@@ -655,8 +678,8 @@
    ]
   },
   "to": {
-   "count": 2,
-   "last": "2026-09-15",
+   "count": 3,
+   "last": "2026-09-21",
    "kinds": [
     "read"
    ],
@@ -901,11 +924,12 @@
    ]
   },
   "nineteenth": {
-   "count": 1,
-   "last": "2026-09-13",
+   "count": 2,
+   "last": "2026-09-21",
    "kinds": [
     "read"
-   ]
+   ],
+   "carded": true
   },
   "started": {
    "count": 1,
@@ -1144,11 +1168,12 @@
    ]
   },
   "its": {
-   "count": 1,
-   "last": "2026-09-14",
+   "count": 2,
+   "last": "2026-09-21",
    "kinds": [
     "read"
-   ]
+   ],
+   "carded": true
   },
   "notwithstanding": {
    "count": 1,
@@ -1187,11 +1212,12 @@
    ]
   },
   "had": {
-   "count": 1,
-   "last": "2026-09-14",
+   "count": 3,
+   "last": "2026-09-21",
    "kinds": [
     "read"
-   ]
+   ],
+   "carded": true
   },
   "able": {
    "count": 1,
@@ -1321,8 +1347,8 @@
    ]
   },
   "of": {
-   "count": 2,
-   "last": "2026-09-16",
+   "count": 4,
+   "last": "2026-09-21",
    "kinds": [
     "read"
    ],
@@ -1371,11 +1397,12 @@
    ]
   },
   "jewish": {
-   "count": 1,
-   "last": "2026-09-15",
+   "count": 3,
+   "last": "2026-09-21",
    "kinds": [
     "read"
-   ]
+   ],
+   "carded": true
   },
   "common-sense": {
    "count": 1,
@@ -1724,11 +1751,163 @@
    "kinds": [
     "read"
    ]
+  },
+  "concept": {
+   "count": 2,
+   "last": "2026-09-21",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "breakdown": {
+   "count": 1,
+   "last": "2026-09-21",
+   "kinds": [
+    "read"
+   ]
+  },
+  "granted": {
+   "count": 1,
+   "last": "2026-09-21",
+   "kinds": [
+    "read"
+   ]
+  },
+  "liberties": {
+   "count": 2,
+   "last": "2026-09-21",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "equivocalities": {
+   "count": 1,
+   "last": "2026-09-21",
+   "kinds": [
+    "read"
+   ]
+  },
+  "equality": {
+   "count": 1,
+   "last": "2026-09-21",
+   "kinds": [
+    "read"
+   ]
+  },
+  "citizenship": {
+   "count": 2,
+   "last": "2026-09-21",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "homogeneity": {
+   "count": 1,
+   "last": "2026-09-21",
+   "kinds": [
+    "read"
+   ]
+  },
+  "edicts": {
+   "count": 1,
+   "last": "2026-09-21",
+   "kinds": [
+    "read"
+   ]
+  },
+  "which": {
+   "count": 1,
+   "last": "2026-09-21",
+   "kinds": [
+    "read"
+   ]
+  },
+  "edict": {
+   "count": 1,
+   "last": "2026-09-21",
+   "kinds": [
+    "read"
+   ]
+  },
+  "restrictions": {
+   "count": 1,
+   "last": "2026-09-21",
+   "kinds": [
+    "read"
+   ]
+  },
+  "and\\_privileges": {
+   "count": 1,
+   "last": "2026-09-21",
+   "kinds": [
+    "read"
+   ]
+  },
+  "process": {
+   "count": 3,
+   "last": "2026-09-21",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
+  },
+  "hesitantly": {
+   "count": 1,
+   "last": "2026-09-21",
+   "kinds": [
+    "read"
+   ]
+  },
+  "development": {
+   "count": 1,
+   "last": "2026-09-21",
+   "kinds": [
+    "read"
+   ]
+  },
+  "state": {
+   "count": 1,
+   "last": "2026-09-21",
+   "kinds": [
+    "read"
+   ]
+  },
+  "in": {
+   "count": 1,
+   "last": "2026-09-21",
+   "kinds": [
+    "read"
+   ]
+  },
+  "tolerated": {
+   "count": 1,
+   "last": "2026-09-21",
+   "kinds": [
+    "read"
+   ]
+  },
+  "were": {
+   "count": 1,
+   "last": "2026-09-21",
+   "kinds": [
+    "read"
+   ]
+  },
+  "special": {
+   "count": 2,
+   "last": "2026-09-21",
+   "kinds": [
+    "read"
+   ],
+   "carded": true
   }
  },
  "anchor": [],
- "recordings": 7,
- "updated": "2026-09-16T13:45:56Z",
+ "recordings": 8,
+ "updated": "2026-09-21T09:50:39Z",
  "reads": [
   {
    "date": "2026-09-10",
@@ -1789,6 +1968,16 @@
    "completeness": 97.7,
    "prosody": 85.3,
    "pron": 91.6
+  },
+  {
+   "date": "2026-09-21",
+   "passage": "B110",
+   "locale": "en-US",
+   "accuracy": 89.0,
+   "fluency": 89.8,
+   "completeness": 90.4,
+   "prosody": 79.9,
+   "pron": 85.7
   }
  ],
  "quota_note": "CORRECTED 2026-09-20. This file and CLAUDE.md said the Azure F0 month was spent and scoring was blocked. It was not. A live probe (scripts/azure-check.py) returns Success with IPA phonemes and prosody 91.3 on the same key. What actually fails is ONE REQUEST THAT IS TOO LONG: the 83.7-minute read is refused with CancellationReason.Error 1007 'Quota exceeded', while the 9.5, 15.3, 24.2, 27.6 and 37.1-minute reads all rescored normally. The ceiling on a single continuous-recognition request sits somewhere above ~37 minutes, and Azure words it exactly like an exhausted monthly allowance, which is what misled the diagnosis for four days. Probe with a short utterance before ever blaming the month again — it costs seconds."
