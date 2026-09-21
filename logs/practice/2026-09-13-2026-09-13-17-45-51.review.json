@@ -5,7 +5,7 @@
  "kind": "free",
  "passage": null,
  "anchor": false,
- "reviewed": "2026-09-16T13:45:56Z",
+ "reviewed": "2026-09-21T09:57:36Z",
  "fluency": {
   "duration_s": 197.2,
   "wpm": 1.5,
@@ -39,7 +39,8 @@
     ]
    }
   },
-  "locale": "en-GB"
+  "locale": "en-GB",
+  "word_count": 6
  },
  "harvest": {
   "status": "skipped",

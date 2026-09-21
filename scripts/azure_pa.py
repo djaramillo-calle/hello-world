@@ -133,7 +133,12 @@ def _aggregate(utterances, phoneme_pass):
     flagged = [w for w in words
                if (w.get("error") not in (None, "None")) or (w.get("accuracy") or 100) < 60
                or w.get("phonemes")]
-    return {"overall": overall, "flagged_words": flagged[:40], "word_count": len(words)}
+    # NO CAP. The flagged list used to be truncated at forty, which made "flagged words" a
+    # ceiling rather than a measurement: an 84-minute read and a 2-minute one both reported exactly 40. On 2026-09-21 a
+    # 133-second read hit the cap against 153 reference words — a quarter of everything he said —
+    # and pushed the ledger's confusion classes up by nine, fifty-two and seven from one short
+    # sample. `word_count` travels with it so consumers can divide instead of counting.
+    return {"overall": overall, "flagged_words": flagged, "word_count": len(words)}
 
 def dual_locale_assessment(wav, reference_text=None, locale=LOCALE):
     """ONE en-US pass carrying the score, the IPA phonemes and prosody (2026-09-16).
@@ -193,6 +198,10 @@ def selftest():
     for k in ("en_gb", "en_us_targets", "scripted", "locale", "note"):
         assert f'"{k}"' in src, f"callers read {k}; it must stay in the returned shape"
     assert "phoneme_pass=True" in src, "named IPA phonemes are the reason for this locale"
+    agg = inspect.getsource(_aggregate)
+    assert "flagged[:40]" not in agg and "flagged[:" not in agg, \
+        "flagged words must not be capped — a ceiling is not a measurement"
+    assert '"word_count"' in agg, "the denominator must travel with the flags"
     # the wait must grow with the audio: a fixed ceiling silently "succeeded" on an 84-minute read
     assert _wait_for("/nonexistent.wav") == 600.0, "unreadable audio falls back to the old floor"
     src2 = inspect.getsource(_assess)

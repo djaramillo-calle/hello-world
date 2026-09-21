@@ -5,7 +5,7 @@
  "kind": "read",
  "passage": "B096",
  "anchor": false,
- "reviewed": "2026-09-16T13:45:56Z",
+ "reviewed": "2026-09-21T09:57:37Z",
  "fluency": {
   "duration_s": 1450.0,
   "wpm": 101.2,
@@ -304,7 +304,8 @@
     ]
    }
   },
-  "locale": "en-US"
+  "locale": "en-US",
+  "word_count": 2044
  },
  "harvest": null,
  "cards_added": 7,

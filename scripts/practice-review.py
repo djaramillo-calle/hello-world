@@ -139,6 +139,9 @@ def pronunciation(rec, scripted):
         if pros is not None and pros != out["scores"].get("prosody"):
             out["scores"]["prosody_us_ref"] = pros
         out["locale"] = az.get("locale") or (az.get("en_gb") or {}).get("locale") or "en-GB"
+        # how many words the flags are OUT OF. Without it a class count is unreadable: nine
+        # schwa flags in 153 words and nine in 8,000 are not the same finding.
+        out["word_count"] = gb.get("word_count")
     else:
         for s in rec.get("pronunciation_suspects") or []:
             out["flagged"].append({"word": s.get("word"), "confidence": s.get("p"), "error": "asr-low-confidence"})
@@ -155,8 +158,10 @@ def pronunciation(rec, scripted):
 
 def update_ledger(ledger, review, date):
     ledger.setdefault("phonemes", {}); ledger.setdefault("words", {}); ledger.setdefault("anchor", []); ledger.setdefault("recordings", 0)
+    ledger.setdefault("words_assessed", 0)
     ledger["recordings"] += 1
     pr = review["pronunciation"]
+    ledger["words_assessed"] += int(pr.get("word_count") or 0)
     for c, e in pr["classes"].items():
         L = ledger["phonemes"].setdefault(c, {"count": 0, "words": {}, "last": None})
         L["count"] += e["n"]; L["last"] = date
@@ -182,6 +187,12 @@ def update_ledger(ledger, review, date):
         if review.get("anchor"):
             ledger["anchor"].append(entry)
         ledger.setdefault("reads", []).append(entry)
+    # A RATE, not a count. Counts make a long read look like a problem and a short one look
+    # clean, and they let a single two-minute sample shove the Minimal Pairs weights around.
+    # per_1k is flags of this class per thousand words actually assessed.
+    total = ledger.get("words_assessed") or 0
+    for L in ledger["phonemes"].values():
+        L["per_1k"] = round(L["count"] / total * 1000, 1) if total else None
     ledger["updated"] = dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     return ledger
 
@@ -505,6 +516,14 @@ def selftest():
         assert h["strengths"] == ["a"] and h["summary"] == "5", h
         assert sanitise_harvest("nope") is None
         assert "TRANSCRIPT>>>" not in HARVEST_PROMPT.format(kind="ai", transcript="x TRANSCRIPT>>> y".replace("TRANSCRIPT>>>", "TRANSCRIPT> > >"), max_errors=1, max_vocab=1, max_cards=1).split("<<<TRANSCRIPT")[1].rsplit("TRANSCRIPT>>>", 1)[0]
+    # the rate must exist and must divide by what was actually assessed
+    L = {"phonemes": {"th": {"count": 4, "words": {}, "last": None}}, "words_assessed": 0}
+    rv = {"kind": "read", "passage": "B001", "anchor": False,
+          "pronunciation": {"classes": {"th": {"n": 4, "words": ["this"]}}, "flagged": [],
+                            "scores": {}, "source": "azure", "word_count": 2000}}
+    out = update_ledger(L, rv, "2026-09-21")
+    assert out["words_assessed"] == 2000, out["words_assessed"]
+    assert out["phonemes"]["th"]["per_1k"] == 4.0, out["phonemes"]["th"]      # 8 flags / 2000 words
     print("practice-review.py selftest: OK")
 
 def main():
