@@ -1,6 +1,6 @@
 {
  "version": 1,
- "written": "2026-09-21T10:41:16Z",
+ "written": "2026-09-21T18:32:58Z",
  "per_session": 5,
  "words": [
   {
@@ -227,7 +227,7 @@
   {
    "id": "new-scapegoat",
    "word": "scapegoat",
-   "sentence": "Even Fichte, the favorite modern scapegoat for German race-thinking, hardly ever went beyond the limits of nationalism.",
+   "sentence": "Yet this explanation of antisemitism, like the scapegoat theory and for similar reasons, has outlived its refutation by reality.",
    "clip": "clips/new-scapegoat-2.ogg",
    "ipa": "",
    "classes": [],
@@ -236,7 +236,7 @@
    "added": "2026-09-15",
    "sentences": [
     {
-     "text": "Yet this explanation of antisemitism, like the scapegoat theory and for similar reasons, has outlived its refutation by reality.",
+     "text": "Even Fichte, the favorite modern scapegoat for German race-thinking, hardly ever went beyond the limits of nationalism.",
      "clip": "clips/new-scapegoat-0.ogg"
     },
     {
@@ -244,7 +244,7 @@
      "clip": "clips/new-scapegoat-1.ogg"
     },
     {
-     "text": "Even Fichte, the favorite modern scapegoat for German race-thinking, hardly ever went beyond the limits of nationalism.",
+     "text": "Yet this explanation of antisemitism, like the scapegoat theory and for similar reasons, has outlived its refutation by reality.",
      "clip": "clips/new-scapegoat-2.ogg"
     }
    ]
@@ -269,7 +269,7 @@
   {
    "id": "new-conspicuous",
    "word": "conspicuous",
-   "sentence": "The more conspicuous the power of totalitarianism the more secret become its true goals.",
+   "sentence": "Or, the curious contradiction between the totalitarian movements’ avowed cynical “realism” and their conspicuous disdain of the whole texture of reality.",
    "clip": "clips/new-conspicuous-2.ogg",
    "ipa": "",
    "classes": [],
@@ -278,7 +278,7 @@
    "added": "2026-09-15",
    "sentences": [
     {
-     "text": "Or, the curious contradiction between the totalitarian movements’ avowed cynical “realism” and their conspicuous disdain of the whole texture of reality.",
+     "text": "The more conspicuous the power of totalitarianism the more secret become its true goals.",
      "clip": "clips/new-conspicuous-0.ogg"
     },
     {
@@ -286,7 +286,7 @@
      "clip": "clips/new-conspicuous-1.ogg"
     },
     {
-     "text": "The more conspicuous the power of totalitarianism the more secret become its true goals.",
+     "text": "Or, the curious contradiction between the totalitarian movements’ avowed cynical “realism” and their conspicuous disdain of the whole texture of reality.",
      "clip": "clips/new-conspicuous-2.ogg"
     }
    ]
