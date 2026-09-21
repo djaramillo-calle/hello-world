@@ -209,7 +209,12 @@ def fold(vocab_rows, daily_new, positions, kosync, today=None, vocab=None, daily
     books = books if books is not None else []
     added = merge_vocab(vocab, vocab_rows, prune=prune, log=log)
     if vocab_rows: vocab["synced"] = today.isoformat()
-    for k, v in daily_new.items(): daily[k] = v
+    for k, v in daily_new.items():
+        old = daily.get(k) or {}
+        if "app_min" in old:   # the app's reader (reader-pull.py) read that day too: its minutes stay, the total is both
+            titles = list(v.get("books") or []) + [b for b in (old.get("books") or []) if b not in (v.get("books") or [])]
+            v = {**v, "books": titles, "ko_min": v["min"], "app_min": old["app_min"], "min": round(v["min"] + old["app_min"], 1)}
+        daily[k] = v
     by_md5 = {b.get("partial_md5"): b for b in books if b.get("partial_md5")}
     progress.pop("null", None); progress.pop(None, None)   # an earlier version keyed unregistered books under null
     for p in positions.values():

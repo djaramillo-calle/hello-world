@@ -240,7 +240,7 @@ def sync_pairs(drv, work, log=print, dry=False, sayit_results=None, practice_dir
     reads_done = _reads_done(practice_dir)
     for rel, f in drv.walk(folder["id"]):
         if rel in COACH_FILES: continue                  # coach->app, never pulled back down
-        if not (rel.endswith(".json") or rel.endswith(".txt") or _attempt_audio(rel) or _read_stem(rel)): continue
+        if not (rel.endswith(".json") or rel.endswith(".txt") or _attempt_audio(rel) or _read_stem(rel) or rel.startswith("reading/")): continue
         # An unscored Say-it attempt comes down EVERY run, sidecar and audio together, until
         # results.json says it was scored. Everything else is fetched once by md5.
         if _sayit_pending(rel, done) or _read_pending(rel, reads_done):
@@ -315,6 +315,10 @@ def main():
     try:
         if sync_pairs(drv, work, dry=dry) and not dry:
             run([sys.executable, SCRIPTS / "pairs-pull.py", "--dir", work / "pairs"])
+            # The app's reader (its docs/CONTRACT.md, "Reader"): position, saved words, minutes —
+            # folded into the same logs/reading files KOReader fed.
+            if (work / "pairs" / "reading").is_dir():
+                run([sys.executable, SCRIPTS / "reader-pull.py", "--dir", work / "pairs" / "reading"])
             # Pages read in the app: the audio, its sidecar and (usually) its phone score sit
             # together under work/pairs/reads. practice-ingest folds the phone score itself and
             # never calls Azure for these; the practice record it writes is what stops the

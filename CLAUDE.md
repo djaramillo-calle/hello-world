@@ -281,6 +281,30 @@ push to `main` cuts a release, so it ships when he merges.
   refuses a single request somewhere above ~37, so a page never hits that ceiling.
 - Nothing from any of this reaches `tracking.tsv`.
 
+## The reader IN the app (replacing KOReader) — 2026-09-21
+
+The user's decision the evening Read mode shipped: "the reader must work as a regular epub reader,
+and must have a folder in the drive to get the epubs just as koreader". App branch `reader` (PR #3,
+based on `read-mode`), contract section "Reader" in the app repo's `docs/CONTRACT.md`.
+
+- **Books in:** plain EPUBs in the phone folder `Documents/MinimalPairs/library/`, stocked by a
+  download-only Autosync pair from Drive `EnglishPractice/library` (the folder the EPUBs already
+  live in). The app never writes there. **Dictionaries in:** his KOReader StarDict sets (English–
+  Spanish, WordNet 1.7) copied as folders into `Documents/MinimalPairs/dict/`. The app is a real
+  reader: chapters paginated in a WebView, side taps or swipes turn pages, a centre tap shows the
+  toolbar (contents, font size), a LONG PRESS looks a word up and offers Save with the sentence it
+  sat in; the Words screen is the vocabulary builder and its bin is the curation.
+- **App → coach, `reading/` in the same folder:** `progress.json` (position per book keyed by
+  KOReader's partial MD5, so `books.json` maps it to a passage — nothing new to register),
+  `vocab.jsonl` (append-only `add`/`delete` lines with the sentence), `time/<ts>.json` (one stretch
+  of reading each, ≥ 20 s). `cloud-sync.sync_pairs` downloads `reading/` with the rest of the app
+  folder and `scripts/reader-pull.py --dir` folds it into the SAME `logs/reading/` files
+  koreader-pull maintains (ids `app:<word>`; a delete = `dropped` + `carded`, never erased; saving
+  again brings it back and makes it offerable; daily minutes add `app_min` to KOReader's `ko_min`;
+  the newer position wins). Nothing downstream changed: reading-hub, weekly-rollup, sayit's `new`
+  words and the readout read the same files. KOReader keeps working beside it until he retires it.
+- Load, harvest, pointer — never a score; nothing reaches `tracking.tsv`.
+
 ## The cloud does the sync (since 2026-09-10) — the Mac is optional
 
 `python3 scripts/cloud-sync.py` is the coach's sync from any fresh container:
