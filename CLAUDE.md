@@ -300,12 +300,7 @@ from an adversarially-verified tool investigation (workflow, 12 agents).
   2026-09-16**, carrying the score, the IPA phonemes and prosody together.
   It was two passes (en-GB score + en-US phonemes), which billed every
   recording twice; the fix collapsed them into one, but into en-GB, and that
-  was wrong. (The 09-14 commit says the free tier blew that day. It did not:
-  that was arithmetic in a commit message, not an Azure error. Azure served
-  ~374 minutes PAST the 300-minute allowance and only refused on 09-16, which
-  is why the 09-15 and 09-16 reads scored fine when the count said they
-  should not have. F0 enforcement lags — do not read a successful call as
-  proof there is quota left.)
+  was wrong.
   **Microsoft's own docs: prosody "is only available in the `en-US` locale",
   the IPA alphabet is en-US only, and "only `en-US` provides phoneme name
   alongside scores. Other locales receive phoneme scores without names."**
@@ -321,15 +316,20 @@ from an adversarially-verified tool investigation (workflow, 12 agents).
   went from 0 to 70/70 and the class counts roughly tripled (i/ii 15→50,
   s/z 8→44, schwa 7→32). **en-GB and en-US rows are DIFFERENT SERIES** —
   every ledger read row carries `locale`; never draw one line through both.
-  The 09-14 read is still en-GB (the quota ran out mid-rescore); re-run it
-  with `scripts/rescore-reads.py --only 2026-09-14` once the quota resets.
+  The 09-14 read is still en-GB because a single request that long is refused
+  outright — see the correction below; it is not waiting on a quota reset.
   **Also true since 2026-09-15:** asking for prosody makes Azure fold it into
   `PronScore`, so `pron` is a different composite before and after that date.
   **`accuracy`, `fluency` and `completeness` are per-dimension** — but they
   too shift with the locale, so read them within a locale, not across it.
   **NOT a monthly-quota problem — corrected 2026-09-20.** For four days this
   file said September's 5 free audio hours were spent and the loop was blocked.
-  That was wrong, twice over, and both errors were inference dressed as fact.
+  Wrong, and the wrongness went through three drafts before measurement ended
+  it: first "the tier blew on 09-14" (arithmetic in a commit message, never an
+  Azure error), then "Azure served ~374 minutes past the allowance and refused
+  on 09-16" (invented to explain why the later reads worked), then this. Each
+  was an inference dressed as a fact, and each was written into the file that
+  every fresh session reads first.
   Measured instead: `scripts/azure-check.py` against the live service returns
   token 200, scripted en-GB 200/Success and en-US with IPA phonemes and prosody
   91.3. Short assessments work RIGHT NOW. What fails is **one long request**:
