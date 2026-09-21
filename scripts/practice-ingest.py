@@ -341,15 +341,29 @@ def ingest_one(path, out_dir, azure):
             # utterances are folded here with the coach's aggregator. Whisper still ran above —
             # the transcript, wpm and pause metrics are the coach's own and cost nothing.
             side, sc = phone
-            first, last = side.get("first") or sc.get("first"), side.get("last") or sc.get("last")
-            record.update({
-                "kind": "read", "passage": first, "scripted": True,
-                "span": {"first": first, "last": last, "cover": None,
-                         "ref_words": side.get("reference_words"), "ratio": None,
-                         "passages": side.get("passages") or sc.get("passages")},
-                "kind_note": f"read {first}–{last} in the app; scored on the phone ({sc.get('locale')})",
-                "engine": "phone",
-            })
+            if side.get("kind") == "book":
+                # A read made from the reader (app contract, "A page read from the reader"): the pages
+                # are not the coach's passages, so the span stays what the transcript located above
+                # (or nothing), and the phone scored the exact text the pages showed.
+                pages = side.get("pages") or []
+                where = f"pages {pages[0]}–{pages[-1]}" if pages else "pages ?"
+                located = f"located as {span['first']}–{span['last']}" if span else "not located among the passages"
+                record.update({
+                    "kind": "read", "scripted": True, "engine": "phone", "book_md5": side.get("book_md5"),
+                    "kind_note": f"read {where} of {side.get('title') or side.get('filename')} in the reader; {located}; "
+                                 f"scored on the phone ({sc.get('locale')})",
+                })
+                if span: span["ref_words"] = side.get("reference_words") or span.get("ref_words")
+            else:
+                first, last = side.get("first") or sc.get("first"), side.get("last") or sc.get("last")
+                record.update({
+                    "kind": "read", "passage": first, "scripted": True,
+                    "span": {"first": first, "last": last, "cover": None,
+                             "ref_words": side.get("reference_words"), "ratio": None,
+                             "passages": side.get("passages") or sc.get("passages")},
+                    "kind_note": f"read {first}–{last} in the app; scored on the phone ({sc.get('locale')})",
+                    "engine": "phone",
+                })
             try:
                 from azure_pa import _aggregate
                 agg = _aggregate(sc.get("utterances") or [], phoneme_pass=True)
