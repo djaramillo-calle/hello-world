@@ -1,8 +1,30 @@
 {
  "version": 1,
- "written": "2026-09-21T09:50:58Z",
+ "written": "2026-09-21T10:04:12Z",
  "per_session": 5,
  "words": [
+  {
+   "id": "and\\_privileges",
+   "word": "and\\_privileges",
+   "sentence": "Jewish restrictions and\\_privileges had to be abolished together with all other special rights and liberties.",
+   "clip": "clips/and\\_privileges-0.ogg",
+   "ipa": "",
+   "classes": [
+    "schwa"
+   ],
+   "flagged_on": 2,
+   "read_on": 1,
+   "miss_rate": 1.0,
+   "rank": 1000000000,
+   "added": "2026-09-21",
+   "source": "flagged",
+   "sentences": [
+    {
+     "text": "Jewish restrictions and\\_privileges had to be abolished together with all other special rights and liberties.",
+     "clip": "clips/and\\_privileges-0.ogg"
+    }
+   ]
+  },
   {
    "id": "coresponsible",
    "word": "coresponsible",
@@ -79,6 +101,37 @@
    ]
   },
   {
+   "id": "had",
+   "word": "had",
+   "sentence": "This, moreover, had next to nothing.",
+   "clip": "clips/had-2.ogg",
+   "ipa": "",
+   "classes": [
+    "cat/cut",
+    "h"
+   ],
+   "flagged_on": 5,
+   "read_on": 10,
+   "miss_rate": 0.5,
+   "rank": 91,
+   "added": "2026-09-21",
+   "source": "flagged",
+   "sentences": [
+    {
+     "text": "Jewish restrictions and\\_privileges had to be abolished together with all other special rights and liberties.",
+     "clip": "clips/had-0.ogg"
+    },
+    {
+     "text": "The play had to be suspended.",
+     "clip": "clips/had-1.ogg"
+    },
+    {
+     "text": "This, moreover, had next to nothing.",
+     "clip": "clips/had-2.ogg"
+    }
+   ]
+  },
+  {
    "id": "that",
    "word": "that",
    "sentence": "Not that anybody began to doubt the irre-.",
@@ -141,39 +194,40 @@
    ]
   },
   {
-   "id": "had",
-   "word": "had",
-   "sentence": "This, moreover, had next to nothing.",
-   "clip": "clips/had-2.ogg",
+   "id": "was",
+   "word": "was",
+   "sentence": "Nor was Himmler, the most power!",
+   "clip": "clips/was-2.ogg",
    "ipa": "",
    "classes": [
-    "h"
+    "s/z",
+    "schwa"
    ],
    "flagged_on": 3,
    "read_on": 10,
    "miss_rate": 0.3,
-   "rank": 91,
+   "rank": 24,
    "added": "2026-09-21",
    "source": "flagged",
    "sentences": [
     {
-     "text": "Jewish restrictions and\\_privileges had to be abolished together with all other special rights and liberties.",
-     "clip": "clips/had-0.ogg"
+     "text": "I used to skip dinner when I was tired; now I know that recovery starts at the table.",
+     "clip": "clips/was-0.ogg"
     },
     {
-     "text": "The play had to be suspended.",
-     "clip": "clips/had-1.ogg"
+     "text": "Mendelssohn was revered for his uniqueness.",
+     "clip": "clips/was-1.ogg"
     },
     {
-     "text": "This, moreover, had next to nothing.",
-     "clip": "clips/had-2.ogg"
+     "text": "Nor was Himmler, the most power!",
+     "clip": "clips/was-2.ogg"
     }
    ]
   },
   {
    "id": "new-scapegoat",
    "word": "scapegoat",
-   "sentence": "Yet this explanation of antisemitism, like the scapegoat theory and for similar reasons, has outlived its refutation by reality.",
+   "sentence": "Even Fichte, the favorite modern scapegoat for German race-thinking, hardly ever went beyond the limits of nationalism.",
    "clip": "clips/new-scapegoat-2.ogg",
    "ipa": "",
    "classes": [],
@@ -182,7 +236,7 @@
    "added": "2026-09-15",
    "sentences": [
     {
-     "text": "Even Fichte, the favorite modern scapegoat for German race-thinking, hardly ever went beyond the limits of nationalism.",
+     "text": "Yet this explanation of antisemitism, like the scapegoat theory and for similar reasons, has outlived its refutation by reality.",
      "clip": "clips/new-scapegoat-0.ogg"
     },
     {
@@ -190,7 +244,7 @@
      "clip": "clips/new-scapegoat-1.ogg"
     },
     {
-     "text": "Yet this explanation of antisemitism, like the scapegoat theory and for similar reasons, has outlived its refutation by reality.",
+     "text": "Even Fichte, the favorite modern scapegoat for German race-thinking, hardly ever went beyond the limits of nationalism.",
      "clip": "clips/new-scapegoat-2.ogg"
     }
    ]
@@ -215,7 +269,7 @@
   {
    "id": "new-conspicuous",
    "word": "conspicuous",
-   "sentence": "Or, the curious contradiction between the totalitarian movements’ avowed cynical “realism” and their conspicuous disdain of the whole texture of reality.",
+   "sentence": "The more conspicuous the power of totalitarianism the more secret become its true goals.",
    "clip": "clips/new-conspicuous-2.ogg",
    "ipa": "",
    "classes": [],
@@ -224,7 +278,7 @@
    "added": "2026-09-15",
    "sentences": [
     {
-     "text": "The more conspicuous the power of totalitarianism the more secret become its true goals.",
+     "text": "Or, the curious contradiction between the totalitarian movements’ avowed cynical “realism” and their conspicuous disdain of the whole texture of reality.",
      "clip": "clips/new-conspicuous-0.ogg"
     },
     {
@@ -232,7 +286,7 @@
      "clip": "clips/new-conspicuous-1.ogg"
     },
     {
-     "text": "Or, the curious contradiction between the totalitarian movements’ avowed cynical “realism” and their conspicuous disdain of the whole texture of reality.",
+     "text": "The more conspicuous the power of totalitarianism the more secret become its true goals.",
      "clip": "clips/new-conspicuous-2.ogg"
     }
    ]

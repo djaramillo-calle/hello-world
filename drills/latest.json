@@ -1,16 +1,16 @@
 {
- "generated": "2026-09-21T09:50:39Z",
+ "generated": "2026-09-21T10:03:57Z",
  "classes": [
   {
    "class": "i/ii",
-   "count": 59,
+   "count": 82,
    "words": [
     "the",
+    "into",
     "antisemitism",
     "between",
-    "into",
-    "disintegration",
-    "history"
+    "equivocalities",
+    "edicts"
    ],
    "pairs": [
     [
@@ -46,14 +46,14 @@
   },
   {
    "class": "s/z",
-   "count": 52,
+   "count": 61,
    "words": [
     "this",
+    "centuries",
+    "its",
     "disintegration",
     "because",
-    "submitting",
-    "factories",
-    "difficulties"
+    "submitting"
    ],
    "pairs": [
     [
@@ -89,14 +89,14 @@
   },
   {
    "class": "schwa",
-   "count": 39,
+   "count": 57,
    "words": [
-    "imperialism",
     "to",
+    "imperialism",
     "between",
-    "tradition",
-    "deducing",
-    "denying"
+    "than",
+    "and\\_privileges",
+    "tradition"
    ],
    "pairs": [
     [
