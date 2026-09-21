@@ -158,6 +158,21 @@ def sync_reading(drv, work, log=print, dry=False):
     if changed and not dry: dump_json(READING_STATE, state)
     return changed
 
+# Coach->app files live in the same folder and must never be pulled back down.
+COACH_FILES = ("plan.json", "sayit.zip")
+# Say-it attempt recordings. `sayit.py --score` falls back to scoring in the cloud when the phone
+# could not (no key, no network, an error), and to do that it needs the audio sitting beside the
+# sidecar. Until 2026-09-21 this function fetched only .json and .txt, so the audio never arrived
+# and the fallback could not fire ONCE since it was written — four attempts of 2026-09-20 were
+# skipped with "no audio beside it" while the .m4a sat on Drive. sayit.py was correct throughout;
+# nothing tested the two together.
+AUDIO_EXT = (".m4a", ".wav", ".mp3", ".ogg", ".opus", ".aac", ".flac")
+
+
+def _attempt_audio(rel):
+    return rel.startswith("sayit/attempts/") and rel.lower().endswith(AUDIO_EXT)
+
+
 def sync_pairs(drv, work, log=print, dry=False):
     """The Minimal Pairs app's folder (Drive EnglishPractice/pairs ← phone Documents/MinimalPairs via Autosync):
     new session files, state.json and catalog-version.txt → work/pairs (folded by pairs-pull.py --dir).
@@ -166,7 +181,8 @@ def sync_pairs(drv, work, log=print, dry=False):
     if not folder: log("pairs: EnglishPractice/pairs not visible — skipped"); return False
     state = load_json(PAIRS_STATE, {}); dest = work / "pairs"; changed = False
     for rel, f in drv.walk(folder["id"]):
-        if rel == "plan.json" or not (rel.endswith(".json") or rel.endswith(".txt")): continue
+        if rel in COACH_FILES: continue                  # coach->app, never pulled back down
+        if not (rel.endswith(".json") or rel.endswith(".txt") or _attempt_audio(rel)): continue
         if state.get(rel) == f.get("md5Checksum"): continue
         log(f"pairs: {rel} new"); changed = True
         if not dry: drv.download(f["id"], dest / rel); state[rel] = f.get("md5Checksum")
@@ -328,9 +344,19 @@ def selftest():
         pf = root / "EnglishPractice" / "pairs"; (pf / "sessions").mkdir(parents=True)
         (pf / "sessions" / "20260911T070000Z.json").write_text('{"version": 1, "trials": []}'); (pf / "state.json").write_text('{"version": 1}')
         (pf / "plan.json").write_text('{"version": 1, "note": "old"}'); (pf / "clips.zip").write_bytes(b"zip")
+        # a Say-it attempt the phone could not score: the SIDECAR ALONE IS USELESS. sayit.py's cloud
+        # fallback globs for the audio beside it, so if this function skips the .m4a the attempt is
+        # silently dropped with "no audio beside it" — which is exactly what happened to four
+        # attempts on 2026-09-20 while the audio sat on Drive.
+        (pf / "sayit" / "attempts").mkdir(parents=True)
+        (pf / "sayit" / "attempts" / "20260920T202429Z_nazis.json").write_text('{"id": "nazis"}')
+        (pf / "sayit" / "attempts" / "20260920T202429Z_nazis.m4a").write_bytes(b"audio")
         assert sync_pairs(drv, work, log=logs.append) is True
         assert (work / "pairs" / "sessions" / "20260911T070000Z.json").exists() and (work / "pairs" / "state.json").exists()
+        assert (work / "pairs" / "sayit" / "attempts" / "20260920T202429Z_nazis.m4a").read_bytes() == b"audio", \
+            "attempt audio must come down or the cloud fallback can never fire"
         assert not (work / "pairs" / "plan.json").exists() and not (work / "pairs" / "clips.zip").exists()
+        # sayit.zip's exclusion is exercised by the push_file test below, which requires it absent here.
         assert sync_pairs(drv, work, log=logs.append) is False, "second pass: nothing new"
         local_plan = td / "plan.json"; local_plan.write_text('{"version": 1, "note": "new"}')
         assert push_plan(drv, log=logs.append, plan=local_plan) is True and (pf / "plan.json").read_text() == '{"version": 1, "note": "new"}'
