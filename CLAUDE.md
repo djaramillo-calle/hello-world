@@ -287,10 +287,15 @@ The user's decision the evening Read mode shipped: "the reader must work as a re
 and must have a folder in the drive to get the epubs just as koreader". App branch `reader` (PR #3,
 based on `read-mode`), contract section "Reader" in the app repo's `docs/CONTRACT.md`.
 
-- **Books in:** plain EPUBs in the phone folder `Documents/MinimalPairs/library/`, stocked by a
-  download-only Autosync pair from Drive `EnglishPractice/library` (the folder the EPUBs already
-  live in). The app never writes there. **Dictionaries in:** his KOReader StarDict sets (English–
-  Spanish, WordNet 1.7) copied as folders into `Documents/MinimalPairs/dict/`. The app is a real
+- **Books in:** plain EPUBs in the phone folder `Documents/MinimalPairs/library/`, which is INSIDE
+  the app folder's existing two-way Autosync pair — no new pair on the phone. The coach stocks the
+  Drive side: `EnglishPractice/pairs/library/` (the Arendt EPUB copied there 2026-09-21) and
+  `EnglishPractice/pairs/dict/{eng-spa,wordnet}/` (the same two StarDict sets KOReader listed —
+  "English-Spanish dictionary" and "WordNet (r) 1.7", fetched from KOReader's own catalogue URLs).
+  **How a file gets there without the owner:** the session's Google Drive connector acts as the
+  owner (udea.isabella2028) and creates folders and small placeholder files; `scripts/drive.py`
+  (the service account, no quota) then PATCHes the real bytes in place — nothing large through
+  chat. The app never writes under `library/` or `dict/`. The app is a real
   reader: chapters paginated in a WebView, side taps or swipes turn pages, a centre tap shows the
   toolbar (contents, font size), a LONG PRESS looks a word up and offers Save with the sentence it
   sat in; the Words screen is the vocabulary builder and its bin is the curation.
