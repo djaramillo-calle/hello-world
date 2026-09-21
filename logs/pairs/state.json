@@ -1,84 +1,87 @@
 {
   "version": 1,
-  "updated": "2026-09-15T11:11:21Z",
+  "updated": "2026-09-20T20:23:02Z",
   "app_version": "0.3.0",
   "catalog_version": "2026-09-11.2",
-  "sessions_completed": 3,
+  "sessions_completed": 4,
   "streak_days": 1,
-  "last_session": "2026-09-15T11:03:55Z",
+  "last_session": "2026-09-20T20:19:54Z",
   "plan_source": "coach",
   "contrasts": {
     "th": {
-      "trials": 30,
-      "correct": 29,
-      "untrained_trials": 29,
-      "untrained_correct": 28,
+      "trials": 31,
+      "correct": 30,
+      "untrained_trials": 30,
+      "untrained_correct": 29,
       "last_pct": 1.0,
       "last_untrained_pct": 1.0,
       "recent_untrained_pct": [
         0.9545,
         1.0,
+        1.0,
         1.0
       ],
-      "mean_rt_ms": 2909,
-      "words_trained": 32,
+      "mean_rt_ms": 2874,
+      "words_trained": 34,
       "words_total": 169,
-      "level": 2,
-      "level_changed": "2026-09-15T11:11:21Z"
+      "level": 3,
+      "level_changed": "2026-09-20T20:23:02Z"
     },
     "s/z": {
-      "trials": 28,
-      "correct": 13,
-      "untrained_trials": 23,
-      "untrained_correct": 10,
-      "last_pct": 0.375,
-      "last_untrained_pct": 0.4,
+      "trials": 35,
+      "correct": 19,
+      "untrained_trials": 28,
+      "untrained_correct": 15,
+      "last_pct": 0.8571,
+      "last_untrained_pct": 1.0,
       "recent_untrained_pct": [
         0.4444,
-        0.4
+        0.4,
+        1.0
       ],
-      "mean_rt_ms": 2735,
-      "words_trained": 25,
+      "mean_rt_ms": 2628,
+      "words_trained": 31,
       "words_total": 116,
       "level": 1,
       "level_changed": null
     },
     "j/y": {
-      "trials": 4,
-      "correct": 4,
+      "trials": 7,
+      "correct": 6,
       "untrained_trials": 3,
       "untrained_correct": 3,
-      "last_pct": 1.0,
+      "last_pct": 0.6667,
       "last_untrained_pct": 1.0,
       "recent_untrained_pct": [
         1.0
       ],
-      "mean_rt_ms": 12757,
+      "mean_rt_ms": 8197,
       "words_trained": 2,
       "words_total": 13,
       "level": 1,
       "level_changed": null
     },
     "i/ii": {
-      "trials": 19,
-      "correct": 13,
-      "untrained_trials": 15,
-      "untrained_correct": 10,
-      "last_pct": 0.7143,
+      "trials": 32,
+      "correct": 21,
+      "untrained_trials": 21,
+      "untrained_correct": 14,
+      "last_pct": 0.6154,
       "last_untrained_pct": 0.6667,
       "recent_untrained_pct": [
         0.6667,
+        0.6667,
         0.6667
       ],
-      "mean_rt_ms": 3576,
-      "words_trained": 17,
+      "mean_rt_ms": 3029,
+      "words_trained": 23,
       "words_total": 191,
       "level": 1,
       "level_changed": null
     },
     "schwa": {
-      "trials": 10,
-      "correct": 10,
+      "trials": 14,
+      "correct": 14,
       "untrained_trials": 7,
       "untrained_correct": 7,
       "last_pct": 1.0,
@@ -86,61 +89,63 @@
       "recent_untrained_pct": [
         1.0
       ],
-      "mean_rt_ms": 2334,
+      "mean_rt_ms": 2171,
       "words_trained": 6,
       "words_total": 24,
       "level": 1,
       "level_changed": null
     },
     "b/v": {
-      "trials": 3,
-      "correct": 2,
-      "untrained_trials": 1,
-      "untrained_correct": 1,
-      "last_pct": 0.5,
-      "last_untrained_pct": 1.0,
-      "recent_untrained_pct": [
-        1.0
-      ],
-      "mean_rt_ms": 9233,
-      "words_trained": 1,
-      "words_total": 56,
-      "level": 1,
-      "level_changed": null
-    },
-    "long-back": {
-      "trials": 4,
-      "correct": 4,
+      "trials": 7,
+      "correct": 5,
       "untrained_trials": 4,
       "untrained_correct": 4,
-      "last_pct": 1.0,
+      "last_pct": 0.75,
       "last_untrained_pct": 1.0,
       "recent_untrained_pct": [
         1.0,
         1.0
       ],
-      "mean_rt_ms": 4412,
+      "mean_rt_ms": 5096,
+      "words_trained": 4,
+      "words_total": 56,
+      "level": 1,
+      "level_changed": null
+    },
+    "long-back": {
+      "trials": 6,
+      "correct": 5,
+      "untrained_trials": 4,
+      "untrained_correct": 4,
+      "last_pct": 0.5,
+      "last_untrained_pct": 1.0,
+      "recent_untrained_pct": [
+        1.0,
+        1.0
+      ],
+      "mean_rt_ms": 3599,
       "words_trained": 7,
       "words_total": 130,
       "level": 1,
       "level_changed": null
     },
     "h": {
-      "trials": 3,
-      "correct": 3,
-      "untrained_trials": 3,
-      "untrained_correct": 3,
+      "trials": 5,
+      "correct": 5,
+      "untrained_trials": 5,
+      "untrained_correct": 5,
       "last_pct": 1.0,
       "last_untrained_pct": 1.0,
       "recent_untrained_pct": [
         1.0,
+        1.0,
         1.0
       ],
-      "mean_rt_ms": 3653,
-      "words_trained": 5,
+      "mean_rt_ms": 2851,
+      "words_trained": 8,
       "words_total": 87,
-      "level": 1,
-      "level_changed": null
+      "level": 2,
+      "level_changed": "2026-09-20T20:23:02Z"
     },
     "-ed": {
       "trials": 6,
@@ -154,41 +159,42 @@
         1.0
       ],
       "mean_rt_ms": 2685,
-      "words_trained": 22,
+      "words_trained": 26,
       "words_total": 955,
       "level": 1,
       "level_changed": null
     },
     "sh/ch": {
-      "trials": 4,
-      "correct": 3,
+      "trials": 5,
+      "correct": 4,
       "untrained_trials": 4,
       "untrained_correct": 3,
-      "last_pct": 0.5,
+      "last_pct": 1.0,
       "last_untrained_pct": 0.5,
       "recent_untrained_pct": [
         1.0,
         0.5
       ],
-      "mean_rt_ms": 2242,
+      "mean_rt_ms": 2124,
       "words_trained": 5,
       "words_total": 79,
       "level": 1,
       "level_changed": null
     },
     "cat/cut": {
-      "trials": 6,
-      "correct": 5,
-      "untrained_trials": 5,
-      "untrained_correct": 4,
-      "last_pct": 0.6667,
-      "last_untrained_pct": 0.5,
+      "trials": 9,
+      "correct": 8,
+      "untrained_trials": 7,
+      "untrained_correct": 6,
+      "last_pct": 1.0,
+      "last_untrained_pct": 1.0,
       "recent_untrained_pct": [
         1.0,
-        0.5
+        0.5,
+        1.0
       ],
-      "mean_rt_ms": 4462,
-      "words_trained": 6,
+      "mean_rt_ms": 3611,
+      "words_trained": 8,
       "words_total": 191,
       "level": 1,
       "level_changed": null
@@ -313,9 +319,9 @@
       "last": "2026-09-11T12:22:15Z"
     },
     "place": {
-      "exposures": 2,
-      "correct": 2,
-      "last": "2026-09-11T21:32:45Z"
+      "exposures": 3,
+      "correct": 3,
+      "last": "2026-09-20T20:23:02Z"
     },
     "zoo": {
       "exposures": 1,
@@ -343,9 +349,9 @@
       "last": "2026-09-11T12:22:15Z"
     },
     "ones": {
-      "exposures": 2,
+      "exposures": 3,
       "correct": 0,
-      "last": "2026-09-15T11:11:21Z"
+      "last": "2026-09-20T20:23:02Z"
     },
     "their": {
       "exposures": 1,
@@ -413,9 +419,9 @@
       "last": "2026-09-11T12:22:15Z"
     },
     "yet": {
-      "exposures": 2,
-      "correct": 2,
-      "last": "2026-09-15T11:11:21Z"
+      "exposures": 3,
+      "correct": 3,
+      "last": "2026-09-20T20:23:02Z"
     },
     "least": {
       "exposures": 1,
@@ -423,19 +429,19 @@
       "last": "2026-09-11T21:32:45Z"
     },
     "guardian": {
-      "exposures": 2,
-      "correct": 2,
-      "last": "2026-09-11T21:32:45Z"
+      "exposures": 3,
+      "correct": 3,
+      "last": "2026-09-20T20:23:02Z"
     },
     "vote": {
-      "exposures": 3,
+      "exposures": 4,
       "correct": 2,
-      "last": "2026-09-15T11:11:21Z"
+      "last": "2026-09-20T20:23:02Z"
     },
     "seat": {
-      "exposures": 2,
-      "correct": 2,
-      "last": "2026-09-15T11:11:21Z"
+      "exposures": 3,
+      "correct": 3,
+      "last": "2026-09-20T20:23:02Z"
     },
     "pack": {
       "exposures": 1,
@@ -448,14 +454,14 @@
       "last": "2026-09-11T21:32:45Z"
     },
     "hit": {
-      "exposures": 1,
+      "exposures": 2,
       "correct": 1,
-      "last": "2026-09-11T21:32:45Z"
+      "last": "2026-09-20T20:23:02Z"
     },
     "eager": {
-      "exposures": 1,
-      "correct": 1,
-      "last": "2026-09-11T21:32:45Z"
+      "exposures": 2,
+      "correct": 2,
+      "last": "2026-09-20T20:23:02Z"
     },
     "lie": {
       "exposures": 1,
@@ -463,9 +469,9 @@
       "last": "2026-09-11T21:32:45Z"
     },
     "jet": {
-      "exposures": 2,
-      "correct": 2,
-      "last": "2026-09-11T21:32:45Z"
+      "exposures": 4,
+      "correct": 3,
+      "last": "2026-09-20T20:23:02Z"
     },
     "shoes": {
       "exposures": 1,
@@ -473,9 +479,9 @@
       "last": "2026-09-11T21:32:45Z"
     },
     "audition": {
-      "exposures": 1,
-      "correct": 1,
-      "last": "2026-09-11T21:32:45Z"
+      "exposures": 2,
+      "correct": 2,
+      "last": "2026-09-20T20:23:02Z"
     },
     "locked": {
       "exposures": 1,
@@ -493,9 +499,9 @@
       "last": "2026-09-11T21:32:45Z"
     },
     "garden": {
-      "exposures": 2,
-      "correct": 2,
-      "last": "2026-09-15T11:11:21Z"
+      "exposures": 3,
+      "correct": 3,
+      "last": "2026-09-20T20:23:02Z"
     },
     "leaving": {
       "exposures": 2,
@@ -508,9 +514,9 @@
       "last": "2026-09-15T11:11:21Z"
     },
     "beat": {
-      "exposures": 1,
+      "exposures": 2,
       "correct": 1,
-      "last": "2026-09-11T21:32:45Z"
+      "last": "2026-09-20T20:23:02Z"
     },
     "fan": {
       "exposures": 1,
@@ -533,9 +539,9 @@
       "last": "2026-09-15T11:11:21Z"
     },
     "rich": {
-      "exposures": 1,
+      "exposures": 2,
       "correct": 1,
-      "last": "2026-09-11T21:32:45Z"
+      "last": "2026-09-20T20:23:02Z"
     },
     "field": {
       "exposures": 1,
@@ -543,9 +549,9 @@
       "last": "2026-09-11T21:32:45Z"
     },
     "feet": {
-      "exposures": 2,
-      "correct": 2,
-      "last": "2026-09-15T11:11:21Z"
+      "exposures": 3,
+      "correct": 3,
+      "last": "2026-09-20T20:23:02Z"
     },
     "chair": {
       "exposures": 1,
@@ -553,9 +559,9 @@
       "last": "2026-09-11T21:32:45Z"
     },
     "ran": {
-      "exposures": 1,
-      "correct": 1,
-      "last": "2026-09-11T21:32:45Z"
+      "exposures": 2,
+      "correct": 2,
+      "last": "2026-09-20T20:23:02Z"
     },
     "work": {
       "exposures": 1,
@@ -563,9 +569,9 @@
       "last": "2026-09-11T21:32:45Z"
     },
     "heart": {
-      "exposures": 1,
+      "exposures": 2,
       "correct": 1,
-      "last": "2026-09-11T21:32:45Z"
+      "last": "2026-09-20T20:23:02Z"
     },
     "sing": {
       "exposures": 1,
@@ -578,9 +584,9 @@
       "last": "2026-09-11T21:32:45Z"
     },
     "list": {
-      "exposures": 1,
-      "correct": 0,
-      "last": "2026-09-11T21:32:45Z"
+      "exposures": 2,
+      "correct": 1,
+      "last": "2026-09-20T20:23:02Z"
     },
     "bit": {
       "exposures": 1,
@@ -623,9 +629,9 @@
       "last": "2026-09-15T11:11:21Z"
     },
     "wish": {
-      "exposures": 1,
-      "correct": 1,
-      "last": "2026-09-15T11:11:21Z"
+      "exposures": 2,
+      "correct": 2,
+      "last": "2026-09-20T20:23:02Z"
     },
     "reach": {
       "exposures": 1,
@@ -648,9 +654,9 @@
       "last": "2026-09-15T11:11:21Z"
     },
     "steal": {
-      "exposures": 1,
-      "correct": 1,
-      "last": "2026-09-15T11:11:21Z"
+      "exposures": 2,
+      "correct": 2,
+      "last": "2026-09-20T20:23:02Z"
     },
     "loose": {
       "exposures": 1,
@@ -678,9 +684,9 @@
       "last": "2026-09-15T11:11:21Z"
     },
     "park": {
-      "exposures": 1,
-      "correct": 1,
-      "last": "2026-09-15T11:11:21Z"
+      "exposures": 2,
+      "correct": 2,
+      "last": "2026-09-20T20:23:02Z"
     },
     "raise": {
       "exposures": 1,
@@ -716,11 +722,106 @@
       "exposures": 1,
       "correct": 1,
       "last": "2026-09-15T11:11:21Z"
+    },
+    "cause": {
+      "exposures": 1,
+      "correct": 1,
+      "last": "2026-09-20T20:23:02Z"
+    },
+    "sit": {
+      "exposures": 1,
+      "correct": 1,
+      "last": "2026-09-20T20:23:02Z"
+    },
+    "eyes": {
+      "exposures": 1,
+      "correct": 1,
+      "last": "2026-09-20T20:23:02Z"
+    },
+    "eye": {
+      "exposures": 1,
+      "correct": 1,
+      "last": "2026-09-20T20:23:02Z"
+    },
+    "boat": {
+      "exposures": 1,
+      "correct": 1,
+      "last": "2026-09-20T20:23:02Z"
+    },
+    "filled": {
+      "exposures": 1,
+      "correct": 0,
+      "last": "2026-09-20T20:23:02Z"
+    },
+    "miss": {
+      "exposures": 1,
+      "correct": 1,
+      "last": "2026-09-20T20:23:02Z"
+    },
+    "feel": {
+      "exposures": 1,
+      "correct": 1,
+      "last": "2026-09-20T20:23:02Z"
+    },
+    "living": {
+      "exposures": 1,
+      "correct": 1,
+      "last": "2026-09-20T20:23:02Z"
+    },
+    "cupboard": {
+      "exposures": 1,
+      "correct": 1,
+      "last": "2026-09-20T20:23:02Z"
+    },
+    "race": {
+      "exposures": 1,
+      "correct": 1,
+      "last": "2026-09-20T20:23:02Z"
+    },
+    "fit": {
+      "exposures": 1,
+      "correct": 0,
+      "last": "2026-09-20T20:23:02Z"
+    },
+    "advice": {
+      "exposures": 1,
+      "correct": 1,
+      "last": "2026-09-20T20:23:02Z"
+    },
+    "fun": {
+      "exposures": 1,
+      "correct": 1,
+      "last": "2026-09-20T20:23:02Z"
+    },
+    "vest": {
+      "exposures": 1,
+      "correct": 1,
+      "last": "2026-09-20T20:23:02Z"
+    },
+    "truck": {
+      "exposures": 1,
+      "correct": 1,
+      "last": "2026-09-20T20:23:02Z"
+    },
+    "eat": {
+      "exposures": 1,
+      "correct": 1,
+      "last": "2026-09-20T20:23:02Z"
+    },
+    "bin": {
+      "exposures": 1,
+      "correct": 1,
+      "last": "2026-09-20T20:23:02Z"
+    },
+    "dice": {
+      "exposures": 1,
+      "correct": 1,
+      "last": "2026-09-20T20:23:02Z"
     }
   },
   "practice": {
     "longest_streak": 1,
-    "total_seconds": 903,
+    "total_seconds": 1091,
     "days": {
       "2026-09-11": {
         "sessions": 1,
@@ -730,6 +831,11 @@
       "2026-09-15": {
         "sessions": 1,
         "seconds": 446,
+        "perception_trials": 40
+      },
+      "2026-09-20": {
+        "sessions": 1,
+        "seconds": 188,
         "perception_trials": 40
       }
     }

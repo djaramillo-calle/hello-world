@@ -96,7 +96,27 @@
    "best": 98.0,
    "last": 98.0,
    "status": "active"
+  },
+  "coresponsible": {
+   "id": "coresponsible",
+   "attempts": [
+    {
+     "at": "2026-09-20T20:23:27Z",
+     "file": "20260920T202327Z_coresponsible.json",
+     "accuracy": 96.0,
+     "fluency": 94.0,
+     "pron": 94.6,
+     "completeness": 95.0,
+     "flagged": [
+      "simply"
+     ],
+     "source": "phone-azure"
+    }
+   ],
+   "best": 96.0,
+   "last": 96.0,
+   "status": "active"
   }
  },
- "updated": "2026-09-15T18:33:25Z"
+ "updated": "2026-09-21T07:36:25Z"
 }

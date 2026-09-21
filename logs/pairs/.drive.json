@@ -1,5 +1,5 @@
 {
- "state.json": "0f7ceefda124347c26fc5738d7b18f5f",
+ "state.json": "03636f7fa465a97547082fed060b9d06",
  "sessions/20260911T212508Z.json": "98a9097b0575e80bad08fd3dbf38d0f2",
  "sessions/20260911T121636Z.json": "cda41013a2d12bf7877e452a92dbeeeb",
  "catalog-version.txt": "7ad77c5891be904d14ee5c84093656f1",
@@ -15,5 +15,12 @@
  "sayit/attempts/20260915T111340Z_situation.json": "383348d0c9a765dc873d4b3ef00c81db",
  "sayit/attempts/20260915T111253Z_impartial.json": "73688da71cde5313851849ac4e95836f",
  "sayit/attempts/20260915T111201Z_under.json": "976821ff023cf670d6f67526c6ae68c2",
- "sessions/20260915T110355Z.json": "272b8f5a6a0ee1a3e7ee6ef6401787a3"
+ "sessions/20260915T110355Z.json": "272b8f5a6a0ee1a3e7ee6ef6401787a3",
+ "sayit/scores/20260920T202327Z_coresponsible.json": "b1572103a81afee735e3d36e9e81570f",
+ "sayit/attempts/20260920T202618Z_new-conspicuous.json": "e4136dc996f3aa8a004bb0290fb476e9",
+ "sayit/attempts/20260920T202530Z_new-chagrin.json": "7c2e3ef395ebbede6c8a36213d72d4fe",
+ "sayit/attempts/20260920T202501Z_that.json": "c0a721595a9b0c556f372441a4165c0d",
+ "sayit/attempts/20260920T202429Z_nazis.json": "3919caea3c1505d066c2e89ce168fe34",
+ "sayit/attempts/20260920T202327Z_coresponsible.json": "f642b8c98e1ead0f5e6e5d9f5aed64cb",
+ "sessions/20260920T201954Z.json": "30747be55c21804cb73aace880058eb4"
 }
