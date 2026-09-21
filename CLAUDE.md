@@ -234,7 +234,7 @@ retires or goes to the tutor.
   a daily habit. The coach's own key still never reaches the phone. The app writes one immutable
   `sayit/scores/<ts>_<id>.json` per attempt; `sayit.py --score` takes that score as-is and only calls Azure
   itself when the phone could not (no key, no network, an error) — the fallback, never the rule.
-- **ONE coach→app file, `sayit.zip`** (words.json + results.json + clips/<id>.ogg, en-GB neural TTS).
+- **ONE coach→app file, `sayit.zip`** (words.json + results.json + read.json + clips/<id>.ogg, **en-US** neural TTS since 2026-09-21 — the phone scores Say-it in en-US from the same day, so the model heard and the reference scored agree; every results.json row carries `locale`, and en-GB rows before that date are a different series).
   The Drive service account has no storage quota and can only PATCH files that already exist, so the owner
   created an empty `sayit.zip` once (2026-09-13, alongside `plan.json` 2026-09-11) and `push_file` in
   cloud-sync overwrites it in place forever. Never try to create a Drive file from the service account.
@@ -271,7 +271,7 @@ push to `main` cuts a release, so it ships when he merges.
   phone scored, and never trusts the phone's arithmetic**. The record carries `engine: "phone"`.
 - **Locale is en-US on the phone too** (`ReadAssessor.LOCALE`), for the reasons in the Azure
   section; a page scored in the app is one row of the same series as a cloud-scored read.
-  Say-it attempts still score en-GB on the phone — a known divergence, not yet aligned.
+  Say-it moved to en-US on the phone the same day (app branch `read-mode`), so the divergence is closed; only the Minimal Pairs catalog keeps its six en-GB voices.
 - **The trend** (`TrendScreen`): one 0–100 axis, four series in fixed order (accuracy, fluency,
   completeness, prosody), palette validated with the data-viz skill for both surfaces, legend +
   end labels + a table (the light palette's contrast warning makes the table mandatory). Data =

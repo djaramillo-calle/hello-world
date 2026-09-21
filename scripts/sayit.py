@@ -13,7 +13,7 @@ records the attempt and writes it to the synced folder; the scoring happens here
 
 Files (inside the app's folder, Drive EnglishPractice/pairs, docs/CONTRACT.md in the app repo):
   sayit.zip                   coach → app: ONE file holding words.json, results.json and clips/<id>.ogg
-                              (an en-GB neural voice reading each `sentence`). One file because the Drive
+                              (an en-US neural voice reading each `sentence`). One file because the Drive
                               service account has no storage quota and can only PATCH files that already
                               exist — the owner created an empty sayit.zip once, and it is updated in place
                               forever after. The app unpacks it; it never writes it.
@@ -34,7 +34,11 @@ REPO = pathlib.Path(__file__).resolve().parent.parent
 OUT = REPO / "logs" / "sayit"
 LEDGER = REPO / "logs" / "pronunciation-ledger.json"
 PRACTICE = REPO / "logs" / "practice"
-VOICE = "en-GB-RyanNeural"
+# en-US since 2026-09-21, the same day the phone's scoring moved to en-US: the model he imitates
+# and the reference he is scored against must be the same accent, or the drill teaches one thing
+# and marks another. Existing en-GB clips were deleted so every sentence re-renders in this voice.
+VOICE = "en-US-AndrewNeural"
+TTS_LANG = "en-US"
 MAX_ACTIVE = 12          # what the app may hold; it shows per_session of them a day
 PER_SESSION = 5
 MIN_FLAGGED = 2          # a word must have been flagged on this many recordings (same bar as the cards)
@@ -315,7 +319,7 @@ def tts(text, dest, voice=VOICE, key=None, region=None):
     """Azure neural text-to-speech → Ogg/Opus. Key stays here; the phone only ever sees the bytes."""
     key = key or os.environ.get("AZURE_SPEECH_KEY"); region = region or os.environ.get("AZURE_SPEECH_REGION")
     if not key or not region: return False
-    ssml = (f'<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xml:lang="en-GB">'
+    ssml = (f'<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xml:lang="{TTS_LANG}">'
             f'<voice name="{voice}"><prosody rate="-8%">{_xml(text)}</prosody></voice></speak>')
     req = urllib.request.Request(
         f"https://{region}.tts.speech.microsoft.com/cognitiveservices/v1", data=ssml.encode("utf-8"),
@@ -450,7 +454,7 @@ def pack(out=OUT, dest=None):
     return dest
 
 def score_one(audio, sentence, azure=None):
-    """One attempt → the en-GB scripted scores. Needs the practice venv (Azure SDK) and ffmpeg."""
+    """One attempt → the scripted scores in azure_pa.LOCALE (en-US). Needs the practice venv (Azure SDK) and ffmpeg."""
     azure = azure or _load("azure_pa")
     with tempfile.TemporaryDirectory() as td:
         wav = pathlib.Path(td) / "a.wav"
@@ -458,7 +462,7 @@ def score_one(audio, sentence, azure=None):
         r = azure.dual_locale_assessment(str(wav), reference_text=sentence)
     gb = (r.get("en_gb") or {}).get("overall") or {}
     return {"accuracy": gb.get("accuracy"), "fluency": gb.get("fluency"), "pron": gb.get("pron"),
-            "completeness": gb.get("completeness"),
+            "completeness": gb.get("completeness"), "locale": r.get("locale") or azure.LOCALE,
             "flagged": [w.get("word") for w in ((r.get("en_gb") or {}).get("flagged_words") or [])][:8]}
 
 def status_for(rec, today=None, retire_at=RETIRE_AT, retire_hits=RETIRE_HITS, tutor_weeks=TUTOR_WEEKS):
@@ -485,8 +489,11 @@ def phone_score(src, stem):
     f = pathlib.Path(src) / "sayit" / "scores" / f"{stem}.json"
     d = load_json(f, None)
     if not isinstance(d, dict) or d.get("accuracy") is None: return None
+    # `locale` travels with every score: the phone assessed in en-GB until 2026-09-21 and en-US
+    # after, the cloud fallback in en-US since 09-16, and results.json holds all of them. A row
+    # without its locale cannot be placed on a series.
     return {"accuracy": d.get("accuracy"), "fluency": d.get("fluency"), "pron": d.get("pron"),
-            "completeness": d.get("completeness"),
+            "completeness": d.get("completeness"), "locale": d.get("locale") or "en-GB",
             "flagged": list(d.get("flagged") or [])[:8], "source": d.get("source") or "phone"}
 
 def void_attempt(meta):

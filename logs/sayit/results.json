@@ -17,7 +17,8 @@
      "pron": 96.8,
      "completeness": 100.0,
      "flagged": [],
-     "source": "phone-azure"
+     "source": "phone-azure",
+     "locale": "en-GB"
     }
    ],
    "best": 99.0,
@@ -36,7 +37,8 @@
      "pron": 97.4,
      "completeness": 100.0,
      "flagged": [],
-     "source": "phone-azure"
+     "source": "phone-azure",
+     "locale": "en-GB"
     }
    ],
    "best": 99.0,
@@ -54,7 +56,8 @@
      "pron": 98.0,
      "completeness": 100.0,
      "flagged": [],
-     "source": "phone-azure"
+     "source": "phone-azure",
+     "locale": "en-GB"
     }
    ],
    "best": 99.0,
@@ -72,7 +75,8 @@
      "pron": 96.8,
      "completeness": 100.0,
      "flagged": [],
-     "source": "phone-azure"
+     "source": "phone-azure",
+     "locale": "en-GB"
     }
    ],
    "best": 99.0,
@@ -90,7 +94,8 @@
      "pron": 97.8,
      "completeness": 100.0,
      "flagged": [],
-     "source": "phone-azure"
+     "source": "phone-azure",
+     "locale": "en-GB"
     }
    ],
    "best": 98.0,
@@ -110,7 +115,8 @@
      "flagged": [
       "simply"
      ],
-     "source": "phone-azure"
+     "source": "phone-azure",
+     "locale": "en-GB"
     }
    ],
    "best": 96.0,
@@ -130,7 +136,8 @@
      "flagged": [
       "evinced"
      ],
-     "source": "cloud"
+     "source": "cloud",
+     "locale": "en-US"
     }
    ],
    "best": 92.0,
@@ -148,7 +155,8 @@
      "pron": 91.8,
      "completeness": 100.0,
      "flagged": [],
-     "source": "cloud"
+     "source": "cloud",
+     "locale": "en-US"
     }
    ],
    "best": 98.0,
@@ -168,7 +176,8 @@
      "flagged": [
       "chagrin"
      ],
-     "source": "cloud"
+     "source": "cloud",
+     "locale": "en-US"
     }
    ],
    "best": 96.3,
@@ -188,7 +197,8 @@
      "flagged": [
       "conspicuous"
      ],
-     "source": "cloud"
+     "source": "cloud",
+     "locale": "en-US"
     }
    ],
    "best": 96.0,
@@ -196,5 +206,6 @@
    "status": "active"
   }
  },
- "updated": "2026-09-21T07:44:10Z"
+ "updated": "2026-09-21T07:44:10Z",
+ "locale_note": "Every attempt carries `locale`. Phone-scored attempts before 2026-09-21 are en-GB; cloud-scored attempts (the fallback) are en-US since 2026-09-16; the phone scores en-US from 2026-09-21. en-GB and en-US rows are DIFFERENT SERIES — never compare a word's best across them. The model clips moved to an en-US voice the same day."
 }
