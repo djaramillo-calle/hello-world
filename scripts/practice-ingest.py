@@ -56,9 +56,27 @@ def sha256(path):
             h.update(chunk)
     return h.hexdigest()
 
+def ffmpeg_exe():
+    """The ffmpeg to run: the one on PATH, else the binary imageio-ffmpeg ships inside the venv.
+
+    A bare "ffmpeg" is not a safe assumption. The cloud container has none, and on 2026-09-21 that
+    is what stopped four Say-it attempts from being scored through the cloud fallback — the audio
+    had finally arrived and the conversion died with FileNotFoundError. The practice venv already
+    depends on imageio-ffmpeg, so the binary is always there; it just is not called "ffmpeg"."""
+    from shutil import which
+    found = which("ffmpeg")
+    if found:
+        return found
+    try:
+        import imageio_ffmpeg
+        return imageio_ffmpeg.get_ffmpeg_exe()
+    except Exception:
+        return "ffmpeg"          # let subprocess raise the familiar error
+
+
 def to_wav(src, dst):
     subprocess.run(
-        ["ffmpeg", "-y", "-loglevel", "error", "-i", str(src),
+        [ffmpeg_exe(), "-y", "-loglevel", "error", "-i", str(src),
          "-ar", "16000", "-ac", "1", "-sample_fmt", "s16", str(dst)],
         check=True)
 
