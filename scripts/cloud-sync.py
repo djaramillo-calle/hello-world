@@ -173,16 +173,49 @@ def _attempt_audio(rel):
     return rel.startswith("sayit/attempts/") and rel.lower().endswith(AUDIO_EXT)
 
 
-def sync_pairs(drv, work, log=print, dry=False):
+SAYIT_RESULTS = REPO / "logs" / "sayit" / "results.json"
+
+
+def _sayit_done(path=None):
+    """Attempt sidecar names already folded into results.json.
+
+    The md5 state is the WRONG marker for Say-it. It says "downloaded once, ever", while the work
+    directory it downloaded into is a temp dir wiped after every run — and in a fresh container it
+    never existed. So a sidecar fetched on Monday is gone by Tuesday and never comes back, and on
+    2026-09-21 the audio finally arrived into a work dir whose sidecars had been consumed days
+    earlier: 0 scored, with both halves sitting on Drive.
+
+    results.json is committed to git, so it is the only durable record of what has actually been
+    scored. That is the marker."""
+    d = load_json(path or SAYIT_RESULTS, {})
+    return {a.get("file") for r in (d.get("words") or {}).values() for a in (r.get("attempts") or [])}
+
+
+def _sayit_pending(rel, done):
+    """True for a Say-it file whose attempt has not been scored yet — fetch it however old it is."""
+    if not (rel.startswith("sayit/attempts/") or rel.startswith("sayit/scores/")):
+        return False
+    return (pathlib.PurePosixPath(rel).stem + ".json") not in done
+
+
+def sync_pairs(drv, work, log=print, dry=False, sayit_results=None):
     """The Minimal Pairs app's folder (Drive EnglishPractice/pairs ← phone Documents/MinimalPairs via Autosync):
     new session files, state.json and catalog-version.txt → work/pairs (folded by pairs-pull.py --dir).
     Returns True when something new came down."""
     folder = drv.resolve("EnglishPractice/pairs")
     if not folder: log("pairs: EnglishPractice/pairs not visible — skipped"); return False
     state = load_json(PAIRS_STATE, {}); dest = work / "pairs"; changed = False
+    done = _sayit_done(sayit_results)
     for rel, f in drv.walk(folder["id"]):
         if rel in COACH_FILES: continue                  # coach->app, never pulled back down
         if not (rel.endswith(".json") or rel.endswith(".txt") or _attempt_audio(rel)): continue
+        # An unscored Say-it attempt comes down EVERY run, sidecar and audio together, until
+        # results.json says it was scored. Everything else is fetched once by md5.
+        if _sayit_pending(rel, done):
+            log(f"pairs: {rel} pending"); changed = True
+            # the md5 is still recorded, so the ordinary path takes over the moment it is scored
+            if not dry: drv.download(f["id"], dest / rel); state[rel] = f.get("md5Checksum")
+            continue
         if state.get(rel) == f.get("md5Checksum"): continue
         log(f"pairs: {rel} new"); changed = True
         if not dry: drv.download(f["id"], dest / rel); state[rel] = f.get("md5Checksum")
@@ -351,13 +384,30 @@ def selftest():
         (pf / "sayit" / "attempts").mkdir(parents=True)
         (pf / "sayit" / "attempts" / "20260920T202429Z_nazis.json").write_text('{"id": "nazis"}')
         (pf / "sayit" / "attempts" / "20260920T202429Z_nazis.m4a").write_bytes(b"audio")
-        assert sync_pairs(drv, work, log=logs.append) is True
+        res = td / "results.json"
+        res.write_text(json.dumps({"words": {"nazis": {"attempts": [{"file": "20260920T202429Z_nazis.json"}]}}}))
+        assert sync_pairs(drv, work, log=logs.append, sayit_results=res) is True
         assert (work / "pairs" / "sessions" / "20260911T070000Z.json").exists() and (work / "pairs" / "state.json").exists()
         assert (work / "pairs" / "sayit" / "attempts" / "20260920T202429Z_nazis.m4a").read_bytes() == b"audio", \
             "attempt audio must come down or the cloud fallback can never fire"
+        # An unscored attempt must come down AGAIN into a fresh work dir. The md5 state says
+        # "fetched once, ever", but the work dir is temporary and a fresh container never had one,
+        # so a sidecar fetched on a previous run is simply gone. results.json is the durable marker.
+        work2 = td / "work2"; work2.mkdir()
+        res.write_text(json.dumps({"words": {}}))
+        assert sync_pairs(drv, work2, log=logs.append, sayit_results=res) is True
+        assert (work2 / "pairs" / "sayit" / "attempts" / "20260920T202429Z_nazis.json").exists(), \
+            "an unscored attempt must be re-fetched into a new work dir"
+        assert (work2 / "pairs" / "sayit" / "attempts" / "20260920T202429Z_nazis.m4a").exists()
+        # ...and stop coming down once results.json records it
+        res.write_text(json.dumps({"words": {"nazis": {"attempts": [{"file": "20260920T202429Z_nazis.json"}]}}}))
+        work3 = td / "work3"; work3.mkdir()
+        sync_pairs(drv, work3, log=logs.append, sayit_results=res)
+        assert not (work3 / "pairs" / "sayit").exists(), "a scored attempt must not be fetched again"
         assert not (work / "pairs" / "plan.json").exists() and not (work / "pairs" / "clips.zip").exists()
         # sayit.zip's exclusion is exercised by the push_file test below, which requires it absent here.
-        assert sync_pairs(drv, work, log=logs.append) is False, "second pass: nothing new"
+        # "nothing new" only once the attempt is scored — an UNSCORED one must keep coming down
+        assert sync_pairs(drv, work, log=logs.append, sayit_results=res) is False, "second pass: nothing new"
         local_plan = td / "plan.json"; local_plan.write_text('{"version": 1, "note": "new"}')
         assert push_plan(drv, log=logs.append, plan=local_plan) is True and (pf / "plan.json").read_text() == '{"version": 1, "note": "new"}'
         assert push_plan(drv, log=logs.append, plan=local_plan) is False, "same md5: no upload"
