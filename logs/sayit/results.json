@@ -116,7 +116,85 @@
    "best": 96.0,
    "last": 96.0,
    "status": "active"
+  },
+  "nazis": {
+   "id": "nazis",
+   "attempts": [
+    {
+     "at": "2026-09-20T20:24:29Z",
+     "file": "20260920T202429Z_nazis.json",
+     "accuracy": 92.0,
+     "fluency": 96.0,
+     "pron": 88.9,
+     "completeness": 100.0,
+     "flagged": [
+      "evinced"
+     ],
+     "source": "cloud"
+    }
+   ],
+   "best": 92.0,
+   "last": 92.0,
+   "status": "active"
+  },
+  "that": {
+   "id": "that",
+   "attempts": [
+    {
+     "at": "2026-09-20T20:25:01Z",
+     "file": "20260920T202501Z_that.json",
+     "accuracy": 98.0,
+     "fluency": 100.0,
+     "pron": 91.8,
+     "completeness": 100.0,
+     "flagged": [],
+     "source": "cloud"
+    }
+   ],
+   "best": 98.0,
+   "last": 98.0,
+   "status": "active"
+  },
+  "new-chagrin": {
+   "id": "new-chagrin",
+   "attempts": [
+    {
+     "at": "2026-09-20T20:25:30Z",
+     "file": "20260920T202530Z_new-chagrin.json",
+     "accuracy": 96.3,
+     "fluency": 84.6,
+     "pron": 88.6,
+     "completeness": 96.6,
+     "flagged": [
+      "chagrin"
+     ],
+     "source": "cloud"
+    }
+   ],
+   "best": 96.3,
+   "last": 96.3,
+   "status": "active"
+  },
+  "new-conspicuous": {
+   "id": "new-conspicuous",
+   "attempts": [
+    {
+     "at": "2026-09-20T20:26:18Z",
+     "file": "20260920T202618Z_new-conspicuous.json",
+     "accuracy": 96.0,
+     "fluency": 100.0,
+     "pron": 91.6,
+     "completeness": 100.0,
+     "flagged": [
+      "conspicuous"
+     ],
+     "source": "cloud"
+    }
+   ],
+   "best": 96.0,
+   "last": 96.0,
+   "status": "active"
   }
  },
- "updated": "2026-09-21T07:36:25Z"
+ "updated": "2026-09-21T07:44:10Z"
 }
