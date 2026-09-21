@@ -263,8 +263,26 @@ def passage_text(pid):
         return P["anchor"]["text"]
     return next((p["text"] for p in P.get("passages", []) if p.get("id") == pid), None)
 
+def phone_read(path):
+    """The sidecar and score the Minimal Pairs app writes beside a page it recorded and scored
+    itself (`reads/<stem>.json`, `reads/<stem>.score.json`). Returns (sidecar, score) or None.
+
+    A page read in the app is scored on the phone, so the reference is known by construction and
+    Azure has already been paid: nothing here calls it again. The score file carries every raw
+    utterance Azure returned, and the coach folds those with its OWN aggregator so the row sits on
+    the same series as a cloud-scored read — the phone's port of that aggregator is for its screen."""
+    side = path.with_suffix(".json")
+    score = path.parent / (path.stem + ".score.json")
+    if not (side.is_file() and score.is_file()): return None
+    try:
+        return json.loads(side.read_text(encoding="utf-8")), json.loads(score.read_text(encoding="utf-8"))
+    except Exception:
+        return None
+
+
 def ingest_one(path, out_dir, azure):
     kind, pid = recording_kind(path.name)
+    phone = phone_read(path)
     with tempfile.TemporaryDirectory() as td:
         wav = Path(td) / "rec.wav"
         to_wav(path, wav)
@@ -318,7 +336,34 @@ def ingest_one(path, out_dir, azure):
             "word_confidences": words,
             "azure": None,
         }
-        if azure:
+        if phone:
+            # Scored on the phone: the app's sidecar says exactly what was read, and its raw
+            # utterances are folded here with the coach's aggregator. Whisper still ran above —
+            # the transcript, wpm and pause metrics are the coach's own and cost nothing.
+            side, sc = phone
+            first, last = side.get("first") or sc.get("first"), side.get("last") or sc.get("last")
+            record.update({
+                "kind": "read", "passage": first, "scripted": True,
+                "span": {"first": first, "last": last, "cover": None,
+                         "ref_words": side.get("reference_words"), "ratio": None,
+                         "passages": side.get("passages") or sc.get("passages")},
+                "kind_note": f"read {first}–{last} in the app; scored on the phone ({sc.get('locale')})",
+                "engine": "phone",
+            })
+            try:
+                from azure_pa import _aggregate
+                agg = _aggregate(sc.get("utterances") or [], phoneme_pass=True)
+                agg["locale"] = sc.get("locale")
+                record["azure"] = {
+                    "scripted": True, "locale": sc.get("locale"), "en_gb": agg,
+                    "en_us_targets": {"overall_prosody": agg["overall"].get("prosody"),
+                                      "phoneme_findings": [w for w in agg["flagged_words"] if w.get("phonemes")]},
+                    "source": sc.get("source") or "phone-azure",
+                    "note": "scored on the phone (Minimal Pairs app); raw utterances re-aggregated by the coach",
+                }
+            except Exception as e:
+                record["azure"] = {"error": f"phone score could not be folded: {e}"}
+        elif azure:
             try:
                 from azure_pa import dual_locale_assessment
                 record["azure"] = dual_locale_assessment(wav, reference_text=reference)

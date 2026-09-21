@@ -380,12 +380,70 @@ def build(out=OUT, ledger_path=LEDGER, practice_dir=PRACTICE, render=True, today
 def _now():
     return dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
+READ_WINDOW = 40          # passages shipped ahead of the pointer: about eight days of reading
+READ_LOCALE = "en-US"     # the only locale in the trend; en-GB rows are a different series
+
+
+def _passage_key(pid):
+    """'B110' -> ('B', 110) so ids order numerically, not lexically ('B99' < 'B100')."""
+    m = re.match(r"^([A-Za-z]*)(\d+)$", str(pid or ""))
+    return (m.group(1), int(m.group(2))) if m else (str(pid), 0)
+
+
+def read_pointer(practice_dir=PRACTICE, ledger_path=LEDGER):
+    """The passage to read next: the one after the furthest chunk any scored read reached.
+
+    Every read record carries `span.last` (the cloud's matcher) or the app's `last` (a page read in
+    the app); the pointer is the successor of the maximum. The Hub's `book_next` is not consulted:
+    it is where the Read tab wants him to START, which is this same value as of the last sync."""
+    last = None
+    for f in sorted(pathlib.Path(practice_dir).glob("*.json")):
+        if f.name.startswith(".") or f.name.endswith(".review.json"): continue
+        try: d = json.loads(f.read_text(encoding="utf-8"))
+        except Exception: continue
+        if d.get("kind") != "read": continue
+        pid = (d.get("span") or {}).get("last") or d.get("passage")
+        if pid and (last is None or _passage_key(pid) > _passage_key(last)): last = pid
+    if not last: return None
+    prefix, n = _passage_key(last)
+    return f"{prefix}{n + 1}"
+
+
+def read_pack(out=OUT, practice_dir=PRACTICE, ledger_path=LEDGER, library=None, window=READ_WINDOW):
+    """read.json: the pointer, a window of passages from it, and the coach's en-US read rows.
+
+    Ships INSIDE sayit.zip because the Drive service account can only PATCH a file the owner
+    created once, and sayit.zip is that file. The book text travels through his private Drive
+    only — it is copyrighted and never enters the public app repository."""
+    out = pathlib.Path(out)
+    lib = library or next(iter(sorted((REPO / "library").glob("*.json"))), None)
+    book = json.loads(pathlib.Path(lib).read_text(encoding="utf-8")) if lib and pathlib.Path(lib).exists() else {}
+    chunks = book.get("chunks") or []
+    pointer = read_pointer(practice_dir, ledger_path) or (chunks[0]["id"] if chunks else None)
+    ids = [c["id"] for c in chunks]
+    start = ids.index(pointer) if pointer in ids else 0
+    passages = [{"id": c["id"], "chapter": c.get("chapter"), "words": c.get("words"), "text": c.get("text", "")}
+                for c in chunks[start:start + window]]
+    ledger = load_json(ledger_path, {})
+    history = [{"date": r.get("date"), "first": r.get("passage"), "last": r.get("last"),
+                "accuracy": r.get("accuracy"), "fluency": r.get("fluency"),
+                "completeness": r.get("completeness"), "prosody": r.get("prosody"),
+                "locale": r.get("locale"), "source": r.get("source") or "cloud"}
+               for r in (ledger.get("reads") or []) if r.get("locale") == READ_LOCALE]
+    payload = {"version": 1, "written": _now(),
+               "book": {"slug": pathlib.Path(lib).stem if lib else "", "title": book.get("title", ""),
+                        "author": book.get("author", "")},
+               "pointer": pointer, "passages": passages, "history": history}
+    dump_json(out / "read.json", payload)
+    return payload
+
+
 def pack(out=OUT, dest=None):
-    """words.json + results.json + the clips → one zip, the only coach→app payload (see the header)."""
+    """words.json + results.json + read.json + the clips → one zip, the only coach→app payload."""
     out = pathlib.Path(out); dest = pathlib.Path(dest or out / "sayit.zip")
     dest.parent.mkdir(parents=True, exist_ok=True)
     with zipfile.ZipFile(dest, "w", zipfile.ZIP_DEFLATED) as z:
-        for name in ("words.json", "results.json"):
+        for name in ("words.json", "results.json", "read.json"):
             if (out / name).exists(): z.write(out / name, name)
         for clip in sorted((out / "clips").glob("*.ogg")) if (out / "clips").is_dir() else []:
             z.write(clip, f"clips/{clip.name}")
@@ -693,6 +751,9 @@ def main():
         ws, rendered = build(render=not a.no_render)
         print(f"sayit: {len(ws)} word(s) to say" + (f", {rendered} clip(s) rendered" if rendered else "")
               + (" — " + ", ".join(w["id"] for w in ws[:5]) if ws else " (nothing flagged twice yet)"))
+    if a.build:
+        rp = read_pack()
+        print(f"sayit: read.json — pointer {rp.get('pointer')}, {len(rp.get('passages') or [])} passages, {len(rp.get('history') or [])} history rows")
     if a.pack or a.build:
         z = pack()
         print(f"sayit: packed {z.relative_to(REPO)} ({z.stat().st_size // 1024} KB)")

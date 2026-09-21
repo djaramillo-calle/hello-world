@@ -198,7 +198,38 @@ def _sayit_pending(rel, done):
     return (pathlib.PurePosixPath(rel).stem + ".json") not in done
 
 
-def sync_pairs(drv, work, log=print, dry=False, sayit_results=None):
+PRACTICE_DIR = REPO / "logs" / "practice"
+
+
+def _reads_done(practice=None):
+    """Audio names of pages already ingested: the practice record's `source` is the durable marker
+    (committed to git), for exactly the reason results.json is Say-it's."""
+    out = set()
+    for f in pathlib.Path(practice or PRACTICE_DIR).glob("*.json"):
+        if f.name.startswith(".") or f.name.endswith(".review.json"): continue
+        try: out.add(json.loads(f.read_text(encoding="utf-8")).get("source"))
+        except Exception: pass
+    return out
+
+
+def _read_stem(rel):
+    """`reads/<stem>.m4a|.json|.score.json` -> <stem>, else None."""
+    if not rel.startswith("reads/"): return None
+    name = rel.split("/", 1)[1]
+    for ext in (".score.json", ".json", ".m4a", ".wav", ".mp3", ".ogg", ".opus", ".aac", ".flac"):
+        if name.endswith(ext): return name[: -len(ext)]
+    return None
+
+
+def _read_pending(rel, done):
+    """A page the app recorded (and maybe scored) that the coach has not ingested: all three files
+    come down every run until the practice record exists."""
+    stem = _read_stem(rel)
+    if not stem: return False
+    return not any(src and src.startswith(stem + ".") for src in done)
+
+
+def sync_pairs(drv, work, log=print, dry=False, sayit_results=None, practice_dir=None):
     """The Minimal Pairs app's folder (Drive EnglishPractice/pairs ← phone Documents/MinimalPairs via Autosync):
     new session files, state.json and catalog-version.txt → work/pairs (folded by pairs-pull.py --dir).
     Returns True when something new came down."""
@@ -206,12 +237,13 @@ def sync_pairs(drv, work, log=print, dry=False, sayit_results=None):
     if not folder: log("pairs: EnglishPractice/pairs not visible — skipped"); return False
     state = load_json(PAIRS_STATE, {}); dest = work / "pairs"; changed = False
     done = _sayit_done(sayit_results)
+    reads_done = _reads_done(practice_dir)
     for rel, f in drv.walk(folder["id"]):
         if rel in COACH_FILES: continue                  # coach->app, never pulled back down
-        if not (rel.endswith(".json") or rel.endswith(".txt") or _attempt_audio(rel)): continue
+        if not (rel.endswith(".json") or rel.endswith(".txt") or _attempt_audio(rel) or _read_stem(rel)): continue
         # An unscored Say-it attempt comes down EVERY run, sidecar and audio together, until
         # results.json says it was scored. Everything else is fetched once by md5.
-        if _sayit_pending(rel, done):
+        if _sayit_pending(rel, done) or _read_pending(rel, reads_done):
             log(f"pairs: {rel} pending"); changed = True
             # the md5 is still recorded, so the ordinary path takes over the moment it is scored
             if not dry: drv.download(f["id"], dest / rel); state[rel] = f.get("md5Checksum")
@@ -283,6 +315,18 @@ def main():
     try:
         if sync_pairs(drv, work, dry=dry) and not dry:
             run([sys.executable, SCRIPTS / "pairs-pull.py", "--dir", work / "pairs"])
+            # Pages read in the app: the audio, its sidecar and (usually) its phone score sit
+            # together under work/pairs/reads. practice-ingest folds the phone score itself and
+            # never calls Azure for these; the practice record it writes is what stops the
+            # re-download. Whisper still runs, so the ingest needs the practice venv.
+            reads = work / "pairs" / "reads"
+            if reads.is_dir() and any(p.suffix.lower() in (".m4a", ".wav", ".mp3", ".ogg") for p in reads.iterdir()):
+                if run(["bash", SCRIPTS / "cloud-setup.sh"]) == 0:
+                    env = {**os.environ, "PATH": f"{REPO / '.venv-practice' / 'bin'}:{os.environ.get('PATH', '')}"}
+                    if run([REPO / ".venv-practice" / "bin" / "python", SCRIPTS / "practice-ingest.py", "--source", reads], env=env) == 0:
+                        run([sys.executable, SCRIPTS / "practice-review.py"])
+                    else:
+                        print("cloud-sync: app-read ingest FAILED — the pages come back next run")
         elif not dry:
             run([sys.executable, SCRIPTS / "pairs-pull.py", "--plan"])   # the ledger may have moved: keep the plan current
         push_plan(drv, dry=dry)
@@ -399,6 +443,18 @@ def selftest():
         assert (work2 / "pairs" / "sayit" / "attempts" / "20260920T202429Z_nazis.json").exists(), \
             "an unscored attempt must be re-fetched into a new work dir"
         assert (work2 / "pairs" / "sayit" / "attempts" / "20260920T202429Z_nazis.m4a").exists()
+        # a page the app read and scored: all three files come down until a practice record names it
+        (pf / "reads").mkdir()
+        for n in ("20260921T092923Z_B110-B114.m4a", "20260921T092923Z_B110-B114.json", "20260921T092923Z_B110-B114.score.json"):
+            (pf / "reads" / n).write_bytes(b"x")
+        prac = td / "practice"; prac.mkdir()
+        w4 = td / "work4"; w4.mkdir()
+        assert sync_pairs(drv, w4, log=logs.append, sayit_results=res, practice_dir=prac) is True
+        assert (w4 / "pairs" / "reads" / "20260921T092923Z_B110-B114.score.json").exists(), "the page must come down"
+        (prac / "2026-09-21-x.json").write_text(json.dumps({"source": "20260921T092923Z_B110-B114.m4a", "kind": "read"}))
+        w5 = td / "work5"; w5.mkdir()
+        sync_pairs(drv, w5, log=logs.append, sayit_results=res, practice_dir=prac)
+        assert not (w5 / "pairs" / "reads").exists(), "an ingested page must not be fetched again"
         # ...and stop coming down once results.json records it
         res.write_text(json.dumps({"words": {"nazis": {"attempts": [{"file": "20260920T202429Z_nazis.json"}]}}}))
         work3 = td / "work3"; work3.mkdir()
@@ -407,7 +463,7 @@ def selftest():
         assert not (work / "pairs" / "plan.json").exists() and not (work / "pairs" / "clips.zip").exists()
         # sayit.zip's exclusion is exercised by the push_file test below, which requires it absent here.
         # "nothing new" only once the attempt is scored — an UNSCORED one must keep coming down
-        assert sync_pairs(drv, work, log=logs.append, sayit_results=res) is False, "second pass: nothing new"
+        assert sync_pairs(drv, work, log=logs.append, sayit_results=res, practice_dir=prac) is False, "second pass: nothing new"
         local_plan = td / "plan.json"; local_plan.write_text('{"version": 1, "note": "new"}')
         assert push_plan(drv, log=logs.append, plan=local_plan) is True and (pf / "plan.json").read_text() == '{"version": 1, "note": "new"}'
         assert push_plan(drv, log=logs.append, plan=local_plan) is False, "same md5: no upload"

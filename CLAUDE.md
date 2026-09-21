@@ -244,6 +244,43 @@ retires or goes to the tutor.
 - Every `cloud-sync.py` run: score the new attempts → rebuild the words → push the zip. The app contract
   lives in `docs/CONTRACT.md` of the app repo and must not drift from `scripts/sayit.py`.
 
+## Read mode (the daily page, read and scored IN the app) — 2026-09-21
+
+The user asked for the daily read-aloud to be caught, processed, scored and plotted by the app
+rather than by the coach. The chosen shape (his decision, 2026-09-21, "App records it"): the app
+SHOWS the passage and records him reading it, so the reference text is known by construction —
+one Azure pass on his own phone resource, no Whisper on the phone, nothing to guess. The
+alternative (catch the ASR recorder's file and work out what was read) needs either Whisper
+on-device or a second Azure pass, and reintroduces the reference-guessing that produced a week
+of wrong scores before the span matcher was fixed. Branch `read-mode` in the app repo; every
+push to `main` cuts a release, so it ships when he merges.
+
+- **Coach → app:** `read.json` INSIDE `sayit.zip` (the only PATCHable coach→app file): `pointer`
+  = the successor of the furthest chunk any scored read reached (`sayit.read_pointer`), ~40
+  passages of text from there (`READ_WINDOW`), and the coach's **en-US** read rows as `history`
+  for the trend. `sayit.py --build` rebuilds it every sync. **The book text is copyrighted:
+  `logs/sayit/read.json` and `logs/sayit/sayit.zip` are gitignored; they travel through his
+  private Drive only and never enter either repository.**
+- **App → coach:** `Documents/MinimalPairs/reads/<ts>_<first>-<last>.{m4a,json,score.json}` —
+  recording, sidecar (passages read, `reference_sha256`), and the phone's score with **Azure's
+  raw utterances verbatim**. `cloud-sync.sync_pairs` fetches a page on every run until a
+  practice record names its audio (the same durable-marker rule as Say-it's results.json),
+  then `practice-ingest --source work/pairs/reads` ingests it: Whisper still runs (transcript,
+  wpm, pauses are the coach's own), but `phone_read()` takes the span from the sidecar and folds
+  the raw utterances with `azure_pa._aggregate` — **the coach never calls Azure for a page the
+  phone scored, and never trusts the phone's arithmetic**. The record carries `engine: "phone"`.
+- **Locale is en-US on the phone too** (`ReadAssessor.LOCALE`), for the reasons in the Azure
+  section; a page scored in the app is one row of the same series as a cloud-scored read.
+  Say-it attempts still score en-GB on the phone — a known divergence, not yet aligned.
+- **The trend** (`TrendScreen`): one 0–100 axis, four series in fixed order (accuracy, fluency,
+  completeness, prosody), palette validated with the data-viz skill for both surfaces, legend +
+  end labels + a table (the light palette's contrast warning makes the table mandatory). Data =
+  the phone's own rows (`filesDir/reads/rows.json`) + the pack's en-US `history`; one point per
+  day, the later read wins.
+- **Long reads:** the app caps a take at 30 minutes (`AttemptRecorder.READ_MAX_MS`); Azure
+  refuses a single request somewhere above ~37, so a page never hits that ceiling.
+- Nothing from any of this reaches `tracking.tsv`.
+
 ## The cloud does the sync (since 2026-09-10) — the Mac is optional
 
 `python3 scripts/cloud-sync.py` is the coach's sync from any fresh container:
