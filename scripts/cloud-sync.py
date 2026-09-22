@@ -159,7 +159,30 @@ def sync_reading(drv, work, log=print, dry=False):
     return changed
 
 # Coach->app files live in the same folder and must never be pulled back down.
-COACH_FILES = ("plan.json", "sayit.zip")
+COACH_FILES = ("plan.json", "sayit.zip", "manifest.json")
+COACH_DIRS = ("library/", "dict/")
+
+# The app's own Drive folder (app repo docs/CONTRACT.md, "Drive sync", 2026-09-22): the app makes
+# `English Runbook` in the signed-in account and shares it with this service account; every file
+# there is created by the app and the coach only ever PATCHes bytes into the empty placeholders it
+# finds. While the app still mirrors through Autosync, `EnglishPractice/pairs` is the folder.
+APP_ROOT = "English Runbook"
+LEGACY_PAIRS = "EnglishPractice/pairs"
+_PAIRS = {}
+
+def pairs_folder(drv, log=print):
+    """The app's folder on Drive: the shared `English Runbook` when the built-in sync has made one, else the Autosync mirror."""
+    k = id(drv)
+    if k not in _PAIRS:
+        f = drv.resolve(APP_ROOT)
+        if f: log(f"pairs: the app's own Drive folder '{APP_ROOT}' is shared — using it")
+        found = f or drv.resolve(LEGACY_PAIRS)
+        if not found: return None          # a miss is not remembered: the folder may appear later in the run (and in the selftest)
+        _PAIRS[k] = (found, bool(f))
+    return _PAIRS[k][0]
+
+def pairs_is_app_folder(drv):
+    return bool(_PAIRS.get(id(drv), (None, False))[1])
 # Say-it attempt recordings. `sayit.py --score` falls back to scoring in the cloud when the phone
 # could not (no key, no network, an error), and to do that it needs the audio sitting beside the
 # sidecar. Until 2026-09-21 this function fetched only .json and .txt, so the audio never arrived
@@ -233,13 +256,13 @@ def sync_pairs(drv, work, log=print, dry=False, sayit_results=None, practice_dir
     """The Minimal Pairs app's folder (Drive EnglishPractice/pairs ← phone Documents/MinimalPairs via Autosync):
     new session files, state.json and catalog-version.txt → work/pairs (folded by pairs-pull.py --dir).
     Returns True when something new came down."""
-    folder = drv.resolve("EnglishPractice/pairs")
+    folder = pairs_folder(drv, log)
     if not folder: log("pairs: EnglishPractice/pairs not visible — skipped"); return False
     state = load_json(PAIRS_STATE, {}); dest = work / "pairs"; changed = False
     done = _sayit_done(sayit_results)
     reads_done = _reads_done(practice_dir)
     for rel, f in drv.walk(folder["id"]):
-        if rel in COACH_FILES: continue                  # coach->app, never pulled back down
+        if rel in COACH_FILES or rel.startswith(COACH_DIRS): continue   # coach->app, never pulled back down
         if not (rel.endswith(".json") or rel.endswith(".txt") or _attempt_audio(rel) or _read_stem(rel) or rel.startswith("reading/")): continue
         # An unscored Say-it attempt comes down EVERY run, sidecar and audio together, until
         # results.json says it was scored. Everything else is fetched once by md5.
@@ -254,12 +277,13 @@ def sync_pairs(drv, work, log=print, dry=False, sayit_results=None, practice_dir
     if changed and not dry: dump_json(PAIRS_STATE, state)
     return changed
 
-def push_file(drv, local, remote_name, folder="EnglishPractice/pairs", log=print, dry=False):
+def push_file(drv, local, remote_name, folder=None, log=print, dry=False):
     """Update a coach→app file in place. The service account has NO storage quota, so it can only PATCH a
-    file that already exists — the owner creates each one once (plan.json 2026-09-11, sayit.zip 2026-09-13)."""
+    file that already exists — the owner creates each one once (plan.json 2026-09-11, sayit.zip 2026-09-13),
+    or the app does, as an empty placeholder, in its own folder."""
     local = pathlib.Path(local)
     if not local.exists(): return False
-    f = drv.resolve(folder)
+    f = pairs_folder(drv, log) if folder is None else drv.resolve(folder)
     if not f: return False
     remote = next((x for x in drv.children(f["id"]) if x["name"] == remote_name), None)
     if not remote:
@@ -275,7 +299,7 @@ def push_plan(drv, log=print, dry=False, plan=None):
     only PATCH an existing file — never create). The phone's Autosync carries it to the app."""
     plan = pathlib.Path(plan or PAIRS_PLAN)
     if not plan.exists(): return False
-    folder = drv.resolve("EnglishPractice/pairs")
+    folder = pairs_folder(drv, log)
     if not folder: return False
     remote = next((f for f in drv.children(folder["id"]) if f["name"] == "plan.json"), None)
     if not remote: log("pairs: plan.json is not on Drive yet — the owner creates it once (see docs/HUB.md)"); return False
@@ -283,6 +307,41 @@ def push_plan(drv, log=print, dry=False, plan=None):
     if dry: log("pairs: plan.json would be updated"); return True
     try: drv.upload(plan, folder["id"]); log("pairs: plan.json updated on Drive"); return True
     except Exception as e: log(f"pairs: plan.json NOT updated — {type(e).__name__}: {str(e)[:160]}"); return False
+
+def stock_app_folder(drv, work, log=print, dry=False):
+    """The app's own folder (app repo docs/CONTRACT.md, "Drive sync"): write `manifest.json` — the books
+    and dictionaries the phone should hold, the same files `EnglishPractice/pairs/library` and `/dict`
+    carry — and fill the empty placeholders the app made for them. Two coach runs per new file: one to
+    list it, one to fill it; the app makes the placeholder in between. Nothing here when the app still
+    syncs through Autosync. Returns the number of files filled."""
+    if not pairs_is_app_folder(drv): return 0
+    root = pairs_folder(drv, log)
+    legacy = drv.resolve(LEGACY_PAIRS)
+    sources = {}   # rel path → legacy file dict
+    if legacy:
+        for rel, f in drv.walk(legacy["id"]):
+            if rel.startswith(COACH_DIRS) and not any(seg.startswith(".") or seg.endswith(".tmp") for seg in rel.split("/")):
+                sources[rel] = f
+    manifest = {"version": 1, "files": sorted(sources)}
+    mpath = work / "manifest.json"; mpath.parent.mkdir(parents=True, exist_ok=True)
+    mpath.write_text(json.dumps(manifest, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    push_file(drv, mpath, "manifest.json", log=log, dry=dry)
+    filled = 0
+    have = dict(drv.walk(root["id"]))
+    for rel, src in sources.items():
+        cur = have.get(rel)
+        if cur is None: log(f"pairs: {rel} has no placeholder yet — the app makes it on its next pass"); continue
+        if cur.get("md5Checksum") == src.get("md5Checksum") and int(cur.get("size") or 0) > 0: continue
+        parent = drv.resolve(f"{APP_ROOT}/{rel.rsplit('/', 1)[0]}") if "/" in rel else root
+        if not parent: continue
+        if dry: log(f"pairs: {rel} would be filled"); filled += 1; continue
+        local = work / "stock" / rel
+        try:
+            drv.download(src["id"], local); drv.upload(local, parent["id"], name=rel.rsplit("/", 1)[-1])
+            log(f"pairs: {rel} filled ({int(src.get('size') or 0) // 1024} KB)"); filled += 1
+        except Exception as e:
+            log(f"pairs: {rel} NOT filled — {type(e).__name__}: {str(e)[:120]}")
+    return filled
 
 def main():
     a = sys.argv[1:]
@@ -340,6 +399,7 @@ def main():
             run([py if py.exists() else sys.executable, SCRIPTS / "sayit.py", "--score", "--dir", work / "pairs"])
             run([sys.executable, SCRIPTS / "sayit.py", "--build"])
             push_file(drv, SAYIT_ZIP, "sayit.zip", dry=dry)
+        stock_app_folder(drv, work, dry=dry)
     except (SystemExit, Exception) as e:   # the pairs app must never block the rest
         print(f"cloud-sync: pairs step failed — {type(e).__name__}: {str(e)[:200]}")
     if not dry:
@@ -479,6 +539,27 @@ def selftest():
         (pf / "sayit.zip").write_bytes(b"old")
         assert push_file(drv, zp, "sayit.zip", log=logs.append) is True and (pf / "sayit.zip").read_bytes() == zp.read_bytes()
         assert push_file(drv, zp, "sayit.zip", log=logs.append) is False, "same md5: no upload"
+        # The app's own folder (built-in sync): once `English Runbook` is shared, it is THE pairs folder;
+        # the coach writes manifest.json into the app's placeholder and fills the ones for books/dicts.
+        (pf / "library").mkdir(); (pf / "library" / "A__B.epub").write_bytes(b"epub-bytes")
+        (pf / "dict" / "eng-spa").mkdir(parents=True); (pf / "dict" / "eng-spa" / "eng-spa.ifo").write_bytes(b"ifo")
+        (pf / "dict" / ".cache").mkdir(); (pf / "dict" / ".cache" / "x").write_bytes(b"no")
+        app = root / APP_ROOT; (app / "sessions").mkdir(parents=True)
+        for n in ("plan.json", "sayit.zip", "manifest.json"): (app / n).write_bytes(b"")
+        (app / "sessions" / "20260922T200000Z.json").write_text(json.dumps({"id": "20260922T200000Z"}))
+        drv2 = FakeDrive(root); w6 = td / "work6"; w6.mkdir()
+        assert sync_pairs(drv2, w6, log=logs.append, sayit_results=res, practice_dir=prac) is True and any("using it" in l for l in logs)
+        assert (w6 / "pairs" / "sessions" / "20260922T200000Z.json").exists(), "sessions come from the app's folder now"
+        assert not (w6 / "pairs" / "manifest.json").exists(), "manifest.json is coach→app, never pulled"
+        assert stock_app_folder(drv2, w6, log=logs.append) == 0 and any("no placeholder yet" in l for l in logs)
+        m = json.loads((app / "manifest.json").read_text())
+        assert m["files"] == ["dict/eng-spa/eng-spa.ifo", "library/A__B.epub"], m
+        (app / "library").mkdir(); (app / "library" / "A__B.epub").write_bytes(b"")          # the app's placeholders
+        (app / "dict" / "eng-spa").mkdir(parents=True); (app / "dict" / "eng-spa" / "eng-spa.ifo").write_bytes(b"")
+        assert stock_app_folder(drv2, w6, log=logs.append) == 2
+        assert (app / "library" / "A__B.epub").read_bytes() == b"epub-bytes" and (app / "dict" / "eng-spa" / "eng-spa.ifo").read_bytes() == b"ifo"
+        assert stock_app_folder(drv2, w6, log=logs.append) == 0, "same md5: nothing re-filled"
+        assert push_plan(drv2, log=logs.append, plan=local_plan) is True and (app / "plan.json").read_text() == local_plan.read_text()
         globals()["load_json"] = real_load_json
     print("cloud-sync.py selftest: OK")
 
