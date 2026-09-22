@@ -1,6 +1,6 @@
 {
  "version": 1,
- "written": "2026-09-21T18:32:58Z",
+ "written": "2026-09-22T07:36:43Z",
  "per_session": 5,
  "words": [
   {
@@ -16,7 +16,7 @@
    "read_on": 1,
    "miss_rate": 1.0,
    "rank": 1000000000,
-   "added": "2026-09-21",
+   "added": "2026-09-22",
    "source": "flagged",
    "sentences": [
     {
@@ -38,7 +38,7 @@
    "read_on": 1,
    "miss_rate": 1.0,
    "rank": 1000000000,
-   "added": "2026-09-21",
+   "added": "2026-09-22",
    "source": "flagged",
    "sentences": [
     {
@@ -61,7 +61,7 @@
    "read_on": 1,
    "miss_rate": 1.0,
    "rank": 16349,
-   "added": "2026-09-21",
+   "added": "2026-09-22",
    "source": "flagged",
    "sentences": [
     {
@@ -73,8 +73,8 @@
   {
    "id": "nazis",
    "word": "nazis",
-   "sentence": "It has already been noticed that the Nazis were not simple nationalists.",
-   "clip": "clips/nazis-2.ogg",
+   "sentence": "The failure to take seriously what the Nazis themselves said is comprehensible enough.",
+   "clip": "clips/nazis-0.ogg",
    "ipa": "",
    "classes": [
     "s/z"
@@ -83,7 +83,7 @@
    "read_on": 2,
    "miss_rate": 1.0,
    "rank": 6375,
-   "added": "2026-09-21",
+   "added": "2026-09-22",
    "source": "flagged",
    "sentences": [
     {
@@ -103,8 +103,8 @@
   {
    "id": "had",
    "word": "had",
-   "sentence": "This, moreover, had next to nothing.",
-   "clip": "clips/had-2.ogg",
+   "sentence": "Jewish restrictions and\\_privileges had to be abolished together with all other special rights and liberties.",
+   "clip": "clips/had-0.ogg",
    "ipa": "",
    "classes": [
     "cat/cut",
@@ -114,7 +114,7 @@
    "read_on": 10,
    "miss_rate": 0.5,
    "rank": 91,
-   "added": "2026-09-21",
+   "added": "2026-09-22",
    "source": "flagged",
    "sentences": [
     {
@@ -134,8 +134,8 @@
   {
    "id": "that",
    "word": "that",
-   "sentence": "Not that anybody began to doubt the irre-.",
-   "clip": "clips/that-2.ogg",
+   "sentence": "I used to skip dinner when I was tired; now I know that recovery starts at the table.",
+   "clip": "clips/that-0.ogg",
    "ipa": "",
    "classes": [
     "schwa",
@@ -145,7 +145,7 @@
    "read_on": 17,
    "miss_rate": 0.41,
    "rank": 8,
-   "added": "2026-09-21",
+   "added": "2026-09-22",
    "source": "flagged",
    "sentences": [
     {
@@ -165,8 +165,8 @@
   {
    "id": "jewish",
    "word": "jewish",
-   "sentence": "A Hidden Tradition,” in Jewish Social Studies, Vol.",
-   "clip": "clips/jewish-2.ogg",
+   "sentence": "Jewish restrictions and\\_privileges had to be abolished together with all other special rights and liberties.",
+   "clip": "clips/jewish-0.ogg",
    "ipa": "",
    "classes": [
     "i/ii",
@@ -176,7 +176,7 @@
    "read_on": 10,
    "miss_rate": 0.3,
    "rank": 3098,
-   "added": "2026-09-21",
+   "added": "2026-09-22",
    "source": "flagged",
    "sentences": [
     {
@@ -196,8 +196,8 @@
   {
    "id": "was",
    "word": "was",
-   "sentence": "Nor was Himmler, the most power!",
-   "clip": "clips/was-2.ogg",
+   "sentence": "I used to skip dinner when I was tired; now I know that recovery starts at the table.",
+   "clip": "clips/was-0.ogg",
    "ipa": "",
    "classes": [
     "s/z",
@@ -207,7 +207,7 @@
    "read_on": 10,
    "miss_rate": 0.3,
    "rank": 24,
-   "added": "2026-09-21",
+   "added": "2026-09-22",
    "source": "flagged",
    "sentences": [
     {
@@ -228,7 +228,7 @@
    "id": "new-scapegoat",
    "word": "scapegoat",
    "sentence": "Yet this explanation of antisemitism, like the scapegoat theory and for similar reasons, has outlived its refutation by reality.",
-   "clip": "clips/new-scapegoat-2.ogg",
+   "clip": "clips/new-scapegoat-0.ogg",
    "ipa": "",
    "classes": [],
    "source": "new",
@@ -236,7 +236,7 @@
    "added": "2026-09-15",
    "sentences": [
     {
-     "text": "Even Fichte, the favorite modern scapegoat for German race-thinking, hardly ever went beyond the limits of nationalism.",
+     "text": "Yet this explanation of antisemitism, like the scapegoat theory and for similar reasons, has outlived its refutation by reality.",
      "clip": "clips/new-scapegoat-0.ogg"
     },
     {
@@ -244,7 +244,7 @@
      "clip": "clips/new-scapegoat-1.ogg"
     },
     {
-     "text": "Yet this explanation of antisemitism, like the scapegoat theory and for similar reasons, has outlived its refutation by reality.",
+     "text": "Even Fichte, the favorite modern scapegoat for German race-thinking, hardly ever went beyond the limits of nationalism.",
      "clip": "clips/new-scapegoat-2.ogg"
     }
    ]
@@ -270,7 +270,7 @@
    "id": "new-conspicuous",
    "word": "conspicuous",
    "sentence": "Or, the curious contradiction between the totalitarian movements’ avowed cynical “realism” and their conspicuous disdain of the whole texture of reality.",
-   "clip": "clips/new-conspicuous-2.ogg",
+   "clip": "clips/new-conspicuous-0.ogg",
    "ipa": "",
    "classes": [],
    "source": "new",
@@ -278,7 +278,7 @@
    "added": "2026-09-15",
    "sentences": [
     {
-     "text": "The more conspicuous the power of totalitarianism the more secret become its true goals.",
+     "text": "Or, the curious contradiction between the totalitarian movements’ avowed cynical “realism” and their conspicuous disdain of the whole texture of reality.",
      "clip": "clips/new-conspicuous-0.ogg"
     },
     {
@@ -286,7 +286,7 @@
      "clip": "clips/new-conspicuous-1.ogg"
     },
     {
-     "text": "Or, the curious contradiction between the totalitarian movements’ avowed cynical “realism” and their conspicuous disdain of the whole texture of reality.",
+     "text": "The more conspicuous the power of totalitarianism the more secret become its true goals.",
      "clip": "clips/new-conspicuous-2.ogg"
     }
    ]
@@ -294,8 +294,8 @@
   {
    "id": "new-parasitical",
    "word": "parasitical",
-   "sentence": "Only wealth without power or aloofness without a policy are felt to be parasitical, useless, revolting, because such conditions cut all the threads which tie men together.",
-   "clip": "clips/new-parasitical-0.ogg",
+   "sentence": "More important, it protected its owners against the menacing prospect of remaining entirely superfluous and parasitical.",
+   "clip": "clips/new-parasitical-1.ogg",
    "ipa": "",
    "classes": [],
    "source": "new",
@@ -315,8 +315,8 @@
   {
    "id": "new-uprootedness",
    "word": "uprootedness",
-   "sentence": "Only the horror of the final catastrophe, and even more the homelessness and uprootedness of the survivors, made the “Jewish question” so prominent in our everyday political life.",
-   "clip": "clips/new-uprootedness-0.ogg",
+   "sentence": "Uprootedness can be the preliminary condition for superfluousness, just as isolation can (but must not) be the preliminary condition for loneliness.",
+   "clip": "clips/new-uprootedness-1.ogg",
    "ipa": "",
    "classes": [],
    "source": "new",
