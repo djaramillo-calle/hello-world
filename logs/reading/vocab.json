@@ -2833,7 +2833,20 @@
    "streak": 0,
    "highlight": "",
    "carded": false
+  },
+  {
+   "id": "app:oblivion",
+   "word": "oblivion",
+   "stem": "oblivion",
+   "usage": "And this is why all efforts to escape from the grimness of the present into nostalgia for a still intact past, or into the anticipated oblivion of a better future, are vain.",
+   "book": "The Origins of Totalitarianism",
+   "ts": 1790110646000,
+   "source": "app",
+   "review_count": 0,
+   "streak": 0,
+   "highlight": "",
+   "carded": false
   }
  ],
- "synced": "2026-09-21"
+ "synced": "2026-09-22"
 }
