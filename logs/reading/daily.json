@@ -48,5 +48,14 @@
   "books": [
    "Hannah_Arendt__The_Origins_of_Totalitarianism"
   ]
+ },
+ "2026-09-22": {
+  "min": 2.3,
+  "pages": 0,
+  "books": [
+   "Hannah_Arendt__The_Origins_of_Totalitarianism"
+  ],
+  "ko_min": 0.0,
+  "app_min": 2.3
  }
 }

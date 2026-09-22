@@ -1,12 +1,13 @@
 {
  "the-origins-of-totalitarianism": {
   "title": "The Origins of Totalitarianism",
-  "percentage": 0.0826,
-  "passage": "B119",
-  "page": 91,
-  "total_pages": 1102,
-  "device": null,
-  "timestamp": "2026-09-21T09:32:31Z",
-  "source": "statistics"
+  "percentage": 0.0183,
+  "passage": "B027",
+  "page": null,
+  "total_pages": null,
+  "chapter": null,
+  "device": "app",
+  "timestamp": "2026-09-22T11:29:38Z",
+  "source": "app"
  }
 }
