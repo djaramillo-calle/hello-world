@@ -310,7 +310,7 @@ based on `read-mode`), contract section "Reader" in the app repo's `docs/CONTRAC
 
 The user's design, adopted whole: "a preprocessing step. An epub is added, the app screens for junk,
 some confirmation estimates the confidence in deleting the word, and the epub is cleaned" — and no
-tokens spent reading the book. App branch `cleanup` (PR #21), contract section "Cleanup".
+tokens spent reading the book. App PR #21, merged 2026-09-23; contract section "Cleanup".
 
 - **Scan (deterministic, offline):** `scripts/epub-scan.py <slug>` looks every word of every passage up in
   WordNet's index (the same StarDict set the phone holds, fetched once from the app folder's `dict/`
