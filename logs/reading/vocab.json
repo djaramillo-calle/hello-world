@@ -2858,7 +2858,8 @@
    "review_count": 0,
    "streak": 0,
    "highlight": "",
-   "carded": false
+   "carded": true,
+   "dropped": true
   },
   {
    "id": "app:massacres",
