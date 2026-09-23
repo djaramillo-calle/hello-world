@@ -335,3 +335,44 @@ are already queued, and the 25/week cap is spent. Adding more would be noise.
 in CLAUDE.md). Recordings still transcribe locally; they just get no scores. The
 09-14 read stays stranded in en-GB until the quota resets or the resource moves
 to S0.
+
+## 2026-09-23 — daily review
+
+**Read of the day (the app, phone-scored, en-US): B007, 128 s, 75 wpm, no fillers.**
+accuracy 96.1 · fluency 91.5 · completeness 97.6 · prosody 83.9. Flagged: *continuity* 57,
+*mischievous* 51, *antiquity* 76, and three that are the text's fault, not his — *Apmsesinsy* 56
+(the scanner's drop-cap misread of ANTISEMITISM, which he dutifully read aloud), *1950* 47 (a
+number), *ideology—which* 69 (an em-dash welded token). Classes on this page: i/ii 5, s/z 4,
+schwa 3, cat/cut 2. Ledger totals unchanged in order: i/ii 87, s/z 65, schwa 60, b/v 36.
+
+**The junk word he was scored on is gone.** Cleanup went live today (app build 86): 60 certain
+misreads fixed in the EPUB and the passages without a verdict, *Apmsesinsy → Antisemitism*
+among them once the heading rule was allowed to use the book's own vocabulary (WordNet lacks
+the unhyphenated word). 497 page headers stripped from the phone's copy. 1,269 candidates wait
+on the phone — probable 464, doubtful 802, three certain without a proposal, one running head.
+
+**Chat harvest (fast technical typing, written register — nothing here measures speech).**
+- *"to keep reading flow"* — article omission before an abstract noun. This is the baseline
+  watch item; one more occurrence in its column.
+- *"the record button is not visible at all so cannot start"* — subject dropped (Spanish
+  pro-drop). WATCHING; first logged occurrence.
+- *"if a press click it is save and show me the meaning"* — *-ed* dropped in writing (*saved*).
+  WATCHING. Worth a note because *-ed* is a production confusion class (final consonant
+  dropping); one occurrence proves nothing.
+- *"all the certain words must be implemented automatically"* — *implemented* where *applied*
+  fits: the Latinate reflex. WATCHING.
+- Typos, not patterns: *imvestigate*, *determiniscly*, *imbeside*, *pronuance*, *im the top bar*.
+- Strengths: *"is there a benefit in doing tongue twisters?"*, *"why is the epub not cleaned?"*
+  — clean question forms, articles in place.
+
+**Reading:** 4.0 min today in the app (2.8 yesterday), position 1% ≈ B015; lookups today
+*massacres, embellished, secularized, fallacious, mischievous, hiatus* (and *two*, a slip). One
+word deleted in the app — the curation path works end to end.
+
+**Minimal Pairs:** no session since 09-20 (streak 1). Weakest untrained: sh/ch 50% on 3 trials,
+i/ii 66.7%. Plan unchanged. **Cards:** 75 in the app's deck, 47 queued behind the 25/week cap;
+Anki retired. **Say-it:** 0 attempts; 14 words offered.
+
+**Flags:** three days without a perception session; the daily page held (3 of the last 3
+weekdays recorded). Stage 1 floors this week: pages on track, SRS days unknown until the app's
+review log arrives (none yet).

@@ -471,6 +471,14 @@
    "action": "fix",
    "fix": "a classless",
    "auto": true
+  },
+  "word:apmsesinsy": {
+   "ts": "2026-09-23T18:36:29Z",
+   "kind": "word",
+   "target": "apmsesinsy",
+   "action": "fix",
+   "fix": "Antisemitism",
+   "auto": true
   }
  }
 }

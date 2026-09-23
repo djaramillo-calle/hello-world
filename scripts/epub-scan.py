@@ -180,16 +180,21 @@ def scan(book, lexicon):
             if raw[0].isupper() and before.strip() and not before.strip().endswith((".", "?", "!", ":", "“", '"')): o["mid_cap"] += 1
             if o["sentence"] is None: o["sentence"] = sentence_of(text, m.start(), m.end())
     heads = running_heads(chunks)
+    # The book's own vocabulary: a word the dictionary lacks but the book uses again and again
+    # ("antisemitism" ×184 — WordNet 1.7 only has the hyphenated form) is a word, and the heading rule
+    # may repair a drop-cap misread with it ("Apmsesinsy" under "Preface to Part One: Antisemitism").
+    book_words = {w for w, n in counts.items() if n >= 5}
     out = []
     for w, n in counts.items():
         o = occ[w]
         near = lexicon.nearest(w)
+        if near and near[1] == "far" and n > 3: near = None   # a frequent word is not two edits from something else
         fix, kind = None, None
         if lexicon.glued_article(w) and any(f[0] == "A" for f in o["forms"]) and "'" not in w and "’" not in w:
             fix, kind = "a " + w[1:], "glued"
         elif o["opening"]:
             for tw in (TOKEN.findall(o["title"] or "") + o["heading"])[::-1]:
-                if tw[0].lower() == w[0] and abs(len(tw) - len(w)) <= 4 and lexicon.known(tw): fix, kind = tw, "heading"; break
+                if tw[0].lower() == w[0] and abs(len(tw) - len(w)) <= 4 and (lexicon.known(tw) or tw.lower() in book_words): fix, kind = tw, "heading"; break
         if fix is None and near: fix, kind = near
         odd = bool(re.search(r"[^a-z'’-]", w)) or bool(re.search(r"[bcdfghjklmnpqrstvwxz]{5}", w)) or not re.search(r"[aeiouy]", w)
         name = not o["opening"] and o["mid_cap"] > 0 and o["mid_cap"] >= n / 2
@@ -355,6 +360,11 @@ def selftest():
     assert rows["aclassless"]["kind"] == "glued" and rows["aclassless"]["fix"] == "a classless", rows["aclassless"]
     assert lex.known("antisecular") and lex.known("nonideology"), "a dropped hyphen is not a misread"
     assert rows["apmsesinsy"]["tier"] == "certain" and rows["apmsesinsy"]["opening"] and rows["apmsesinsy"]["fix"] == "Antisemitism", rows["apmsesinsy"]
+    lex2 = Lexicon(lex.wordnet - {"antisemitism"}, lex.freq)
+    book3 = {"chapters": [{"title": "Preface To Part One", "first": "B001"}], "chunks": [{"id": "B001", "text": "Preface to Part One: Antisemitism Apmsesinsy, a secular ideology. " + "Antisemitism was the word. " * 5}]}
+    r4 = {r["word"]: r for r in scan(book3, lex2)[0]}
+    assert r4["apmsesinsy"]["fix"] == "Antisemitism" and r4["apmsesinsy"]["tier"] == "certain", r4["apmsesinsy"]
+    assert r4["antisemitism"]["fix"] is None, r4["antisemitism"]
     assert rows["tcmptation"]["tier"] == "certain" and rows["tcmptation"]["fix"] == "temptation" and rows["tcmptation"]["kind"] == "ocr", rows["tcmptation"]
     assert ocr_fold("superfiuous") == ocr_fold("superfluous") and ocr_fold("bencath") == ocr_fold("beneath") and ocr_fold("mcustrosity") != ocr_fold("monstrosity")
     assert rows["proccss"]["fix"] == "process" and rows["proccss"]["count"] == 2

@@ -392,7 +392,7 @@ def clean_books(drv, work, log=print, dry=False):
             if name and lib_folder:
                 remote = next((f for f in drv.children(lib_folder["id"]) if f["name"] == name), None)
                 if remote:
-                    raw = work / "clean" / name; out = work / "clean" / ("cleaned-" + name)
+                    raw = work / "clean" / "in" / name; out = work / "clean" / "out" / name   # same basename: register_book records the file's name
                     drv.download(remote["id"], raw)
                     changes["epub"] = ec.clean_epub(raw, out, per)
                     drv.upload(out, lib_folder["id"], name=name)
