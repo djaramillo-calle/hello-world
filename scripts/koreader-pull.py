@@ -215,7 +215,8 @@ def fold(vocab_rows, daily_new, positions, kosync, today=None, vocab=None, daily
             titles = list(v.get("books") or []) + [b for b in (old.get("books") or []) if b not in (v.get("books") or [])]
             v = {**v, "books": titles, "ko_min": v["min"], "app_min": old["app_min"], "min": round(v["min"] + old["app_min"], 1)}
         daily[k] = v
-    by_md5 = {b.get("partial_md5"): b for b in books if b.get("partial_md5")}
+    by_md5 = {h: b for b in books for h in (b.get("md5_history") or []) if h}
+    by_md5.update({b.get("partial_md5"): b for b in books if b.get("partial_md5")})   # a cleaned EPUB's old hashes still map
     progress.pop("null", None); progress.pop(None, None)   # an earlier version keyed unregistered books under null
     for p in positions.values():
         b = by_md5.get(p.get("md5"))

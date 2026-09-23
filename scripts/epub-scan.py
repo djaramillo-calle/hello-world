@@ -14,7 +14,7 @@ lives there), whether it is capitalised inside a sentence (a name), the nearest 
 edit distance, and the section title (a drop-cap misread usually IS the title's word). Tiers:
 `certain` / `probable` / `doubtful`. The app's Cleanup screen shows the list; the coach applies
 what the user approves (epub-clean.py). No LLM reads the book; at most it sees this list."""
-import difflib, json, pathlib, re, struct, subprocess, sys
+import datetime, difflib, json, pathlib, re, struct, subprocess, sys
 
 REPO = pathlib.Path(__file__).resolve().parent.parent
 LIB = REPO / "library"
@@ -238,6 +238,25 @@ def running_heads(chunks, min_count=4):
     keep.sort(key=lambda r: -r["count"])
     return keep
 
+def load_json(p, default):
+    try: return json.loads(pathlib.Path(p).read_text(encoding="utf-8"))
+    except (OSError, ValueError): return default
+
+def load_decisions(slug):
+    """The judgements already made on this book (reader-pull's logs/reading/cleanup.json): none is offered again."""
+    return dict(load_json(REPO / "logs" / "reading" / "cleanup.json", {}).get(slug) or {})
+
+def decisions_hash(decided):
+    import hashlib
+    return hashlib.md5(json.dumps(decided, sort_keys=True).encode("utf-8")).hexdigest()
+
+def stale(slug):
+    """Whether the junk file must be rebuilt: missing, older than the passages, or the judgements changed since."""
+    junk, src = LIB / f"{slug}.junk.json", LIB / f"{slug}.json"
+    if not src.exists(): return False
+    if not junk.exists() or junk.stat().st_mtime < src.stat().st_mtime: return True
+    return load_json(junk, {}).get("decisions_hash") != decisions_hash(load_decisions(slug))
+
 def main():
     a = sys.argv[1:]
     if "--selftest" in a: return selftest()
@@ -249,8 +268,15 @@ def main():
     lex = Lexicon(stardict_words(WORDNET_IDX), freq_words(FREQ))
     book = json.loads(src.read_text(encoding="utf-8"))
     rows, heads = scan(book, lex)
+    decided = load_decisions(slug)
+    rows = [r for r in rows if f"word:{r['word']}" not in decided]
+    heads = [h for h in heads if f"head:{h['phrase']}" not in decided]
+    reg = next((b for b in load_json(REPO / "logs" / "reading" / "books.json", []) if b.get("slug") == slug), {})
     out = LIB / f"{slug}.junk.json"
-    out.write_text(json.dumps({"version": 1, "slug": slug, "title": book.get("title"), "candidates": rows, "running_heads": heads}, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    doc = {"version": 1, "slug": slug, "title": book.get("title"), "filename": reg.get("filename", ""), "book_md5": reg.get("partial_md5", ""),
+           "scanned": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"), "decisions_hash": decisions_hash(decided),
+           "candidates": rows, "running_heads": heads}
+    out.write_text(json.dumps(doc, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     tiers = {t: sum(1 for r in rows if r["tier"] == t) for t in ("certain", "probable", "doubtful")}
     print(f"epub-scan: {slug}: {len(rows)} candidates — {tiers['certain']} certain, {tiers['probable']} probable, {tiers['doubtful']} doubtful; {len(heads)} running head(s) → {out.relative_to(REPO)}")
     if "--show" in a:

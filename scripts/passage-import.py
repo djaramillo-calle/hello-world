@@ -28,7 +28,7 @@ CAPWORD = r"[A-Z][A-Z0-9'’\-—.,;:]+"          # a header word: two or more c
 NUM = r"(?:[xivlcXIVLC]{1,7}|\d{1,4})"
 HEADER_RX = [
     re.compile(r"^\s*" + NUM + r"\s*[.;:,]?\s+((?:" + CAPWORD + r"\s+)+)"),       # "xii PREFACE TO PART ONE was…"
-    re.compile(r"^\s*((?:" + CAPWORD + r"\s+)+)[.;:,]?\s*" + NUM + r"\s*[.;:,]?\s+"),      # "THE JEWS AND SOCIETY 59 Mendelssohn…", "… EDITION . ix appears"
+    re.compile(r"^\s*((?:[AI]\s+)?(?:" + CAPWORD + r"\s+)+)[.;:,]?\s*" + NUM + r"\s*[.;:,]?\s+"),      # "THE JEWS AND SOCIETY 59 Mendelssohn…", "A CLASSLESS SOCIETY 307 For…", "… EDITION . ix appears"
 ]
 CHAPTER_RX = re.compile(r"^\s*(?:PART\s+[A-Z]+\s*[:.]?\s*)?C[HU]{1,2}APTER\s+([A-Z]+)\s*[:?.\-—]*\s*(.{3,120})")
 NUMBER_WORDS = {"ONE": 1, "TWO": 2, "THREE": 3, "FOUR": 4, "FIVE": 5, "SIX": 6, "SEX": 6, "SEVEN": 7, "EIGHT": 8, "NINE": 9,
@@ -250,6 +250,13 @@ def register_book(path, slug, title, author, n_passages):
              "filename_md5": hashlib.md5(path.name.encode("utf-8")).hexdigest(), "passages": n_passages}
     try: books = json.loads(BOOKS.read_text(encoding="utf-8"))
     except (OSError, ValueError): books = []
+    # A cleaned EPUB has a new hash; the old ones stay as history so a position keyed by one still maps.
+    history = []
+    for b in books:
+        if b.get("slug") == slug:
+            history += [h for h in (b.get("md5_history") or []) if h] + ([b["partial_md5"]] if b.get("partial_md5") else [])
+    history = [h for h in dict.fromkeys(history) if h != entry["partial_md5"]]
+    if history: entry["md5_history"] = history
     books = [b for b in books if b.get("slug") != slug and b.get("partial_md5") != entry["partial_md5"]] + [entry]
     BOOKS.parent.mkdir(parents=True, exist_ok=True)
     BOOKS.write_text(json.dumps(books, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")

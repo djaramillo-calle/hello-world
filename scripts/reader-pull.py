@@ -29,6 +29,7 @@ REPO = pathlib.Path(__file__).resolve().parent.parent
 RDIR = REPO / "logs" / "reading"
 VOCAB, DAILY, PROGRESS, BOOKS = RDIR / "vocab.json", RDIR / "daily.json", RDIR / "progress.json", RDIR / "books.json"
 STATE = RDIR / "reader-state.json"
+CLEANUP = RDIR / "cleanup.json"
 SOURCE = "app"
 
 def _ko():
@@ -99,6 +100,30 @@ def apply_events(store, events, log=None):
                 x["dropped"] = True; x["carded"] = True; dropped += 1
     return added, dropped, back
 
+def read_decisions(path):
+    """cleanup.jsonl → the judgements in file order (app repo docs/CONTRACT.md, "Cleanup"); a broken line is skipped."""
+    out = []
+    try: lines = pathlib.Path(path).read_text(encoding="utf-8").splitlines()
+    except OSError: return out
+    for line in lines:
+        line = line.strip()
+        if not line: continue
+        try: e = json.loads(line)
+        except ValueError: continue
+        if isinstance(e, dict) and e.get("slug") and e.get("target") and e.get("kind") in ("word", "head") and e.get("action") in ("fix", "remove", "keep"):
+            out.append(e)
+    return out
+
+def apply_decisions(store, events):
+    """Latest judgement per slug + kind + target onto cleanup.json: {slug: {"kind:target": {...}}}. Returns how many changed."""
+    n = 0
+    for e in events:
+        per = store.setdefault(e["slug"], {})
+        key = f"{e['kind']}:{e['target']}"
+        d = {"ts": e.get("ts", ""), "kind": e["kind"], "target": e["target"], "action": e["action"], "fix": (e.get("fix") or "") if e["action"] == "fix" else ""}
+        if per.get(key) != d: per[key] = d; n += 1
+    return n
+
 def fold_time(daily, files, folded, log=None):
     """time/*.json not yet folded → minutes onto the user's day. Returns the names folded now."""
     new = []
@@ -124,7 +149,8 @@ def fold_time(daily, files, folded, log=None):
 
 def fold_progress(progress, doc, books, passage_for, log=None):
     """The app's positions onto progress.json: through books.json's partial_md5; newer wins."""
-    by_md5 = {b.get("partial_md5"): b for b in books if b.get("partial_md5")}
+    by_md5 = {h: b for b in books for h in (b.get("md5_history") or []) if h}
+    by_md5.update({b.get("partial_md5"): b for b in books if b.get("partial_md5")})   # a cleaned EPUB's old hashes still map
     moved = 0
     for md5, p in (doc.get("books") or {}).items():
         b = by_md5.get(md5)
@@ -156,14 +182,41 @@ def fold_dir(d, vocab, daily, progress, books, state, passage_for, log=None):
         added, dropped, back = apply_events(vocab, events[n:], log=log)
         state["vocab_applied"] = len(events)
         vocab["synced"] = dt.date.today().isoformat()
+    judged = 0
+    if (d / "cleanup.jsonl").is_file():
+        events = read_decisions(d / "cleanup.jsonl")
+        n = int(state.get("cleanup_applied") or 0)
+        if n > len(events): n = 0
+        if events[n:]:
+            cleanup = load(CLEANUP, {})
+            judged = apply_decisions(cleanup, events[n:])
+            dump(CLEANUP, cleanup)
+        state["cleanup_applied"] = len(events)
     folded = set(state.get("time_folded") or [])
     new = fold_time(daily, list((d / "time").glob("*.json")) if (d / "time").is_dir() else [], folded, log=log)
     state["time_folded"] = sorted(folded | set(new))
     doc = load(d / "progress.json", None)
     if isinstance(doc, dict): moved = fold_progress(progress, doc, books, passage_for, log=log)
-    return {"vocab_added": added, "vocab_dropped": dropped, "vocab_back": back, "time_new": len(new), "moved": moved}
+    return {"vocab_added": added, "vocab_dropped": dropped, "vocab_back": back, "time_new": len(new), "moved": moved, "judged": judged}
+
+def selftest_cleanup():
+    with tempfile.TemporaryDirectory() as td:
+        d = pathlib.Path(td)
+        (d / "cleanup.jsonl").write_text(
+            '{"version":1,"ts":"2026-09-23T18:40:12Z","slug":"s","kind":"word","target":"achicve","action":"fix","fix":"achieve"}\n'
+            '{"version":1,"ts":"2026-09-23T18:40:40Z","slug":"s","kind":"head","target":"Aclassless society","action":"remove","fix":""}\n'
+            'garbage\n'
+            '{"version":1,"ts":"2026-09-23T18:41:00Z","slug":"s","kind":"word","target":"achicve","action":"keep","fix":"stale"}\n', encoding="utf-8")
+        ev = read_decisions(d / "cleanup.jsonl")
+        assert len(ev) == 3, ev
+        store = {}
+        assert apply_decisions(store, ev) == 3 and store["s"]["word:achicve"]["action"] == "keep" and store["s"]["word:achicve"]["fix"] == "", store
+        assert store["s"]["head:Aclassless society"]["action"] == "remove"
+        assert apply_decisions(store, ev[-1:]) == 0, "the latest line again changes nothing"
+    print("reader-pull cleanup selftest: OK")
 
 def selftest():
+    selftest_cleanup()
     ko = _ko()
     with tempfile.TemporaryDirectory() as t:
         d = pathlib.Path(t); (d / "time").mkdir()
@@ -220,7 +273,7 @@ def main():
     s = fold_dir(d, vocab, daily, progress, books, state, ko.passage_for, log=print)
     dump(VOCAB, vocab); dump(DAILY, daily); dump(PROGRESS, progress); dump(BOOKS, books); dump(STATE, state)
     pos = "; ".join(f"{p.get('title')} {round((p.get('percentage') or 0) * 100)}% ≈ {p.get('passage')} ({p.get('source')})" for p in progress.values()) or "no position"
-    print(f"reader-pull ({d}): +{s['vocab_added']} words, {s['vocab_dropped']} dropped, {s['vocab_back']} back; {s['time_new']} stretch(es) folded; {pos}")
+    print(f"reader-pull ({d}): +{s['vocab_added']} words, {s['vocab_dropped']} dropped, {s['vocab_back']} back; {s['time_new']} stretch(es) folded; {s['judged']} cleanup judgement(s); {pos}")
     return 0
 
 if __name__ == "__main__":

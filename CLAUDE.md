@@ -306,6 +306,48 @@ based on `read-mode`), contract section "Reader" in the app repo's `docs/CONTRAC
   words and the readout read the same files. KOReader keeps working beside it until he retires it.
 - Load, harvest, pointer — never a score; nothing reaches `tracking.tsv`.
 
+## Cleanup (the junk of a scanned book, judged on the phone) — 2026-09-23
+
+The user's design, adopted whole: "a preprocessing step. An epub is added, the app screens for junk,
+some confirmation estimates the confidence in deleting the word, and the epub is cleaned" — and no
+tokens spent reading the book. App branch `cleanup` (PR #21), contract section "Cleanup".
+
+- **Scan (deterministic, offline):** `scripts/epub-scan.py <slug>` looks every word of every passage up in
+  WordNet's index (the same StarDict set the phone holds, fetched once from the app folder's `dict/`
+  into `.cache/dict/`) and in the app repo's 50k frequency list; the misses are graded by shape —
+  one OCR confusion away from a dictionary word (`ocr_fold`: rn/m, li/h, c/e, l/i, …) = `certain`;
+  a plausible reading, a foreign phrase or a quoted term = `probable`; a mid-sentence capital (a
+  name) or a rare word = `doubtful`. Section openings (decorative type: "Apmsesinsy" for a drop-cap
+  ANTISEMITISM) are matched against the chapter title's words. Running heads welded into the text
+  (a phrase before a bare number, ≥4 times) are listed separately. Output `library/<slug>.junk.json`
+  (gitignored — it carries sentences of the book) with `filename`/`book_md5` from `books.json`; a
+  target already judged is never offered again (`decisions_hash` marks what the list was built
+  against; `stale()` says when to rebuild). Arendt: 1,329 candidates — 68 certain, 459 probable,
+  802 doubtful; one head, "Aclassless society" ×14.
+- **Down:** `cloud-sync.scan_books` copies the junk file to `cleanup/<slug>.json` in the app's Drive
+  folder (a coach-owned folder, manifest-listed like a book, filled into the app's placeholder).
+- **Judge (the phone):** the library row shows "Clean up · N to judge"; one tab per tier, the heads,
+  Done. Each card: word, evidence labels, the sentence with the word marked, the proposed reading in
+  an editable field, Fix / Remove / Keep; "Fix all N proposed" per tier behind a confirmation. Every
+  verdict is one line of `reading/cleanup.jsonl` (append-only; a fix typed equal to the word is a
+  keep, an emptied field a remove); latest line per target wins.
+- **Up and apply:** `reader-pull.py --dir` folds the lines into `logs/reading/cleanup.json` (committed:
+  words and fixes only, no sentences). `cloud-sync.clean_books` applies new judgements with
+  `scripts/epub-clean.py`: fixes whole-word and case-preserving (Achicve → Achieve); a judged head
+  removed wherever it sits, matched by letters alone with its page number ("A CLASSLESS SOCIETY 307"
+  in the EPUB = "Aclassless society 307" in the passages); **every page's own running head stripped
+  too** (`passage-import.HEADER_RX`, now also "A CLASSLESS…" with a single-capital first word — the
+  phone was still showing "THE DREYFUS AFFAIR 119" at the top of every page). The EPUB is rewritten
+  IN PLACE in `EnglishPractice/library` and the Autosync copy; the app folder's copy follows by md5.
+  The passage file is edited chunk by chunk so **ids never move** (read pointer, ledger, Say-it
+  carriers unchanged) and mirrored back to Drive; `register_book` keeps the old partial MD5 as
+  `md5_history` and both pulls look a book up by any hash it ever had; the app keeps his place by
+  file name. `logs/reading/cleanup-applied.json` remembers what was applied.
+- **Never:** a language model reading the book to find junk (at most the candidate list); a change
+  to the EPUB without a judgement; erasing a judgement (a changed mind is one more line).
+- The Hub's Read tab holds its own copy of the passages (`book/*`): re-import from the regenerated
+  `<slug>.hub.json` only if he wants the fixes there too — the Read tab is not on the daily path.
+
 ## The cloud does the sync (since 2026-09-10) — the Mac is optional
 
 `python3 scripts/cloud-sync.py` is the coach's sync from any fresh container:

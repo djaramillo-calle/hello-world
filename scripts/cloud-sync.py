@@ -315,7 +315,7 @@ def push_plan(drv, log=print, dry=False, plan=None):
     try: drv.upload(plan, folder["id"]); log("pairs: plan.json updated on Drive"); return True
     except Exception as e: log(f"pairs: plan.json NOT updated — {type(e).__name__}: {str(e)[:160]}"); return False
 
-def stock_app_folder(drv, work, log=print, dry=False):
+def stock_app_folder(drv, work, log=print, dry=False, extra=None):
     """The app's own folder (app repo docs/CONTRACT.md, "Drive sync"): write `manifest.json` — the books
     and dictionaries the phone should hold, the same files `EnglishPractice/pairs/library` and `/dict`
     carry — and fill the empty placeholders the app made for them. Two coach runs per new file: one to
@@ -329,26 +329,105 @@ def stock_app_folder(drv, work, log=print, dry=False):
         for rel, f in drv.walk(legacy["id"]):
             if rel.startswith(COACH_DIRS) and not any(seg.startswith(".") or seg.endswith(".tmp") for seg in rel.split("/")):
                 sources[rel] = f
-    manifest = {"version": 1, "files": sorted(sources)}
+    extra = dict(extra or {})   # rel path → local file: coach files with no legacy source (the junk lists)
+    manifest = {"version": 1, "files": sorted(set(sources) | set(extra))}
     mpath = work / "manifest.json"; mpath.parent.mkdir(parents=True, exist_ok=True)
     mpath.write_text(json.dumps(manifest, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     push_file(drv, mpath, "manifest.json", log=log, dry=dry)
     filled = 0
     have = dict(drv.walk(root["id"]))
-    for rel, src in sources.items():
+    for rel in sorted(set(sources) | set(extra)):
+        src = sources.get(rel); local = pathlib.Path(extra[rel]) if rel in extra else None
         cur = have.get(rel)
         if cur is None: log(f"pairs: {rel} has no placeholder yet — the app makes it on its next pass"); continue
-        if cur.get("md5Checksum") == src.get("md5Checksum") and int(cur.get("size") or 0) > 0: continue
+        want_md5 = hashlib.md5(local.read_bytes()).hexdigest() if local else src.get("md5Checksum")
+        if cur.get("md5Checksum") == want_md5 and int(cur.get("size") or 0) > 0: continue
         parent = drv.resolve(f"{APP_ROOT}/{rel.rsplit('/', 1)[0]}") if "/" in rel else root
         if not parent: continue
         if dry: log(f"pairs: {rel} would be filled"); filled += 1; continue
-        local = work / "stock" / rel
         try:
-            drv.download(src["id"], local); drv.upload(local, parent["id"], name=rel.rsplit("/", 1)[-1])
-            log(f"pairs: {rel} filled ({int(src.get('size') or 0) // 1024} KB)"); filled += 1
+            if not local:
+                local = work / "stock" / rel; drv.download(src["id"], local)
+            drv.upload(local, parent["id"], name=rel.rsplit("/", 1)[-1])
+            log(f"pairs: {rel} filled ({local.stat().st_size // 1024} KB)"); filled += 1
         except Exception as e:
             log(f"pairs: {rel} NOT filled — {type(e).__name__}: {str(e)[:120]}")
     return filled
+
+# ---- Cleanup (app repo docs/CONTRACT.md, "Cleanup"): the junk list down, the judgements applied ----
+CLEANUP_APPLIED = REPO / "logs" / "reading" / "cleanup-applied.json"
+
+def clean_books(drv, work, log=print, dry=False):
+    """Apply new judgements (logs/reading/cleanup.json, folded by reader-pull) to each book: the EPUB in
+    `EnglishPractice/library` (and the Autosync copy under pairs/library) rewritten IN PLACE, the passage
+    file edited chunk by chunk and mirrored back, the new hash registered with the old as history. The
+    app's folder gets the new EPUB from stock_app_folder afterwards (its md5 differs). Returns the slugs cleaned."""
+    ec, es = _load("epub-clean"), _load("epub-scan")
+    decided = load_json(REPO / "logs" / "reading" / "cleanup.json", {})
+    applied = load_json(CLEANUP_APPLIED, {})
+    books = {b.get("slug"): b for b in load_json(REPO / "logs" / "reading" / "books.json", []) if b.get("slug")}
+    lib_folder = drv.resolve("EnglishPractice/library")
+    done = []
+    for slug, per in decided.items():
+        h = es.decisions_hash(per)
+        if applied.get(slug, {}).get("hash") == h: continue
+        words, heads = ec.compile_rules(per)
+        if not words and not heads:   # only keeps so far: nothing to rewrite, but remember the hash
+            applied[slug] = {"hash": h, "at": _now(), "changes": 0}; continue
+        reg = books.get(slug) or {}
+        name = reg.get("filename")
+        src_json = LIB / f"{slug}.json"
+        if not name or not lib_folder:
+            log(f"cleanup: {slug} — no registered EPUB name or no Drive library; passages only" if src_json.exists() else f"cleanup: {slug} — nothing to clean here"); 
+        if dry: log(f"cleanup: {slug} would be cleaned ({len(words)} word rule(s), {len(heads)} head rule(s))"); continue
+        changes = {}
+        try:
+            if src_json.exists():
+                book = json.loads(src_json.read_text(encoding="utf-8"))
+                changes["passages"] = ec.clean_book(book, per)
+                src_json.write_text(json.dumps(book, ensure_ascii=False) + "\n", encoding="utf-8")
+                if lib_folder: drv.upload(src_json, lib_folder["id"])
+            if name and lib_folder:
+                remote = next((f for f in drv.children(lib_folder["id"]) if f["name"] == name), None)
+                if remote:
+                    raw = work / "clean" / name; out = work / "clean" / ("cleaned-" + name)
+                    drv.download(remote["id"], raw)
+                    changes["epub"] = ec.clean_epub(raw, out, per)
+                    drv.upload(out, lib_folder["id"], name=name)
+                    legacy = drv.resolve(f"{LEGACY_PAIRS}/library")
+                    if legacy and any(f["name"] == name for f in drv.children(legacy["id"])): drv.upload(out, legacy["id"], name=name)
+                    if src_json.exists():
+                        pi = _load("passage-import"); book = json.loads(src_json.read_text(encoding="utf-8"))
+                        pi.register_book(out, slug, book.get("title", slug), book.get("author", ""), len(book.get("chunks", [])))
+                else:
+                    log(f"cleanup: {slug} — {name} is not in EnglishPractice/library; passages only")
+            applied[slug] = {"hash": h, "at": _now(), "changes": changes}
+            done.append(slug)
+            log(f"cleanup: {slug} cleaned — {json.dumps(changes)}")
+        except Exception as e:
+            log(f"cleanup: {slug} NOT cleaned — {type(e).__name__}: {str(e)[:160]} (retried next run)")
+    if not dry: dump_json(CLEANUP_APPLIED, applied)
+    return done
+
+def _now():
+    import datetime
+    return datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+def scan_books(work, log=print, dry=False):
+    """The junk list of every book whose passages are here, rebuilt when stale (epub-scan.stale), copied to
+    work/cleanup/<slug>.json for stock_app_folder. Returns {"cleanup/<slug>.json": path}."""
+    es = _load("epub-scan")
+    out = {}
+    for src in sorted(LIB.glob("*.json")):
+        if src.name.endswith((".junk.json", ".hub.json")): continue
+        slug = src.name[:-5]
+        junk = LIB / f"{slug}.junk.json"
+        if es.stale(slug) and not dry:
+            if run([sys.executable, SCRIPTS / "epub-scan.py", slug]) != 0: log(f"cleanup: scan of {slug} failed — the old list stays"); 
+        if junk.exists():
+            dst = work / "cleanup" / f"{slug}.json"; dst.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(junk, dst); out[f"cleanup/{slug}.json"] = dst
+    return out
 
 def main():
     a = sys.argv[1:]
@@ -409,7 +488,11 @@ def main():
             run([py if py.exists() else sys.executable, SCRIPTS / "sayit.py", "--score", "--dir", work / "pairs"])
             run([sys.executable, SCRIPTS / "sayit.py", "--build"])
             push_file(drv, SAYIT_ZIP, "sayit.zip", dry=dry)
-        stock_app_folder(drv, work, dry=dry)
+        # Cleanup (app repo docs/CONTRACT.md, "Cleanup"): his judgements repair the book, the scan lists what is left.
+        try: clean_books(drv, work, dry=dry)
+        except (SystemExit, Exception) as e: print(f"cloud-sync: cleanup step failed — {type(e).__name__}: {str(e)[:200]}")
+        extra = scan_books(work, dry=dry)
+        stock_app_folder(drv, work, dry=dry, extra=extra)
     except (SystemExit, Exception) as e:   # the pairs app must never block the rest
         print(f"cloud-sync: pairs step failed — {type(e).__name__}: {str(e)[:200]}")
     if not dry:
@@ -573,6 +656,42 @@ def selftest():
         assert stock_app_folder(drv2, w6, log=logs.append) == 2
         assert (app / "library" / "A__B.epub").read_bytes() == b"epub-bytes" and (app / "dict" / "eng-spa" / "eng-spa.ifo").read_bytes() == b"ifo"
         assert stock_app_folder(drv2, w6, log=logs.append) == 0, "same md5: nothing re-filled"
+        # a coach file with no legacy source (the junk list): listed, then filled from the local copy
+        jk = w6 / "cleanup" / "a-small-book.json"; jk.parent.mkdir(); jk.write_text('{"version": 1, "slug": "a-small-book", "candidates": []}')
+        assert stock_app_folder(drv2, w6, log=logs.append, extra={"cleanup/a-small-book.json": jk}) == 0
+        assert "cleanup/a-small-book.json" in json.loads((app / "manifest.json").read_text())["files"]
+        (app / "cleanup").mkdir(); (app / "cleanup" / "a-small-book.json").write_bytes(b"")
+        assert stock_app_folder(drv2, w6, log=logs.append, extra={"cleanup/a-small-book.json": jk}) == 1
+        assert (app / "cleanup" / "a-small-book.json").read_text() == jk.read_text()
+        # a judgement: the EPUB on Drive (master + Autosync copy), the passages and the registry all change once
+        import zipfile
+        global CLEANUP_APPLIED
+        real_applied, CLEANUP_APPLIED = CLEANUP_APPLIED, td / "applied.json"
+        epub = root / "EnglishPractice" / "library" / "Test_Author__A_Small_Book.epub"
+        with zipfile.ZipFile(epub, "w") as z:
+            z.writestr("mimetype", "application/epub+zip", compress_type=zipfile.ZIP_STORED)
+            z.writestr("EPUB/page_1.html", "<html><body><p>THE BOOK 3 they achicve it</p></body></html>")
+        shutil.copyfile(epub, pf / "library" / "Test_Author__A_Small_Book.epub")
+        (LIB / "a-small-book.json").write_text(json.dumps({"title": "A Small Book", "author": "Test Author", "chunks": [{"id": "B001", "text": "they achicve it", "words": 3}]}))
+        cj = {"a-small-book": {"word:achicve": {"kind": "word", "target": "achicve", "action": "fix", "fix": "achieve", "ts": "t"}}}
+        bj = [{"slug": "a-small-book", "title": "A Small Book", "filename": "Test_Author__A_Small_Book.epub", "partial_md5": "old", "passages": 1}]
+        def fake_load(p, default):
+            p = pathlib.Path(p)
+            if p.name == "cleanup.json": return cj
+            if p.name == "books.json": return bj
+            return real_load_json(p, default)
+        globals()["load_json"] = fake_load
+        pi = _load("passage-import"); real_books, pi.BOOKS = pi.BOOKS, td / "books.json"; pi.BOOKS.write_text(json.dumps(bj))
+        try:
+            assert clean_books(drv2, w6, log=logs.append) == ["a-small-book"], logs[-3:]
+            with zipfile.ZipFile(epub) as z: assert b"they achieve it" in z.read("EPUB/page_1.html") and b"THE BOOK" not in z.read("EPUB/page_1.html")
+            with zipfile.ZipFile(pf / "library" / "Test_Author__A_Small_Book.epub") as z: assert b"achieve" in z.read("EPUB/page_1.html"), "the Autosync copy too"
+            assert json.loads((LIB / "a-small-book.json").read_text())["chunks"][0]["text"] == "they achieve it"
+            assert "they achieve it" in (root / "EnglishPractice" / "library" / "a-small-book.json").read_text(), "the passages go back to Drive"
+            reg = json.loads(pi.BOOKS.read_text()); assert reg[-1]["md5_history"] == ["old"] and reg[-1]["partial_md5"] != "old", reg
+            assert clean_books(drv2, w6, log=logs.append) == [], "the same judgements are not applied twice"
+        finally:
+            pi.BOOKS = real_books; CLEANUP_APPLIED = real_applied
         assert push_plan(drv2, log=logs.append, plan=local_plan) is True and (app / "plan.json").read_text() == local_plan.read_text()
         globals()["load_json"] = real_load_json
     print("cloud-sync.py selftest: OK")
