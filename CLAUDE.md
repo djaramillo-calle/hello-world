@@ -324,6 +324,17 @@ tokens spent reading the book. App PR #21, merged 2026-09-23; contract section "
   target already judged is never offered again (`decisions_hash` marks what the list was built
   against; `stale()` says when to rebuild). Arendt: 1,329 candidates — 68 certain, 459 probable,
   802 doubtful; one head, "Aclassless society" ×14.
+- **Certain is automatic (the user's rule, 2026-09-23, "all the certain words must be implemented
+  automatically"):** a `certain` candidate WITH a proposed reading is recorded by the scan itself as
+  an `auto` fix in `logs/reading/cleanup.json` and applied by the next clean — it never reaches the
+  phone. What that tier may not contain, tightened the same day after reading all 63 the first pass
+  produced: a fix that merely truncates (*diffi* → *diff*, a broken page), a word always capitalised
+  after another capital or an initial (*Kenneth M. Kauffman*), a word whose neighbours the dictionary
+  does not know either (*citoyen belge*), and an opening word fixed by an edit-distance guess rather
+  than the heading or an OCR fold (*azism* → *agism*; the heading gives *Nazism*, which it did not
+  find). First pass on Arendt: 59 automatic fixes, 497 page heads stripped on 499 pages, one judged
+  head pending. The passages JSON lives on Drive beside the EPUB since the same day (the owner made
+  the placeholder), so a fresh container no longer re-imports the book and passage ids stay put.
 - **Down:** `cloud-sync.scan_books` copies the junk file to `cleanup/<slug>.json` in the app's Drive
   folder (a coach-owned folder, manifest-listed like a book, filled into the app's placeholder).
 - **Judge (the phone):** the library row shows "Clean up · N to judge"; one tab per tier, the heads,

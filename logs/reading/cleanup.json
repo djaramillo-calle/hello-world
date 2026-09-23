@@ -1,0 +1,476 @@
+{
+ "the-origins-of-totalitarianism": {
+  "word:achicve": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "achicve",
+   "action": "fix",
+   "fix": "achieve",
+   "auto": true
+  },
+  "word:amovement": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "amovement",
+   "action": "fix",
+   "fix": "a movement",
+   "auto": true
+  },
+  "word:asteadily": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "asteadily",
+   "action": "fix",
+   "fix": "a steadily",
+   "auto": true
+  },
+  "word:bcings": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "bcings",
+   "action": "fix",
+   "fix": "beings",
+   "auto": true
+  },
+  "word:bencath": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "bencath",
+   "action": "fix",
+   "fix": "beneath",
+   "auto": true
+  },
+  "word:burcaucracy": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "burcaucracy",
+   "action": "fix",
+   "fix": "bureaucracy",
+   "auto": true
+  },
+  "word:carth": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "carth",
+   "action": "fix",
+   "fix": "earth",
+   "auto": true
+  },
+  "word:ceascd": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "ceascd",
+   "action": "fix",
+   "fix": "ceased",
+   "auto": true
+  },
+  "word:cighteenth": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "cighteenth",
+   "action": "fix",
+   "fix": "eighteenth",
+   "auto": true
+  },
+  "word:climinate": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "climinate",
+   "action": "fix",
+   "fix": "eliminate",
+   "auto": true
+  },
+  "word:communitics": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "communitics",
+   "action": "fix",
+   "fix": "communities",
+   "auto": true
+  },
+  "word:conqucr": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "conqucr",
+   "action": "fix",
+   "fix": "conquer",
+   "auto": true
+  },
+  "word:cther": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "cther",
+   "action": "fix",
+   "fix": "ether",
+   "auto": true
+  },
+  "word:cventually": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "cventually",
+   "action": "fix",
+   "fix": "eventually",
+   "auto": true
+  },
+  "word:cxpansion": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "cxpansion",
+   "action": "fix",
+   "fix": "expansion",
+   "auto": true
+  },
+  "word:decp": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "decp",
+   "action": "fix",
+   "fix": "deep",
+   "auto": true
+  },
+  "word:eightecnth": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "eightecnth",
+   "action": "fix",
+   "fix": "eighteenth",
+   "auto": true
+  },
+  "word:eream": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "eream",
+   "action": "fix",
+   "fix": "cream",
+   "auto": true
+  },
+  "word:familics": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "familics",
+   "action": "fix",
+   "fix": "families",
+   "auto": true
+  },
+  "word:fecling": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "fecling",
+   "action": "fix",
+   "fix": "feeling",
+   "auto": true
+  },
+  "word:gocs": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "gocs",
+   "action": "fix",
+   "fix": "goes",
+   "auto": true
+  },
+  "word:guarantce": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "guarantce",
+   "action": "fix",
+   "fix": "guarantee",
+   "auto": true
+  },
+  "word:idcological": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "idcological",
+   "action": "fix",
+   "fix": "ideological",
+   "auto": true
+  },
+  "word:idcologies": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "idcologies",
+   "action": "fix",
+   "fix": "ideologies",
+   "auto": true
+  },
+  "word:impcrialism": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "impcrialism",
+   "action": "fix",
+   "fix": "imperialism",
+   "auto": true
+  },
+  "word:impcrialist": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "impcrialist",
+   "action": "fix",
+   "fix": "imperialist",
+   "auto": true
+  },
+  "word:infiuence": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "infiuence",
+   "action": "fix",
+   "fix": "influence",
+   "auto": true
+  },
+  "word:jand": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "jand",
+   "action": "fix",
+   "fix": "land",
+   "auto": true
+  },
+  "word:matchiess": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "matchiess",
+   "action": "fix",
+   "fix": "matchless",
+   "auto": true
+  },
+  "word:mcre": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "mcre",
+   "action": "fix",
+   "fix": "mere",
+   "auto": true
+  },
+  "word:meck": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "meck",
+   "action": "fix",
+   "fix": "meek",
+   "auto": true
+  },
+  "word:modcrn": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "modcrn",
+   "action": "fix",
+   "fix": "modern",
+   "auto": true
+  },
+  "word:necded": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "necded",
+   "action": "fix",
+   "fix": "needed",
+   "auto": true
+  },
+  "word:pcople": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "pcople",
+   "action": "fix",
+   "fix": "people",
+   "auto": true
+  },
+  "word:pecrage": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "pecrage",
+   "action": "fix",
+   "fix": "peerage",
+   "auto": true
+  },
+  "word:peopie": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "peopie",
+   "action": "fix",
+   "fix": "people",
+   "auto": true
+  },
+  "word:personai": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "personai",
+   "action": "fix",
+   "fix": "personal",
+   "auto": true
+  },
+  "word:physicai": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "physicai",
+   "action": "fix",
+   "fix": "physical",
+   "auto": true
+  },
+  "word:prescrvation": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "prescrvation",
+   "action": "fix",
+   "fix": "preservation",
+   "auto": true
+  },
+  "word:questjon": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "questjon",
+   "action": "fix",
+   "fix": "question",
+   "auto": true
+  },
+  "word:sceming": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "sceming",
+   "action": "fix",
+   "fix": "seeming",
+   "auto": true
+  },
+  "word:scriously": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "scriously",
+   "action": "fix",
+   "fix": "seriously",
+   "auto": true
+  },
+  "word:selfiessness": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "selfiessness",
+   "action": "fix",
+   "fix": "selflessness",
+   "auto": true
+  },
+  "word:seventecnth": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "seventecnth",
+   "action": "fix",
+   "fix": "seventeenth",
+   "auto": true
+  },
+  "word:seventics": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "seventics",
+   "action": "fix",
+   "fix": "seventies",
+   "auto": true
+  },
+  "word:sharcholders": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "sharcholders",
+   "action": "fix",
+   "fix": "shareholders",
+   "auto": true
+  },
+  "word:sirnilarly": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "sirnilarly",
+   "action": "fix",
+   "fix": "similarly",
+   "auto": true
+  },
+  "word:soiution": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "soiution",
+   "action": "fix",
+   "fix": "solution",
+   "auto": true
+  },
+  "word:somcthing": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "somcthing",
+   "action": "fix",
+   "fix": "something",
+   "auto": true
+  },
+  "word:spontancity": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "spontancity",
+   "action": "fix",
+   "fix": "spontaneity",
+   "auto": true
+  },
+  "word:thcir": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "thcir",
+   "action": "fix",
+   "fix": "their",
+   "auto": true
+  },
+  "word:thcy": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "thcy",
+   "action": "fix",
+   "fix": "they",
+   "auto": true
+  },
+  "word:totalitarjan": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "totalitarjan",
+   "action": "fix",
+   "fix": "totalitarian",
+   "auto": true
+  },
+  "word:twentics": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "twentics",
+   "action": "fix",
+   "fix": "twenties",
+   "auto": true
+  },
+  "word:uncqual": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "uncqual",
+   "action": "fix",
+   "fix": "unequal",
+   "auto": true
+  },
+  "word:xiij": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "xiij",
+   "action": "fix",
+   "fix": "xiii",
+   "auto": true
+  },
+  "word:ycar": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "ycar",
+   "action": "fix",
+   "fix": "year",
+   "auto": true
+  },
+  "word:morcover": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "morcover",
+   "action": "fix",
+   "fix": "moreover",
+   "auto": true
+  },
+  "word:aclassless": {
+   "ts": "2026-09-23T15:59:50Z",
+   "kind": "word",
+   "target": "aclassless",
+   "action": "fix",
+   "fix": "a classless",
+   "auto": true
+  }
+ }
+}

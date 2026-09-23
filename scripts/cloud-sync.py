@@ -386,7 +386,9 @@ def clean_books(drv, work, log=print, dry=False):
                 book = json.loads(src_json.read_text(encoding="utf-8"))
                 changes["passages"] = ec.clean_book(book, per)
                 src_json.write_text(json.dumps(book, ensure_ascii=False) + "\n", encoding="utf-8")
-                if lib_folder: drv.upload(src_json, lib_folder["id"])
+                # The service account can only PATCH: the passages go back to Drive when the owner's copy exists there.
+                if lib_folder and any(f["name"] == src_json.name for f in drv.children(lib_folder["id"])): drv.upload(src_json, lib_folder["id"])
+                elif lib_folder: log(f"cleanup: {src_json.name} is not in EnglishPractice/library (the owner creates it once); the cleaned passages stay local")
             if name and lib_folder:
                 remote = next((f for f in drv.children(lib_folder["id"]) if f["name"] == name), None)
                 if remote:
@@ -404,7 +406,7 @@ def clean_books(drv, work, log=print, dry=False):
             applied[slug] = {"hash": h, "at": _now(), "changes": changes}
             done.append(slug)
             log(f"cleanup: {slug} cleaned — {json.dumps(changes)}")
-        except Exception as e:
+        except (SystemExit, Exception) as e:   # drive.py exits on an HTTP error; the other books and the run go on
             log(f"cleanup: {slug} NOT cleaned — {type(e).__name__}: {str(e)[:160]} (retried next run)")
     if not dry: dump_json(CLEANUP_APPLIED, applied)
     return done
@@ -489,6 +491,9 @@ def main():
             run([sys.executable, SCRIPTS / "sayit.py", "--build"])
             push_file(drv, SAYIT_ZIP, "sayit.zip", dry=dry)
         # Cleanup (app repo docs/CONTRACT.md, "Cleanup"): his judgements repair the book, the scan lists what is left.
+        # The scan first: a `certain` candidate is recorded as an automatic fix (the user's rule) for clean_books
+        # to apply; then the scan again, so the list the phone gets holds only what is left to judge.
+        scan_books(work, dry=dry)
         try: clean_books(drv, work, dry=dry)
         except (SystemExit, Exception) as e: print(f"cloud-sync: cleanup step failed — {type(e).__name__}: {str(e)[:200]}")
         extra = scan_books(work, dry=dry)

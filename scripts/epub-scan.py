@@ -152,14 +152,21 @@ def scan(book, lexicon):
             for tm in title_re.finditer(text):
                 after = [m for m in tokens if m.start() >= tm.end()][:2]
                 opening_positions.update(m.start() for m in after)
+        prev = None
         for m in tokens:
             raw = m.group(0).strip("'’-")
+            before_tok, prev = prev, m
             if len(raw) < 3 or not re.search(r"[A-Za-z]", raw): continue
             low = raw.lower()
             if lexicon.known(low): continue
             counts[low] = counts.get(low, 0) + 1
-            o = occ.setdefault(low, {"forms": {}, "opening": False, "mid_cap": 0, "sentence": None, "chunk": ch.get("id"), "title": None, "heading": [], "quoted": 0})
+            o = occ.setdefault(low, {"forms": {}, "opening": False, "mid_cap": 0, "sentence": None, "chunk": ch.get("id"), "title": None, "heading": [], "quoted": 0, "after_cap": 0})
             o["forms"][raw] = o["forms"].get(raw, 0) + 1
+            # "Kenneth M. Kauffman": a capitalised token right before it (an initial counts even with its
+            # full stop; any other word only when no sentence end lies between) makes it part of a name.
+            if before_tok is not None and before_tok.group(0)[:1].isupper():
+                gap = text[before_tok.end(): m.start()]
+                if len(before_tok.group(0)) == 1 or not re.search(r"[.!?]", gap): o["after_cap"] += 1
             if m.start() in opening_positions:
                 o["opening"] = True
                 if title_re:
@@ -193,12 +200,19 @@ def scan(book, lexicon):
         foreign = len(others) >= 4 and sum(1 for t in others if not lexicon.known(t)) / len(others) > 0.34
         # A word the author set in quotation marks is usually a foreign term or a coinage, not a misread.
         quoted = bool(o["quoted"])
+        # What keeps an OCR-shaped miss out of `certain` (the tier that is fixed WITHOUT a verdict since
+        # 2026-09-23): a fix that merely truncates ("diffi" → "diff" is a broken page, not a confusion), a
+        # word always capitalised (Kauffman is a name even after "M."), and neighbours the dictionary does
+        # not know either ("citoyen belge" is French, whatever "beige" is).
+        truncated = bool(fix) and (w.startswith(fix.lower()) or fix.lower().startswith(w))
+        capitalised = all(f[:1].isupper() for f in o["forms"]) and (o["after_cap"] > 0 or name_run(o["sentence"] or "", w))
+        near_foreign = neighbours_unknown(o["sentence"] or "", w, lexicon) >= 2
         if kind == "glued": tier = "certain"
-        elif o["opening"] and n <= 3: tier = "certain"      # a misread never repeats 184 times: that is a real word the dictionary lacks
+        elif o["opening"] and n <= 3: tier = "certain" if kind in ("heading", "ocr") else "probable"   # a misread never repeats 184 times: that is a real word the dictionary lacks; an opening fixed by a mere edit-distance guess ("azism" → "agism") is not certain
         elif foreign: tier, fix, kind = "doubtful", None, "foreign"
         elif name: tier = "doubtful"
         elif quoted: tier = "doubtful"
-        elif (kind == "ocr" or odd) and n <= 2: tier = "certain"
+        elif (kind == "ocr" or odd) and n <= 2: tier = "probable" if (truncated or capitalised or near_foreign) else "certain"
         elif n <= 2: tier = "probable"
         else: tier = "doubtful"
         out.append({"word": w, "count": n, "forms": o["forms"], "tier": tier, "fix": fix, "kind": kind, "opening": o["opening"], "name": name,
@@ -210,6 +224,21 @@ def scan(book, lexicon):
 STOP = {"the", "of", "and", "to", "only", "about", "a", "in", "on", "at", "by", "from", "between", "for", "with", "than", "over", "under", "some", "nearly", "almost", "about", "than", "or", "p", "pp", "vol", "no", "chapter", "part", "see", "cf", "ibid"}
 
 HEAD_RE = re.compile(r"((?:[A-Za-z][A-Za-z'’-]*\s+){1,6})(\d{1,3})(?=\s|$)")
+
+def name_run(sentence, w):
+    """Whether the word follows another capitalised token in its sentence ("Kenneth M. Kauffman"): a name, not a misread."""
+    toks = TOKEN.findall(sentence)
+    for i, t in enumerate(toks):
+        if t.lower() == w and i > 0 and toks[i - 1][:1].isupper(): return True
+    return False
+
+def neighbours_unknown(sentence, w, lexicon, span=2):
+    """How many of the [span] words on either side of [w] the dictionary does not know."""
+    toks = [t.lower() for t in TOKEN.findall(sentence) if len(t) >= 3]
+    if w not in toks: return 0
+    i = toks.index(w)
+    around = toks[max(0, i - span): i] + toks[i + 1: i + 1 + span]
+    return sum(1 for t in around if not lexicon.known(t))
 
 def running_heads(chunks, min_count=4):
     """Page headers the scan swept into the text: 'Aclassless society 317', 'Preface xiii'. A phrase of
@@ -246,6 +275,27 @@ def load_decisions(slug):
     """The judgements already made on this book (reader-pull's logs/reading/cleanup.json): none is offered again."""
     return dict(load_json(REPO / "logs" / "reading" / "cleanup.json", {}).get(slug) or {})
 
+def auto_certain(rows, decided, ts):
+    """The user's rule (2026-09-23): a `certain` candidate with a proposed reading is fixed without a
+    verdict — one scanner confusion away from a dictionary word is not a judgement call. Returns the
+    decisions to record (marked `auto`), skipping anything already judged either way."""
+    out = []
+    for r in rows:
+        if r.get("tier") != "certain" or not (r.get("fix") or "").strip(): continue
+        if f"word:{r['word']}" in decided: continue
+        out.append({"ts": ts, "kind": "word", "target": r["word"], "action": "fix", "fix": r["fix"].strip(), "auto": True})
+    return out
+
+def record_decisions(slug, decisions):
+    """Add decisions to logs/reading/cleanup.json under [slug] (the same store reader-pull fills); latest per target."""
+    path = REPO / "logs" / "reading" / "cleanup.json"
+    store = load_json(path, {})
+    per = store.setdefault(slug, {})
+    for d in decisions: per[f"{d['kind']}:{d['target']}"] = d
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_suffix(".json.tmp")
+    tmp.write_text(json.dumps(store, ensure_ascii=False, indent=1) + "\n", encoding="utf-8"); tmp.replace(path)
+
 def decisions_hash(decided):
     import hashlib
     return hashlib.md5(json.dumps(decided, sort_keys=True).encode("utf-8")).hexdigest()
@@ -269,6 +319,10 @@ def main():
     book = json.loads(src.read_text(encoding="utf-8"))
     rows, heads = scan(book, lex)
     decided = load_decisions(slug)
+    autos = auto_certain(rows, decided, datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"))
+    if autos:
+        record_decisions(slug, autos); decided = load_decisions(slug)
+        print(f"epub-scan: {len(autos)} certain candidate(s) recorded as automatic fixes (the user's rule, 2026-09-23)")
     rows = [r for r in rows if f"word:{r['word']}" not in decided]
     heads = [h for h in heads if f"head:{h['phrase']}" not in decided]
     reg = next((b for b in load_json(REPO / "logs" / "reading" / "books.json", []) if b.get("slug") == slug), {})
@@ -304,9 +358,23 @@ def selftest():
     assert rows["tcmptation"]["tier"] == "certain" and rows["tcmptation"]["fix"] == "temptation" and rows["tcmptation"]["kind"] == "ocr", rows["tcmptation"]
     assert ocr_fold("superfiuous") == ocr_fold("superfluous") and ocr_fold("bencath") == ocr_fold("beneath") and ocr_fold("mcustrosity") != ocr_fold("monstrosity")
     assert rows["proccss"]["fix"] == "process" and rows["proccss"]["count"] == 2
+    book2 = {"chapters": [], "chunks": [{"id": "B001", "text": "It became increasingly diffi Two instances. Kenneth Kauffman wrote it. Devoirs de citoyen belge, said he. The proccss went on."}]}
+    r2 = {r["word"]: r for r in scan(book2, Lexicon(lex.wordnet | {"difficult", "kaufman", "beige", "became", "increasingly", "two", "instances", "kenneth", "wrote", "went", "the", "process"}, lex.freq))[0]}
+    assert r2["diffi"]["tier"] == "probable", r2["diffi"]
+    assert r2["kauffman"]["tier"] != "certain", r2["kauffman"]
+    r3 = {r["word"]: r for r in scan({"chapters": [], "chunks": [{"id": "B001", "text": "See Kenneth M. Kauffman and others. It went on in Berlin. Sirnilarly, the proccss went on."}]},
+                                     Lexicon(lex.wordnet | {"see", "kenneth", "others", "went", "berlin", "similarly", "kaufman", "process"}, lex.freq))[0]}
+    assert r3["kauffman"]["tier"] != "certain", r3["kauffman"]
+    assert r3["sirnilarly"]["tier"] == "certain", r3["sirnilarly"]
+    assert r2["belge"]["tier"] == "probable", r2["belge"]
+    assert r2["proccss"]["tier"] == "certain", r2["proccss"]
     assert rows["volga"]["tier"] == "doubtful" and rows["volga"]["name"], rows["volga"]
     assert "stalin" not in rows, "a dictionary word is never a candidate"
     assert edit_distance("kitten", "sitting") == 3
+    autos = auto_certain(list(rows.values()), {"word:proccss": {"action": "keep"}}, "t")
+    names = {a["target"] for a in autos}
+    assert "tcmptation" in names and "apmsesinsy" in names and "proccss" not in names and "volga" not in names, names
+    assert all(a["action"] == "fix" and a["auto"] for a in autos)
     print("epub-scan selftest: OK")
 
 if __name__ == "__main__":
