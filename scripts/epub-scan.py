@@ -114,7 +114,7 @@ class Lexicon:
 
 # What a scanner mistakes for what: folding both sides makes a misread equal to its word.
 OCR_FOLD = (("rn", "m"), ("li", "h"), ("ii", "u"), ("vv", "w"), ("cl", "d"), ("fl", "f"), ("fi", "f"), ("ff", "f"),
-            ("c", "e"), ("l", "i"), ("1", "i"), ("0", "o"), ("j", "i"), ("t", "f"), ("nn", "m"), ("in", "m"), ("y", "v"))
+            ("c", "e"), ("l", "i"), ("1", "i"), ("0", "o"), ("j", "i"), ("nn", "m"), ("in", "m"))
 
 def ocr_fold(w):
     for a, b in OCR_FOLD: w = w.replace(a, b)
@@ -194,7 +194,7 @@ def scan(book, lexicon):
         # A word the author set in quotation marks is usually a foreign term or a coinage, not a misread.
         quoted = bool(o["quoted"])
         if kind == "glued": tier = "certain"
-        elif o["opening"]: tier = "certain"
+        elif o["opening"] and n <= 3: tier = "certain"      # a misread never repeats 184 times: that is a real word the dictionary lacks
         elif foreign: tier, fix, kind = "doubtful", None, "foreign"
         elif name: tier = "doubtful"
         elif quoted: tier = "doubtful"
