@@ -50,12 +50,13 @@
   ]
  },
  "2026-09-22": {
-  "min": 2.3,
+  "min": 2.8,
   "pages": 0,
   "books": [
-   "Hannah_Arendt__The_Origins_of_Totalitarianism"
+   "Hannah_Arendt__The_Origins_of_Totalitarianism",
+   "The Origins of Totalitarianism"
   ],
   "ko_min": 0.0,
-  "app_min": 2.3
+  "app_min": 2.8
  }
 }
