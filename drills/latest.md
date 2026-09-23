@@ -1,8 +1,8 @@
 # Pronunciation drill — from the ledger
 
-## i/ii  (82 hits)
+## i/ii  (87 hits)
 
-Your words: the, into, antisemitism, between, equivocalities, edicts
+Your words: the, into, antisemitism, mischievous, antiquity, between
 
 Minimal pairs — say each pair three times, slowly then at speed:
 
@@ -19,9 +19,9 @@ Lines to read aloud:
 - The streets are already busy, and the sky is usually grey.
 - I think about the week: what went well, what I should have done differently, and what I still want to build.
 
-## s/z  (61 hits)
+## s/z  (65 hits)
 
-Your words: this, centuries, its, disintegration, because, submitting
+Your words: this, mischievous, centuries, its, disintegration, because
 
 Minimal pairs — say each pair three times, slowly then at speed:
 
@@ -38,9 +38,9 @@ Lines to read aloud:
 - This week the plan says easy, so I keep the effort low and let the watch complain.
 - Hello, this is Daniel from the flat on the third floor.
 
-## schwa  (57 hits)
+## schwa  (60 hits)
 
-Your words: to, imperialism, between, than, and\_privileges, tradition
+Your words: to, than, imperialism, mischievous, between, and\_privileges
 
 Minimal pairs — say each pair three times, slowly then at speed:
 

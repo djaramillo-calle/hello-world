@@ -165,7 +165,7 @@
  "quota_note": "CORRECTED 2026-09-20. This file and CLAUDE.md said the Azure F0 month was spent and scoring was blocked. It was not. A live probe (scripts/azure-check.py) returns Success with IPA phonemes and prosody 91.3 on the same key. What actually fails is ONE REQUEST THAT IS TOO LONG: the 83.7-minute read is refused with CancellationReason.Error 1007 'Quota exceeded', while the 9.5, 15.3, 24.2, 27.6 and 37.1-minute reads all rescored normally. The ceiling on a single continuous-recognition request sits somewhere above ~37 minutes, and Azure words it exactly like an exhausted monthly allowance, which is what misled the diagnosis for four days. Probe with a short utterance before ever blaming the month again — it costs seconds.",
  "phonemes": {
   "schwa": {
-   "count": 57,
+   "count": 60,
    "words": {
     "tradition": 1,
     "deducing": 1,
@@ -177,12 +177,12 @@
     "mutually": 1,
     "superstitions": 1,
     "fallacious": 1,
-    "mischievous": 1,
+    "mischievous": 2,
     "antiquity": 1,
     "between": 2,
     "diaspora—that": 1,
     "hiatus": 1,
-    "than": 2,
+    "than": 3,
     "liquidation": 1,
     "momentous": 1,
     "authority": 1,
@@ -213,13 +213,14 @@
     "was": 1,
     "certain": 1,
     "continent": 1,
-    "and": 1
+    "and": 1,
+    "continuity": 1
    },
-   "last": "2026-09-21",
-   "per_1k": 5.2
+   "last": "2026-09-23",
+   "per_1k": 5.4
   },
   "-ed": {
-   "count": 19,
+   "count": 20,
    "words": {
     "dissolved": 1,
     "marked": 1,
@@ -236,13 +237,14 @@
     "granted": 1,
     "liked": 1,
     "called": 1,
-    "permitted": 1
+    "permitted": 1,
+    "ruled": 1
    },
-   "last": "2026-09-21",
-   "per_1k": 1.7
+   "last": "2026-09-23",
+   "per_1k": 1.8
   },
   "i/ii": {
-   "count": 82,
+   "count": 87,
    "words": {
     "into": 2,
     "disintegration": 1,
@@ -258,8 +260,8 @@
     "incompatibility": 1,
     "antisemitism": 2,
     "mutually": 1,
-    "mischievous": 1,
-    "antiquity": 1,
+    "mischievous": 2,
+    "antiquity": 2,
     "historically": 1,
     "between": 2,
     "fifteenth": 1,
@@ -302,30 +304,34 @@
     "jacobins": 1,
     "centuries": 1,
     "extension": 1,
-    "century": 1
+    "century": 1,
+    "apmsesinsy": 1,
+    "ideology—which": 1,
+    "1950": 1
    },
-   "last": "2026-09-21",
-   "per_1k": 7.4
+   "last": "2026-09-23",
+   "per_1k": 7.8
   },
   "cat/cut": {
-   "count": 17,
+   "count": 19,
    "words": {
     "unrecognizable": 1,
     "submitting": 1,
     "incompatibility": 1,
     "antisemitism": 2,
     "answer": 1,
-    "antiquity": 1,
+    "antiquity": 2,
     "matters": 1,
     "upon": 2,
     "uprootedness": 1,
     "nationally": 1,
     "granted": 2,
     "such": 1,
-    "had": 1
+    "had": 1,
+    "unbroken": 1
    },
-   "last": "2026-09-21",
-   "per_1k": 1.5
+   "last": "2026-09-23",
+   "per_1k": 1.7
   },
   "j/y": {
    "count": 3,
@@ -338,7 +344,7 @@
    "per_1k": 0.3
   },
   "s/z": {
-   "count": 61,
+   "count": 65,
    "words": {
     "disintegration": 1,
     "because": 1,
@@ -354,7 +360,7 @@
     "was": 1,
     "is": 1,
     "superstitions": 1,
-    "mischievous": 1,
+    "mischievous": 2,
     "matters": 1,
     "centuries": 2,
     "imperialism": 1,
@@ -388,10 +394,11 @@
     "oppressed": 1,
     "classes": 1,
     "society": 1,
-    "nation-state": 1
+    "nation-state": 1,
+    "apmsesinsy": 1
    },
-   "last": "2026-09-21",
-   "per_1k": 5.5
+   "last": "2026-09-23",
+   "per_1k": 5.8
   },
   "th": {
    "count": 21,
@@ -412,11 +419,11 @@
    "per_1k": 1.9
   },
   "b/v": {
-   "count": 35,
+   "count": 36,
    "words": {
     "submitting": 1,
     "avowed": 1,
-    "mischievous": 1,
+    "mischievous": 2,
     "between": 2,
     "version": 1,
     "rebellion": 1,
@@ -441,7 +448,7 @@
     "jacobins": 1,
     "republics": 1
    },
-   "last": "2026-09-21",
+   "last": "2026-09-23",
    "per_1k": 3.2
   },
   "h": {
@@ -476,8 +483,8 @@
  },
  "words": {
   "world": {
-   "count": 7,
-   "last": "2026-09-16",
+   "count": 8,
+   "last": "2026-09-23",
    "kinds": [
     "read"
    ],
@@ -840,15 +847,16 @@
    ]
   },
   "mischievous": {
-   "count": 1,
-   "last": "2026-09-12",
+   "count": 2,
+   "last": "2026-09-23",
    "kinds": [
     "read"
-   ]
+   ],
+   "carded": true
   },
   "antiquity": {
-   "count": 2,
-   "last": "2026-09-12",
+   "count": 4,
+   "last": "2026-09-23",
    "kinds": [
     "read"
    ],
@@ -906,11 +914,12 @@
    ]
   },
   "hiatus": {
-   "count": 1,
-   "last": "2026-09-12",
+   "count": 2,
+   "last": "2026-09-23",
    "kinds": [
     "read"
-   ]
+   ],
+   "carded": true
   },
   "centuries": {
    "count": 2,
@@ -1015,8 +1024,8 @@
    "carded": true
   },
   "than": {
-   "count": 4,
-   "last": "2026-09-21",
+   "count": 5,
+   "last": "2026-09-23",
    "kinds": [
     "read"
    ],
@@ -2404,12 +2413,54 @@
    "kinds": [
     "read"
    ]
+  },
+  "apmsesinsy": {
+   "count": 1,
+   "last": "2026-09-23",
+   "kinds": [
+    "read"
+   ]
+  },
+  "ideology—which": {
+   "count": 1,
+   "last": "2026-09-23",
+   "kinds": [
+    "read"
+   ]
+  },
+  "1950": {
+   "count": 1,
+   "last": "2026-09-23",
+   "kinds": [
+    "read"
+   ]
+  },
+  "unbroken": {
+   "count": 1,
+   "last": "2026-09-23",
+   "kinds": [
+    "read"
+   ]
+  },
+  "continuity": {
+   "count": 1,
+   "last": "2026-09-23",
+   "kinds": [
+    "read"
+   ]
+  },
+  "ruled": {
+   "count": 1,
+   "last": "2026-09-23",
+   "kinds": [
+    "read"
+   ]
   }
  },
  "anchor": [],
- "recordings": 9,
- "words_assessed": 11018,
- "updated": "2026-09-21T10:03:57Z",
+ "recordings": 10,
+ "words_assessed": 11179,
+ "updated": "2026-09-23T12:52:28Z",
  "reads": [
   {
    "date": "2026-09-10",
@@ -2490,6 +2541,16 @@
    "completeness": 95.8,
    "prosody": 84.8,
    "pron": 90.7
+  },
+  {
+   "date": "2026-09-23",
+   "passage": "B007",
+   "locale": "en-US",
+   "accuracy": 96.1,
+   "fluency": 91.5,
+   "completeness": 97.6,
+   "prosody": 83.9,
+   "pron": 90.4
   }
  ],
  "rate_note": "CLASSES ARE A RATE SINCE 2026-09-21: per_1k is flags of that class per thousand words actually assessed (words_assessed is the running denominator). Counts alone made a long read look like a problem and a short one look clean, and let a single 133-second read on 09-21 shove i/ii, s/z and schwa up by nine, eight and seven — straight into the Minimal Pairs weights. CAVEAT THAT MATTERS: azure_pa truncated the flagged list at forty until 2026-09-21, and that truncation is baked into every record stored before then. The 09-21 read hit the cap with 40 flags against 153 reference words; the 09-14 read hit the same 40 against ~8,000. So these rates are normalised but still built on censored counts, and the SHORT reads are the ones most distorted (their true rate is higher than shown, the long reads' much higher). Only re-running Azure on the stored audio fixes it — possible for the reads under ~37 minutes, impossible for 09-14 until long reads are chunked. Treat the ORDER of the classes as sound and the magnitudes as provisional."

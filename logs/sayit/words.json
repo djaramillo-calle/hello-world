@@ -1,6 +1,6 @@
 {
  "version": 1,
- "written": "2026-09-23T07:37:10Z",
+ "written": "2026-09-23T12:52:34Z",
  "per_session": 5,
  "words": [
   {
@@ -227,7 +227,7 @@
   {
    "id": "new-scapegoat",
    "word": "scapegoat",
-   "sentence": "Even Fichte, the favorite modern scapegoat for German race-thinking, hardly ever went beyond the limits of nationalism.",
+   "sentence": "It is true that the scapegoat theory in its purely arbitrary form never appears in print.",
    "clip": "clips/new-scapegoat-1.ogg",
    "ipa": "",
    "classes": [],
@@ -236,11 +236,11 @@
    "added": "2026-09-15",
    "sentences": [
     {
-     "text": "It is true that the scapegoat theory in its purely arbitrary form never appears in print.",
+     "text": "Even Fichte, the favorite modern scapegoat for German race-thinking, hardly ever went beyond the limits of nationalism.",
      "clip": "clips/new-scapegoat-0.ogg"
     },
     {
-     "text": "Even Fichte, the favorite modern scapegoat for German race-thinking, hardly ever went beyond the limits of nationalism.",
+     "text": "It is true that the scapegoat theory in its purely arbitrary form never appears in print.",
      "clip": "clips/new-scapegoat-1.ogg"
     },
     {
@@ -269,7 +269,7 @@
   {
    "id": "new-conspicuous",
    "word": "conspicuous",
-   "sentence": "The more conspicuous the power of totalitarianism the more secret become its true goals.",
+   "sentence": "They are the most conspicuous characteristics of society today...",
    "clip": "clips/new-conspicuous-1.ogg",
    "ipa": "",
    "classes": [],
@@ -278,11 +278,11 @@
    "added": "2026-09-15",
    "sentences": [
     {
-     "text": "They are the most conspicuous characteristics of society today...",
+     "text": "The more conspicuous the power of totalitarianism the more secret become its true goals.",
      "clip": "clips/new-conspicuous-0.ogg"
     },
     {
-     "text": "The more conspicuous the power of totalitarianism the more secret become its true goals.",
+     "text": "They are the most conspicuous characteristics of society today...",
      "clip": "clips/new-conspicuous-1.ogg"
     },
     {
