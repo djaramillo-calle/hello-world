@@ -106,6 +106,7 @@ def clean_epub(src, dst, decisions, page_heads=True):
     header_rx = _pi().HEADER_RX if page_heads else []
     counts = {}
     src, dst = pathlib.Path(src), pathlib.Path(dst)
+    dst.parent.mkdir(parents=True, exist_ok=True)
     tmp = dst.with_suffix(dst.suffix + ".tmp")
     with zipfile.ZipFile(src) as zin, zipfile.ZipFile(tmp, "w") as zout:
         for info in zin.infolist():
