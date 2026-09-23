@@ -32,7 +32,7 @@ LEDGER = REPO / "logs" / "pronunciation-ledger.json"
 QUEUE = REPO / "cards" / "queue.tsv"
 DRILLS = REPO / "drills"
 PASSAGES = REPO / "passages" / "passages.json"
-QUEUE_COLS = ["id", "created", "source", "kind", "front", "back", "tags", "status", "note_id"]
+QUEUE_COLS = ["id", "created", "source", "kind", "front", "back", "tags", "status", "note_id", "added_at"]
 
 # L1-Spanish confusion classes → the en-US IPA phonemes Azure reports for them
 CLASSES = {
@@ -279,8 +279,8 @@ def load_queue(path=QUEUE):
 
 def save_queue(rows, path=QUEUE):
     path.parent.mkdir(parents=True, exist_ok=True)
-    out = ["# Production cards waiting for / added to Anki (deck: English Runbook). status: queued | added | skipped.",
-           "# Written by scripts/practice-review.py and the cloud coach; pushed by scripts/anki-push-cards.py (25 new/week cap).",
+    out = ["# Production cards waiting for / in the app's deck (srs/cards.json; Anki until 2026-09-23). status: queued | added | skipped.",
+           "# Written by scripts/practice-review.py and the cloud coach; promoted by scripts/srs-deck.py (25 new/week cap).",
            "\t".join(QUEUE_COLS)]
     for r in rows: out.append("\t".join(str(r.get(c, "")).replace("\t", " ").replace("\n", " ") for c in QUEUE_COLS))
     path.write_text("\n".join(out) + "\n", encoding="utf-8")

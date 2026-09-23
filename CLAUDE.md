@@ -49,43 +49,39 @@ fires into the long-running session to write the digest. If working in a
 fresh session, append observations with dated entries in the established
 format and commit with message prefix "observations:".
 
-## Anki
+## Cards (the flashcards, IN the app since 2026-09-23; Anki before that)
 
-The user's SRS lives in desktop Anki (Anki MCP + AnkiConnect on the Mac) and
-AnkiDroid, both synced through AnkiWeb. Two paths into it:
+The user asked for the deck to live in the app ("so everything is now in the app"). The app's
+Cards tab schedules with **FSRS-6**, ported from the reference `py-fsrs` 6.3.2 and tested against
+it; the coach stopped pushing to Anki the same day (his call: reviewing the same cards in two
+schedulers corrupts both histories). The contract is the app repo's `docs/CONTRACT.md`, "Cards":
 
-- **Cloud (chosen by the user 2026-09-10):** `python3 scripts/anki-cloud.py`
-  — the official `anki` library's AnkiWeb sync, with `ANKIWEB_USER` /
-  `ANKIWEB_PASS` as CCR environment variables (never git, never the Hub
-  store, never chat). Each run: empty temp collection → full DOWNLOAD from
-  AnkiWeb → queued cards added (deck, model, cap and dedupe below) → normal
-  sync (incremental upload) → `logs/anki-stats.json` exported from the
-  downloaded collection → queue rows marked `added`. It never full-uploads:
-  if AnkiWeb asks for one it aborts and the desktop resolves it. Exit 3 when
-  the variables are unset. The daily and Friday Routines run it; AnkiDroid
-  and the desktop receive the cards at their next sync.
-- **Mac (AnkiConnect):** `anki-push-cards.py` / `anki-stats.py` in
-  `coach-sync.sh`, which opens Anki itself at night. Both paths share the
-  queue (`cards/queue.tsv`) and the cap, so whichever runs first wins and the
-  other finds nothing left.
-
-Conventions for any session that adds cards (either path, or the MCP):
-
-- Deck name: **English Runbook**. Card format: production — front = cue
-  ("Say it: ...", "Complete aloud: ...", "Phrasal (instead of X): ..."),
-  back = the target chunk. The user says the answer ALOUD before flipping.
-- Seed deck: `seed-deck.csv` (33 cards). Import it once via MCP on first
-  setup; thereafter add cards directly from `observations.md` suggestions
-  and conversation harvests. Cap ~25 new cards/week; deck cap ~120 live.
-- **Stats export (feeds the cloud Friday review):** when working locally,
-  export a compact summary to `logs/anki-stats.json` — date, reviews done
-  per day since last export, mature/young/new counts, cards with lapses
-  ≥4 (leech candidates) — commit and push ("observations: anki stats").
-  The weekly Routine reads this file from git; without it, the review
-  evaluates chat patterns only.
-- Adjustments (suspend leeches, reformulate cards, retire RETIRED-status
-  patterns' cards) are harvest-level actions: allowed any time, no
-  one-lever gate. Never change the scheduler settings without the user.
+- **Coach → app:** `srs/cards.json` (`logs/srs/cards.json`, built by `scripts/srs-deck.py`
+  every cloud-sync run from `cards/queue.tsv` + the one-off Anki export
+  `logs/srs/anki-export.json`, PATCHed into the app's placeholder in the shared Drive folder)
+  and `srs/params.json` (fitted FSRS parameters — not built yet; the app uses the published
+  defaults until it exists). The 25-new-per-rolling-week cap now lives in `srs-deck.py`
+  (queue rows promoted `queued → added`, `note_id` = the app card id, `added_at` kept).
+- **App → coach:** `srs/state.json` and `srs/revlog.jsonl`, folded by `scripts/srs-pull.py`
+  into `logs/srs/` and into **`logs/anki-stats.json` in the same shape as before** (`source:
+  "app (srs-pull.py)"`) plus `logs/anki-days.json`, so the weekly rollup, the readout and the
+  Friday review read SRS load unchanged. Leech candidates = `lapses` ≥ 4.
+- **Migration (done 2026-09-23):** `scripts/anki-export.py` dumped the 50 notes and 36 reviews
+  from AnkiWeb; `srs-deck.py --migrate` replayed each card's Anki reviews through py-fsrs
+  (`.venv-anki`) into `logs/srs/seed-state.json`, carried as `state` on the card until the phone's
+  first own review. The 70 queued cards enter at 25 a week from that day.
+- **Conventions unchanged:** production format — front = cue ("Say it: ...", "Complete aloud:
+  ...", "Phrasal (instead of X): ..."), back = the target chunk, said ALOUD before flipping.
+  Cards are harvest, never a lever. New cards: four a day in the app. Suspending (a leech, a
+  RETIRED pattern) is `suspended: true` in the deck — coach-side, any time; the scheduler
+  itself (retention, steps) is never changed without the user.
+- `anki-cloud.py`, `anki-push-cards.py`, `anki-stats.py`, `anki-revlog.py` stay on disk for the
+  record and are no longer run by any Routine or by `coach-sync.sh`'s cloud path. The Mac's
+  `coach-sync.sh` still contains the Anki steps: they skip when Anki holds nothing new, and
+  should be removed the next time that script is touched.
+- **Parameter fit (to build):** once `logs/srs/revlog.jsonl` holds a few hundred reviews, fit the
+  21 FSRS-6 parameters with the reference optimizer (`fsrs[optimizer]`, needs torch — a Friday
+  step, not a daily one) and write `logs/srs/params.json` → `srs/params.json`.
 
 ## Reading (KOReader on the phone; Kindle USB is the legacy path) — 2026-09-10
 

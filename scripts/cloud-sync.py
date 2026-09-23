@@ -159,7 +159,8 @@ def sync_reading(drv, work, log=print, dry=False):
     return changed
 
 # Coach->app files live in the same folder and must never be pulled back down.
-COACH_FILES = ("plan.json", "sayit.zip", "manifest.json")
+FOLDER_MIME = "application/vnd.google-apps.folder"
+COACH_FILES = ("plan.json", "sayit.zip", "manifest.json", "srs/cards.json", "srs/params.json")
 COACH_DIRS = ("library/", "dict/")
 
 # The app's own Drive folder (app repo docs/CONTRACT.md, "Drive sync", 2026-09-22): the app makes
@@ -263,7 +264,7 @@ def sync_pairs(drv, work, log=print, dry=False, sayit_results=None, practice_dir
     reads_done = _reads_done(practice_dir)
     for rel, f in drv.walk(folder["id"]):
         if rel in COACH_FILES or rel.startswith(COACH_DIRS): continue   # coach->app, never pulled back down
-        if not (rel.endswith(".json") or rel.endswith(".txt") or _attempt_audio(rel) or _read_stem(rel) or rel.startswith("reading/")): continue
+        if not (rel.endswith(".json") or rel.endswith(".txt") or _attempt_audio(rel) or _read_stem(rel) or rel.startswith("reading/") or rel.startswith("srs/")): continue
         # An unscored Say-it attempt comes down EVERY run, sidecar and audio together, until
         # results.json says it was scored. Everything else is fetched once by md5.
         if _sayit_pending(rel, done) or _read_pending(rel, reads_done):
@@ -280,11 +281,17 @@ def sync_pairs(drv, work, log=print, dry=False, sayit_results=None, practice_dir
 def push_file(drv, local, remote_name, folder=None, log=print, dry=False):
     """Update a coach→app file in place. The service account has NO storage quota, so it can only PATCH a
     file that already exists — the owner creates each one once (plan.json 2026-09-11, sayit.zip 2026-09-13),
-    or the app does, as an empty placeholder, in its own folder."""
+    or the app does, as an empty placeholder, in its own folder. `remote_name` may carry a subfolder
+    (`srs/cards.json`): the subfolder too must already exist (the app makes it with the placeholder)."""
     local = pathlib.Path(local)
     if not local.exists(): return False
     f = pairs_folder(drv, log) if folder is None else drv.resolve(folder)
     if not f: return False
+    if "/" in remote_name:
+        sub, remote_name = remote_name.rsplit("/", 1)
+        for part in sub.split("/"):
+            f = next((x for x in drv.children(f["id"]) if x["name"] == part and x.get("mimeType") == FOLDER_MIME), None)
+            if not f: log(f"sayit: {sub}/{remote_name} — the folder {sub}/ is not on Drive yet (the app makes it with the placeholder)"); return False
     remote = next((x for x in drv.children(f["id"]) if x["name"] == remote_name), None)
     if not remote:
         log(f"sayit: {remote_name} is not on Drive yet — the owner creates it once (docs/HUB.md)"); return False
@@ -378,6 +385,9 @@ def main():
             # folded into the same logs/reading files KOReader fed.
             if (work / "pairs" / "reading").is_dir():
                 run([sys.executable, SCRIPTS / "reader-pull.py", "--dir", work / "pairs" / "reading"])
+            # The flashcards (app repo docs/CONTRACT.md, "Cards"): the review log and the state.
+            if (work / "pairs" / "srs").is_dir():
+                run([sys.executable, SCRIPTS / "srs-pull.py", "--dir", work / "pairs" / "srs"])
             # Pages read in the app: the audio, its sidecar and (usually) its phone score sit
             # together under work/pairs/reads. practice-ingest folds the phone score itself and
             # never calls Azure for these; the practice record it writes is what stops the
@@ -404,7 +414,11 @@ def main():
         print(f"cloud-sync: pairs step failed — {type(e).__name__}: {str(e)[:200]}")
     if not dry:
         run([sys.executable, SCRIPTS / "reading-cards.py"])
-        run([sys.executable, SCRIPTS / "anki-cloud.py"])
+        # The deck goes to the app, not to Anki (2026-09-23): queue → srs/cards.json, PATCHed into the
+        # app's placeholder. anki-cloud.py stays on disk for the record and is no longer run.
+        run([sys.executable, SCRIPTS / "srs-deck.py"])
+        try: push_file(drv, REPO / "logs" / "srs" / "cards.json", "srs/cards.json", dry=dry)
+        except (SystemExit, Exception) as e: print(f"cloud-sync: cards.json NOT pushed — {type(e).__name__}: {str(e)[:120]}")
         run([sys.executable, SCRIPTS / "reading-hub.py"])
         run(["git", "-C", REPO, "add", "logs/", "cards/", "drills/"])
         if subprocess.run(["git", "-C", str(REPO), "diff", "--cached", "--quiet"]).returncode == 0:
