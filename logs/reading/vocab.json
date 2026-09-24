@@ -2950,8 +2950,22 @@
    "review_count": 0,
    "streak": 0,
    "highlight": "",
+   "carded": true,
+   "dropped": true
+  },
+  {
+   "id": "app:antisemitism",
+   "word": "antisemitism",
+   "stem": "antisemitism",
+   "usage": "Preface to Part One: Antisemitism Antisemitism, a secular nineteenth-century ideology—which in name, though not in argument, was unknown before the 1870’s—and religious Jew-hatred, inspired by the mutually hostile antagonism of two conflicting creeds, are obviously not the same; and even the extent ",
+   "book": "The Origins of Totalitarianism",
+   "ts": 1790192406000,
+   "source": "app",
+   "review_count": 0,
+   "streak": 0,
+   "highlight": "",
    "carded": false
   }
  ],
- "synced": "2026-09-23"
+ "synced": "2026-09-24"
 }
