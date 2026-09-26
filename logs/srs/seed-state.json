@@ -1,0 +1,202 @@
+{
+ "c00001": {
+  "state": 2,
+  "step": null,
+  "stability": 0.2842063592758949,
+  "difficulty": 6.3909413235243795,
+  "due": "2026-09-16T11:28:57Z",
+  "last_review": "2026-09-15T11:28:57Z",
+  "reps": 3,
+  "lapses": 0
+ },
+ "c00002": {
+  "state": 2,
+  "step": null,
+  "stability": 0.2842063592758949,
+  "difficulty": 6.3909413235243795,
+  "due": "2026-09-16T11:28:23Z",
+  "last_review": "2026-09-15T11:28:23Z",
+  "reps": 3,
+  "lapses": 0
+ },
+ "c00003": {
+  "state": 2,
+  "step": null,
+  "stability": 0.2842063592758949,
+  "difficulty": 6.3909413235243795,
+  "due": "2026-09-16T11:29:39Z",
+  "last_review": "2026-09-15T11:29:39Z",
+  "reps": 3,
+  "lapses": 0
+ },
+ "c00004": {
+  "state": 2,
+  "step": null,
+  "stability": 8.2956,
+  "difficulty": 1.0,
+  "due": "2026-09-23T11:18:50Z",
+  "last_review": "2026-09-15T11:18:50Z",
+  "reps": 1,
+  "lapses": 0
+ },
+ "c00005": {
+  "state": 2,
+  "step": null,
+  "stability": 8.2956,
+  "difficulty": 1.0,
+  "due": "2026-09-23T11:19:26Z",
+  "last_review": "2026-09-15T11:19:26Z",
+  "reps": 1,
+  "lapses": 0
+ },
+ "c00006": {
+  "state": 2,
+  "step": null,
+  "stability": 8.2956,
+  "difficulty": 1.0,
+  "due": "2026-09-23T11:20:17Z",
+  "last_review": "2026-09-15T11:20:17Z",
+  "reps": 1,
+  "lapses": 0
+ },
+ "c00007": {
+  "state": 2,
+  "step": null,
+  "stability": 8.2956,
+  "difficulty": 1.0,
+  "due": "2026-09-23T11:20:22Z",
+  "last_review": "2026-09-15T11:20:22Z",
+  "reps": 1,
+  "lapses": 0
+ },
+ "c00008": {
+  "state": 2,
+  "step": null,
+  "stability": 8.2956,
+  "difficulty": 1.0,
+  "due": "2026-09-23T11:20:28Z",
+  "last_review": "2026-09-15T11:20:28Z",
+  "reps": 1,
+  "lapses": 0
+ },
+ "c00009": {
+  "state": 2,
+  "step": null,
+  "stability": 8.2956,
+  "difficulty": 1.0,
+  "due": "2026-09-23T11:20:31Z",
+  "last_review": "2026-09-15T11:20:31Z",
+  "reps": 1,
+  "lapses": 0
+ },
+ "c00010": {
+  "state": 2,
+  "step": null,
+  "stability": 8.2956,
+  "difficulty": 1.0,
+  "due": "2026-09-23T11:20:32Z",
+  "last_review": "2026-09-15T11:20:32Z",
+  "reps": 1,
+  "lapses": 0
+ },
+ "c00011": {
+  "state": 2,
+  "step": null,
+  "stability": 8.2956,
+  "difficulty": 1.0,
+  "due": "2026-09-23T11:20:34Z",
+  "last_review": "2026-09-15T11:20:34Z",
+  "reps": 1,
+  "lapses": 0
+ },
+ "c00012": {
+  "state": 2,
+  "step": null,
+  "stability": 8.2956,
+  "difficulty": 1.0,
+  "due": "2026-09-23T11:20:36Z",
+  "last_review": "2026-09-15T11:20:36Z",
+  "reps": 1,
+  "lapses": 0
+ },
+ "c00013": {
+  "state": 2,
+  "step": null,
+  "stability": 8.2956,
+  "difficulty": 1.0,
+  "due": "2026-09-23T11:20:38Z",
+  "last_review": "2026-09-15T11:20:38Z",
+  "reps": 1,
+  "lapses": 0
+ },
+ "c00014": {
+  "state": 2,
+  "step": null,
+  "stability": 8.2956,
+  "difficulty": 1.0,
+  "due": "2026-09-23T11:20:40Z",
+  "last_review": "2026-09-15T11:20:40Z",
+  "reps": 1,
+  "lapses": 0
+ },
+ "c00015": {
+  "state": 2,
+  "step": null,
+  "stability": 0.2842063592758949,
+  "difficulty": 6.3909413235243795,
+  "due": "2026-09-16T11:30:15Z",
+  "last_review": "2026-09-15T11:30:15Z",
+  "reps": 3,
+  "lapses": 0
+ },
+ "c00016": {
+  "state": 2,
+  "step": null,
+  "stability": 0.2842063592758949,
+  "difficulty": 7.584416275464289,
+  "due": "2026-09-16T11:33:43Z",
+  "last_review": "2026-09-15T11:33:43Z",
+  "reps": 4,
+  "lapses": 0
+ },
+ "c00017": {
+  "state": 2,
+  "step": null,
+  "stability": 2.3065,
+  "difficulty": 2.111214235785395,
+  "due": "2026-09-17T11:30:54Z",
+  "last_review": "2026-09-15T11:30:54Z",
+  "reps": 2,
+  "lapses": 0
+ },
+ "c00018": {
+  "state": 2,
+  "step": null,
+  "stability": 0.2842063592758949,
+  "difficulty": 6.3909413235243795,
+  "due": "2026-09-16T11:32:27Z",
+  "last_review": "2026-09-15T11:32:27Z",
+  "reps": 3,
+  "lapses": 0
+ },
+ "c00019": {
+  "state": 2,
+  "step": null,
+  "stability": 0.2842063592758949,
+  "difficulty": 6.3909413235243795,
+  "due": "2026-09-16T11:33:09Z",
+  "last_review": "2026-09-15T11:33:09Z",
+  "reps": 3,
+  "lapses": 0
+ },
+ "c00020": {
+  "state": 2,
+  "step": null,
+  "stability": 8.2956,
+  "difficulty": 1.0,
+  "due": "2026-09-23T11:27:07Z",
+  "last_review": "2026-09-15T11:27:07Z",
+  "reps": 1,
+  "lapses": 0
+ }
+}

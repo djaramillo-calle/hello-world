@@ -1,0 +1,2785 @@
+{
+ "source": "2026_09_21_10_26_40.mp3",
+ "recorded": "2026-09-21 09:48",
+ "ingested": "2026-09-21T09:49:35Z",
+ "duration_s": 133.1,
+ "kind": "read",
+ "passage": "B110",
+ "scripted": true,
+ "passage_overlap": 0.92,
+ "span": {
+  "first": "B110",
+  "last": "B110",
+  "cover": 0.92,
+  "ref_words": 153,
+  "ratio": 1.33
+ },
+ "kind_note": "read B110 (92% bigram cover, 153 reference words, ratio 1.33)",
+ "words": 204,
+ "fillers": 0,
+ "wpm": 91.9,
+ "pronunciation_suspects": [
+  {
+   "word": "anti",
+   "p": 0.45,
+   "at_s": 11.81
+  },
+  {
+   "word": "which",
+   "p": 0.461,
+   "at_s": 107.51
+  },
+  {
+   "word": "couped",
+   "p": 0.296,
+   "at_s": 117.33
+  }
+ ],
+ "praat": {
+  "syllables": 417.0,
+  "pauses": 42.0,
+  "duration_s": 133.12,
+  "phonation_s": 95.74,
+  "speech_rate_syll_s": 3.13,
+  "articulation_rate_syll_s": 4.36,
+  "avg_syllable_s": 0.23,
+  "f0_median_hz": 128.0,
+  "f0_range_semitones": 6.4
+ },
+ "word_confidences": [
+  {
+   "w": "Chapter",
+   "start": 5.55,
+   "end": 6.09,
+   "p": 0.651
+  },
+  {
+   "w": "2.",
+   "start": 6.09,
+   "end": 6.49,
+   "p": 0.831
+  },
+  {
+   "w": "The",
+   "start": 7.63,
+   "end": 8.03,
+   "p": 0.709
+  },
+  {
+   "w": "Jews,",
+   "start": 8.03,
+   "end": 8.33,
+   "p": 0.89
+  },
+  {
+   "w": "the",
+   "start": 8.91,
+   "end": 9.11,
+   "p": 0.91
+  },
+  {
+   "w": "nation",
+   "start": 9.11,
+   "end": 9.41,
+   "p": 0.743
+  },
+  {
+   "w": "-state,",
+   "start": 9.41,
+   "end": 9.85,
+   "p": 0.763
+  },
+  {
+   "w": "and",
+   "start": 10.27,
+   "end": 10.45,
+   "p": 0.978
+  },
+  {
+   "w": "the",
+   "start": 10.45,
+   "end": 10.59,
+   "p": 0.99
+  },
+  {
+   "w": "birth",
+   "start": 10.59,
+   "end": 10.85,
+   "p": 0.995
+  },
+  {
+   "w": "of",
+   "start": 10.85,
+   "end": 11.81,
+   "p": 0.988
+  },
+  {
+   "w": "anti",
+   "start": 11.81,
+   "end": 12.15,
+   "p": 0.45
+  },
+  {
+   "w": "-Semitism.",
+   "start": 12.15,
+   "end": 12.73,
+   "p": 0.915
+  },
+  {
+   "w": "The",
+   "start": 14.65,
+   "end": 15.49,
+   "p": 0.915
+  },
+  {
+   "w": "equivocalities",
+   "start": 15.49,
+   "end": 16.33,
+   "p": 0.856
+  },
+  {
+   "w": "of",
+   "start": 16.33,
+   "end": 17.57,
+   "p": 0.992
+  },
+  {
+   "w": "emancipation",
+   "start": 19.59,
+   "end": 20.71,
+   "p": 0.973
+  },
+  {
+   "w": "and",
+   "start": 20.71,
+   "end": 20.97,
+   "p": 0.884
+  },
+  {
+   "w": "the",
+   "start": 20.97,
+   "end": 21.13,
+   "p": 0.949
+  },
+  {
+   "w": "Jewish",
+   "start": 21.13,
+   "end": 21.39,
+   "p": 0.986
+  },
+  {
+   "w": "state,",
+   "start": 21.39,
+   "end": 22.13,
+   "p": 0.879
+  },
+  {
+   "w": "Panker,",
+   "start": 22.55,
+   "end": 22.89,
+   "p": 0.667
+  },
+  {
+   "w": "PN,",
+   "start": 23.17,
+   "end": 23.49,
+   "p": 0.685
+  },
+  {
+   "w": "the",
+   "start": 24.15,
+   "end": 24.29,
+   "p": 0.936
+  },
+  {
+   "w": "height",
+   "start": 24.29,
+   "end": 24.65,
+   "p": 0.717
+  },
+  {
+   "w": "of",
+   "start": 24.65,
+   "end": 25.03,
+   "p": 0.996
+  },
+  {
+   "w": "its",
+   "start": 25.03,
+   "end": 25.25,
+   "p": 0.977
+  },
+  {
+   "w": "development",
+   "start": 25.25,
+   "end": 25.77,
+   "p": 0.988
+  },
+  {
+   "w": "in",
+   "start": 25.77,
+   "end": 26.13,
+   "p": 0.976
+  },
+  {
+   "w": "the",
+   "start": 26.13,
+   "end": 26.25,
+   "p": 0.996
+  },
+  {
+   "w": "90th",
+   "start": 26.25,
+   "end": 26.75,
+   "p": 0.906
+  },
+  {
+   "w": "century.",
+   "start": 26.75,
+   "end": 27.29,
+   "p": 0.912
+  },
+  {
+   "w": "The",
+   "start": 28.07,
+   "end": 28.57,
+   "p": 0.955
+  },
+  {
+   "w": "nation",
+   "start": 28.57,
+   "end": 28.85,
+   "p": 0.993
+  },
+  {
+   "w": "-state",
+   "start": 28.85,
+   "end": 29.27,
+   "p": 0.922
+  },
+  {
+   "w": "granted",
+   "start": 29.27,
+   "end": 29.77,
+   "p": 0.972
+  },
+  {
+   "w": "its",
+   "start": 29.77,
+   "end": 30.23,
+   "p": 0.987
+  },
+  {
+   "w": "Jewish",
+   "start": 30.23,
+   "end": 30.65,
+   "p": 0.741
+  },
+  {
+   "w": "inhabitants",
+   "start": 30.65,
+   "end": 31.73,
+   "p": 0.994
+  },
+  {
+   "w": "equality",
+   "start": 31.73,
+   "end": 32.23,
+   "p": 0.627
+  },
+  {
+   "w": "of",
+   "start": 32.23,
+   "end": 32.63,
+   "p": 0.995
+  },
+  {
+   "w": "rights.",
+   "start": 32.63,
+   "end": 32.97,
+   "p": 0.993
+  },
+  {
+   "w": "Deeper,",
+   "start": 32.97,
+   "end": 34.41,
+   "p": 0.511
+  },
+  {
+   "w": "older,",
+   "start": 34.67,
+   "end": 34.97,
+   "p": 0.979
+  },
+  {
+   "w": "and",
+   "start": 35.41,
+   "end": 35.49,
+   "p": 0.971
+  },
+  {
+   "w": "more",
+   "start": 35.49,
+   "end": 35.73,
+   "p": 0.997
+  },
+  {
+   "w": "faithful",
+   "start": 35.73,
+   "end": 36.23,
+   "p": 0.702
+  },
+  {
+   "w": "contradictions",
+   "start": 36.23,
+   "end": 37.01,
+   "p": 0.989
+  },
+  {
+   "w": "are",
+   "start": 37.01,
+   "end": 37.35,
+   "p": 0.988
+  },
+  {
+   "w": "hidden",
+   "start": 37.35,
+   "end": 37.61,
+   "p": 0.948
+  },
+  {
+   "w": "behind",
+   "start": 37.61,
+   "end": 37.95,
+   "p": 0.997
+  },
+  {
+   "w": "the",
+   "start": 37.95,
+   "end": 38.21,
+   "p": 0.984
+  },
+  {
+   "w": "abstract",
+   "start": 38.21,
+   "end": 38.67,
+   "p": 0.996
+  },
+  {
+   "w": "and",
+   "start": 38.67,
+   "end": 38.89,
+   "p": 0.938
+  },
+  {
+   "w": "palpable",
+   "start": 38.89,
+   "end": 39.39,
+   "p": 0.997
+  },
+  {
+   "w": "inconsistency",
+   "start": 39.39,
+   "end": 39.97,
+   "p": 0.996
+  },
+  {
+   "w": "that",
+   "start": 40.71,
+   "end": 41.39,
+   "p": 0.739
+  },
+  {
+   "w": "Jews",
+   "start": 41.39,
+   "end": 41.73,
+   "p": 0.989
+  },
+  {
+   "w": "receive",
+   "start": 41.73,
+   "end": 42.31,
+   "p": 0.551
+  },
+  {
+   "w": "their",
+   "start": 42.31,
+   "end": 42.57,
+   "p": 0.938
+  },
+  {
+   "w": "citizenship",
+   "start": 42.57,
+   "end": 43.75,
+   "p": 0.976
+  },
+  {
+   "w": "from",
+   "start": 43.75,
+   "end": 44.49,
+   "p": 0.985
+  },
+  {
+   "w": "governments",
+   "start": 44.49,
+   "end": 44.97,
+   "p": 0.954
+  },
+  {
+   "w": "which",
+   "start": 44.97,
+   "end": 45.73,
+   "p": 0.665
+  },
+  {
+   "w": "in",
+   "start": 45.73,
+   "end": 45.91,
+   "p": 0.795
+  },
+  {
+   "w": "the",
+   "start": 45.91,
+   "end": 46.01,
+   "p": 0.996
+  },
+  {
+   "w": "process",
+   "start": 46.01,
+   "end": 46.37,
+   "p": 0.993
+  },
+  {
+   "w": "of",
+   "start": 46.37,
+   "end": 46.61,
+   "p": 0.997
+  },
+  {
+   "w": "centuries",
+   "start": 46.61,
+   "end": 47.15,
+   "p": 0.975
+  },
+  {
+   "w": "had",
+   "start": 47.15,
+   "end": 47.59,
+   "p": 0.91
+  },
+  {
+   "w": "made",
+   "start": 47.59,
+   "end": 47.83,
+   "p": 0.954
+  },
+  {
+   "w": "nationality",
+   "start": 47.83,
+   "end": 48.29,
+   "p": 0.966
+  },
+  {
+   "w": "a",
+   "start": 48.77,
+   "end": 49.25,
+   "p": 0.979
+  },
+  {
+   "w": "prerequisite",
+   "start": 49.25,
+   "end": 49.85,
+   "p": 0.992
+  },
+  {
+   "w": "for",
+   "start": 49.85,
+   "end": 50.25,
+   "p": 0.993
+  },
+  {
+   "w": "citizenship",
+   "start": 50.25,
+   "end": 51.07,
+   "p": 0.988
+  },
+  {
+   "w": "and",
+   "start": 51.07,
+   "end": 51.67,
+   "p": 0.876
+  },
+  {
+   "w": "homogeneity",
+   "start": 51.67,
+   "end": 52.61,
+   "p": 0.986
+  },
+  {
+   "w": "of",
+   "start": 52.61,
+   "end": 52.95,
+   "p": 0.992
+  },
+  {
+   "w": "population,",
+   "start": 52.95,
+   "end": 53.59,
+   "p": 0.841
+  },
+  {
+   "w": "the",
+   "start": 53.89,
+   "end": 53.95,
+   "p": 0.969
+  },
+  {
+   "w": "outstanding",
+   "start": 53.95,
+   "end": 54.47,
+   "p": 0.986
+  },
+  {
+   "w": "characteristic",
+   "start": 54.47,
+   "end": 54.99,
+   "p": 0.715
+  },
+  {
+   "w": "of",
+   "start": 54.99,
+   "end": 56.09,
+   "p": 0.991
+  },
+  {
+   "w": "the",
+   "start": 56.09,
+   "end": 56.21,
+   "p": 0.951
+  },
+  {
+   "w": "body",
+   "start": 56.21,
+   "end": 56.47,
+   "p": 0.967
+  },
+  {
+   "w": "politic.",
+   "start": 56.47,
+   "end": 56.93,
+   "p": 0.645
+  },
+  {
+   "w": "The",
+   "start": 56.93,
+   "end": 58.49,
+   "p": 0.692
+  },
+  {
+   "w": "series",
+   "start": 58.49,
+   "end": 58.75,
+   "p": 0.958
+  },
+  {
+   "w": "of",
+   "start": 58.75,
+   "end": 58.99,
+   "p": 0.994
+  },
+  {
+   "w": "emancipation",
+   "start": 58.99,
+   "end": 59.77,
+   "p": 0.949
+  },
+  {
+   "w": "edicts",
+   "start": 59.77,
+   "end": 60.49,
+   "p": 0.937
+  },
+  {
+   "w": "which",
+   "start": 60.49,
+   "end": 60.79,
+   "p": 0.579
+  },
+  {
+   "w": "slowly",
+   "start": 60.79,
+   "end": 61.37,
+   "p": 0.682
+  },
+  {
+   "w": "and",
+   "start": 61.37,
+   "end": 61.75,
+   "p": 0.975
+  },
+  {
+   "w": "hesitantly",
+   "start": 61.75,
+   "end": 62.37,
+   "p": 0.986
+  },
+  {
+   "w": "followed",
+   "start": 62.37,
+   "end": 62.75,
+   "p": 0.653
+  },
+  {
+   "w": "the",
+   "start": 62.75,
+   "end": 63.03,
+   "p": 0.986
+  },
+  {
+   "w": "French",
+   "start": 63.03,
+   "end": 63.27,
+   "p": 0.955
+  },
+  {
+   "w": "edict",
+   "start": 63.27,
+   "end": 63.81,
+   "p": 0.725
+  },
+  {
+   "w": "of",
+   "start": 63.81,
+   "end": 64.13,
+   "p": 0.972
+  },
+  {
+   "w": "1792",
+   "start": 64.13,
+   "end": 64.93,
+   "p": 0.997
+  },
+  {
+   "w": "had",
+   "start": 65.51,
+   "end": 66.43,
+   "p": 0.71
+  },
+  {
+   "w": "been",
+   "start": 66.43,
+   "end": 66.67,
+   "p": 0.977
+  },
+  {
+   "w": "preceded",
+   "start": 66.67,
+   "end": 67.43,
+   "p": 0.994
+  },
+  {
+   "w": "and",
+   "start": 67.43,
+   "end": 67.67,
+   "p": 0.947
+  },
+  {
+   "w": "were",
+   "start": 67.67,
+   "end": 67.89,
+   "p": 0.947
+  },
+  {
+   "w": "accompanied",
+   "start": 67.89,
+   "end": 68.49,
+   "p": 0.998
+  },
+  {
+   "w": "by",
+   "start": 68.49,
+   "end": 68.95,
+   "p": 0.992
+  },
+  {
+   "w": "an",
+   "start": 68.95,
+   "end": 69.25,
+   "p": 0.928
+  },
+  {
+   "w": "equivocal",
+   "start": 69.25,
+   "end": 70.59,
+   "p": 0.8
+  },
+  {
+   "w": "attitude",
+   "start": 70.59,
+   "end": 71.15,
+   "p": 0.995
+  },
+  {
+   "w": "towards",
+   "start": 71.15,
+   "end": 71.67,
+   "p": 0.932
+  },
+  {
+   "w": "its",
+   "start": 71.67,
+   "end": 72.05,
+   "p": 0.935
+  },
+  {
+   "w": "Jewish",
+   "start": 72.05,
+   "end": 72.47,
+   "p": 0.947
+  },
+  {
+   "w": "inhabitants",
+   "start": 72.47,
+   "end": 73.47,
+   "p": 0.993
+  },
+  {
+   "w": "on",
+   "start": 73.47,
+   "end": 74.33,
+   "p": 0.923
+  },
+  {
+   "w": "the",
+   "start": 74.33,
+   "end": 74.49,
+   "p": 0.996
+  },
+  {
+   "w": "part",
+   "start": 74.49,
+   "end": 74.83,
+   "p": 0.988
+  },
+  {
+   "w": "of",
+   "start": 74.83,
+   "end": 75.17,
+   "p": 0.998
+  },
+  {
+   "w": "the",
+   "start": 75.17,
+   "end": 75.31,
+   "p": 0.994
+  },
+  {
+   "w": "nation",
+   "start": 75.31,
+   "end": 75.67,
+   "p": 0.948
+  },
+  {
+   "w": "-state.",
+   "start": 75.67,
+   "end": 76.11,
+   "p": 0.678
+  },
+  {
+   "w": "The",
+   "start": 77.11,
+   "end": 77.95,
+   "p": 0.975
+  },
+  {
+   "w": "breakdown",
+   "start": 77.95,
+   "end": 78.29,
+   "p": 0.984
+  },
+  {
+   "w": "of",
+   "start": 78.29,
+   "end": 78.73,
+   "p": 0.996
+  },
+  {
+   "w": "the",
+   "start": 78.73,
+   "end": 78.93,
+   "p": 0.966
+  },
+  {
+   "w": "feudal",
+   "start": 78.93,
+   "end": 79.95,
+   "p": 0.991
+  },
+  {
+   "w": "order",
+   "start": 79.95,
+   "end": 80.41,
+   "p": 0.987
+  },
+  {
+   "w": "had",
+   "start": 80.41,
+   "end": 80.75,
+   "p": 0.992
+  },
+  {
+   "w": "given",
+   "start": 80.75,
+   "end": 81.15,
+   "p": 0.989
+  },
+  {
+   "w": "rise",
+   "start": 81.15,
+   "end": 81.49,
+   "p": 0.999
+  },
+  {
+   "w": "to",
+   "start": 81.49,
+   "end": 81.77,
+   "p": 0.997
+  },
+  {
+   "w": "the",
+   "start": 81.77,
+   "end": 81.91,
+   "p": 0.967
+  },
+  {
+   "w": "new",
+   "start": 81.91,
+   "end": 82.17,
+   "p": 0.988
+  },
+  {
+   "w": "revolutionary",
+   "start": 82.17,
+   "end": 82.81,
+   "p": 0.972
+  },
+  {
+   "w": "concept",
+   "start": 82.81,
+   "end": 83.53,
+   "p": 0.987
+  },
+  {
+   "w": "of",
+   "start": 83.53,
+   "end": 84.15,
+   "p": 0.997
+  },
+  {
+   "w": "equality",
+   "start": 84.15,
+   "end": 84.71,
+   "p": 0.954
+  },
+  {
+   "w": "according",
+   "start": 84.71,
+   "end": 85.37,
+   "p": 0.634
+  },
+  {
+   "w": "to",
+   "start": 85.37,
+   "end": 85.67,
+   "p": 0.996
+  },
+  {
+   "w": "which",
+   "start": 85.67,
+   "end": 85.93,
+   "p": 0.999
+  },
+  {
+   "w": "a",
+   "start": 85.93,
+   "end": 86.17,
+   "p": 0.965
+  },
+  {
+   "w": "nation",
+   "start": 86.17,
+   "end": 86.81,
+   "p": 0.969
+  },
+  {
+   "w": "within",
+   "start": 86.81,
+   "end": 87.29,
+   "p": 0.968
+  },
+  {
+   "w": "the",
+   "start": 87.29,
+   "end": 87.61,
+   "p": 0.996
+  },
+  {
+   "w": "nation",
+   "start": 87.61,
+   "end": 88.09,
+   "p": 0.978
+  },
+  {
+   "w": "could",
+   "start": 88.09,
+   "end": 88.71,
+   "p": 0.944
+  },
+  {
+   "w": "no",
+   "start": 88.71,
+   "end": 89.03,
+   "p": 0.913
+  },
+  {
+   "w": "longer",
+   "start": 89.03,
+   "end": 89.67,
+   "p": 0.999
+  },
+  {
+   "w": "be",
+   "start": 89.67,
+   "end": 89.91,
+   "p": 0.998
+  },
+  {
+   "w": "tolerated.",
+   "start": 89.91,
+   "end": 90.73,
+   "p": 0.999
+  },
+  {
+   "w": "Jewish",
+   "start": 91.49,
+   "end": 92.05,
+   "p": 0.99
+  },
+  {
+   "w": "restrictions",
+   "start": 92.05,
+   "end": 92.87,
+   "p": 0.99
+  },
+  {
+   "w": "and",
+   "start": 92.87,
+   "end": 93.29,
+   "p": 0.99
+  },
+  {
+   "w": "privileges",
+   "start": 93.29,
+   "end": 93.79,
+   "p": 0.995
+  },
+  {
+   "w": "had",
+   "start": 93.79,
+   "end": 94.25,
+   "p": 0.98
+  },
+  {
+   "w": "to",
+   "start": 94.25,
+   "end": 94.47,
+   "p": 0.999
+  },
+  {
+   "w": "be",
+   "start": 94.47,
+   "end": 94.61,
+   "p": 0.998
+  },
+  {
+   "w": "abolished",
+   "start": 94.61,
+   "end": 95.21,
+   "p": 0.992
+  },
+  {
+   "w": "together",
+   "start": 95.21,
+   "end": 95.63,
+   "p": 0.989
+  },
+  {
+   "w": "with",
+   "start": 95.63,
+   "end": 96.11,
+   "p": 0.99
+  },
+  {
+   "w": "all",
+   "start": 96.11,
+   "end": 96.51,
+   "p": 0.992
+  },
+  {
+   "w": "other",
+   "start": 96.51,
+   "end": 96.99,
+   "p": 0.973
+  },
+  {
+   "w": "special",
+   "start": 96.99,
+   "end": 97.39,
+   "p": 0.979
+  },
+  {
+   "w": "rights",
+   "start": 97.39,
+   "end": 97.97,
+   "p": 0.92
+  },
+  {
+   "w": "and",
+   "start": 97.97,
+   "end": 98.51,
+   "p": 0.989
+  },
+  {
+   "w": "liberties.",
+   "start": 98.51,
+   "end": 99.03,
+   "p": 0.9
+  },
+  {
+   "w": "This",
+   "start": 99.93,
+   "end": 100.35,
+   "p": 0.781
+  },
+  {
+   "w": "growth",
+   "start": 100.35,
+   "end": 100.75,
+   "p": 0.984
+  },
+  {
+   "w": "of",
+   "start": 100.75,
+   "end": 101.11,
+   "p": 0.998
+  },
+  {
+   "w": "equality,",
+   "start": 101.11,
+   "end": 101.59,
+   "p": 0.979
+  },
+  {
+   "w": "however,",
+   "start": 102.27,
+   "end": 102.29,
+   "p": 0.997
+  },
+  {
+   "w": "depended",
+   "start": 102.83,
+   "end": 103.31,
+   "p": 0.974
+  },
+  {
+   "w": "largely",
+   "start": 103.31,
+   "end": 103.85,
+   "p": 0.993
+  },
+  {
+   "w": "upon",
+   "start": 103.85,
+   "end": 104.29,
+   "p": 0.985
+  },
+  {
+   "w": "the",
+   "start": 104.29,
+   "end": 104.85,
+   "p": 0.995
+  },
+  {
+   "w": "growth",
+   "start": 104.85,
+   "end": 105.17,
+   "p": 0.997
+  },
+  {
+   "w": "of",
+   "start": 105.17,
+   "end": 105.77,
+   "p": 0.996
+  },
+  {
+   "w": "an",
+   "start": 105.77,
+   "end": 105.99,
+   "p": 0.984
+  },
+  {
+   "w": "independent",
+   "start": 105.99,
+   "end": 106.47,
+   "p": 0.988
+  },
+  {
+   "w": "state",
+   "start": 106.47,
+   "end": 106.99,
+   "p": 0.944
+  },
+  {
+   "w": "machine",
+   "start": 106.99,
+   "end": 107.51,
+   "p": 0.573
+  },
+  {
+   "w": "which",
+   "start": 107.51,
+   "end": 108.15,
+   "p": 0.461
+  },
+  {
+   "w": "either",
+   "start": 108.15,
+   "end": 108.67,
+   "p": 0.976
+  },
+  {
+   "w": "has",
+   "start": 108.67,
+   "end": 109.15,
+   "p": 0.993
+  },
+  {
+   "w": "an",
+   "start": 109.15,
+   "end": 109.45,
+   "p": 0.974
+  },
+  {
+   "w": "enlightened",
+   "start": 109.45,
+   "end": 109.99,
+   "p": 0.795
+  },
+  {
+   "w": "despotism",
+   "start": 109.99,
+   "end": 111.35,
+   "p": 0.987
+  },
+  {
+   "w": "or",
+   "start": 111.35,
+   "end": 111.93,
+   "p": 0.809
+  },
+  {
+   "w": "has",
+   "start": 111.93,
+   "end": 112.17,
+   "p": 0.983
+  },
+  {
+   "w": "a",
+   "start": 112.17,
+   "end": 112.37,
+   "p": 0.994
+  },
+  {
+   "w": "constitutional",
+   "start": 112.37,
+   "end": 113.07,
+   "p": 0.983
+  },
+  {
+   "w": "government",
+   "start": 113.07,
+   "end": 113.73,
+   "p": 0.978
+  },
+  {
+   "w": "above",
+   "start": 113.73,
+   "end": 114.19,
+   "p": 0.924
+  },
+  {
+   "w": "all",
+   "start": 114.19,
+   "end": 114.97,
+   "p": 0.997
+  },
+  {
+   "w": "classes",
+   "start": 114.97,
+   "end": 115.49,
+   "p": 0.98
+  },
+  {
+   "w": "and",
+   "start": 115.49,
+   "end": 116.17,
+   "p": 0.988
+  },
+  {
+   "w": "parties.",
+   "start": 116.17,
+   "end": 116.69,
+   "p": 0.993
+  },
+  {
+   "w": "Couped",
+   "start": 117.33,
+   "end": 117.91,
+   "p": 0.296
+  },
+  {
+   "w": "in",
+   "start": 117.91,
+   "end": 118.15,
+   "p": 0.953
+  },
+  {
+   "w": "splendid",
+   "start": 118.15,
+   "end": 118.75,
+   "p": 0.845
+  },
+  {
+   "w": "isolation",
+   "start": 118.75,
+   "end": 119.79,
+   "p": 0.982
+  },
+  {
+   "w": "function.",
+   "start": 119.79,
+   "end": 120.57,
+   "p": 0.85
+  }
+ ],
+ "azure": {
+  "scripted": true,
+  "locale": "en-US",
+  "en_gb": {
+   "overall": {
+    "accuracy": 89.0,
+    "fluency": 89.8,
+    "completeness": 90.4,
+    "prosody": 79.9,
+    "pron": 85.7
+   },
+   "flagged_words": [
+    {
+     "word": "concept",
+     "accuracy": 41.0,
+     "error": "Mispronunciation",
+     "phonemes": [
+      {
+       "ph": "ɛ",
+       "score": 22.0,
+       "heard": [
+        "æ",
+        "tʃ",
+        "ɑ"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "to",
+     "accuracy": 94.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "t",
+       "score": 52.0,
+       "heard": [
+        "t",
+        "u",
+        "tʃ"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "breakdown",
+     "accuracy": 1.0,
+     "error": "Mispronunciation"
+    },
+    {
+     "word": "granted",
+     "accuracy": 14.0,
+     "error": "Mispronunciation",
+     "phonemes": [
+      {
+       "ph": "æ",
+       "score": 18.0,
+       "heard": [
+        "æ",
+        "ɑ",
+        "ʌ"
+       ]
+      },
+      {
+       "ph": "ɪ",
+       "score": 34.0,
+       "heard": [
+        "ɪ",
+        "i",
+        "ɛ"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "liberties",
+     "accuracy": 7.0,
+     "error": "Mispronunciation",
+     "phonemes": [
+      {
+       "ph": "b",
+       "score": 16.0,
+       "heard": [
+        "m",
+        "ɛ",
+        "ɹ"
+       ]
+      },
+      {
+       "ph": "ɚ",
+       "score": 6.0,
+       "heard": [
+        "ɪ",
+        "t",
+        "ə"
+       ]
+      },
+      {
+       "ph": "z",
+       "score": 14.0,
+       "heard": [
+        "ə",
+        "z",
+        "m"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "equivocalities",
+     "accuracy": 57.0,
+     "error": "Mispronunciation",
+     "phonemes": [
+      {
+       "ph": "ɪ",
+       "score": 52.0,
+       "heard": [
+        "æ",
+        "k",
+        "ɛ"
+       ]
+      },
+      {
+       "ph": "ɪ",
+       "score": 34.0,
+       "heard": [
+        "ə",
+        "u",
+        "v"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "and",
+     "accuracy": 80.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "d",
+       "score": 40.0,
+       "heard": [
+        "n",
+        "d",
+        "ð"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "nineteenth",
+     "accuracy": 91.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "n",
+       "score": 25.0,
+       "heard": [
+        "i",
+        "ə",
+        "θ"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "jewish",
+     "accuracy": 91.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "ʃ",
+       "score": 44.0,
+       "heard": [
+        "s",
+        "z",
+        "t"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "equality",
+     "accuracy": 97.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "ɪ",
+       "score": 37.0,
+       "heard": [
+        "ɪ",
+        "ɛ",
+        "ə"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "that",
+     "accuracy": 91.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "ð",
+       "score": 49.0,
+       "heard": [
+        "ð",
+        "t",
+        "ə"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "citizenship",
+     "accuracy": 58.0,
+     "error": "Mispronunciation",
+     "phonemes": [
+      {
+       "ph": "ə",
+       "score": 17.0,
+       "heard": [
+        "ɪ",
+        "ə",
+        "i"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "citizenship",
+     "accuracy": 85.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "s",
+       "score": 33.0,
+       "heard": [
+        "s",
+        "t",
+        "oʊ"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "homogeneity",
+     "accuracy": 65.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "h",
+       "score": 24.0,
+       "heard": [
+        "ɑ",
+        "ə",
+        "æ"
+       ]
+      },
+      {
+       "ph": "oʊ",
+       "score": 37.0,
+       "heard": [
+        "ɑ",
+        "ə",
+        "ɹ"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "edicts",
+     "accuracy": 60.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "i",
+       "score": 13.0,
+       "heard": [
+        "ɛ",
+        "æ",
+        "d"
+       ]
+      },
+      {
+       "ph": "d",
+       "score": 31.0,
+       "heard": [
+        "d",
+        "t",
+        "l"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "which",
+     "accuracy": 94.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "tʃ",
+       "score": 27.0,
+       "heard": [
+        "ɪ",
+        "tʃ",
+        "z"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "edict",
+     "accuracy": 69.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "i",
+       "score": 4.0,
+       "heard": [
+        "ɛ",
+        "æ",
+        "d"
+       ]
+      },
+      {
+       "ph": "d",
+       "score": 38.0,
+       "heard": [
+        "d",
+        "t",
+        "ɹ"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "restrictions",
+     "accuracy": 73.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "ɹ",
+       "score": 13.0,
+       "heard": [
+        "w",
+        "ə",
+        "ɪ"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "and\\_privileges",
+     "accuracy": 97.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "ə",
+       "score": 59.0,
+       "heard": [
+        "æ",
+        "z",
+        "ə"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "the",
+     "accuracy": 35.0,
+     "error": "Mispronunciation",
+     "phonemes": [
+      {
+       "ph": "i",
+       "score": 30.0,
+       "heard": [
+        "i",
+        "z",
+        "ɪ"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "process",
+     "accuracy": 6.0,
+     "error": "Mispronunciation",
+     "phonemes": [
+      {
+       "ph": "s",
+       "score": 2.0,
+       "heard": [
+        "θ",
+        "ð",
+        "f"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "of",
+     "accuracy": 80.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "v",
+       "score": 40.0,
+       "heard": [
+        "aʊ",
+        "ɹ",
+        "u"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "hesitantly",
+     "accuracy": 3.0,
+     "error": "Mispronunciation",
+     "phonemes": [
+      {
+       "ph": "ə",
+       "score": 7.0,
+       "heard": [
+        "ɪ",
+        "d",
+        "ə"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "jewish",
+     "accuracy": 4.0,
+     "error": "Mispronunciation",
+     "phonemes": [
+      {
+       "ph": "ɪ",
+       "score": 28.0,
+       "heard": [
+        "ɪ",
+        "i",
+        "d"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "of",
+     "accuracy": 80.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "v",
+       "score": 40.0,
+       "heard": [
+        "p",
+        "ə",
+        "d"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "process",
+     "accuracy": 8.0,
+     "error": "Mispronunciation",
+     "phonemes": [
+      {
+       "ph": "ɹ",
+       "score": 40.0,
+       "heard": [
+        "ɹ",
+        "g",
+        "w"
+       ]
+      },
+      {
+       "ph": "s",
+       "score": 29.0,
+       "heard": [
+        "θ",
+        "s",
+        "z"
+       ]
+      },
+      {
+       "ph": "s",
+       "score": 23.0,
+       "heard": [
+        "θ",
+        "z",
+        "s"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "development",
+     "accuracy": 4.0,
+     "error": "Mispronunciation",
+     "phonemes": [
+      {
+       "ph": "ə",
+       "score": 57.0,
+       "heard": [
+        "p",
+        "ɪ",
+        "ə"
+       ]
+      },
+      {
+       "ph": "ə",
+       "score": 9.0,
+       "heard": [
+        "ə",
+        "d",
+        "ɪ"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "state",
+     "accuracy": 97.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "t",
+       "score": 55.0,
+       "heard": [
+        "t",
+        "d",
+        "m"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "the",
+     "accuracy": 80.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "ð",
+       "score": 40.0,
+       "heard": [
+        "i",
+        "ɪ",
+        "ɛ"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "had",
+     "accuracy": 91.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "d",
+       "score": 11.0,
+       "heard": [
+        "z",
+        "æ",
+        "s"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "in",
+     "accuracy": 80.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "n",
+       "score": 40.0,
+       "heard": [
+        "n",
+        "l",
+        "ɪ"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "tolerated",
+     "accuracy": 8.0,
+     "error": "Mispronunciation",
+     "phonemes": [
+      {
+       "ph": "l",
+       "score": 2.0,
+       "heard": [
+        "l",
+        "n",
+        "v"
+       ]
+      },
+      {
+       "ph": "ə",
+       "score": 4.0,
+       "heard": [
+        "aɪ",
+        "l",
+        "æ"
+       ]
+      },
+      {
+       "ph": "eɪ",
+       "score": 12.0,
+       "heard": [
+        "aɪ",
+        "t",
+        "eɪ"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "liberties",
+     "accuracy": 10.0,
+     "error": "Mispronunciation",
+     "phonemes": [
+      {
+       "ph": "b",
+       "score": 16.0,
+       "heard": [
+        "p",
+        "t",
+        "ə"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "were",
+     "accuracy": 94.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "w",
+       "score": 41.0,
+       "heard": [
+        "ɔ",
+        "w",
+        "h"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "had",
+     "accuracy": 91.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "d",
+       "score": 10.0,
+       "heard": [
+        "z",
+        "æ",
+        "s"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "concept",
+     "accuracy": 38.0,
+     "error": "Mispronunciation"
+    },
+    {
+     "word": "special",
+     "accuracy": 3.0,
+     "error": "Mispronunciation",
+     "phonemes": [
+      {
+       "ph": "ə",
+       "score": 19.0,
+       "heard": [
+        "ə",
+        "n",
+        "oʊ"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "process",
+     "accuracy": 5.0,
+     "error": "Mispronunciation",
+     "phonemes": [
+      {
+       "ph": "p",
+       "score": 37.0,
+       "heard": [
+        "k",
+        "l",
+        "d"
+       ]
+      },
+      {
+       "ph": "s",
+       "score": 28.0,
+       "heard": [
+        "s",
+        "ɪ",
+        "z"
+       ]
+      },
+      {
+       "ph": "s",
+       "score": 23.0,
+       "heard": [
+        "z",
+        "s",
+        "ə"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "its",
+     "accuracy": 23.0,
+     "error": "Mispronunciation",
+     "phonemes": [
+      {
+       "ph": "ɪ",
+       "score": 14.0,
+       "heard": [
+        "i",
+        "ɪ",
+        "z"
+       ]
+      },
+      {
+       "ph": "t",
+       "score": 17.0,
+       "heard": [
+        "z",
+        "i",
+        "ɪ"
+       ]
+      },
+      {
+       "ph": "s",
+       "score": 38.0,
+       "heard": [
+        "z",
+        "s",
+        "ʃ"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "special",
+     "accuracy": 2.0,
+     "error": "Mispronunciation"
+    }
+   ],
+   "word_count": 220,
+   "locale": "en-US"
+  },
+  "en_us_targets": {
+   "overall_prosody": 79.9,
+   "phoneme_findings": [
+    {
+     "word": "concept",
+     "accuracy": 41.0,
+     "error": "Mispronunciation",
+     "phonemes": [
+      {
+       "ph": "ɛ",
+       "score": 22.0,
+       "heard": [
+        "æ",
+        "tʃ",
+        "ɑ"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "to",
+     "accuracy": 94.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "t",
+       "score": 52.0,
+       "heard": [
+        "t",
+        "u",
+        "tʃ"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "granted",
+     "accuracy": 14.0,
+     "error": "Mispronunciation",
+     "phonemes": [
+      {
+       "ph": "æ",
+       "score": 18.0,
+       "heard": [
+        "æ",
+        "ɑ",
+        "ʌ"
+       ]
+      },
+      {
+       "ph": "ɪ",
+       "score": 34.0,
+       "heard": [
+        "ɪ",
+        "i",
+        "ɛ"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "liberties",
+     "accuracy": 7.0,
+     "error": "Mispronunciation",
+     "phonemes": [
+      {
+       "ph": "b",
+       "score": 16.0,
+       "heard": [
+        "m",
+        "ɛ",
+        "ɹ"
+       ]
+      },
+      {
+       "ph": "ɚ",
+       "score": 6.0,
+       "heard": [
+        "ɪ",
+        "t",
+        "ə"
+       ]
+      },
+      {
+       "ph": "z",
+       "score": 14.0,
+       "heard": [
+        "ə",
+        "z",
+        "m"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "equivocalities",
+     "accuracy": 57.0,
+     "error": "Mispronunciation",
+     "phonemes": [
+      {
+       "ph": "ɪ",
+       "score": 52.0,
+       "heard": [
+        "æ",
+        "k",
+        "ɛ"
+       ]
+      },
+      {
+       "ph": "ɪ",
+       "score": 34.0,
+       "heard": [
+        "ə",
+        "u",
+        "v"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "and",
+     "accuracy": 80.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "d",
+       "score": 40.0,
+       "heard": [
+        "n",
+        "d",
+        "ð"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "nineteenth",
+     "accuracy": 91.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "n",
+       "score": 25.0,
+       "heard": [
+        "i",
+        "ə",
+        "θ"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "jewish",
+     "accuracy": 91.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "ʃ",
+       "score": 44.0,
+       "heard": [
+        "s",
+        "z",
+        "t"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "equality",
+     "accuracy": 97.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "ɪ",
+       "score": 37.0,
+       "heard": [
+        "ɪ",
+        "ɛ",
+        "ə"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "that",
+     "accuracy": 91.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "ð",
+       "score": 49.0,
+       "heard": [
+        "ð",
+        "t",
+        "ə"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "citizenship",
+     "accuracy": 58.0,
+     "error": "Mispronunciation",
+     "phonemes": [
+      {
+       "ph": "ə",
+       "score": 17.0,
+       "heard": [
+        "ɪ",
+        "ə",
+        "i"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "citizenship",
+     "accuracy": 85.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "s",
+       "score": 33.0,
+       "heard": [
+        "s",
+        "t",
+        "oʊ"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "homogeneity",
+     "accuracy": 65.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "h",
+       "score": 24.0,
+       "heard": [
+        "ɑ",
+        "ə",
+        "æ"
+       ]
+      },
+      {
+       "ph": "oʊ",
+       "score": 37.0,
+       "heard": [
+        "ɑ",
+        "ə",
+        "ɹ"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "edicts",
+     "accuracy": 60.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "i",
+       "score": 13.0,
+       "heard": [
+        "ɛ",
+        "æ",
+        "d"
+       ]
+      },
+      {
+       "ph": "d",
+       "score": 31.0,
+       "heard": [
+        "d",
+        "t",
+        "l"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "which",
+     "accuracy": 94.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "tʃ",
+       "score": 27.0,
+       "heard": [
+        "ɪ",
+        "tʃ",
+        "z"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "edict",
+     "accuracy": 69.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "i",
+       "score": 4.0,
+       "heard": [
+        "ɛ",
+        "æ",
+        "d"
+       ]
+      },
+      {
+       "ph": "d",
+       "score": 38.0,
+       "heard": [
+        "d",
+        "t",
+        "ɹ"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "restrictions",
+     "accuracy": 73.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "ɹ",
+       "score": 13.0,
+       "heard": [
+        "w",
+        "ə",
+        "ɪ"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "and\\_privileges",
+     "accuracy": 97.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "ə",
+       "score": 59.0,
+       "heard": [
+        "æ",
+        "z",
+        "ə"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "the",
+     "accuracy": 35.0,
+     "error": "Mispronunciation",
+     "phonemes": [
+      {
+       "ph": "i",
+       "score": 30.0,
+       "heard": [
+        "i",
+        "z",
+        "ɪ"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "process",
+     "accuracy": 6.0,
+     "error": "Mispronunciation",
+     "phonemes": [
+      {
+       "ph": "s",
+       "score": 2.0,
+       "heard": [
+        "θ",
+        "ð",
+        "f"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "of",
+     "accuracy": 80.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "v",
+       "score": 40.0,
+       "heard": [
+        "aʊ",
+        "ɹ",
+        "u"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "hesitantly",
+     "accuracy": 3.0,
+     "error": "Mispronunciation",
+     "phonemes": [
+      {
+       "ph": "ə",
+       "score": 7.0,
+       "heard": [
+        "ɪ",
+        "d",
+        "ə"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "jewish",
+     "accuracy": 4.0,
+     "error": "Mispronunciation",
+     "phonemes": [
+      {
+       "ph": "ɪ",
+       "score": 28.0,
+       "heard": [
+        "ɪ",
+        "i",
+        "d"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "of",
+     "accuracy": 80.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "v",
+       "score": 40.0,
+       "heard": [
+        "p",
+        "ə",
+        "d"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "process",
+     "accuracy": 8.0,
+     "error": "Mispronunciation",
+     "phonemes": [
+      {
+       "ph": "ɹ",
+       "score": 40.0,
+       "heard": [
+        "ɹ",
+        "g",
+        "w"
+       ]
+      },
+      {
+       "ph": "s",
+       "score": 29.0,
+       "heard": [
+        "θ",
+        "s",
+        "z"
+       ]
+      },
+      {
+       "ph": "s",
+       "score": 23.0,
+       "heard": [
+        "θ",
+        "z",
+        "s"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "development",
+     "accuracy": 4.0,
+     "error": "Mispronunciation",
+     "phonemes": [
+      {
+       "ph": "ə",
+       "score": 57.0,
+       "heard": [
+        "p",
+        "ɪ",
+        "ə"
+       ]
+      },
+      {
+       "ph": "ə",
+       "score": 9.0,
+       "heard": [
+        "ə",
+        "d",
+        "ɪ"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "state",
+     "accuracy": 97.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "t",
+       "score": 55.0,
+       "heard": [
+        "t",
+        "d",
+        "m"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "the",
+     "accuracy": 80.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "ð",
+       "score": 40.0,
+       "heard": [
+        "i",
+        "ɪ",
+        "ɛ"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "had",
+     "accuracy": 91.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "d",
+       "score": 11.0,
+       "heard": [
+        "z",
+        "æ",
+        "s"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "in",
+     "accuracy": 80.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "n",
+       "score": 40.0,
+       "heard": [
+        "n",
+        "l",
+        "ɪ"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "tolerated",
+     "accuracy": 8.0,
+     "error": "Mispronunciation",
+     "phonemes": [
+      {
+       "ph": "l",
+       "score": 2.0,
+       "heard": [
+        "l",
+        "n",
+        "v"
+       ]
+      },
+      {
+       "ph": "ə",
+       "score": 4.0,
+       "heard": [
+        "aɪ",
+        "l",
+        "æ"
+       ]
+      },
+      {
+       "ph": "eɪ",
+       "score": 12.0,
+       "heard": [
+        "aɪ",
+        "t",
+        "eɪ"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "liberties",
+     "accuracy": 10.0,
+     "error": "Mispronunciation",
+     "phonemes": [
+      {
+       "ph": "b",
+       "score": 16.0,
+       "heard": [
+        "p",
+        "t",
+        "ə"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "were",
+     "accuracy": 94.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "w",
+       "score": 41.0,
+       "heard": [
+        "ɔ",
+        "w",
+        "h"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "had",
+     "accuracy": 91.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "d",
+       "score": 10.0,
+       "heard": [
+        "z",
+        "æ",
+        "s"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "special",
+     "accuracy": 3.0,
+     "error": "Mispronunciation",
+     "phonemes": [
+      {
+       "ph": "ə",
+       "score": 19.0,
+       "heard": [
+        "ə",
+        "n",
+        "oʊ"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "process",
+     "accuracy": 5.0,
+     "error": "Mispronunciation",
+     "phonemes": [
+      {
+       "ph": "p",
+       "score": 37.0,
+       "heard": [
+        "k",
+        "l",
+        "d"
+       ]
+      },
+      {
+       "ph": "s",
+       "score": 28.0,
+       "heard": [
+        "s",
+        "ɪ",
+        "z"
+       ]
+      },
+      {
+       "ph": "s",
+       "score": 23.0,
+       "heard": [
+        "z",
+        "s",
+        "ə"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "its",
+     "accuracy": 23.0,
+     "error": "Mispronunciation",
+     "phonemes": [
+      {
+       "ph": "ɪ",
+       "score": 14.0,
+       "heard": [
+        "i",
+        "ɪ",
+        "z"
+       ]
+      },
+      {
+       "ph": "t",
+       "score": 17.0,
+       "heard": [
+        "z",
+        "i",
+        "ɪ"
+       ]
+      },
+      {
+       "ph": "s",
+       "score": 38.0,
+       "heard": [
+        "z",
+        "s",
+        "ʃ"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  "note": "en-US is the score, the phonemes and the prosody — the only locale documented to return all three (see the docstring)"
+ }
+}

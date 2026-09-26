@@ -1,0 +1,1031 @@
+{
+ "version": 1,
+ "built": "2026-09-24T18:34:10Z",
+ "cards": [
+  {
+   "id": "c00001",
+   "front": "Complete aloud: … disintegration has become an irresistible temptation, not only because it has assumed the spurious ____ of “historical necessity,” but also because everything outside it has begun to",
+   "back": "grandeur — process of disintegration has become an irresistible temptation, not only because it has assumed the spurious grandeur of “historical necessity,” but also because everything outside it has ",
+   "tags": [
+    "production",
+    "reading"
+   ],
+   "added": "2026-09-10",
+   "suspended": false,
+   "state": {
+    "state": 2,
+    "step": null,
+    "stability": 0.2842063592758949,
+    "difficulty": 6.3909413235243795,
+    "due": "2026-09-16T11:28:57Z",
+    "last_review": "2026-09-15T11:28:57Z",
+    "reps": 3,
+    "lapses": 0
+   }
+  },
+  {
+   "id": "c00002",
+   "front": "Complete aloud: … of disintegration has become an irresistible temptation, not only because it has assumed the ____ grandeur of “historical necessity,” but also because everything outside it has begun",
+   "back": "spurious — mere process of disintegration has become an irresistible temptation, not only because it has assumed the spurious grandeur of “historical necessity,” but also because everything outside it",
+   "tags": [
+    "production",
+    "reading"
+   ],
+   "added": "2026-09-10",
+   "suspended": false,
+   "state": {
+    "state": 2,
+    "step": null,
+    "stability": 0.2842063592758949,
+    "difficulty": 6.3909413235243795,
+    "due": "2026-09-16T11:28:23Z",
+    "last_review": "2026-09-15T11:28:23Z",
+    "reps": 3,
+    "lapses": 0
+   }
+  },
+  {
+   "id": "c00003",
+   "front": "Complete aloud: … which all traditional elements of our political and spiritual world were dissolved into a ____ where everything seems to have lost specific value, and has become unrecognizable for h",
+   "back": "conglomeration — mechanics by which all traditional elements of our political and spiritual world were dissolved into a conglomeration where everything seems to have lost specific value, and has becom",
+   "tags": [
+    "production",
+    "reading"
+   ],
+   "added": "2026-09-10",
+   "suspended": false,
+   "state": {
+    "state": 2,
+    "step": null,
+    "stability": 0.2842063592758949,
+    "difficulty": 6.3909413235243795,
+    "due": "2026-09-16T11:29:39Z",
+    "last_review": "2026-09-15T11:29:39Z",
+    "reps": 3,
+    "lapses": 0
+   }
+  },
+  {
+   "id": "c00004",
+   "front": "Say it: I need an app that ___ to Kindle. (connect)",
+   "back": "connects — an app that connects to Kindle",
+   "tags": [
+    "agreement",
+    "observations"
+   ],
+   "added": "2026-09-10",
+   "suspended": false,
+   "state": {
+    "state": 2,
+    "step": null,
+    "stability": 8.2956,
+    "difficulty": 1.0,
+    "due": "2026-09-23T11:18:50Z",
+    "last_review": "2026-09-15T11:18:50Z",
+    "reps": 1,
+    "lapses": 0
+   }
+  },
+  {
+   "id": "c00005",
+   "front": "Say it: If that ___ everything, I'll add it. (automate)",
+   "back": "automates — if that automates everything",
+   "tags": [
+    "agreement",
+    "observations"
+   ],
+   "added": "2026-09-10",
+   "suspended": false,
+   "state": {
+    "state": 2,
+    "step": null,
+    "stability": 8.2956,
+    "difficulty": 1.0,
+    "due": "2026-09-23T11:19:26Z",
+    "last_review": "2026-09-15T11:19:26Z",
+    "reps": 1,
+    "lapses": 0
+   }
+  },
+  {
+   "id": "c00006",
+   "front": "Say it (pronunciation, clear): past",
+   "back": "past",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-10",
+   "suspended": false,
+   "state": {
+    "state": 2,
+    "step": null,
+    "stability": 8.2956,
+    "difficulty": 1.0,
+    "due": "2026-09-23T11:20:17Z",
+    "last_review": "2026-09-15T11:20:17Z",
+    "reps": 1,
+    "lapses": 0
+   }
+  },
+  {
+   "id": "c00007",
+   "front": "Say it (pronunciation, i/ii): simply",
+   "back": "simply  — watch: i/ii",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-10",
+   "suspended": false,
+   "state": {
+    "state": 2,
+    "step": null,
+    "stability": 8.2956,
+    "difficulty": 1.0,
+    "due": "2026-09-23T11:20:22Z",
+    "last_review": "2026-09-15T11:20:22Z",
+    "reps": 1,
+    "lapses": 0
+   }
+  },
+  {
+   "id": "c00008",
+   "front": "Say it (pronunciation, clear): comprehend",
+   "back": "comprehend",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-10",
+   "suspended": false,
+   "state": {
+    "state": 2,
+    "step": null,
+    "stability": 8.2956,
+    "difficulty": 1.0,
+    "due": "2026-09-23T11:20:28Z",
+    "last_review": "2026-09-15T11:20:28Z",
+    "reps": 1,
+    "lapses": 0
+   }
+  },
+  {
+   "id": "c00009",
+   "front": "Say it (pronunciation, clear): all",
+   "back": "all",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-10",
+   "suspended": false,
+   "state": {
+    "state": 2,
+    "step": null,
+    "stability": 8.2956,
+    "difficulty": 1.0,
+    "due": "2026-09-23T11:20:31Z",
+    "last_review": "2026-09-15T11:20:31Z",
+    "reps": 1,
+    "lapses": 0
+   }
+  },
+  {
+   "id": "c00010",
+   "front": "Say it (pronunciation, clear): our",
+   "back": "our",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-10",
+   "suspended": false,
+   "state": {
+    "state": 2,
+    "step": null,
+    "stability": 8.2956,
+    "difficulty": 1.0,
+    "due": "2026-09-23T11:20:32Z",
+    "last_review": "2026-09-15T11:20:32Z",
+    "reps": 1,
+    "lapses": 0
+   }
+  },
+  {
+   "id": "c00011",
+   "front": "Say it (pronunciation, clear): call",
+   "back": "call",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-10",
+   "suspended": false,
+   "state": {
+    "state": 2,
+    "step": null,
+    "stability": 8.2956,
+    "difficulty": 1.0,
+    "due": "2026-09-23T11:20:34Z",
+    "last_review": "2026-09-15T11:20:34Z",
+    "reps": 1,
+    "lapses": 0
+   }
+  },
+  {
+   "id": "c00012",
+   "front": "Say it (pronunciation, clear): power",
+   "back": "power",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-10",
+   "suspended": false,
+   "state": {
+    "state": 2,
+    "step": null,
+    "stability": 8.2956,
+    "difficulty": 1.0,
+    "due": "2026-09-23T11:20:36Z",
+    "last_review": "2026-09-15T11:20:36Z",
+    "reps": 1,
+    "lapses": 0
+   }
+  },
+  {
+   "id": "c00013",
+   "front": "Say it (pronunciation, clear): merely",
+   "back": "merely",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-10",
+   "suspended": false,
+   "state": {
+    "state": 2,
+    "step": null,
+    "stability": 8.2956,
+    "difficulty": 1.0,
+    "due": "2026-09-23T11:20:38Z",
+    "last_review": "2026-09-15T11:20:38Z",
+    "reps": 1,
+    "lapses": 0
+   }
+  },
+  {
+   "id": "c00014",
+   "front": "Say it (pronunciation, clear): can",
+   "back": "can",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-10",
+   "suspended": false,
+   "state": {
+    "state": 2,
+    "step": null,
+    "stability": 8.2956,
+    "difficulty": 1.0,
+    "due": "2026-09-23T11:20:40Z",
+    "last_review": "2026-09-15T11:20:40Z",
+    "reps": 1,
+    "lapses": 0
+   }
+  },
+  {
+   "id": "c00015",
+   "front": "Complete aloud: … in which we live. And this is why all efforts to escape from the ____ of the present into nostalgia for a still intact past, or into the anticipated …  (g…, 8 letters)",
+   "back": "grimness — the reality in which we live. And this is why all efforts to escape from the grimness of the present into nostalgia for a still intact past, or into the anticipated oblivion of  [Hannah_Are",
+   "tags": [
+    "production",
+    "reading"
+   ],
+   "added": "2026-09-11",
+   "suspended": false,
+   "state": {
+    "state": 2,
+    "step": null,
+    "stability": 0.2842063592758949,
+    "difficulty": 6.3909413235243795,
+    "due": "2026-09-16T11:30:15Z",
+    "last_review": "2026-09-15T11:30:15Z",
+    "reps": 3,
+    "lapses": 0
+   }
+  },
+  {
+   "id": "c00016",
+   "front": "Complete aloud: … oblivion. The subterranean stream of Western history has finally come to the surface and ____ the dignity of our tradition. This is the reality in which we live. And …  (u…, 7 letter",
+   "back": "usurped — bury in oblivion. The subterranean stream of Western history has finally come to the surface and usurped the dignity of our tradition. This is the reality in which we live. And this is  [Han",
+   "tags": [
+    "production",
+    "reading"
+   ],
+   "added": "2026-09-11",
+   "suspended": false,
+   "state": {
+    "state": 2,
+    "step": null,
+    "stability": 0.2842063592758949,
+    "difficulty": 7.584416275464289,
+    "due": "2026-09-16T11:33:43Z",
+    "last_review": "2026-09-15T11:33:43Z",
+    "reps": 4,
+    "lapses": 0
+   }
+  },
+  {
+   "id": "c00017",
+   "front": "Complete aloud: … might never have known the truly radical nature of Evil. Antisemitism (not merely the ____ of Jews), imperialism (not merely conquest), totalitarianism (not merely dictatorship)—one ",
+   "back": "hatred — it we might never have known the truly radical nature of Evil. Antisemitism (not merely the hatred of Jews), imperialism (not merely conquest), totalitarianism (not merely dictatorship)—one a",
+   "tags": [
+    "production",
+    "reading"
+   ],
+   "added": "2026-09-11",
+   "suspended": false,
+   "state": {
+    "state": 2,
+    "step": null,
+    "stability": 2.3065,
+    "difficulty": 2.111214235785395,
+    "due": "2026-09-17T11:30:54Z",
+    "last_review": "2026-09-15T11:30:54Z",
+    "reps": 2,
+    "lapses": 0
+   }
+  },
+  {
+   "id": "c00018",
+   "front": "Complete aloud: … power’s sake,” the extent of human strength might never have been discovered; without the ____ world of totalitarian movements, in which with unparalleled clarity the essential uncer",
+   "back": "fictitious — for power’s sake,” the extent of human strength might never have been discovered; without the fictitious world of totalitarian movements, in which with unparalleled clarity the essential ",
+   "tags": [
+    "production",
+    "reading"
+   ],
+   "added": "2026-09-11",
+   "suspended": false,
+   "state": {
+    "state": 2,
+    "step": null,
+    "stability": 0.2842063592758949,
+    "difficulty": 6.3909413235243795,
+    "due": "2026-09-16T11:32:27Z",
+    "last_review": "2026-09-15T11:32:27Z",
+    "reps": 3,
+    "lapses": 0
+   }
+  },
+  {
+   "id": "c00019",
+   "front": "Complete aloud: … imperialists’ “expansion for expansion’s sake,” the world might never have become one; without the ____ ’s political device of “power for power’s sake,” the extent of human strength ",
+   "back": "bourgeoisie — the imperialists’ “expansion for expansion’s sake,” the world might never have become one; without the bourgeoisie ’s political device of “power for power’s sake,” the extent of human st",
+   "tags": [
+    "production",
+    "reading"
+   ],
+   "added": "2026-09-11",
+   "suspended": false,
+   "state": {
+    "state": 2,
+    "step": null,
+    "stability": 0.2842063592758949,
+    "difficulty": 6.3909413235243795,
+    "due": "2026-09-16T11:33:09Z",
+    "last_review": "2026-09-15T11:33:09Z",
+    "reps": 3,
+    "lapses": 0
+   }
+  },
+  {
+   "id": "c00020",
+   "front": "Say it (pronunciation, s/z): its",
+   "back": "its  — watch: s/z",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-12",
+   "suspended": false,
+   "state": {
+    "state": 2,
+    "step": null,
+    "stability": 8.2956,
+    "difficulty": 1.0,
+    "due": "2026-09-23T11:27:07Z",
+    "last_review": "2026-09-15T11:27:07Z",
+    "reps": 1,
+    "lapses": 0
+   }
+  },
+  {
+   "id": "c00021",
+   "front": "Say it (pronunciation, th): the",
+   "back": "the  — watch: th",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-12",
+   "suspended": false
+  },
+  {
+   "id": "c00022",
+   "front": "Say it (pronunciation, b/v/-ed): convinced",
+   "back": "convinced  — watch: b/v, -ed",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-12",
+   "suspended": false
+  },
+  {
+   "id": "c00023",
+   "front": "Say it (pronunciation, clear): situation",
+   "back": "situation",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-12",
+   "suspended": false
+  },
+  {
+   "id": "c00024",
+   "front": "Say it (pronunciation, clear): from",
+   "back": "from",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-12",
+   "suspended": false
+  },
+  {
+   "id": "c00025",
+   "front": "Say it (pronunciation, clear): impartial",
+   "back": "impartial",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-12",
+   "suspended": false
+  },
+  {
+   "id": "c00026",
+   "front": "Say it (pronunciation, clear): is",
+   "back": "is",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-12",
+   "suspended": false
+  },
+  {
+   "id": "c00027",
+   "front": "Complete aloud: … prominent role in world affairs, but because antisemitism itself was now being used for ____ purposes that, though their implementation finally claimed Jews as their chief victims, l",
+   "back": "ulterior — such a prominent role in world affairs, but because antisemitism itself was now being used for ulterior purposes that, though their implementation finally claimed Jews as their chief victim",
+   "tags": [
+    "production",
+    "reading"
+   ],
+   "added": "2026-09-12",
+   "suspended": false
+  },
+  {
+   "id": "c00028",
+   "front": "Complete aloud: … and Western Europe from the time of the court Jews to the Dreyfus Affair ____ as it was relevant to the birth of antisemitism and influenced by it. It …  (i…, 7 letters)",
+   "back": "insofar — in Central and Western Europe from the time of the court Jews to the Dreyfus Affair insofar as it was relevant to the birth of antisemitism and influenced by it. It deals with  [Hannah_Arend",
+   "tags": [
+    "production",
+    "reading"
+   ],
+   "added": "2026-09-12",
+   "suspended": false
+  },
+  {
+   "id": "c00029",
+   "front": "Complete aloud: … story of the “Protocols of the Elders of Zion.” The Nazi use of the ____ as a text   xvi PREFACE TO PART ONE book for global conquest is …  (f…, 7 letters)",
+   "back": "forgery — the ludicrous story of the “Protocols of the Elders of Zion.” The Nazi use of the forgery as a text  xvi PREFACE TO PART ONE book for global conquest is certainly not part  [Hannah_Arendt__T",
+   "tags": [
+    "production",
+    "reading"
+   ],
+   "added": "2026-09-12",
+   "suspended": false
+  },
+  {
+   "id": "c00030",
+   "front": "Complete aloud: both the distinction and the connection between pre-totalitarian and totalitarian antisemitism is perhaps the ____ story of the “Protocols of the Elders of Zion.” The Nazi use of the …",
+   "back": "ludicrous — both the distinction and the connection between pre-totalitarian and totalitarian antisemitism is perhaps the ludicrous story of the “Protocols of the Elders of Zion.” The Nazi use of the ",
+   "tags": [
+    "production",
+    "reading"
+   ],
+   "added": "2026-09-12",
+   "suspended": false
+  },
+  {
+   "id": "c00031",
+   "front": "Complete aloud: been the survival of the people against the overwhelming odds of ____ should be enough to ____ this latest myth in these matters, a myth that …  (d…, 6 letters)",
+   "back": "dispel — been the survival of the people against the overwhelming odds of dispersion, should be enough to dispel this latest myth in these matters, a myth that has become somewhat fashionable in intel",
+   "tags": [
+    "production",
+    "reading"
+   ],
+   "added": "2026-09-12",
+   "suspended": false
+  },
+  {
+   "id": "c00032",
+   "front": "Say it: I read it ___ my phone, not on paper. (preposition)",
+   "back": "on — I read it on my phone",
+   "tags": [
+    "observations",
+    "preposition"
+   ],
+   "added": "2026-09-12",
+   "suspended": false
+  },
+  {
+   "id": "c00033",
+   "front": "Complete aloud: to say that Jewish self-consciousness was ever a mere creation of antisemitism; even a ____ knowledge of Jewish history, whose central concern since the Babylonian exile has always bee",
+   "back": "cursory — to say that Jewish self-consciousness was ever a mere creation of antisemitism; even a cursory knowledge of Jewish history, whose central concern since the Babylonian exile has always been t",
+   "tags": [
+    "production",
+    "reading"
+   ],
+   "added": "2026-09-12",
+   "suspended": false
+  },
+  {
+   "id": "c00034",
+   "front": "Complete aloud: … States have been under totalitarian rule for more than a century. The only direct, ____ consequence of nineteenthcentury antisemitic movements was not Nazism but, on the contrary, Zi",
+   "back": "unadulterated — the United States have been under totalitarian rule for more than a century. The only direct, unadulterated consequence of nineteenthcentury antisemitic movements was not Nazism but, o",
+   "tags": [
+    "production",
+    "reading"
+   ],
+   "added": "2026-09-12",
+   "suspended": false
+  },
+  {
+   "id": "c00035",
+   "front": "Complete aloud: … all but disappeared. It certainly would be a serious error to underestimate the role ____ racism has played and is still playing in the government of the Southern states, …  (s…, 5 l",
+   "back": "sheer — neighbors—have all but disappeared. It certainly would be a serious error to underestimate the role sheer racism has played and is still playing in the government of the Southern states, but i",
+   "tags": [
+    "production",
+    "reading"
+   ],
+   "added": "2026-09-12",
+   "suspended": false
+  },
+  {
+   "id": "c00036",
+   "front": "Complete aloud: … This fallacy is as misleading in the search for historical truth as it is ____ for political judgment. Totalitarian politics—far from being simply antisemitic or racist. or imperiali",
+   "back": "pernicious — as “‘totalitarianism.” This fallacy is as misleading in the search for historical truth as it is pernicious for political judgment. Totalitarian politics—far from being simply antisemitic",
+   "tags": [
+    "production",
+    "reading"
+   ],
+   "added": "2026-09-12",
+   "suspended": false
+  },
+  {
+   "id": "c00037",
+   "front": "Complete aloud: … into the open and to public notice, there has been a tendency to simply ____ totalitarianism with its elements and origins—as though every outburst of antisemitism or racism or …  (e",
+   "back": "equate — subterranean trends into the open and to public notice, there has been a tendency to simply equate totalitarianism with its elements and origins—as though every outburst of antisemitism or ra",
+   "tags": [
+    "production",
+    "reading"
+   ],
+   "added": "2026-09-12",
+   "suspended": false
+  },
+  {
+   "id": "c00038",
+   "front": "Complete aloud: true for the history of antisemitism, that it fell into the hands of non-Jewish ____ and Jewish apologetics, and was carefully avoided by reputable historians, is true, mutatis mutandi",
+   "back": "crackpots — true for the history of antisemitism, that it fell into the hands of non-Jewish crackpots and Jewish apologetics, and was carefully avoided by reputable historians, is true, mutatis mutand",
+   "tags": [
+    "production",
+    "reading"
+   ],
+   "added": "2026-09-13",
+   "suspended": false
+  },
+  {
+   "id": "c00039",
+   "front": "Complete aloud: it fell into the hands of non-Jewish crackpots and Jewish apologetics, and was carefully ____ by reputable historians, is true, mutatis mutandis, for nearly all elements that later cry",
+   "back": "avoided — it fell into the hands of non-Jewish crackpots and Jewish apologetics, and was carefully avoided by reputable historians, is true, mutatis mutandis, for nearly all elements that later crysta",
+   "tags": [
+    "production",
+    "reading"
+   ],
+   "added": "2026-09-13",
+   "suspended": false
+  },
+  {
+   "id": "c00040",
+   "front": "Complete aloud: … be written and is beyond the scope of this book. So long as this ____ exists, there is enough justification even in terms of mere scholarship to publish the …  (l…, 6 letters)",
+   "back": "lacuna — still to be written and is beyond the scope of this book. So long as this lacuna exists, there is enough justification even in terms of mere scholarship to publish the following chapters  [Ha",
+   "tags": [
+    "production",
+    "reading"
+   ],
+   "added": "2026-09-13",
+   "suspended": false
+  },
+  {
+   "id": "c00041",
+   "front": "Complete aloud: … in the midst of Occidental civilization. That this called not only for lamentation and ____ but for comprehension seemed to me obvious. This book is an attempt at understanding …  (d",
+   "back": "denunciation — of genocide in the midst of Occidental civilization. That this called not only for lamentation and denunciation but for comprehension seemed to me obvious. This book is an attempt at un",
+   "tags": [
+    "production",
+    "reading"
+   ],
+   "added": "2026-09-13",
+   "suspended": false
+  },
+  {
+   "id": "c00042",
+   "front": "Complete aloud: … of genocide in the midst of Occidental civilization. That this called not only for ____ and denunciation but for comprehension seemed to me obvious. This book is an attempt …  (l…, 1",
+   "back": "lamentation — unprecedented crime of genocide in the midst of Occidental civilization. That this called not only for lamentation and denunciation but for comprehension seemed to me obvious. This book ",
+   "tags": [
+    "production",
+    "reading"
+   ],
+   "added": "2026-09-13",
+   "suspended": false
+  },
+  {
+   "id": "c00043",
+   "front": "Complete aloud: … ferocity, and finally for the emergence of the unprecedented crime of genocide in the ____ of Occidental civilization. That this called not only for lamentation and denunciation but ",
+   "back": "midst — of unparalleled ferocity, and finally for the emergence of the unprecedented crime of genocide in the midst of Occidental civilization. That this called not only for lamentation and denunciati",
+   "tags": [
+    "production",
+    "reading"
+   ],
+   "added": "2026-09-13",
+   "suspended": false
+  },
+  {
+   "id": "c00044",
+   "front": "Complete aloud: … historical scholarship. And the situation has hardly changed since. This is all the more ____ as the need for an impartial, truthful treatment of Jewish history has recently become …",
+   "back": "deplorable — standards of historical scholarship. And the situation has hardly changed since. This is all the more deplorable as the need for an impartial, truthful treatment of Jewish history has rec",
+   "tags": [
+    "production",
+    "reading"
+   ],
+   "added": "2026-09-13",
+   "suspended": false
+  },
+  {
+   "id": "c00045",
+   "front": "Complete aloud: … of Jewish apologetics, which never convinced anybody but the convinced, were towering examples of ____ and scholarship compared with what the enemies of Jews had to offer in matters ",
+   "back": "erudition — dubious products of Jewish apologetics, which never convinced anybody but the convinced, were towering examples of erudition and scholarship compared with what the enemies of Jews had to o",
+   "tags": [
+    "production",
+    "reading"
+   ],
+   "added": "2026-09-13",
+   "suspended": false
+  },
+  {
+   "id": "c00046",
+   "front": "Complete aloud: … the prerogative of crackpots in general and the lunatic fringe in particular. Even the ____ products of Jewish apologetics, which never convinced anybody but the convinced, were towe",
+   "back": "dubious — few exceptions, the prerogative of crackpots in general and the lunatic fringe in particular. Even the dubious products of Jewish apologetics, which never convinced anybody but the convinced",
+   "tags": [
+    "production",
+    "reading"
+   ],
+   "added": "2026-09-13",
+   "suspended": false
+  },
+  {
+   "id": "c00047",
+   "front": "Complete aloud: … remained, with very few exceptions, the prerogative of crackpots in general and the lunatic ____ in particular. Even the dubious products of Jewish apologetics, which never convinced",
+   "back": "fringe — an ideology remained, with very few exceptions, the prerogative of crackpots in general and the lunatic fringe in particular. Even the dubious products of Jewish apologetics, which never conv",
+   "tags": [
+    "production",
+    "reading"
+   ],
+   "added": "2026-09-13",
+   "suspended": false
+  },
+  {
+   "id": "c00048",
+   "front": "Complete aloud: … throughout the nineteenth century, antisemitism as an ideology remained, with very few exceptions, the ____ of crackpots in general and the lunatic fringe in particular. Even the dub",
+   "back": "prerogative — of Europe throughout the nineteenth century, antisemitism as an ideology remained, with very few exceptions, the prerogative of crackpots in general and the lunatic fringe in particular.",
+   "tags": [
+    "production",
+    "reading"
+   ],
+   "added": "2026-09-13",
+   "suspended": false
+  },
+  {
+   "id": "c00049",
+   "front": "Complete aloud: … more with the Christian dissociation from the Jews than with the reverse,” ® thus ____ the otherwise more important fact that Jewish dissociation from the Gentile world, and more …  ",
+   "back": "obliterating — now dealt more with the Christian dissociation from the Jews than with the reverse,” ® thus obliterating the otherwise more important fact that Jewish dissociation from the Gentile worl",
+   "tags": [
+    "production",
+    "reading"
+   ],
+   "added": "2026-09-13",
+   "suspended": false
+  },
+  {
+   "id": "c00050",
+   "front": "Complete aloud: … basis in the first centuries of our era, when both Jews and Christians had ____ the might of the Roman Empire, as well as in medieval conditions when the …  (d…, 6 letters)",
+   "back": "defied — its historical basis in the first centuries of our era, when both Jews and Christians had defied the might of the Roman Empire, as well as in medieval conditions when the alternative of  [Han",
+   "tags": [
+    "production",
+    "reading"
+   ],
+   "added": "2026-09-13",
+   "suspended": false
+  },
+  {
+   "id": "c00051",
+   "front": "Say it (pronunciation, clear): under",
+   "back": "under",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-13",
+   "suspended": false
+  },
+  {
+   "id": "c00052",
+   "front": "Say it (pronunciation, s/z/schwa/i/ii): imperialist",
+   "back": "imperialist  — watch: s/z, schwa, i/ii",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-13",
+   "suspended": false
+  },
+  {
+   "id": "c00053",
+   "front": "Say it (pronunciation, clear): come",
+   "back": "come",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-13",
+   "suspended": false
+  },
+  {
+   "id": "c00054",
+   "front": "Say it (pronunciation, i/ii): his",
+   "back": "his  — watch: i/ii",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-13",
+   "suspended": false
+  },
+  {
+   "id": "c00055",
+   "front": "Say it (pronunciation, clear): inherent",
+   "back": "inherent",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-13",
+   "suspended": false
+  },
+  {
+   "id": "c00056",
+   "front": "Say it (pronunciation, i/ii): which",
+   "back": "which  — watch: i/ii",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-13",
+   "suspended": false
+  },
+  {
+   "id": "c00057",
+   "front": "Say it (pronunciation, schwa): to",
+   "back": "to  — watch: schwa",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-14",
+   "suspended": false
+  },
+  {
+   "id": "c00058",
+   "front": "Say it (pronunciation, h): historical",
+   "back": "historical  — watch: h",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-14",
+   "suspended": false
+  },
+  {
+   "id": "c00059",
+   "front": "Say it (pronunciation, schwa/cat/cut): russia",
+   "back": "russia  — watch: schwa, cat/cut",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-14",
+   "suspended": false
+  },
+  {
+   "id": "c00060",
+   "front": "Say it (pronunciation, clear): ultimately",
+   "back": "ultimately",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-14",
+   "suspended": false
+  },
+  {
+   "id": "c00061",
+   "front": "Say it (pronunciation, clear): form",
+   "back": "form",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-14",
+   "suspended": false
+  },
+  {
+   "id": "c00062",
+   "front": "Say it (pronunciation, clear): while",
+   "back": "while",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-14",
+   "suspended": false
+  },
+  {
+   "id": "c00063",
+   "front": "Say it (pronunciation, clear): such",
+   "back": "such",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-15",
+   "suspended": false
+  },
+  {
+   "id": "c00064",
+   "front": "Say it (pronunciation, clear): only",
+   "back": "only",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-15",
+   "suspended": false
+  },
+  {
+   "id": "c00065",
+   "front": "Say it (pronunciation, th): other",
+   "back": "other  — watch: th",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-15",
+   "suspended": false
+  },
+  {
+   "id": "c00066",
+   "front": "Say it (pronunciation, clear): words",
+   "back": "words",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-15",
+   "suspended": false
+  },
+  {
+   "id": "c00067",
+   "front": "Say it (pronunciation, clear): country",
+   "back": "country",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-15",
+   "suspended": false
+  },
+  {
+   "id": "c00068",
+   "front": "Say it (pronunciation, s-cluster): steady",
+   "back": "steady  — watch: s-cluster",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-15",
+   "suspended": false
+  },
+  {
+   "id": "c00069",
+   "front": "Say it (pronunciation, clear): came",
+   "back": "came",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-15",
+   "suspended": false
+  },
+  {
+   "id": "c00070",
+   "front": "Say it (pronunciation, clear): oppression",
+   "back": "oppression",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-15",
+   "suspended": false
+  },
+  {
+   "id": "c00071",
+   "front": "Say it (pronunciation, clear): felt",
+   "back": "felt",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-15",
+   "suspended": false
+  },
+  {
+   "id": "c00072",
+   "front": "Say it (pronunciation, s/z): ice",
+   "back": "ice  — heard wrong 2× in the pairs drill (s/z)",
+   "tags": [
+    "pronunciation",
+    "pairs"
+   ],
+   "added": "2026-09-15",
+   "suspended": false
+  },
+  {
+   "id": "c00073",
+   "front": "Say it (pronunciation, s/z): ones",
+   "back": "ones  — heard wrong 2× in the pairs drill (s/z)",
+   "tags": [
+    "pronunciation",
+    "pairs"
+   ],
+   "added": "2026-09-15",
+   "suspended": false
+  },
+  {
+   "id": "c00074",
+   "front": "Say it (pronunciation, i/ii): leaving",
+   "back": "leaving  — heard wrong 2× in the pairs drill (i/ii)",
+   "tags": [
+    "pronunciation",
+    "pairs"
+   ],
+   "added": "2026-09-15",
+   "suspended": false
+  },
+  {
+   "id": "c00075",
+   "front": "Say it (pronunciation, s/z/th/i/ii): this",
+   "back": "this  — watch: s/z, th, i/ii",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-16",
+   "suspended": false
+  }
+ ]
+}

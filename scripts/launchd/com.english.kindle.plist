@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+  <!-- Kindle watcher: fires on every filesystem mount; the command exits at once unless the
+       Kindle's Vocabulary Builder database is present, then runs the Kindle-only sync.
+       Installed by scripts/install-automation.sh (__REPO__ substituted). -->
+  <key>Label</key><string>com.english.kindle</string>
+  <key>ProgramArguments</key><array>
+    <string>/bin/zsh</string><string>-lc</string>
+    <string>[ -f /Volumes/Kindle/system/vocabulary/vocab.db ] &amp;&amp; exec "__REPO__/scripts/coach-sync.sh" --kindle-only</string>
+  </array>
+  <key>StartOnMount</key><true/>
+  <key>WatchPaths</key><array><string>/Volumes/Kindle</string></array>
+  <key>ThrottleInterval</key><integer>60</integer>
+  <key>EnvironmentVariables</key><dict>
+    <key>PATH</key><string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
+  </dict>
+  <key>StandardOutPath</key><string>/tmp/english-kindle.log</string>
+  <key>StandardErrorPath</key><string>/tmp/english-kindle.log</string>
+</dict></plist>

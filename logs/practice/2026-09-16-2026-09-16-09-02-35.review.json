@@ -1,0 +1,315 @@
+{
+ "id": "2026-09-16-2026-09-16-09-02-35",
+ "source": "2026_09_16_09_02_35.mp3",
+ "recorded": "2026-09-16 08:45",
+ "kind": "read",
+ "passage": "B096",
+ "anchor": false,
+ "reviewed": "2026-09-21T09:57:37Z",
+ "fluency": {
+  "duration_s": 1450.0,
+  "wpm": 101.2,
+  "words": 2446,
+  "filler_pct": 0.0,
+  "speech_rate_syll_s": 2.97,
+  "articulation_rate_syll_s": 4.04,
+  "avg_syllable_s": 0.248,
+  "f0_median_hz": 124.5,
+  "f0_range_semitones": 7.8,
+  "pause_count": 424,
+  "phonation_ratio": 0.73,
+  "mean_pause_s": 0.91
+ },
+ "pronunciation": {
+  "source": "azure",
+  "scripted": true,
+  "scores": {
+   "accuracy": 95.6,
+   "fluency": 94.5,
+   "completeness": 97.7,
+   "prosody": 85.3,
+   "pron": 91.6
+  },
+  "flagged": [
+   {
+    "word": "nationally",
+    "accuracy": 23.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "world",
+    "accuracy": 35.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "through",
+    "accuracy": 91.0,
+    "error": "None"
+   },
+   {
+    "word": "instrument",
+    "accuracy": 5.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "groups",
+    "accuracy": 11.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "view",
+    "accuracy": 85.0,
+    "error": "None"
+   },
+   {
+    "word": "of",
+    "accuracy": 80.0,
+    "error": "None"
+   },
+   {
+    "word": "been",
+    "accuracy": 44.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "innocence",
+    "accuracy": 6.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "imply",
+    "accuracy": 48.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "coresponsible",
+    "accuracy": 6.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "coresponsible",
+    "accuracy": 37.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "victim",
+    "accuracy": 91.0,
+    "error": "None"
+   },
+   {
+    "word": "world’s",
+    "accuracy": 88.0,
+    "error": "None"
+   },
+   {
+    "word": "scapegoat",
+    "accuracy": 91.0,
+    "error": "None"
+   },
+   {
+    "word": "than",
+    "accuracy": 97.0,
+    "error": "None"
+   },
+   {
+    "word": "victims",
+    "accuracy": 94.0,
+    "error": "None"
+   },
+   {
+    "word": "point",
+    "accuracy": 88.0,
+    "error": "None"
+   },
+   {
+    "word": "that",
+    "accuracy": 97.0,
+    "error": "None"
+   },
+   {
+    "word": "hypocrisy",
+    "accuracy": 60.0,
+    "error": "None"
+   },
+   {
+    "word": "advanced",
+    "accuracy": 97.0,
+    "error": "None"
+   },
+   {
+    "word": "arbitrariness",
+    "accuracy": 73.0,
+    "error": "None"
+   },
+   {
+    "word": "russia",
+    "accuracy": 39.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "victim",
+    "accuracy": 94.0,
+    "error": "None"
+   },
+   {
+    "word": "terror—namely",
+    "accuracy": 52.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "that",
+    "accuracy": 97.0,
+    "error": "None"
+   },
+   {
+    "word": "executors",
+    "accuracy": 62.0,
+    "error": "None"
+   },
+   {
+    "word": "dealing",
+    "accuracy": 70.0,
+    "error": "None"
+   },
+   {
+    "word": "what",
+    "accuracy": 94.0,
+    "error": "None"
+   },
+   {
+    "word": "have",
+    "accuracy": 97.0,
+    "error": "None"
+   },
+   {
+    "word": "belated",
+    "accuracy": 73.0,
+    "error": "None"
+   },
+   {
+    "word": "victim",
+    "accuracy": 91.0,
+    "error": "None"
+   },
+   {
+    "word": "temptation",
+    "accuracy": 45.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "temptation",
+    "accuracy": 88.0,
+    "error": "None"
+   },
+   {
+    "word": "victim",
+    "accuracy": 94.0,
+    "error": "None"
+   },
+   {
+    "word": "adequate",
+    "accuracy": 34.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "strikes",
+    "accuracy": 38.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "caught",
+    "accuracy": 97.0,
+    "error": "None"
+   },
+   {
+    "word": "establish",
+    "accuracy": 48.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "regime",
+    "accuracy": 28.0,
+    "error": "Mispronunciation"
+   }
+  ],
+  "classes": {
+   "b/v": {
+    "n": 8,
+    "words": [
+     "been",
+     "victim",
+     "victims",
+     "have",
+     "belated"
+    ]
+   },
+   "cat/cut": {
+    "n": 1,
+    "words": [
+     "nationally"
+    ]
+   },
+   "s/z": {
+    "n": 4,
+    "words": [
+     "innocence",
+     "coresponsible",
+     "executors",
+     "establish"
+    ]
+   },
+   "i/ii": {
+    "n": 7,
+    "words": [
+     "imply",
+     "victim",
+     "hypocrisy",
+     "executors",
+     "dealing",
+     "establish"
+    ]
+   },
+   "th": {
+    "n": 1,
+    "words": [
+     "than"
+    ]
+   },
+   "h": {
+    "n": 1,
+    "words": [
+     "hypocrisy"
+    ]
+   },
+   "-ed": {
+    "n": 1,
+    "words": [
+     "advanced"
+    ]
+   },
+   "schwa": {
+    "n": 4,
+    "words": [
+     "russia",
+     "belated",
+     "temptation",
+     "adequate"
+    ]
+   },
+   "s-cluster": {
+    "n": 2,
+    "words": [
+     "scapegoat",
+     "strikes"
+    ]
+   }
+  },
+  "locale": "en-US",
+  "word_count": 2044
+ },
+ "harvest": null,
+ "cards_added": 7,
+ "flags": [],
+ "passage_overlap": 0.97,
+ "void": false
+}

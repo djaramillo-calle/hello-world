@@ -1,0 +1,134 @@
+{
+ "generated": "2026-09-23T12:52:28Z",
+ "classes": [
+  {
+   "class": "i/ii",
+   "count": 87,
+   "words": [
+    "the",
+    "into",
+    "antisemitism",
+    "mischievous",
+    "antiquity",
+    "between"
+   ],
+   "pairs": [
+    [
+     "ship",
+     "sheep"
+    ],
+    [
+     "live",
+     "leave"
+    ],
+    [
+     "fill",
+     "feel"
+    ],
+    [
+     "bit",
+     "beat"
+    ],
+    [
+     "sit",
+     "seat"
+    ],
+    [
+     "hit",
+     "heat"
+    ]
+   ],
+   "sentences": [
+    "Every Thursday I finish work a little early and walk to the station.",
+    "The streets are already busy, and the sky is usually grey.",
+    "I think about the week: what went well, what I should have done differently, and what I still want to build."
+   ]
+  },
+  {
+   "class": "s/z",
+   "count": 65,
+   "words": [
+    "this",
+    "mischievous",
+    "centuries",
+    "its",
+    "disintegration",
+    "because"
+   ],
+   "pairs": [
+    [
+     "ice",
+     "eyes"
+    ],
+    [
+     "price",
+     "prize"
+    ],
+    [
+     "bus",
+     "buzz"
+    ],
+    [
+     "race",
+     "raise"
+    ],
+    [
+     "peace",
+     "peas"
+    ],
+    [
+     "loose",
+     "lose"
+    ]
+   ],
+   "sentences": [
+    "Then I put on my shoes and start slowly, because the first three minutes always feel worse than they are.",
+    "This week the plan says easy, so I keep the effort low and let the watch complain.",
+    "Hello, this is Daniel from the flat on the third floor."
+   ]
+  },
+  {
+   "class": "schwa",
+   "count": 60,
+   "words": [
+    "to",
+    "than",
+    "imperialism",
+    "mischievous",
+    "between",
+    "and\\_privileges"
+   ],
+   "pairs": [
+    [
+     "about",
+     "a bout"
+    ],
+    [
+     "support",
+     "sport"
+    ],
+    [
+     "banana",
+     "banner"
+    ],
+    [
+     "today",
+     "to day"
+    ],
+    [
+     "photograph",
+     "photographer"
+    ],
+    [
+     "comfortable",
+     "comfort"
+    ]
+   ],
+   "sentences": [
+    "Every Thursday I finish work a little early and walk to the station.",
+    "I think about the week: what went well, what I should have done differently, and what I still want to build.",
+    "My legs feel heavy after the intervals, but I have learned to trust the plan and not to judge a single session."
+   ]
+  }
+ ]
+}

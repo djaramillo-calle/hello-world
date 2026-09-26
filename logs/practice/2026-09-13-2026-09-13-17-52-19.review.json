@@ -1,0 +1,313 @@
+{
+ "id": "2026-09-13-2026-09-13-17-52-19",
+ "source": "2026_09_13_17_52_19.mp3",
+ "recorded": "2026-09-13 17:22",
+ "kind": "read",
+ "passage": "B024",
+ "anchor": false,
+ "reviewed": "2026-09-21T09:57:37Z",
+ "fluency": {
+  "duration_s": 1658.0,
+  "wpm": 97.7,
+  "words": 2700,
+  "filler_pct": 0.0,
+  "speech_rate_syll_s": 3.0,
+  "articulation_rate_syll_s": 3.96,
+  "avg_syllable_s": 0.252,
+  "f0_median_hz": 141.4,
+  "f0_range_semitones": 7.8,
+  "pause_count": 481,
+  "phonation_ratio": 0.76,
+  "mean_pause_s": 0.84
+ },
+ "pronunciation": {
+  "source": "azure",
+  "scripted": true,
+  "scores": {
+   "accuracy": 96.0,
+   "fluency": 94.0,
+   "completeness": 98.2,
+   "prosody": 85.2,
+   "pron": 91.7
+  },
+  "flagged": [
+   {
+    "word": "could",
+    "accuracy": 91.0,
+    "error": "None"
+   },
+   {
+    "word": "very",
+    "accuracy": 7.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "arely",
+    "accuracy": 38.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "imperialism",
+    "accuracy": 57.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "definite",
+    "accuracy": 51.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "imperialist",
+    "accuracy": 85.0,
+    "error": "None"
+   },
+   {
+    "word": "incongruity",
+    "accuracy": 69.0,
+    "error": "None"
+   },
+   {
+    "word": "nineteenth",
+    "accuracy": 88.0,
+    "error": "None"
+   },
+   {
+    "word": "started",
+    "accuracy": 94.0,
+    "error": "None"
+   },
+   {
+    "word": "expansion",
+    "accuracy": 12.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "than",
+    "accuracy": 97.0,
+    "error": "None"
+   },
+   {
+    "word": "this",
+    "accuracy": 91.0,
+    "error": "None"
+   },
+   {
+    "word": "version",
+    "accuracy": 88.0,
+    "error": "None"
+   },
+   {
+    "word": "conquests",
+    "accuracy": 76.0,
+    "error": "None"
+   },
+   {
+    "word": "liquidation",
+    "accuracy": 79.0,
+    "error": "None"
+   },
+   {
+    "word": "independence",
+    "accuracy": 41.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "momentous",
+    "accuracy": 88.0,
+    "error": "None"
+   },
+   {
+    "word": "this",
+    "accuracy": 94.0,
+    "error": "None"
+   },
+   {
+    "word": "weakness",
+    "accuracy": 88.0,
+    "error": "None"
+   },
+   {
+    "word": "scruples",
+    "accuracy": 94.0,
+    "error": "None"
+   },
+   {
+    "word": "apprehensions",
+    "accuracy": 85.0,
+    "error": "None"
+   },
+   {
+    "word": "rebellion",
+    "accuracy": 85.0,
+    "error": "None"
+   },
+   {
+    "word": "rebellion",
+    "accuracy": 65.0,
+    "error": "None"
+   },
+   {
+    "word": "much-feared",
+    "accuracy": 91.0,
+    "error": "None"
+   },
+   {
+    "word": "boomerang",
+    "accuracy": 94.0,
+    "error": "None"
+   },
+   {
+    "word": "authority",
+    "accuracy": 94.0,
+    "error": "None"
+   },
+   {
+    "word": "always",
+    "accuracy": 91.0,
+    "error": "None"
+   },
+   {
+    "word": "france",
+    "accuracy": 97.0,
+    "error": "None"
+   },
+   {
+    "word": "seine",
+    "accuracy": 76.0,
+    "error": "None"
+   },
+   {
+    "word": "point",
+    "accuracy": 94.0,
+    "error": "None"
+   },
+   {
+    "word": "between",
+    "accuracy": 54.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "soviet",
+    "accuracy": 65.0,
+    "error": "None"
+   },
+   {
+    "word": "upon",
+    "accuracy": 94.0,
+    "error": "None"
+   },
+   {
+    "word": "that",
+    "accuracy": 42.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "went",
+    "accuracy": 56.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "between",
+    "accuracy": 45.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "world",
+    "accuracy": 85.0,
+    "error": "None"
+   },
+   {
+    "word": "consequence",
+    "accuracy": 85.0,
+    "error": "None"
+   },
+   {
+    "word": "detotalitarization",
+    "accuracy": 12.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "situation",
+    "accuracy": 22.0,
+    "error": "Mispronunciation"
+   }
+  ],
+  "classes": {
+   "schwa": {
+    "n": 8,
+    "words": [
+     "imperialism",
+     "than",
+     "liquidation",
+     "momentous",
+     "authority",
+     "between",
+     "soviet",
+     "that"
+    ]
+   },
+   "i/ii": {
+    "n": 13,
+    "words": [
+     "imperialism",
+     "imperialist",
+     "incongruity",
+     "this",
+     "weakness",
+     "rebellion",
+     "between",
+     "soviet",
+     "detotalitarization"
+    ]
+   },
+   "s/z": {
+    "n": 9,
+    "words": [
+     "imperialism",
+     "started",
+     "this",
+     "conquests",
+     "independence",
+     "scruples",
+     "apprehensions",
+     "france"
+    ]
+   },
+   "b/v": {
+    "n": 6,
+    "words": [
+     "version",
+     "rebellion",
+     "between",
+     "soviet"
+    ]
+   },
+   "-ed": {
+    "n": 1,
+    "words": [
+     "much-feared"
+    ]
+   },
+   "cat/cut": {
+    "n": 1,
+    "words": [
+     "upon"
+    ]
+   },
+   "s-cluster": {
+    "n": 2,
+    "words": [
+     "started",
+     "scruples"
+    ]
+   }
+  },
+  "locale": "en-US",
+  "word_count": 1944
+ },
+ "harvest": null,
+ "cards_added": 3,
+ "flags": [],
+ "passage_overlap": 0.93,
+ "void": false
+}
