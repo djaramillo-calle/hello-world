@@ -376,3 +376,39 @@ Anki retired. **Say-it:** 0 attempts; 14 words offered.
 **Flags:** three days without a perception session; the daily page held (3 of the last 3
 weekdays recorded). Stage 1 floors this week: pages on track, SRS days unknown until the app's
 review log arrives (none yet).
+
+## 2026-09-28 — weekly digest 4 (week of 2026-09-21; written Monday, the Friday run did not fire)
+
+**Load row (logs/weekly.tsv, 2026-09-21):** recorded pages 3 · SRS days 0 · reading 11.0′ ·
+Minimal Pairs sessions 0 · conversations 0 · listening 0 · floor **no**.
+Stage 1 floors: pages **3/5** (Mon 21 ×2, Wed 23; nothing Tue, Thu, Fri) and SRS days
+**0/5**. The SRS sensor changed mid-week — the deck moved into the app on 09-23 and the
+app's review log (`srs/revlog.jsonl`) has not produced a single line since — so "0" means
+either no reviews or a sync that has not carried them; the two look identical from here.
+**Since 09-24 the sensors have seen nothing at all: no page, no reading minutes, no
+perception session, no card review, no cleanup verdict.** Five days by this morning. This
+is the silent-miss failure mode the readout was built to name, and it names it.
+
+**Anchor and pages (en-US, all read-aloud):** 09-16 B096 acc 95.6 · flu 94.5 · pros 85.3;
+09-21 B110 short take (133 s) 89.0 / 89.8 / 79.9 and full take (473 s) 94.4 / 94.2 / 84.8;
+09-23 B007 (phone-scored) 96.1 / 91.5 / 83.9. Flat within noise; the one low point is a
+two-minute take, not a trend. Ledger order unchanged: i/ii 87, s/z 65, schwa 60, b/v 36.
+
+**Minimal Pairs:** no session this week (last 09-20). W38 stands: s/z 60% untrained
+(15 trials), i/ii 66%, sh/ch 66.7% on 3 trials. Plan unchanged — s/z at weight 1.00 and
+i/ii 0.88 already carry the emphasis, and a week without data is not evidence to move it.
+
+**Patterns:** nothing crossed the two-occurrence line. The 09-23 daily entry holds the
+week's chat harvest: one more article omission before an abstract noun (the baseline watch
+item), and three first sightings — a dropped subject, a dropped written *-ed*, *implemented*
+for *applied*. **No cards queued**: 47 wait behind the 25/week cap and nothing new earned
+one.
+
+**Cleanup shipped this week** (app build 86): 60 certain OCR misreads fixed in the book
+without a verdict, 497 page headers stripped; 1,269 candidates wait on the phone, none judged.
+
+**Dial:** PRE-SEASON, DEFAULT. No baseline row; the season clock has not started.
+
+**What the sensors cannot say:** whether the Cards tab was opened at all this week. If it
+was and no `revlog.jsonl` reached Drive, that is a sync fault to chase; if it was not, the
+row is simply true.
