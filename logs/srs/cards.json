@@ -1,6 +1,6 @@
 {
  "version": 1,
- "built": "2026-09-29T18:33:47Z",
+ "built": "2026-09-30T07:37:42Z",
  "cards": [
   {
    "id": "c00001",
@@ -1025,6 +1025,281 @@
     "read"
    ],
    "added": "2026-09-16",
+   "suspended": false
+  },
+  {
+   "id": "c00076",
+   "front": "Say it (pronunciation, clear): victory",
+   "back": "victory",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-16",
+   "suspended": false
+  },
+  {
+   "id": "c00077",
+   "front": "Say it (pronunciation, clear): isms",
+   "back": "isms",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-16",
+   "suspended": false
+  },
+  {
+   "id": "c00078",
+   "front": "Say it (pronunciation, s/z/i/ii): since",
+   "back": "since  — watch: s/z, i/ii",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-16",
+   "suspended": false
+  },
+  {
+   "id": "c00079",
+   "front": "Say it (pronunciation, b/v): over",
+   "back": "over  — watch: b/v",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-16",
+   "suspended": false
+  },
+  {
+   "id": "c00080",
+   "front": "Say it (pronunciation, clear): most",
+   "back": "most",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-16",
+   "suspended": false
+  },
+  {
+   "id": "c00081",
+   "front": "Say it (pronunciation, s/z/j/y): jews",
+   "back": "jews  — watch: s/z, j/y",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-16",
+   "suspended": false
+  },
+  {
+   "id": "c00082",
+   "front": "Say it (pronunciation, h/cat/cut): had",
+   "back": "had  — watch: h, cat/cut",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-16",
+   "suspended": false
+  },
+  {
+   "id": "c00083",
+   "front": "Say it (pronunciation, clear): serious",
+   "back": "serious",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-16",
+   "suspended": false
+  },
+  {
+   "id": "c00084",
+   "front": "Say it (pronunciation, clear): by",
+   "back": "by",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-16",
+   "suspended": false
+  },
+  {
+   "id": "c00085",
+   "front": "Say it (pronunciation, clear): been",
+   "back": "been",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-16",
+   "suspended": false
+  },
+  {
+   "id": "c00086",
+   "front": "Say it (pronunciation, clear): if",
+   "back": "if",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-16",
+   "suspended": false
+  },
+  {
+   "id": "c00087",
+   "front": "Say it (pronunciation, clear): result",
+   "back": "result",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-16",
+   "suspended": false
+  },
+  {
+   "id": "c00088",
+   "front": "Say it (pronunciation, b/v): vote",
+   "back": "vote  — heard wrong 2× in the pairs drill (b/v)",
+   "tags": [
+    "pronunciation",
+    "pairs"
+   ],
+   "added": "2026-09-21",
+   "suspended": false
+  },
+  {
+   "id": "c00089",
+   "front": "Say it (pronunciation, h): had",
+   "back": "had  — watch: h",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-21",
+   "suspended": false
+  },
+  {
+   "id": "c00090",
+   "front": "Say it (pronunciation, i/ii/j/y): jewish",
+   "back": "jewish  — watch: i/ii, j/y",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-21",
+   "suspended": false
+  },
+  {
+   "id": "c00091",
+   "front": "Say it (pronunciation, s/z): process",
+   "back": "process  — watch: s/z",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-21",
+   "suspended": false
+  },
+  {
+   "id": "c00092",
+   "front": "Say it (pronunciation, clear): nineteenth",
+   "back": "nineteenth",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-21",
+   "suspended": false
+  },
+  {
+   "id": "c00093",
+   "front": "Say it (pronunciation, i/ii/s/z): its",
+   "back": "its  — watch: i/ii, s/z",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-21",
+   "suspended": false
+  },
+  {
+   "id": "c00094",
+   "front": "Say it (pronunciation, clear): concept",
+   "back": "concept",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-21",
+   "suspended": false
+  },
+  {
+   "id": "c00095",
+   "front": "Say it (pronunciation, s/z/b/v): liberties",
+   "back": "liberties  — watch: s/z, b/v",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-21",
+   "suspended": false
+  },
+  {
+   "id": "c00096",
+   "front": "Say it (pronunciation, schwa/s/z): citizenship",
+   "back": "citizenship  — watch: schwa, s/z",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-21",
+   "suspended": false
+  },
+  {
+   "id": "c00097",
+   "front": "Say it (pronunciation, schwa/s-cluster): special",
+   "back": "special  — watch: schwa, s-cluster",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-21",
+   "suspended": false
+  },
+  {
+   "id": "c00098",
+   "front": "Say it (pronunciation, schwa/th): them",
+   "back": "them  — watch: schwa, th",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-21",
+   "suspended": false
+  },
+  {
+   "id": "c00099",
+   "front": "Say it (pronunciation, -ed/i/ii/cat/cut): granted",
+   "back": "granted  — watch: -ed, i/ii, cat/cut",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-21",
+   "suspended": false
+  },
+  {
+   "id": "c00100",
+   "front": "Say it (pronunciation, clear): in",
+   "back": "in",
+   "tags": [
+    "auto",
+    "read"
+   ],
+   "added": "2026-09-21",
    "suspended": false
   }
  ]
