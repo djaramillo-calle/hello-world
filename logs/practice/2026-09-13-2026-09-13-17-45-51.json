@@ -1,0 +1,102 @@
+{
+ "source": "2026_09_13_17_45_51.mp3",
+ "recorded": "2026-09-13 17:22",
+ "ingested": "2026-09-13T17:48:03Z",
+ "duration_s": 197.2,
+ "kind": "free",
+ "passage": null,
+ "scripted": false,
+ "passage_overlap": 0.04,
+ "kind_note": null,
+ "words": 5,
+ "fillers": 0,
+ "wpm": 1.5,
+ "pronunciation_suspects": [],
+ "praat": {
+  "syllables": 14.0,
+  "pauses": 12.0,
+  "duration_s": 197.2,
+  "phonation_s": 15.25,
+  "speech_rate_syll_s": 0.07,
+  "articulation_rate_syll_s": 0.92,
+  "avg_syllable_s": 1.089,
+  "f0_median_hz": 108.9,
+  "f0_range_semitones": 2.8
+ },
+ "word_confidences": [
+  {
+   "w": "and",
+   "start": 172.91,
+   "end": 173.01,
+   "p": 0.03
+  },
+  {
+   "w": "that's",
+   "start": 173.01,
+   "end": 173.23,
+   "p": 0.61
+  },
+  {
+   "w": "what",
+   "start": 173.23,
+   "end": 173.39,
+   "p": 0.869
+  },
+  {
+   "w": "it's",
+   "start": 173.39,
+   "end": 173.63,
+   "p": 0.675
+  },
+  {
+   "w": "on.",
+   "start": 173.63,
+   "end": 173.73,
+   "p": 0.621
+  }
+ ],
+ "azure": {
+  "scripted": false,
+  "en_gb": {
+   "overall": {
+    "accuracy": 99.0,
+    "fluency": 100.0,
+    "completeness": 100.0,
+    "pron": 99.4
+   },
+   "flagged_words": [],
+   "word_count": 6
+  },
+  "en_us_targets": {
+   "overall_prosody": 65.8,
+   "phoneme_findings": [
+    {
+     "word": "that",
+     "accuracy": 82.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "ð",
+       "score": 47.0,
+       "heard": [
+        "z",
+        "d",
+        "ə"
+       ]
+      },
+      {
+       "ph": "t",
+       "score": 41.0,
+       "heard": [
+        "n",
+        "t",
+        "ə"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  "note": "en-GB is the score; en-US pass is only for phoneme identities (US reference model)"
+ }
+}

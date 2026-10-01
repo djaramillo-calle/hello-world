@@ -1,0 +1,6 @@
+{
+ "_": "The phone's shelf. The coach edits this file (git); the Mac's library-sync.py copies exactly these books from Drive EnglishPractice/library into the Autosync folder EnglishPractice/koreader, which the phone mirrors two-way into koreader/settings. Remove a slug to take the book off the phone.",
+ "phone": [
+  "the-origins-of-totalitarianism"
+ ]
+}

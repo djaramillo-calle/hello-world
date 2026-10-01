@@ -1,0 +1,149 @@
+{
+ "id": "2026-09-23-20260923t103655z-p10000-p10000",
+ "source": "20260923T103655Z_P10000-P10000.m4a",
+ "recorded": "2026-09-23 12:49",
+ "kind": "read",
+ "passage": "B007",
+ "anchor": false,
+ "reviewed": "2026-09-23T12:52:28Z",
+ "fluency": {
+  "duration_s": 128.4,
+  "wpm": 75.2,
+  "words": 161,
+  "filler_pct": 0.0,
+  "speech_rate_syll_s": 2.35,
+  "articulation_rate_syll_s": 3.98,
+  "avg_syllable_s": 0.252,
+  "f0_median_hz": 126.5,
+  "f0_range_semitones": 7.2,
+  "pause_count": 33,
+  "phonation_ratio": 0.59,
+  "mean_pause_s": 1.59
+ },
+ "pronunciation": {
+  "source": "azure",
+  "scripted": true,
+  "scores": {
+   "accuracy": 96.1,
+   "fluency": 91.5,
+   "completeness": 97.6,
+   "prosody": 83.9,
+   "pron": 90.4
+  },
+  "flagged": [
+   {
+    "word": "apmsesinsy",
+    "accuracy": 56.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "ideology—which",
+    "accuracy": 69.0,
+    "error": "None"
+   },
+   {
+    "word": "1950",
+    "accuracy": 47.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "unbroken",
+    "accuracy": 91.0,
+    "error": "None"
+   },
+   {
+    "word": "continuity",
+    "accuracy": 57.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "mischievous",
+    "accuracy": 51.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "than",
+    "accuracy": 97.0,
+    "error": "None"
+   },
+   {
+    "word": "ruled",
+    "accuracy": 97.0,
+    "error": "None"
+   },
+   {
+    "word": "world",
+    "accuracy": 91.0,
+    "error": "None"
+   },
+   {
+    "word": "antiquity",
+    "accuracy": 76.0,
+    "error": "None"
+   },
+   {
+    "word": "antiquity",
+    "accuracy": 76.0,
+    "error": "None"
+   },
+   {
+    "word": "hiatus",
+    "accuracy": 91.0,
+    "error": "None"
+   }
+  ],
+  "classes": {
+   "s/z": {
+    "n": 4,
+    "words": [
+     "apmsesinsy",
+     "mischievous"
+    ]
+   },
+   "i/ii": {
+    "n": 5,
+    "words": [
+     "apmsesinsy",
+     "ideology—which",
+     "1950",
+     "mischievous",
+     "antiquity"
+    ]
+   },
+   "cat/cut": {
+    "n": 2,
+    "words": [
+     "unbroken",
+     "antiquity"
+    ]
+   },
+   "schwa": {
+    "n": 3,
+    "words": [
+     "continuity",
+     "mischievous",
+     "than"
+    ]
+   },
+   "b/v": {
+    "n": 1,
+    "words": [
+     "mischievous"
+    ]
+   },
+   "-ed": {
+    "n": 1,
+    "words": [
+     "ruled"
+    ]
+   }
+  },
+  "locale": "en-US",
+  "word_count": 161
+ },
+ "harvest": null,
+ "cards_added": 2,
+ "flags": [],
+ "passage_overlap": 0.76,
+ "void": false
+}

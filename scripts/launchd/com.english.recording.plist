@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+  <!-- The recording trigger: fires when the EnglishPractice folder changes (a recording lands
+       from the phone via Google Drive desktop, or is dropped locally). Runs the on-recording
+       pipeline: wait for the file to settle → transcribe + pronunciation assessment → review →
+       ledger → cards → commit → push. Installed by scripts/install-automation.sh, which
+       substitutes __REPO__ and __WATCH__ (the Drive mount path and ~/EnglishPractice). -->
+  <key>Label</key><string>com.english.recording</string>
+  <key>ProgramArguments</key><array>
+    <string>/usr/bin/caffeinate</string><string>-i</string>
+    <string>/bin/zsh</string><string>-lc</string>
+    <string>exec "__REPO__/scripts/coach-sync.sh" --on-recording</string>
+  </array>
+  <key>WatchPaths</key><array>
+__WATCH__
+  </array>
+  <!-- Safety net: the ASR recorder creates a new day folder every day, which WatchPaths cannot see
+       until the installer is re-run — so the pipeline also polls every 10 minutes (idempotent: nothing
+       new → nothing done). -->
+  <key>StartInterval</key><integer>600</integer>
+  <key>ThrottleInterval</key><integer>90</integer>
+  <key>EnvironmentVariables</key><dict>
+    <key>PATH</key><string>/opt/homebrew/bin:/usr/local/bin:/opt/node22/bin:/usr/bin:/bin</string>
+  </dict>
+  <key>StandardOutPath</key><string>/tmp/english-recording.log</string>
+  <key>StandardErrorPath</key><string>/tmp/english-recording.log</string>
+</dict></plist>

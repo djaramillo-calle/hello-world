@@ -1,0 +1,1717 @@
+{
+ "source": "20260923T103655Z_P10000-P10000.m4a",
+ "recorded": "2026-09-23 12:49",
+ "ingested": "2026-09-23T12:51:25Z",
+ "duration_s": 128.4,
+ "kind": "read",
+ "passage": "B007",
+ "scripted": true,
+ "passage_overlap": 0.65,
+ "span": {
+  "first": "B007",
+  "last": "B007",
+  "cover": 0.65,
+  "ref_words": 201,
+  "ratio": 0.8
+ },
+ "kind_note": "read B007 (65% bigram cover, 201 reference words, ratio 0.8)",
+ "words": 161,
+ "fillers": 0,
+ "wpm": 75.2,
+ "pronunciation_suspects": [
+  {
+   "word": "anti",
+   "p": 0.131,
+   "at_s": 3.35
+  },
+  {
+   "word": "sesinti",
+   "p": 0.464,
+   "at_s": 6.43
+  },
+  {
+   "word": "embellish",
+   "p": 0.454,
+   "at_s": 67.68
+  },
+  {
+   "word": "anti",
+   "p": 0.354,
+   "at_s": 74.37
+  }
+ ],
+ "praat": {
+  "syllables": 302.0,
+  "pauses": 33.0,
+  "duration_s": 128.45,
+  "phonation_s": 75.97,
+  "speech_rate_syll_s": 2.35,
+  "articulation_rate_syll_s": 3.98,
+  "avg_syllable_s": 0.252,
+  "f0_median_hz": 126.5,
+  "f0_range_semitones": 7.2
+ },
+ "word_confidences": [
+  {
+   "w": "Preface",
+   "start": 1.39,
+   "end": 2.15,
+   "p": 0.631
+  },
+  {
+   "w": "to",
+   "start": 2.15,
+   "end": 2.35,
+   "p": 0.959
+  },
+  {
+   "w": "part",
+   "start": 2.35,
+   "end": 2.55,
+   "p": 0.69
+  },
+  {
+   "w": "one,",
+   "start": 2.55,
+   "end": 2.89,
+   "p": 0.566
+  },
+  {
+   "w": "anti",
+   "start": 3.35,
+   "end": 3.73,
+   "p": 0.131
+  },
+  {
+   "w": "-Semitism",
+   "start": 3.73,
+   "end": 4.37,
+   "p": 0.794
+  },
+  {
+   "w": "ab",
+   "start": 4.37,
+   "end": 6.43,
+   "p": 0.246
+  },
+  {
+   "w": "sesinti,",
+   "start": 6.43,
+   "end": 8.21,
+   "p": 0.464
+  },
+  {
+   "w": "a",
+   "start": 16.38,
+   "end": 16.58,
+   "p": 0.914
+  },
+  {
+   "w": "circular",
+   "start": 16.58,
+   "end": 17.1,
+   "p": 0.697
+  },
+  {
+   "w": "90th",
+   "start": 17.1,
+   "end": 18.18,
+   "p": 0.757
+  },
+  {
+   "w": "century",
+   "start": 18.18,
+   "end": 18.64,
+   "p": 0.849
+  },
+  {
+   "w": "ideology,",
+   "start": 18.64,
+   "end": 19.46,
+   "p": 0.985
+  },
+  {
+   "w": "which",
+   "start": 20.24,
+   "end": 20.52,
+   "p": 0.989
+  },
+  {
+   "w": "in",
+   "start": 20.52,
+   "end": 20.7,
+   "p": 0.963
+  },
+  {
+   "w": "name,",
+   "start": 20.7,
+   "end": 21.08,
+   "p": 0.984
+  },
+  {
+   "w": "though",
+   "start": 21.44,
+   "end": 21.68,
+   "p": 0.961
+  },
+  {
+   "w": "not",
+   "start": 21.68,
+   "end": 22.1,
+   "p": 0.981
+  },
+  {
+   "w": "in",
+   "start": 22.1,
+   "end": 22.48,
+   "p": 0.981
+  },
+  {
+   "w": "argument,",
+   "start": 22.48,
+   "end": 22.88,
+   "p": 0.97
+  },
+  {
+   "w": "was",
+   "start": 23.38,
+   "end": 23.62,
+   "p": 0.945
+  },
+  {
+   "w": "unknown",
+   "start": 23.62,
+   "end": 24.04,
+   "p": 0.911
+  },
+  {
+   "w": "before",
+   "start": 24.04,
+   "end": 24.58,
+   "p": 0.969
+  },
+  {
+   "w": "1870s.",
+   "start": 24.58,
+   "end": 27.14,
+   "p": 0.948
+  },
+  {
+   "w": "And",
+   "start": 27.42,
+   "end": 27.66,
+   "p": 0.877
+  },
+  {
+   "w": "the",
+   "start": 27.66,
+   "end": 27.74,
+   "p": 0.975
+  },
+  {
+   "w": "religious",
+   "start": 27.74,
+   "end": 28.14,
+   "p": 0.998
+  },
+  {
+   "w": "U",
+   "start": 28.14,
+   "end": 28.58,
+   "p": 0.155
+  },
+  {
+   "w": "-hatred",
+   "start": 28.58,
+   "end": 29.22,
+   "p": 0.784
+  },
+  {
+   "w": "inspired",
+   "start": 29.22,
+   "end": 29.86,
+   "p": 0.602
+  },
+  {
+   "w": "by",
+   "start": 29.86,
+   "end": 30.3,
+   "p": 0.998
+  },
+  {
+   "w": "the",
+   "start": 30.3,
+   "end": 30.48,
+   "p": 0.992
+  },
+  {
+   "w": "mutually",
+   "start": 30.48,
+   "end": 30.88,
+   "p": 0.987
+  },
+  {
+   "w": "hostile",
+   "start": 30.88,
+   "end": 31.42,
+   "p": 0.999
+  },
+  {
+   "w": "antagonism",
+   "start": 31.42,
+   "end": 32.86,
+   "p": 0.993
+  },
+  {
+   "w": "of",
+   "start": 32.86,
+   "end": 33.28,
+   "p": 0.995
+  },
+  {
+   "w": "the",
+   "start": 33.28,
+   "end": 33.44,
+   "p": 0.987
+  },
+  {
+   "w": "two",
+   "start": 33.44,
+   "end": 33.74,
+   "p": 0.978
+  },
+  {
+   "w": "conflicting",
+   "start": 33.74,
+   "end": 34.42,
+   "p": 0.927
+  },
+  {
+   "w": "creeds",
+   "start": 34.42,
+   "end": 35.08,
+   "p": 0.892
+  },
+  {
+   "w": "are",
+   "start": 35.08,
+   "end": 35.78,
+   "p": 0.716
+  },
+  {
+   "w": "obviously",
+   "start": 35.78,
+   "end": 36.42,
+   "p": 0.971
+  },
+  {
+   "w": "not",
+   "start": 36.42,
+   "end": 36.74,
+   "p": 0.994
+  },
+  {
+   "w": "the",
+   "start": 36.74,
+   "end": 37.02,
+   "p": 0.999
+  },
+  {
+   "w": "same.",
+   "start": 37.02,
+   "end": 37.26,
+   "p": 0.999
+  },
+  {
+   "w": "And",
+   "start": 37.26,
+   "end": 38.62,
+   "p": 0.442
+  },
+  {
+   "w": "even",
+   "start": 38.62,
+   "end": 38.86,
+   "p": 0.943
+  },
+  {
+   "w": "the",
+   "start": 38.86,
+   "end": 39.06,
+   "p": 0.992
+  },
+  {
+   "w": "extent",
+   "start": 39.06,
+   "end": 39.62,
+   "p": 0.946
+  },
+  {
+   "w": "to",
+   "start": 39.62,
+   "end": 40.02,
+   "p": 0.985
+  },
+  {
+   "w": "which",
+   "start": 40.02,
+   "end": 40.3,
+   "p": 0.998
+  },
+  {
+   "w": "the",
+   "start": 40.3,
+   "end": 40.56,
+   "p": 0.981
+  },
+  {
+   "w": "former",
+   "start": 40.56,
+   "end": 40.96,
+   "p": 0.989
+  },
+  {
+   "w": "derives",
+   "start": 40.96,
+   "end": 41.74,
+   "p": 0.994
+  },
+  {
+   "w": "its",
+   "start": 41.74,
+   "end": 42.12,
+   "p": 0.979
+  },
+  {
+   "w": "arguments",
+   "start": 42.12,
+   "end": 42.68,
+   "p": 0.607
+  },
+  {
+   "w": "and",
+   "start": 42.68,
+   "end": 43.36,
+   "p": 0.819
+  },
+  {
+   "w": "emotional",
+   "start": 43.36,
+   "end": 43.96,
+   "p": 0.97
+  },
+  {
+   "w": "appeal",
+   "start": 43.96,
+   "end": 44.5,
+   "p": 0.98
+  },
+  {
+   "w": "from",
+   "start": 44.5,
+   "end": 44.8,
+   "p": 0.99
+  },
+  {
+   "w": "the",
+   "start": 44.8,
+   "end": 45.02,
+   "p": 0.987
+  },
+  {
+   "w": "latter",
+   "start": 45.02,
+   "end": 45.38,
+   "p": 0.999
+  },
+  {
+   "w": "is",
+   "start": 45.38,
+   "end": 46.18,
+   "p": 0.817
+  },
+  {
+   "w": "open",
+   "start": 46.18,
+   "end": 46.66,
+   "p": 0.975
+  },
+  {
+   "w": "to",
+   "start": 46.66,
+   "end": 46.9,
+   "p": 0.998
+  },
+  {
+   "w": "question.",
+   "start": 46.9,
+   "end": 47.36,
+   "p": 0.963
+  },
+  {
+   "w": "The",
+   "start": 49.12,
+   "end": 49.54,
+   "p": 0.926
+  },
+  {
+   "w": "notion",
+   "start": 49.54,
+   "end": 49.94,
+   "p": 0.997
+  },
+  {
+   "w": "of",
+   "start": 49.94,
+   "end": 50.4,
+   "p": 0.998
+  },
+  {
+   "w": "an",
+   "start": 50.4,
+   "end": 50.72,
+   "p": 0.974
+  },
+  {
+   "w": "unbroken",
+   "start": 50.72,
+   "end": 51.2,
+   "p": 0.978
+  },
+  {
+   "w": "continuity",
+   "start": 51.2,
+   "end": 52.38,
+   "p": 0.961
+  },
+  {
+   "w": "of",
+   "start": 52.38,
+   "end": 53.22,
+   "p": 0.988
+  },
+  {
+   "w": "persecutions,",
+   "start": 53.22,
+   "end": 54.18,
+   "p": 0.938
+  },
+  {
+   "w": "expulsions",
+   "start": 54.64,
+   "end": 55.48,
+   "p": 0.951
+  },
+  {
+   "w": "and",
+   "start": 55.48,
+   "end": 55.94,
+   "p": 0.665
+  },
+  {
+   "w": "massacres",
+   "start": 55.94,
+   "end": 56.64,
+   "p": 0.996
+  },
+  {
+   "w": "from",
+   "start": 56.64,
+   "end": 57.4,
+   "p": 0.685
+  },
+  {
+   "w": "the",
+   "start": 57.4,
+   "end": 57.64,
+   "p": 0.999
+  },
+  {
+   "w": "end",
+   "start": 57.64,
+   "end": 57.96,
+   "p": 0.957
+  },
+  {
+   "w": "of",
+   "start": 57.96,
+   "end": 58.2,
+   "p": 0.998
+  },
+  {
+   "w": "the",
+   "start": 58.2,
+   "end": 58.34,
+   "p": 0.989
+  },
+  {
+   "w": "Roman",
+   "start": 58.34,
+   "end": 58.52,
+   "p": 0.92
+  },
+  {
+   "w": "Empire",
+   "start": 58.52,
+   "end": 59.08,
+   "p": 0.857
+  },
+  {
+   "w": "to",
+   "start": 59.08,
+   "end": 59.38,
+   "p": 0.974
+  },
+  {
+   "w": "the",
+   "start": 59.38,
+   "end": 59.54,
+   "p": 0.998
+  },
+  {
+   "w": "Middle",
+   "start": 59.54,
+   "end": 59.72,
+   "p": 0.77
+  },
+  {
+   "w": "Ages,",
+   "start": 59.72,
+   "end": 60.22,
+   "p": 0.998
+  },
+  {
+   "w": "the",
+   "start": 64.24,
+   "end": 64.4,
+   "p": 0.992
+  },
+  {
+   "w": "modern",
+   "start": 64.4,
+   "end": 64.68,
+   "p": 0.969
+  },
+  {
+   "w": "era",
+   "start": 64.68,
+   "end": 65.14,
+   "p": 0.978
+  },
+  {
+   "w": "and",
+   "start": 65.14,
+   "end": 65.56,
+   "p": 0.722
+  },
+  {
+   "w": "down",
+   "start": 65.56,
+   "end": 65.86,
+   "p": 0.991
+  },
+  {
+   "w": "to",
+   "start": 65.86,
+   "end": 66.08,
+   "p": 0.974
+  },
+  {
+   "w": "our",
+   "start": 66.08,
+   "end": 66.28,
+   "p": 0.994
+  },
+  {
+   "w": "own",
+   "start": 66.28,
+   "end": 66.68,
+   "p": 0.993
+  },
+  {
+   "w": "time",
+   "start": 66.68,
+   "end": 67.1,
+   "p": 0.983
+  },
+  {
+   "w": "frequently",
+   "start": 67.1,
+   "end": 67.68,
+   "p": 0.742
+  },
+  {
+   "w": "embellish",
+   "start": 67.68,
+   "end": 68.72,
+   "p": 0.454
+  },
+  {
+   "w": "by",
+   "start": 68.72,
+   "end": 70.36,
+   "p": 0.83
+  },
+  {
+   "w": "the",
+   "start": 70.36,
+   "end": 70.6,
+   "p": 0.992
+  },
+  {
+   "w": "idea",
+   "start": 70.6,
+   "end": 71.04,
+   "p": 0.941
+  },
+  {
+   "w": "that",
+   "start": 71.04,
+   "end": 72.26,
+   "p": 0.973
+  },
+  {
+   "w": "modern",
+   "start": 73.93,
+   "end": 74.37,
+   "p": 0.776
+  },
+  {
+   "w": "anti",
+   "start": 74.37,
+   "end": 74.87,
+   "p": 0.354
+  },
+  {
+   "w": "-Semitism",
+   "start": 74.87,
+   "end": 75.47,
+   "p": 0.845
+  },
+  {
+   "w": "is",
+   "start": 75.47,
+   "end": 75.91,
+   "p": 0.966
+  },
+  {
+   "w": "no",
+   "start": 75.91,
+   "end": 76.19,
+   "p": 0.928
+  },
+  {
+   "w": "more",
+   "start": 76.19,
+   "end": 77.73,
+   "p": 0.977
+  },
+  {
+   "w": "than",
+   "start": 77.73,
+   "end": 78.03,
+   "p": 0.963
+  },
+  {
+   "w": "a",
+   "start": 78.03,
+   "end": 78.23,
+   "p": 0.975
+  },
+  {
+   "w": "secularized",
+   "start": 78.23,
+   "end": 79.07,
+   "p": 0.983
+  },
+  {
+   "w": "version",
+   "start": 79.07,
+   "end": 79.53,
+   "p": 0.993
+  },
+  {
+   "w": "of",
+   "start": 79.53,
+   "end": 80.37,
+   "p": 0.997
+  },
+  {
+   "w": "popular",
+   "start": 85.36,
+   "end": 85.92,
+   "p": 0.971
+  },
+  {
+   "w": "medieval",
+   "start": 85.92,
+   "end": 86.8,
+   "p": 0.98
+  },
+  {
+   "w": "superstitions,",
+   "start": 86.8,
+   "end": 87.76,
+   "p": 0.993
+  },
+  {
+   "w": "is",
+   "start": 88.42,
+   "end": 88.66,
+   "p": 0.876
+  },
+  {
+   "w": "no",
+   "start": 88.66,
+   "end": 90.0,
+   "p": 0.938
+  },
+  {
+   "w": "less",
+   "start": 90.0,
+   "end": 90.9,
+   "p": 0.975
+  },
+  {
+   "w": "fallacious,",
+   "start": 90.9,
+   "end": 91.5,
+   "p": 0.628
+  },
+  {
+   "w": "though",
+   "start": 97.18,
+   "end": 97.96,
+   "p": 0.922
+  },
+  {
+   "w": "of",
+   "start": 97.96,
+   "end": 98.24,
+   "p": 0.605
+  },
+  {
+   "w": "course",
+   "start": 98.24,
+   "end": 98.58,
+   "p": 0.99
+  },
+  {
+   "w": "less",
+   "start": 98.58,
+   "end": 99.0,
+   "p": 0.961
+  },
+  {
+   "w": "mischievous,",
+   "start": 99.0,
+   "end": 100.42,
+   "p": 0.988
+  },
+  {
+   "w": "than",
+   "start": 103.48,
+   "end": 104.04,
+   "p": 0.972
+  },
+  {
+   "w": "the",
+   "start": 104.04,
+   "end": 104.22,
+   "p": 0.995
+  },
+  {
+   "w": "corresponding",
+   "start": 104.22,
+   "end": 104.98,
+   "p": 0.838
+  },
+  {
+   "w": "anti",
+   "start": 104.98,
+   "end": 105.44,
+   "p": 0.588
+  },
+  {
+   "w": "-Semitic",
+   "start": 105.44,
+   "end": 106.08,
+   "p": 0.954
+  },
+  {
+   "w": "notion",
+   "start": 106.08,
+   "end": 106.44,
+   "p": 0.939
+  },
+  {
+   "w": "of",
+   "start": 106.44,
+   "end": 106.86,
+   "p": 0.993
+  },
+  {
+   "w": "Jewish",
+   "start": 106.86,
+   "end": 107.26,
+   "p": 0.955
+  },
+  {
+   "w": "secret",
+   "start": 107.26,
+   "end": 107.96,
+   "p": 0.682
+  },
+  {
+   "w": "society",
+   "start": 107.96,
+   "end": 108.74,
+   "p": 0.976
+  },
+  {
+   "w": "that",
+   "start": 108.74,
+   "end": 109.48,
+   "p": 0.946
+  },
+  {
+   "w": "has",
+   "start": 109.48,
+   "end": 109.74,
+   "p": 0.983
+  },
+  {
+   "w": "ruled",
+   "start": 109.74,
+   "end": 110.16,
+   "p": 0.738
+  },
+  {
+   "w": "or",
+   "start": 110.16,
+   "end": 111.02,
+   "p": 0.75
+  },
+  {
+   "w": "aspired",
+   "start": 111.02,
+   "end": 112.06,
+   "p": 0.572
+  },
+  {
+   "w": "to",
+   "start": 112.06,
+   "end": 112.36,
+   "p": 0.99
+  },
+  {
+   "w": "rule",
+   "start": 112.36,
+   "end": 112.68,
+   "p": 0.996
+  },
+  {
+   "w": "the",
+   "start": 112.68,
+   "end": 113.14,
+   "p": 0.973
+  },
+  {
+   "w": "war",
+   "start": 113.14,
+   "end": 113.52,
+   "p": 0.748
+  },
+  {
+   "w": "since",
+   "start": 113.52,
+   "end": 113.84,
+   "p": 0.979
+  },
+  {
+   "w": "antiquity.",
+   "start": 113.84,
+   "end": 116.36,
+   "p": 0.979
+  },
+  {
+   "w": "Historically",
+   "start": 117.44,
+   "end": 118.36,
+   "p": 0.99
+  },
+  {
+   "w": "the",
+   "start": 118.36,
+   "end": 118.82,
+   "p": 0.443
+  },
+  {
+   "w": "Yathus",
+   "start": 118.82,
+   "end": 119.42,
+   "p": 0.521
+  },
+  {
+   "w": "between",
+   "start": 119.42,
+   "end": 119.84,
+   "p": 0.971
+  },
+  {
+   "w": "the",
+   "start": 119.84,
+   "end": 120.32,
+   "p": 0.981
+  },
+  {
+   "w": "late",
+   "start": 120.32,
+   "end": 120.72,
+   "p": 0.927
+  },
+  {
+   "w": "Middle",
+   "start": 120.72,
+   "end": 122.2,
+   "p": 0.645
+  },
+  {
+   "w": "Ages",
+   "start": 122.2,
+   "end": 122.66,
+   "p": 0.99
+  },
+  {
+   "w": "and",
+   "start": 122.66,
+   "end": 123.94,
+   "p": 0.984
+  },
+  {
+   "w": "the",
+   "start": 125.58,
+   "end": 125.72,
+   "p": 0.996
+  },
+  {
+   "w": "modern",
+   "start": 125.72,
+   "end": 126.08,
+   "p": 0.942
+  },
+  {
+   "w": "age",
+   "start": 126.08,
+   "end": 126.9,
+   "p": 0.959
+  },
+  {
+   "w": "with",
+   "start": 126.9,
+   "end": 127.3,
+   "p": 0.817
+  },
+  {
+   "w": "respect",
+   "start": 127.3,
+   "end": 127.74,
+   "p": 0.993
+  }
+ ],
+ "azure": {
+  "scripted": true,
+  "locale": "en-US",
+  "en_gb": {
+   "overall": {
+    "accuracy": 96.1,
+    "fluency": 91.5,
+    "completeness": 97.6,
+    "prosody": 83.9,
+    "pron": 90.4
+   },
+   "flagged_words": [
+    {
+     "word": "apmsesinsy",
+     "accuracy": 56.0,
+     "error": "Mispronunciation",
+     "phonemes": [
+      {
+       "ph": "p",
+       "score": 31.0,
+       "heard": [
+        "p",
+        "b",
+        "oʊ"
+       ]
+      },
+      {
+       "ph": "z",
+       "score": 16.0,
+       "heard": [
+        "s",
+        "oʊ",
+        "z"
+       ]
+      },
+      {
+       "ph": "z",
+       "score": 56.0,
+       "heard": [
+        "s",
+        "z",
+        "ʃ"
+       ]
+      },
+      {
+       "ph": "i",
+       "score": 58.0,
+       "heard": [
+        "i",
+        "oʊ",
+        "ɪ"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "ideology—which",
+     "accuracy": 69.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "i",
+       "score": 51.0,
+       "heard": [
+        "i",
+        "ɪ",
+        "dʒ"
+       ]
+      },
+      {
+       "ph": "tʃ",
+       "score": 5.0,
+       "heard": [
+        "i",
+        "oʊ",
+        "dʒ"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "1950",
+     "accuracy": 47.0,
+     "error": "Mispronunciation",
+     "phonemes": [
+      {
+       "ph": "aɪ",
+       "score": 7.0,
+       "heard": [
+        "eɪ",
+        "ɛ",
+        "i"
+       ]
+      },
+      {
+       "ph": "n",
+       "score": 27.0,
+       "heard": [
+        "eɪ",
+        "t",
+        "i"
+       ]
+      },
+      {
+       "ph": "f",
+       "score": 12.0,
+       "heard": [
+        "s",
+        "ɛ",
+        "n"
+       ]
+      },
+      {
+       "ph": "t",
+       "score": 4.0,
+       "heard": [
+        "v",
+        "n",
+        "ə"
+       ]
+      },
+      {
+       "ph": "i",
+       "score": 30.0,
+       "heard": [
+        "z",
+        "t",
+        "n"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "unbroken",
+     "accuracy": 91.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "ʌ",
+       "score": 43.0,
+       "heard": [
+        "ʌ",
+        "ə",
+        "ɪ"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "continuity",
+     "accuracy": 57.0,
+     "error": "Mispronunciation",
+     "phonemes": [
+      {
+       "ph": "n",
+       "score": 43.0,
+       "heard": [
+        "n",
+        "ə",
+        "t"
+       ]
+      },
+      {
+       "ph": "t",
+       "score": 48.0,
+       "heard": [
+        "t",
+        "n",
+        "d"
+       ]
+      },
+      {
+       "ph": "ə",
+       "score": 30.0,
+       "heard": [
+        "t",
+        "n",
+        "ɪ"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "mischievous",
+     "accuracy": 51.0,
+     "error": "Mispronunciation",
+     "phonemes": [
+      {
+       "ph": "s",
+       "score": 32.0,
+       "heard": [
+        "s",
+        "ʃ",
+        "k"
+       ]
+      },
+      {
+       "ph": "v",
+       "score": 35.0,
+       "heard": [
+        "v",
+        "ə",
+        "ɹ"
+       ]
+      },
+      {
+       "ph": "i",
+       "score": 16.0,
+       "heard": [
+        "ə",
+        "ɹ",
+        "ɝ"
+       ]
+      },
+      {
+       "ph": "ə",
+       "score": 18.0,
+       "heard": [
+        "ɹ",
+        "ə",
+        "l"
+       ]
+      },
+      {
+       "ph": "s",
+       "score": 53.0,
+       "heard": [
+        "z",
+        "s",
+        "oʊ"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "than",
+     "accuracy": 97.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "ə",
+       "score": 54.0,
+       "heard": [
+        "ɛ",
+        "n",
+        "ə"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "ruled",
+     "accuracy": 97.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "d",
+       "score": 59.0,
+       "heard": [
+        "l",
+        "d",
+        "u"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "world",
+     "accuracy": 91.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "d",
+       "score": 51.0,
+       "heard": [
+        "ɹ",
+        "s",
+        "d"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "antiquity",
+     "accuracy": 76.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "ɪ",
+       "score": 52.0,
+       "heard": [
+        "ə",
+        "ɪ",
+        "ɹ"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "antiquity",
+     "accuracy": 76.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "æ",
+       "score": 36.0,
+       "heard": [
+        "ə",
+        "ʌ",
+        "æ"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "hiatus",
+     "accuracy": 91.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "aɪ",
+       "score": 35.0,
+       "heard": [
+        "j",
+        "ɑ",
+        "æ"
+       ]
+      },
+      {
+       "ph": "eɪ",
+       "score": 38.0,
+       "heard": [
+        "ɑ",
+        "æ",
+        "ɹ"
+       ]
+      },
+      {
+       "ph": "t",
+       "score": 48.0,
+       "heard": [
+        "t",
+        "d",
+        "θ"
+       ]
+      }
+     ]
+    }
+   ],
+   "word_count": 161,
+   "locale": "en-US"
+  },
+  "en_us_targets": {
+   "overall_prosody": 83.9,
+   "phoneme_findings": [
+    {
+     "word": "apmsesinsy",
+     "accuracy": 56.0,
+     "error": "Mispronunciation",
+     "phonemes": [
+      {
+       "ph": "p",
+       "score": 31.0,
+       "heard": [
+        "p",
+        "b",
+        "oʊ"
+       ]
+      },
+      {
+       "ph": "z",
+       "score": 16.0,
+       "heard": [
+        "s",
+        "oʊ",
+        "z"
+       ]
+      },
+      {
+       "ph": "z",
+       "score": 56.0,
+       "heard": [
+        "s",
+        "z",
+        "ʃ"
+       ]
+      },
+      {
+       "ph": "i",
+       "score": 58.0,
+       "heard": [
+        "i",
+        "oʊ",
+        "ɪ"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "ideology—which",
+     "accuracy": 69.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "i",
+       "score": 51.0,
+       "heard": [
+        "i",
+        "ɪ",
+        "dʒ"
+       ]
+      },
+      {
+       "ph": "tʃ",
+       "score": 5.0,
+       "heard": [
+        "i",
+        "oʊ",
+        "dʒ"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "1950",
+     "accuracy": 47.0,
+     "error": "Mispronunciation",
+     "phonemes": [
+      {
+       "ph": "aɪ",
+       "score": 7.0,
+       "heard": [
+        "eɪ",
+        "ɛ",
+        "i"
+       ]
+      },
+      {
+       "ph": "n",
+       "score": 27.0,
+       "heard": [
+        "eɪ",
+        "t",
+        "i"
+       ]
+      },
+      {
+       "ph": "f",
+       "score": 12.0,
+       "heard": [
+        "s",
+        "ɛ",
+        "n"
+       ]
+      },
+      {
+       "ph": "t",
+       "score": 4.0,
+       "heard": [
+        "v",
+        "n",
+        "ə"
+       ]
+      },
+      {
+       "ph": "i",
+       "score": 30.0,
+       "heard": [
+        "z",
+        "t",
+        "n"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "unbroken",
+     "accuracy": 91.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "ʌ",
+       "score": 43.0,
+       "heard": [
+        "ʌ",
+        "ə",
+        "ɪ"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "continuity",
+     "accuracy": 57.0,
+     "error": "Mispronunciation",
+     "phonemes": [
+      {
+       "ph": "n",
+       "score": 43.0,
+       "heard": [
+        "n",
+        "ə",
+        "t"
+       ]
+      },
+      {
+       "ph": "t",
+       "score": 48.0,
+       "heard": [
+        "t",
+        "n",
+        "d"
+       ]
+      },
+      {
+       "ph": "ə",
+       "score": 30.0,
+       "heard": [
+        "t",
+        "n",
+        "ɪ"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "mischievous",
+     "accuracy": 51.0,
+     "error": "Mispronunciation",
+     "phonemes": [
+      {
+       "ph": "s",
+       "score": 32.0,
+       "heard": [
+        "s",
+        "ʃ",
+        "k"
+       ]
+      },
+      {
+       "ph": "v",
+       "score": 35.0,
+       "heard": [
+        "v",
+        "ə",
+        "ɹ"
+       ]
+      },
+      {
+       "ph": "i",
+       "score": 16.0,
+       "heard": [
+        "ə",
+        "ɹ",
+        "ɝ"
+       ]
+      },
+      {
+       "ph": "ə",
+       "score": 18.0,
+       "heard": [
+        "ɹ",
+        "ə",
+        "l"
+       ]
+      },
+      {
+       "ph": "s",
+       "score": 53.0,
+       "heard": [
+        "z",
+        "s",
+        "oʊ"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "than",
+     "accuracy": 97.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "ə",
+       "score": 54.0,
+       "heard": [
+        "ɛ",
+        "n",
+        "ə"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "ruled",
+     "accuracy": 97.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "d",
+       "score": 59.0,
+       "heard": [
+        "l",
+        "d",
+        "u"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "world",
+     "accuracy": 91.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "d",
+       "score": 51.0,
+       "heard": [
+        "ɹ",
+        "s",
+        "d"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "antiquity",
+     "accuracy": 76.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "ɪ",
+       "score": 52.0,
+       "heard": [
+        "ə",
+        "ɪ",
+        "ɹ"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "antiquity",
+     "accuracy": 76.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "æ",
+       "score": 36.0,
+       "heard": [
+        "ə",
+        "ʌ",
+        "æ"
+       ]
+      }
+     ]
+    },
+    {
+     "word": "hiatus",
+     "accuracy": 91.0,
+     "error": "None",
+     "phonemes": [
+      {
+       "ph": "aɪ",
+       "score": 35.0,
+       "heard": [
+        "j",
+        "ɑ",
+        "æ"
+       ]
+      },
+      {
+       "ph": "eɪ",
+       "score": 38.0,
+       "heard": [
+        "ɑ",
+        "æ",
+        "ɹ"
+       ]
+      },
+      {
+       "ph": "t",
+       "score": 48.0,
+       "heard": [
+        "t",
+        "d",
+        "θ"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  "note": "en-US is the score, the phonemes and the prosody — the only locale documented to return all three (see the docstring)"
+ }
+}
