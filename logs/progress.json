@@ -1,0 +1,170 @@
+{
+ "version": 1,
+ "written": "2026-09-16T09:48:37Z",
+ "tz": "Europe/London",
+ "stage": 1,
+ "floors": {
+  "pages": 5,
+  "srs_days": 5
+ },
+ "weeks_at_floor": 0,
+ "rules": {
+  "min_page_words": 150,
+  "min_srs_reviews": 10,
+  "miss": "one missed day costs nothing; two in a row is the red line"
+ },
+ "book": {
+  "title": "The Origins of Totalitarianism",
+  "pct": 0.0799,
+  "passage": "B115",
+  "page": 88,
+  "total_pages": 1102
+ },
+ "breaks": [
+  {
+   "date": "2026-09-15",
+   "series": [
+    "read.pron"
+   ],
+   "note": "prosody entered PronScore; pron is a different composite across this date"
+  },
+  {
+   "date": "2026-09-16",
+   "series": [
+    "read.acc",
+    "read.flu",
+    "read.comp",
+    "read.pros"
+   ],
+   "note": "scored against the run of chunks actually read, not one chunk; earlier reads are being rescored and must not be joined to later ones"
+  }
+ ],
+ "ability": null,
+ "days": [
+  {
+   "d": "2026-09-09",
+   "page": null,
+   "book": null,
+   "srs": null,
+   "listen": {
+    "min": 1
+   }
+  },
+  {
+   "d": "2026-09-10",
+   "page": {
+    "n": 1,
+    "min": 9.5,
+    "words": 719
+   },
+   "book": {
+    "min": 9.2,
+    "pages": 8
+   },
+   "srs": null,
+   "listen": {
+    "min": 41
+   }
+  },
+  {
+   "d": "2026-09-12",
+   "page": {
+    "n": 1,
+    "min": 37.1,
+    "words": 3058
+   },
+   "book": {
+    "min": 23.3,
+    "pages": 13
+   },
+   "srs": null,
+   "listen": null
+  },
+  {
+   "d": "2026-09-13",
+   "page": {
+    "n": 1,
+    "min": 27.6,
+    "words": 2700
+   },
+   "book": {
+    "min": 19.3,
+    "pages": 11
+   },
+   "srs": null,
+   "listen": null
+  },
+  {
+   "d": "2026-09-14",
+   "page": {
+    "n": 1,
+    "min": 83.7,
+    "words": 8581
+   },
+   "book": {
+    "min": 60.0,
+    "pages": 36
+   },
+   "srs": null,
+   "listen": null
+  },
+  {
+   "d": "2026-09-15",
+   "page": {
+    "n": 1,
+    "min": 15.3,
+    "words": 1458
+   },
+   "book": {
+    "min": 12.4,
+    "pages": 11
+   },
+   "srs": {
+    "reviews": 36
+   },
+   "listen": null
+  },
+  {
+   "d": "2026-09-16",
+   "page": {
+    "n": 1,
+    "min": 24.2,
+    "words": 2446
+   },
+   "book": {
+    "min": 17.7,
+    "pages": 10
+   },
+   "srs": null,
+   "listen": null
+  }
+ ],
+ "weeks": [
+  {
+   "w": "2026-W37",
+   "start": "2026-09-07",
+   "page_days": 3,
+   "page_min": 74.2,
+   "book_min": 51.8,
+   "srs_days": 0,
+   "reviews": 0,
+   "listen_days": 2,
+   "floor_ok": false
+  },
+  {
+   "w": "2026-W38",
+   "start": "2026-09-14",
+   "page_days": 3,
+   "page_min": 123.2,
+   "book_min": 90.1,
+   "srs_days": 1,
+   "reviews": 36,
+   "listen_days": 0,
+   "floor_ok": false
+  }
+ ],
+ "pairs": {
+  "sessions": 3,
+  "plan_source": "coach"
+ }
+}
