@@ -1,0 +1,324 @@
+{
+ "id": "2026-09-12-2026-09-12-13-01-32",
+ "source": "2026_09_12_13_01_32.mp3",
+ "recorded": "2026-09-12 12:43",
+ "kind": "read",
+ "passage": "B007",
+ "anchor": false,
+ "reviewed": "2026-09-21T09:57:36Z",
+ "fluency": {
+  "duration_s": 2224.5,
+  "wpm": 82.5,
+  "words": 3058,
+  "filler_pct": 0.0,
+  "speech_rate_syll_s": 2.72,
+  "articulation_rate_syll_s": 4.04,
+  "avg_syllable_s": 0.247,
+  "f0_median_hz": 142.5,
+  "f0_range_semitones": 7.6,
+  "pause_count": 684,
+  "phonation_ratio": 0.67,
+  "mean_pause_s": 1.06
+ },
+ "pronunciation": {
+  "source": "azure",
+  "scripted": true,
+  "scores": {
+   "accuracy": 88.4,
+   "fluency": 93.9,
+   "completeness": 91.6,
+   "prosody": 81.3,
+   "pron": 87.1
+  },
+  "flagged": [
+   {
+    "word": "antisemitism",
+    "accuracy": 80.0,
+    "error": "None"
+   },
+   {
+    "word": "answer",
+    "accuracy": 21.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "since",
+    "accuracy": 94.0,
+    "error": "None"
+   },
+   {
+    "word": "secular",
+    "accuracy": 70.0,
+    "error": "None"
+   },
+   {
+    "word": "was",
+    "accuracy": 91.0,
+    "error": "None"
+   },
+   {
+    "word": "thirteenth",
+    "accuracy": 57.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "thirteenth",
+    "accuracy": 14.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "and",
+    "accuracy": 80.0,
+    "error": "None"
+   },
+   {
+    "word": "religious",
+    "accuracy": 82.0,
+    "error": "None"
+   },
+   {
+    "word": "the",
+    "accuracy": 49.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "mutually",
+    "accuracy": 11.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "are",
+    "accuracy": 53.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "is",
+    "accuracy": 58.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "frequently",
+    "accuracy": 51.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "superstitions",
+    "accuracy": 70.0,
+    "error": "None"
+   },
+   {
+    "word": "that",
+    "accuracy": 91.0,
+    "error": "None"
+   },
+   {
+    "word": "fallacious",
+    "accuracy": 85.0,
+    "error": "None"
+   },
+   {
+    "word": "mischievous",
+    "accuracy": 44.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "world",
+    "accuracy": 73.0,
+    "error": "None"
+   },
+   {
+    "word": "antiquity",
+    "accuracy": 24.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "historically",
+    "accuracy": 79.0,
+    "error": "None"
+   },
+   {
+    "word": "the",
+    "accuracy": 35.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "matters",
+    "accuracy": 51.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "marked",
+    "accuracy": 56.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "between",
+    "accuracy": 52.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "roman",
+    "accuracy": 88.0,
+    "error": "None"
+   },
+   {
+    "word": "antiquity",
+    "accuracy": 29.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "goal",
+    "accuracy": 68.0,
+    "error": "None"
+   },
+   {
+    "word": "frequently",
+    "accuracy": 44.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "history",
+    "accuracy": 42.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "diaspora—that",
+    "accuracy": 19.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "the",
+    "accuracy": 58.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "this",
+    "accuracy": 94.0,
+    "error": "None"
+   },
+   {
+    "word": "hiatus",
+    "accuracy": 54.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "centuries",
+    "accuracy": 91.0,
+    "error": "None"
+   },
+   {
+    "word": "matters",
+    "accuracy": 14.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "masses",
+    "accuracy": 72.0,
+    "error": "None"
+   },
+   {
+    "word": "fifteenth",
+    "accuracy": 70.0,
+    "error": "None"
+   },
+   {
+    "word": "sixteenth",
+    "accuracy": 44.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "during",
+    "accuracy": 68.0,
+    "error": "None"
+   }
+  ],
+  "classes": {
+   "cat/cut": {
+    "n": 5,
+    "words": [
+     "antisemitism",
+     "answer",
+     "antiquity",
+     "matters"
+    ]
+   },
+   "i/ii": {
+    "n": 11,
+    "words": [
+     "antisemitism",
+     "mutually",
+     "mischievous",
+     "antiquity",
+     "historically",
+     "the",
+     "between",
+     "fifteenth",
+     "sixteenth"
+    ]
+   },
+   "s/z": {
+    "n": 11,
+    "words": [
+     "answer",
+     "since",
+     "secular",
+     "was",
+     "is",
+     "superstitions",
+     "mischievous",
+     "matters",
+     "centuries"
+    ]
+   },
+   "th": {
+    "n": 6,
+    "words": [
+     "thirteenth",
+     "the",
+     "that",
+     "this",
+     "sixteenth"
+    ]
+   },
+   "schwa": {
+    "n": 8,
+    "words": [
+     "mutually",
+     "superstitions",
+     "fallacious",
+     "mischievous",
+     "antiquity",
+     "between",
+     "diaspora—that",
+     "hiatus"
+    ]
+   },
+   "b/v": {
+    "n": 2,
+    "words": [
+     "mischievous",
+     "between"
+    ]
+   },
+   "-ed": {
+    "n": 1,
+    "words": [
+     "marked"
+    ]
+   },
+   "h": {
+    "n": 1,
+    "words": [
+     "history"
+    ]
+   }
+  },
+  "locale": "en-US",
+  "word_count": 1699
+ },
+ "harvest": null,
+ "cards_added": 9,
+ "flags": [],
+ "passage_overlap": 0.94,
+ "void": false
+}

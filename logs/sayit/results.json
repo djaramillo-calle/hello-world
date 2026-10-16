@@ -1,0 +1,211 @@
+{
+ "version": 1,
+ "words": {
+  "under": {
+   "attempts": [
+    {
+     "at": "2026-09-14T15:06:52Z",
+     "file": "20260914T150652Z_under.json",
+     "void": true,
+     "note": "1.2s for 22 words (1100 wpm) — the recording stopped before the sentence did"
+    },
+    {
+     "at": "2026-09-15T11:12:01Z",
+     "file": "20260915T111201Z_under.json",
+     "accuracy": 99.0,
+     "fluency": 95.0,
+     "pron": 96.8,
+     "completeness": 100.0,
+     "flagged": [],
+     "source": "phone-azure",
+     "locale": "en-GB"
+    }
+   ],
+   "best": 99.0,
+   "last": 99.0,
+   "status": "active",
+   "id": "under"
+  },
+  "impartial": {
+   "id": "impartial",
+   "attempts": [
+    {
+     "at": "2026-09-15T11:12:53Z",
+     "file": "20260915T111253Z_impartial.json",
+     "accuracy": 99.0,
+     "fluency": 96.0,
+     "pron": 97.4,
+     "completeness": 100.0,
+     "flagged": [],
+     "source": "phone-azure",
+     "locale": "en-GB"
+    }
+   ],
+   "best": 99.0,
+   "last": 99.0,
+   "status": "active"
+  },
+  "situation": {
+   "id": "situation",
+   "attempts": [
+    {
+     "at": "2026-09-15T11:13:40Z",
+     "file": "20260915T111340Z_situation.json",
+     "accuracy": 99.0,
+     "fluency": 97.0,
+     "pron": 98.0,
+     "completeness": 100.0,
+     "flagged": [],
+     "source": "phone-azure",
+     "locale": "en-GB"
+    }
+   ],
+   "best": 99.0,
+   "last": 99.0,
+   "status": "active"
+  },
+  "imperialist": {
+   "id": "imperialist",
+   "attempts": [
+    {
+     "at": "2026-09-15T11:14:13Z",
+     "file": "20260915T111413Z_imperialist.json",
+     "accuracy": 99.0,
+     "fluency": 95.0,
+     "pron": 96.8,
+     "completeness": 100.0,
+     "flagged": [],
+     "source": "phone-azure",
+     "locale": "en-GB"
+    }
+   ],
+   "best": 99.0,
+   "last": 99.0,
+   "status": "active"
+  },
+  "our": {
+   "id": "our",
+   "attempts": [
+    {
+     "at": "2026-09-15T11:14:56Z",
+     "file": "20260915T111456Z_our.json",
+     "accuracy": 98.0,
+     "fluency": 97.0,
+     "pron": 97.8,
+     "completeness": 100.0,
+     "flagged": [],
+     "source": "phone-azure",
+     "locale": "en-GB"
+    }
+   ],
+   "best": 98.0,
+   "last": 98.0,
+   "status": "active"
+  },
+  "coresponsible": {
+   "id": "coresponsible",
+   "attempts": [
+    {
+     "at": "2026-09-20T20:23:27Z",
+     "file": "20260920T202327Z_coresponsible.json",
+     "accuracy": 96.0,
+     "fluency": 94.0,
+     "pron": 94.6,
+     "completeness": 95.0,
+     "flagged": [
+      "simply"
+     ],
+     "source": "phone-azure",
+     "locale": "en-GB"
+    }
+   ],
+   "best": 96.0,
+   "last": 96.0,
+   "status": "active"
+  },
+  "nazis": {
+   "id": "nazis",
+   "attempts": [
+    {
+     "at": "2026-09-20T20:24:29Z",
+     "file": "20260920T202429Z_nazis.json",
+     "accuracy": 92.0,
+     "fluency": 96.0,
+     "pron": 88.9,
+     "completeness": 100.0,
+     "flagged": [
+      "evinced"
+     ],
+     "source": "cloud",
+     "locale": "en-US"
+    }
+   ],
+   "best": 92.0,
+   "last": 92.0,
+   "status": "active"
+  },
+  "that": {
+   "id": "that",
+   "attempts": [
+    {
+     "at": "2026-09-20T20:25:01Z",
+     "file": "20260920T202501Z_that.json",
+     "accuracy": 98.0,
+     "fluency": 100.0,
+     "pron": 91.8,
+     "completeness": 100.0,
+     "flagged": [],
+     "source": "cloud",
+     "locale": "en-US"
+    }
+   ],
+   "best": 98.0,
+   "last": 98.0,
+   "status": "active"
+  },
+  "new-chagrin": {
+   "id": "new-chagrin",
+   "attempts": [
+    {
+     "at": "2026-09-20T20:25:30Z",
+     "file": "20260920T202530Z_new-chagrin.json",
+     "accuracy": 96.3,
+     "fluency": 84.6,
+     "pron": 88.6,
+     "completeness": 96.6,
+     "flagged": [
+      "chagrin"
+     ],
+     "source": "cloud",
+     "locale": "en-US"
+    }
+   ],
+   "best": 96.3,
+   "last": 96.3,
+   "status": "active"
+  },
+  "new-conspicuous": {
+   "id": "new-conspicuous",
+   "attempts": [
+    {
+     "at": "2026-09-20T20:26:18Z",
+     "file": "20260920T202618Z_new-conspicuous.json",
+     "accuracy": 96.0,
+     "fluency": 100.0,
+     "pron": 91.6,
+     "completeness": 100.0,
+     "flagged": [
+      "conspicuous"
+     ],
+     "source": "cloud",
+     "locale": "en-US"
+    }
+   ],
+   "best": 96.0,
+   "last": 96.0,
+   "status": "active"
+  }
+ },
+ "updated": "2026-09-21T07:44:10Z",
+ "locale_note": "Every attempt carries `locale`. Phone-scored attempts before 2026-09-21 are en-GB; cloud-scored attempts (the fallback) are en-US since 2026-09-16; the phone scores en-US from 2026-09-21. en-GB and en-US rows are DIFFERENT SERIES — never compare a word's best across them. The model clips moved to an en-US voice the same day."
+}

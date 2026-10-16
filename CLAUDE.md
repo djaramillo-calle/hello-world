@@ -1,0 +1,620 @@
+# Project: Adult English — diagnosis, routine, and tracking
+
+The user is an adult English learner (L1 Spanish, UK-based, office job
+09:30–17:00 UK time, gym 18:15 most weekdays). Goal: conversational,
+real-world English. Key artifacts:
+
+- `diagnostic.html` — English Signal Check battery (form v2, post-audit).
+  Re-run every 5 weeks; one row appended to `tracking.tsv` per run.
+- `routine.html` — English Runbook (daily plan; focus dial, 2-conversation
+  weekly floor, no work missions — removed at user request 2026-08-30).
+- `docs/plan/final-plan.md` — the adjudicated plan. Its cardinal rule:
+  **at most ONE plan lever changes per 5-week cycle**, and only at the
+  diagnostic week-close, and only when the current dial's target metric
+  missed its noise threshold.
+- `docs/METHOD.md` — instrument spec, noise thresholds, form history.
+- `observations.md` — the chat-based English observation log (see below).
+- `docs/COACH.md` — **the operating table**: every trigger (recording, nightly,
+  daily Routine, Friday, time trial, new book) → who acts → what is produced,
+  plus what the coach decides alone (cards, shelf, flags) and what never
+  happens without the user. Read it first in any session that is unsure
+  what to do.
+
+## Standing instruction: maintain the observation log
+
+In every session with this user, passively note their English in their own
+messages and maintain `observations.md`:
+
+1. **Harvest, don't correct.** No unsolicited mid-chat corrections or
+   rewrites of the user's sentences. Digest on request or at the weekly
+   review only. Exception: if the user declares "English mode" in a chat,
+   switch to prompt-style feedback (signal the breakdown, let them repair —
+   never reformulate for them).
+2. **Pattern discipline.** One occurrence = `WATCHING` (presumed typo).
+   Two or more independent occurrences = `PATTERN` (append entry + suggest
+   production-format SRS cards). No recurrence across ~4 weeks = `RETIRED`.
+3. **What to watch** (from the baseline entries): article omission before
+   abstract nouns; phrasal-verb avoidance / Latinate monoculture;
+   subject–verb agreement; countability; collocation (also log strengths).
+4. **Register honesty.** Chat is written, self-paced, technical. Never
+   infer speaking ability from it, and never turn this log into a number —
+   nothing from it goes into `tracking.tsv`.
+5. **Adjustment gate.** Log findings may *recommend* plan changes any time,
+   but plan changes are *implemented* only under the final plan's
+   one-lever-per-cycle rule at a diagnostic week-close. Card and
+   crutch-word-list additions are exempt (they are harvest, not levers).
+
+A weekly Routine ("Weekly English observation review", Fridays ~18:00 UTC)
+fires into the long-running session to write the digest. If working in a
+fresh session, append observations with dated entries in the established
+format and commit with message prefix "observations:".
+
+## Cards (the flashcards, IN the app since 2026-09-23; Anki before that)
+
+The user asked for the deck to live in the app ("so everything is now in the app"). The app's
+Cards tab schedules with **FSRS-6**, ported from the reference `py-fsrs` 6.3.2 and tested against
+it; the coach stopped pushing to Anki the same day (his call: reviewing the same cards in two
+schedulers corrupts both histories). The contract is the app repo's `docs/CONTRACT.md`, "Cards":
+
+- **Coach → app:** `srs/cards.json` (`logs/srs/cards.json`, built by `scripts/srs-deck.py`
+  every cloud-sync run from `cards/queue.tsv` + the one-off Anki export
+  `logs/srs/anki-export.json`, PATCHed into the app's placeholder in the shared Drive folder)
+  and `srs/params.json` (fitted FSRS parameters — not built yet; the app uses the published
+  defaults until it exists). The 25-new-per-rolling-week cap now lives in `srs-deck.py`
+  (queue rows promoted `queued → added`, `note_id` = the app card id, `added_at` kept).
+- **App → coach:** `srs/state.json` and `srs/revlog.jsonl`, folded by `scripts/srs-pull.py`
+  into `logs/srs/` and into **`logs/anki-stats.json` in the same shape as before** (`source:
+  "app (srs-pull.py)"`) plus `logs/anki-days.json`, so the weekly rollup, the readout and the
+  Friday review read SRS load unchanged. Leech candidates = `lapses` ≥ 4.
+- **Migration (done 2026-09-23):** `scripts/anki-export.py` dumped the 50 notes and 36 reviews
+  from AnkiWeb; `srs-deck.py --migrate` replayed each card's Anki reviews through py-fsrs
+  (`.venv-anki`) into `logs/srs/seed-state.json`, carried as `state` on the card until the phone's
+  first own review. The 70 queued cards enter at 25 a week from that day.
+- **Conventions unchanged:** production format — front = cue ("Say it: ...", "Complete aloud:
+  ...", "Phrasal (instead of X): ..."), back = the target chunk, said ALOUD before flipping.
+  Cards are harvest, never a lever. New cards: four a day in the app. Suspending (a leech, a
+  RETIRED pattern) is `suspended: true` in the deck — coach-side, any time; the scheduler
+  itself (retention, steps) is never changed without the user.
+- `anki-cloud.py`, `anki-push-cards.py`, `anki-stats.py`, `anki-revlog.py` stay on disk for the
+  record and are no longer run by any Routine or by `coach-sync.sh`'s cloud path. The Mac's
+  `coach-sync.sh` still contains the Anki steps: they skip when Anki holds nothing new, and
+  should be removed the next time that script is touched.
+- **Parameter fit (to build):** once `logs/srs/revlog.jsonl` holds a few hundred reviews, fit the
+  21 FSRS-6 parameters with the reference optimizer (`fsrs[optimizer]`, needs torch — a Friday
+  step, not a daily one) and write `logs/srs/params.json` → `srs/params.json`.
+
+## Reading (KOReader on the phone; Kindle USB is the legacy path) — 2026-09-10
+
+The reading sensor, built like the listening one: an open client that
+publishes on its own, the cloud pulls. `docs/HUB.md` "Phone setup" has the
+one-off steps.
+
+- **Phone:** KOReader reads the EPUB. Its Vocabulary Builder keeps dictionary
+  lookups with the sentence context; its statistics plugin keeps seconds per
+  page. One two-way Autosync pair mirrors `koreader/settings/` ↔ Drive
+  `EnglishPractice/koreader/`: databases up, books down. **The shelf is
+  `logs/reading/shelf.json`** (committed): the coach lists the slugs the phone
+  should hold; `library-sync.py` on the Mac stocks the Drive folder from
+  `EnglishPractice/library/` accordingly. Progress sync (kosync,
+  sync.koreader.rocks) publishes the position; the Read tab follows it.
+- **Pull:** `python3 scripts/koreader-pull.py` — on the Mac (nightly and in
+  `coach-sync.sh`) reads the Drive mount; anywhere with `KOSYNC_USER` /
+  `KOSYNC_PASS` set (CCR environment variables + the Mac env file, never git)
+  it also pulls the position; `--dir <folder>` folds sqlite files fetched by
+  other means; `--check` verifies the credentials. Writes `logs/reading/`:
+  `vocab.json` (unified lookup store — `kindle-vocab.py` writes the same file
+  when a Kindle is plugged in), `daily.json` (minutes per day, Europe/London),
+  `progress.json` (percentage → passage id), `books.json` (KOReader document
+  ids = partial MD5 of the file, written by `passage-import.py`).
+- **Curating the lookups (2026-09-15):** the user's own delete in KOReader's Vocabulary Builder is
+  how words leave the list — he is the only one who can tell a deliberate tap from a finger-slip.
+  `merge_vocab` used to ADD only, so a deletion on the phone reached nothing; a lookup that is
+  absent from a full read of the database is now marked `dropped` (and `carded`, so Say-it never
+  offers it) and **never erased** — the history stays and looking the word up again brings it back.
+  A safety rail: if more than `PRUNE_FLOOR` of the stored koreader lookups vanish at once that is
+  an emptied or reinstalled database, not an afternoon's curation, so it says so and changes
+  nothing.
+- **Cards:** `python3 scripts/reading-cards.py` (Mac before the Anki push;
+  cloud daily) turns the newest un-carded lookups that have a usable sentence
+  into production cards (front = the sentence with the word blanked, said
+  aloud; back = word + sentence), 5 per run, `carded: true` once used; the
+  25/week cap is enforced at the Anki push.
+- **Hub:** the daily Routine runs `python3 scripts/reading-hub.py` (exit 3 =
+  nothing yet) and `write_db` sets `meta/reading` from `logs/hub-reading.json`
+  (gitignored, regenerated each run). The Read tab's Reading panel shows the
+  position with a "Read aloud from here" button (sets `book_next`), the
+  week's minutes and the recent words with their sentences.
+- **Load, harvest, pointer — never a score:** `reading_min` is a load column
+  in `logs/weekly.tsv` and the readout (sensor first, the Log tab's check-in
+  when the sensor has nothing for that day); lookups follow the card rules
+  (best usage sentences → production cards, shared 25/week cap, `carded`
+  flag); the position only moves the Read tab's pointer. Nothing feeds
+  `tracking.tsv`. No Amazon cookies or passwords, ever; the Kindle's
+  `vocab.db` over USB remains the only Kindle route.
+
+## Minimal Pairs (the perception drill app on the phone) — 2026-09-11
+
+`djaramillo-calle/minimal-pairs` is its own repo and its own Android app (Kotlin, sideloaded APK
+from its GitHub Releases page, built by its Actions workflow on every push). It is the HVPT drill:
+one word of a pair in a random one of six British voices, tap the word heard, instant feedback,
+about 40 trials in 3 minutes, half of them on words never heard before (the honest probe). Same
+sensor pattern as KOReader: the app writes files into the phone folder `Documents/MinimalPairs`,
+Autosync mirrors it two-way to Drive `EnglishPractice/pairs`, the cloud pulls and pushes.
+
+- **Contract** (`docs/CONTRACT.md` in the app repo): the app writes `sessions/<id>.json`
+  (immutable, per-trial rows), `state.json`, `catalog-version.txt`; the coach writes `plan.json`
+  only (contrast weights 0–1, trials, untrained ratio, voices, word bands, feedback level, note).
+  Contrast ids = the ledger's classes plus `long-back`, `sh/ch`, `er/or`.
+- **Cloud (`cloud-sync.py`, every run):** `sync_pairs` downloads new sessions/state to the work
+  dir → `python3 scripts/pairs-pull.py --dir <folder>` folds them into `logs/pairs/` (sessions
+  copied once, `weekly.tsv` per ISO week and contrast, repeated misses → "Say it (pronunciation)"
+  cards through the shared queue) → `plan.json` rebuilt from the ledger + recent sessions with the
+  app's own `plan-from-ledger.py` (the app repo is shallow-cloned into `.cache/minimal-pairs`,
+  gitignored, so both sides use one script and one catalog) → `push_plan` PATCHes Drive's
+  `plan.json` when it differs. The service account cannot create files (no quota): the owner
+  created `EnglishPractice/pairs/plan.json` once (2026-09-11); it is only ever updated in place.
+- **Rollup:** `weekly.tsv` gains `pairs_sessions` and `pairs_untrained_pct` (percent correct on
+  untrained words that week). Load + formative signal, never a score, never tracking.tsv.
+- **What the app adapts alone** (`docs/ADAPTATION.md`): which contrast/pair/word/voice comes next
+  and more trials for a struggling contrast, inside the plan. What only the coach changes: the
+  plan. A manual override in the app is recorded as `plan_source: "override"`; talk about it,
+  never silently overwrite it.
+- **Reviewing it:** the Friday review reads `logs/pairs/weekly.tsv` and `state.json`; a contrast
+  whose untrained accuracy stays under ~80% for two weeks gets more weight, one above ~95% for
+  two weeks less; `untrained_shortfall` growing means widen `band` (plan-from-ledger does it).
+  The perception line is a candidate third line on the Season Board (with the anchor read and
+  the daily pages) once the diagnostic is retired.
+
+## Say it (the production half of the pronunciation loop) — 2026-09-13
+
+The reads flag words; `scripts/sayit.py` turns the repeat offenders into something he can practise and
+be scored on, inside the Minimal Pairs app. The loop: read aloud → Azure flags words → sayit picks the
+words he actually misses → he says the sentence in the app → the cloud scores that recording → the word
+retires or goes to the tutor.
+
+- **Two sources, one drill** (`source` on every word; added 2026-09-15 at the user's request):
+  `flagged` — words the reads caught him mispronouncing, a motor habit to break; and `new` —
+  words he looked up while READING, which he has never said at all. His argument for the second,
+  and it is right: an Anki card he reads silently teaches the meaning and never tells him whether
+  the mouth was right, and a brand-new word has no model to correct, so hearing one and being
+  scored is the whole intervention. `source` is an additive field — the app shows both without a
+  change, so it works on the build already on the phone. **Reading lookups no longer become Anki
+  cards** (`reading-cards.py`, `LOOKUPS_GO_TO_SAYIT`): the same lookup must not cost him two daily
+  obligations, and `carded` stays the shared "already spent" flag, now set by `sayit.py`. Cards
+  queued before that date still go up as the cap allows. A `new` word that is still active after
+  `TUTOR_WEEKS` goes to `parked`, never to `tutor`: not knowing a rare word is not a motor problem
+  for a human to hear. New words already on the list SURVIVE a rebuild — the claim would otherwise
+  spend a lookup that was never served.
+- **Selection needs the frequency list** (`.cache/minimal-pairs/data/sources`, the app repo's
+  clone): `library/` is gitignored, so in a cloud container the passage text is usually missing,
+  `read_on` collapses and the miss rate becomes meaningless — on 2026-09-15 "under" scored 4 flags
+  in 1 read (rate 4.0) and seven of ten offered words were function words. So the rate is clamped
+  at 1.0, a word inside the commonest `TOO_COMMON` needs `COMMON_MIN_READS` actually-counted
+  occurrences before its rate is believed, and rarity breaks the ties. For `new` words the lists
+  are a SOFT signal only — used as a gate they threw away *conglomeration*, *erudition*,
+  *lamentation* and *conflagration* to catch four bits of OCR damage — so an unrecognised word is
+  merely ranked last. Hard rejects there (`worth_saying`): shape (non-alpha, under three letters,
+  no vowel), a capital inside the sentence (*Volga*, *Comintern*, *Stalin* are names), and anything
+  inside the commonest `TOO_COMMON_NEW` (2,000). **THE MACHINE SCREENS FINGER-SLIPS; THE USER
+  CURATES.** The threshold was raised to 15,000 on 2026-09-15 and put back the same day: asked
+  which lookups were mistakes, he named function words only — "and, that, in, under, all, its,
+  come, which, only, our, situation" — and said he *meant* *hatred*, *haste*, *spectacle*,
+  *medieval*, *swift*, *glimpse*, *comrades*, *sheer*, *midst*. No threshold can separate a tap he
+  meant from one he did not, so it only removes what a finger-slip looks like, and the judgement is
+  his: **he deletes the word in KOReader's Vocabulary Builder**, and `koreader-pull` marks it
+  `dropped` (see below). `worth_saying` also runs over the words ALREADY on the list, so a change
+  to the screen clears what it now rejects instead of leaving it standing.
+- **Several sentences per word, rotated by day** (`carriers`, `todays`; 2026-09-15, the user's idea).
+  Repeating one sentence is blocked practice: it improves the rehearsed sentence and does not carry.
+  Varying the carrier is the **contextual-interference effect** — worse during practice, better at
+  retention and *transfer* — and transfer is exactly what his data says is missing (98–99 on the
+  sentence he had just heard, the same words flagged inside 15–84 minutes of reading). The sentences
+  come from `library/<slug>.json` `chunks[].text`, **never invented**: a word with only one usable
+  sentence in the books keeps it. `sentences: [{text, clip}]` is additive and `sentence`/`clip` stay
+  the live pair, so the build already on the phone works unchanged; an app build could pick per
+  attempt instead. Rotation is by DAY, not by run — cloud-sync runs several times a day and the
+  sentence must not change under him mid-session. `looks_clean` rejects the scan's debris (a
+  footnote number welded to a word, "1J", stray single capitals): a human skims past them, a neural
+  voice reads them aloud and then scores him against a reference nobody would say.
+- **The unit is the word IN ITS SENTENCE, never alone.** His failures are connected-speech failures
+  (unstressed syllables collapsing, final consonants dropping) and an isolated word is a different motor
+  task. The sentence is one he actually read, taken from the passage the review named — never invented.
+- **Selection is a RATE, not a count** (`MIN_RATE`): flagged / times actually read. A count alone promotes
+  function words — "the" flagged 3× across 200 occurrences is noise, "imperialist" flagged 3× out of 4 is
+  broken. `read_on` undercounts when a passage's text is not in `library/` locally, which biases rates
+  upward uniformly; the ranking still holds.
+- **Scoring is INSTANT, on the phone, with the learner's OWN separate Azure resource** (free tier, its
+  own key, a different region from the coach's — Azure allows one F0 per subscription per region). Decided
+  2026-09-14 after the cloud-only design was tried: a sync runs a few times a day, so cloud-only scoring
+  means no feedback whenever the coach is not running, and the coach becomes a single point of failure for
+  a daily habit. The coach's own key still never reaches the phone. The app writes one immutable
+  `sayit/scores/<ts>_<id>.json` per attempt; `sayit.py --score` takes that score as-is and only calls Azure
+  itself when the phone could not (no key, no network, an error) — the fallback, never the rule.
+- **ONE coach→app file, `sayit.zip`** (words.json + results.json + read.json + clips/<id>.ogg, **en-US** neural TTS since 2026-09-21 — the phone scores Say-it in en-US from the same day, so the model heard and the reference scored agree; every results.json row carries `locale`, and en-GB rows before that date are a different series).
+  The Drive service account has no storage quota and can only PATCH files that already exist, so the owner
+  created an empty `sayit.zip` once (2026-09-13, alongside `plan.json` 2026-09-11) and `push_file` in
+  cloud-sync overwrites it in place forever. Never try to create a Drive file from the service account.
+- **Status:** `active` → `retired` after 2 attempts at accuracy ≥ 80 → `tutor` when still active after 3
+  weeks (a motor problem a human should hear, not more self-practice). `logs/sayit/results.json` is the
+  history; formative only, nothing reaches `tracking.tsv`.
+- Every `cloud-sync.py` run: score the new attempts → rebuild the words → push the zip. The app contract
+  lives in `docs/CONTRACT.md` of the app repo and must not drift from `scripts/sayit.py`.
+
+## Read mode (the daily page, read and scored IN the app) — 2026-09-21
+
+The user asked for the daily read-aloud to be caught, processed, scored and plotted by the app
+rather than by the coach. The chosen shape (his decision, 2026-09-21, "App records it"): the app
+SHOWS the passage and records him reading it, so the reference text is known by construction —
+one Azure pass on his own phone resource, no Whisper on the phone, nothing to guess. The
+alternative (catch the ASR recorder's file and work out what was read) needs either Whisper
+on-device or a second Azure pass, and reintroduces the reference-guessing that produced a week
+of wrong scores before the span matcher was fixed. Branch `read-mode` in the app repo; every
+push to `main` cuts a release, so it ships when he merges.
+
+- **Coach → app:** `read.json` INSIDE `sayit.zip` (the only PATCHable coach→app file): `pointer`
+  = the successor of the furthest chunk any scored read reached (`sayit.read_pointer`), ~40
+  passages of text from there (`READ_WINDOW`), and the coach's **en-US** read rows as `history`
+  for the trend. `sayit.py --build` rebuilds it every sync. **The book text is copyrighted:
+  `logs/sayit/read.json` and `logs/sayit/sayit.zip` are gitignored; they travel through his
+  private Drive only and never enter either repository.**
+- **App → coach:** `Documents/MinimalPairs/reads/<ts>_<first>-<last>.{m4a,json,score.json}` —
+  recording, sidecar (passages read, `reference_sha256`), and the phone's score with **Azure's
+  raw utterances verbatim**. `cloud-sync.sync_pairs` fetches a page on every run until a
+  practice record names its audio (the same durable-marker rule as Say-it's results.json),
+  then `practice-ingest --source work/pairs/reads` ingests it: Whisper still runs (transcript,
+  wpm, pauses are the coach's own), but `phone_read()` takes the span from the sidecar and folds
+  the raw utterances with `azure_pa._aggregate` — **the coach never calls Azure for a page the
+  phone scored, and never trusts the phone's arithmetic**. The record carries `engine: "phone"`.
+- **Locale is en-US on the phone too** (`ReadAssessor.LOCALE`), for the reasons in the Azure
+  section; a page scored in the app is one row of the same series as a cloud-scored read.
+  Say-it moved to en-US on the phone the same day (app branch `read-mode`), so the divergence is closed; only the Minimal Pairs catalog keeps its six en-GB voices.
+- **The trend** (`TrendScreen`): one 0–100 axis, four series in fixed order (accuracy, fluency,
+  completeness, prosody), palette validated with the data-viz skill for both surfaces, legend +
+  end labels + a table (the light palette's contrast warning makes the table mandatory). Data =
+  the phone's own rows (`filesDir/reads/rows.json`) + the pack's en-US `history`; one point per
+  day, the later read wins.
+- **Long reads:** the app caps a take at 30 minutes (`AttemptRecorder.READ_MAX_MS`); Azure
+  refuses a single request somewhere above ~37, so a page never hits that ceiling.
+- Nothing from any of this reaches `tracking.tsv`.
+
+## The reader IN the app (replacing KOReader) — 2026-09-21
+
+The user's decision the evening Read mode shipped: "the reader must work as a regular epub reader,
+and must have a folder in the drive to get the epubs just as koreader". App branch `reader` (PR #3,
+based on `read-mode`), contract section "Reader" in the app repo's `docs/CONTRACT.md`.
+
+- **Books in:** plain EPUBs in the phone folder `Documents/MinimalPairs/library/`, which is INSIDE
+  the app folder's existing two-way Autosync pair — no new pair on the phone. The coach stocks the
+  Drive side: `EnglishPractice/pairs/library/` (the Arendt EPUB copied there 2026-09-21) and
+  `EnglishPractice/pairs/dict/{eng-spa,wordnet}/` (the same two StarDict sets KOReader listed —
+  "English-Spanish dictionary" and "WordNet (r) 1.7", fetched from KOReader's own catalogue URLs).
+  **How a file gets there without the owner:** the session's Google Drive connector acts as the
+  owner (udea.isabella2028) and creates folders and small placeholder files; `scripts/drive.py`
+  (the service account, no quota) then PATCHes the real bytes in place — nothing large through
+  chat. The app never writes under `library/` or `dict/`. The app is a real
+  reader: chapters paginated in a WebView, side taps or swipes turn pages, a centre tap shows the
+  toolbar (contents, font size), a LONG PRESS looks a word up and offers Save with the sentence it
+  sat in; the Words screen is the vocabulary builder and its bin is the curation.
+- **App → coach, `reading/` in the same folder:** `progress.json` (position per book keyed by
+  KOReader's partial MD5, so `books.json` maps it to a passage — nothing new to register),
+  `vocab.jsonl` (append-only `add`/`delete` lines with the sentence), `time/<ts>.json` (one stretch
+  of reading each, ≥ 20 s). `cloud-sync.sync_pairs` downloads `reading/` with the rest of the app
+  folder and `scripts/reader-pull.py --dir` folds it into the SAME `logs/reading/` files
+  koreader-pull maintains (ids `app:<word>`; a delete = `dropped` + `carded`, never erased; saving
+  again brings it back and makes it offerable; daily minutes add `app_min` to KOReader's `ko_min`;
+  the newer position wins). Nothing downstream changed: reading-hub, weekly-rollup, sayit's `new`
+  words and the readout read the same files. KOReader keeps working beside it until he retires it.
+- Load, harvest, pointer — never a score; nothing reaches `tracking.tsv`.
+
+## Cleanup (the junk of a scanned book, judged on the phone) — 2026-09-23
+
+The user's design, adopted whole: "a preprocessing step. An epub is added, the app screens for junk,
+some confirmation estimates the confidence in deleting the word, and the epub is cleaned" — and no
+tokens spent reading the book. App PR #21, merged 2026-09-23; contract section "Cleanup".
+
+- **Scan (deterministic, offline):** `scripts/epub-scan.py <slug>` looks every word of every passage up in
+  WordNet's index (the same StarDict set the phone holds, fetched once from the app folder's `dict/`
+  into `.cache/dict/`) and in the app repo's 50k frequency list; the misses are graded by shape —
+  one OCR confusion away from a dictionary word (`ocr_fold`: rn/m, li/h, c/e, l/i, …) = `certain`;
+  a plausible reading, a foreign phrase or a quoted term = `probable`; a mid-sentence capital (a
+  name) or a rare word = `doubtful`. Section openings (decorative type: "Apmsesinsy" for a drop-cap
+  ANTISEMITISM) are matched against the chapter title's words. Running heads welded into the text
+  (a phrase before a bare number, ≥4 times) are listed separately. Output `library/<slug>.junk.json`
+  (gitignored — it carries sentences of the book) with `filename`/`book_md5` from `books.json`; a
+  target already judged is never offered again (`decisions_hash` marks what the list was built
+  against; `stale()` says when to rebuild). Arendt: 1,329 candidates — 68 certain, 459 probable,
+  802 doubtful; one head, "Aclassless society" ×14.
+- **Certain is automatic (the user's rule, 2026-09-23, "all the certain words must be implemented
+  automatically"):** a `certain` candidate WITH a proposed reading is recorded by the scan itself as
+  an `auto` fix in `logs/reading/cleanup.json` and applied by the next clean — it never reaches the
+  phone. What that tier may not contain, tightened the same day after reading all 63 the first pass
+  produced: a fix that merely truncates (*diffi* → *diff*, a broken page), a word always capitalised
+  after another capital or an initial (*Kenneth M. Kauffman*), a word whose neighbours the dictionary
+  does not know either (*citoyen belge*), and an opening word fixed by an edit-distance guess rather
+  than the heading or an OCR fold (*azism* → *agism*; the heading gives *Nazism*, which it did not
+  find). First pass on Arendt: 59 automatic fixes, 497 page heads stripped on 499 pages, one judged
+  head pending. The passages JSON lives on Drive beside the EPUB since the same day (the owner made
+  the placeholder), so a fresh container no longer re-imports the book and passage ids stay put.
+- **Down:** `cloud-sync.scan_books` copies the junk file to `cleanup/<slug>.json` in the app's Drive
+  folder (a coach-owned folder, manifest-listed like a book, filled into the app's placeholder).
+- **Judge (the phone):** the library row shows "Clean up · N to judge"; one tab per tier, the heads,
+  Done. Each card: word, evidence labels, the sentence with the word marked, the proposed reading in
+  an editable field, Fix / Remove / Keep; "Fix all N proposed" per tier behind a confirmation. Every
+  verdict is one line of `reading/cleanup.jsonl` (append-only; a fix typed equal to the word is a
+  keep, an emptied field a remove); latest line per target wins.
+- **Up and apply:** `reader-pull.py --dir` folds the lines into `logs/reading/cleanup.json` (committed:
+  words and fixes only, no sentences). `cloud-sync.clean_books` applies new judgements with
+  `scripts/epub-clean.py`: fixes whole-word and case-preserving (Achicve → Achieve); a judged head
+  removed wherever it sits, matched by letters alone with its page number ("A CLASSLESS SOCIETY 307"
+  in the EPUB = "Aclassless society 307" in the passages); **every page's own running head stripped
+  too** (`passage-import.HEADER_RX`, now also "A CLASSLESS…" with a single-capital first word — the
+  phone was still showing "THE DREYFUS AFFAIR 119" at the top of every page). The EPUB is rewritten
+  IN PLACE in `EnglishPractice/library` and the Autosync copy; the app folder's copy follows by md5.
+  The passage file is edited chunk by chunk so **ids never move** (read pointer, ledger, Say-it
+  carriers unchanged) and mirrored back to Drive; `register_book` keeps the old partial MD5 as
+  `md5_history` and both pulls look a book up by any hash it ever had; the app keeps his place by
+  file name. `logs/reading/cleanup-applied.json` remembers what was applied.
+- **Never:** a language model reading the book to find junk (at most the candidate list); a change
+  to the EPUB without a judgement; erasing a judgement (a changed mind is one more line).
+- The Hub's Read tab holds its own copy of the passages (`book/*`): re-import from the regenerated
+  `<slug>.hub.json` only if he wants the fixes there too — the Read tab is not on the daily path.
+
+## The cloud does the sync (since 2026-09-10) — the Mac is optional
+
+`python3 scripts/cloud-sync.py` is the coach's sync from any fresh container:
+`scripts/drive.py` (Google Drive with a service account — `GDRIVE_SA_JSON_B64`
+as a CCR environment variable, the key file base64 on one line; the account is
+shared on `EnglishPractice` and on `com.nll.asr`, the recorder's upload root)
+→ bookshelf (`library-sync`, passage files mirrored to Drive, the phone folder
+stocked Drive-side from `logs/reading/shelf.json`) → new recordings downloaded
+by Drive id + md5 (`logs/practice/.drive.json`) → `practice-ingest` in
+`.venv-practice` (`scripts/cloud-setup.sh` builds it, Whisper + Azure) →
+`practice-review` → KOReader databases when changed (`logs/reading/.drive.json`)
+→ `koreader-pull` → `reading-cards` → `anki-cloud` → `reading-hub` → commit +
+push. Two Routines run it: morning 07:30 UTC (the 06:45 page scored before
+work) and the daily 18:30 UTC review. Nothing large ever passes through a chat
+context: the Drive connector is for listing, `drive.py` for bytes.
+
+## Data hub (local sessions, optional)
+
+`scripts/coach-sync.sh` is the single entry point for all data ingestion:
+practice recordings + Anki stats (when Anki is open) + KOReader reading data
+(from the Drive mount) + Kindle vocab (when plugged in), one "observations:
+data sync" commit. Run it at the START of
+every local session and before Friday reviews; each path skips gracefully
+when its source is absent.
+
+## Practice feedback loop (local sessions)
+
+Recorded speaking practice flows to the coach automatically. Built 2026-08-30
+from an adversarially-verified tool investigation (workflow, 12 agents).
+
+- **Capture:** any audio in `~/EnglishPractice/`, or in an `EnglishPractice`
+  folder under any Google Drive desktop mount (`~/Library/CloudStorage/
+  GoogleDrive-*/My Drive/EnglishPractice`), is ingested wholesale; files
+  named `eng*` in the Voice Memos iCloud folder or iCloud Drive
+  `EnglishPractice/` are too. All sources activate automatically once they
+  exist (the Apple sources are vestigial — the user's phone is an Android
+  Poco F7 Pro; phone recordings arrive via the Drive folder). Naming convention for typing: "eng 432", "eng ai", "eng warmup",
+  "eng debrief". The user's chosen upload target is the Drive folder
+  `EnglishPractice` (id `1oPS4iDVAY4MD8oZBQvX0zIarTwQbvEnQ`) in the
+  udea.isabella2028@gmail.com account — the account the session's Google
+  Drive connector reaches, so cloud sessions can LIST it for unprocessed
+  recordings (metadata only; avoid pulling audio via connector except as a
+  one-off — base64 through context is expensive). Local ingestion of that
+  folder requires the account added to the Google Drive desktop app.
+- **Ingest:** `.venv-practice/bin/python scripts/practice-ingest.py --commit`
+  (venv from `scripts/practice-setup.sh`; the Python 3.13 + pinned-wheel
+  choices are load-bearing on this Intel mac — never bump pins without
+  re-verifying x86_64 wheels exist). Output per recording in
+  `logs/practice/`: whisper transcript with per-word confidence, wpm/fillers,
+  de Jong & Wempe pause/rate metrics, pitch stats, low-confidence
+  pronunciation suspects. Idempotent (content-hash state file).
+- **Azure pronunciation assessment** (`scripts/azure_pa.py`) activates when
+  `AZURE_SPEECH_KEY` + `AZURE_SPEECH_REGION` are set. **ONE en-US pass since
+  2026-09-16**, carrying the score, the IPA phonemes and prosody together.
+  It was two passes (en-GB score + en-US phonemes), which billed every
+  recording twice; the fix collapsed them into one, but into en-GB, and that
+  was wrong.
+  **Microsoft's own docs: prosody "is only available in the `en-US` locale",
+  the IPA alphabet is en-US only, and "only `en-US` provides phoneme name
+  alongside scores. Other locales receive phoneme scores without names."**
+  The en-GB single pass returned 550 EMPTY phoneme symbols, so the confusion
+  classes silently fell back to spelling guesses, and it returned a prosody
+  number for a locale that does not support the feature. The user chose en-US
+  outright on 2026-09-16: he lives in the UK now and may not later, and the
+  09-14 objection (non-rhotic r, the BATH/TRAP split) never applied to an
+  L1-Spanish speaker who is rhotic and has neither.
+  **MEASURED on the same audio, transcript and reference** (five reads
+  rescored): prosody 52–59 → 81–86, fluency +3, accuracy and completeness
+  within a point or two, and the shape of the series held. Named phonemes
+  went from 0 to 70/70 and the class counts roughly tripled (i/ii 15→50,
+  s/z 8→44, schwa 7→32). **en-GB and en-US rows are DIFFERENT SERIES** —
+  every ledger read row carries `locale`; never draw one line through both.
+  The 09-14 read is still en-GB because a single request that long is refused
+  outright — see the correction below; it is not waiting on a quota reset.
+  **Also true since 2026-09-15:** asking for prosody makes Azure fold it into
+  `PronScore`, so `pron` is a different composite before and after that date.
+  **`accuracy`, `fluency` and `completeness` are per-dimension** — but they
+  too shift with the locale, so read them within a locale, not across it.
+  **NOT a monthly-quota problem — corrected 2026-09-20.** For four days this
+  file said September's 5 free audio hours were spent and the loop was blocked.
+  Wrong, and the wrongness went through three drafts before measurement ended
+  it: first "the tier blew on 09-14" (arithmetic in a commit message, never an
+  Azure error), then "Azure served ~374 minutes past the allowance and refused
+  on 09-16" (invented to explain why the later reads worked), then this. Each
+  was an inference dressed as a fact, and each was written into the file that
+  every fresh session reads first.
+  Measured instead: `scripts/azure-check.py` against the live service returns
+  token 200, scripted en-GB 200/Success and en-US with IPA phonemes and prosody
+  91.3. Short assessments work RIGHT NOW. What fails is **one long request**:
+  the 83.7-minute read is refused with `CancellationReason.Error 1007, Quota
+  exceeded`, while 9.5, 15.3, 24.2, 27.6 and 37.1-minute reads all rescored
+  normally. So there is a ceiling on a SINGLE continuous-recognition request
+  somewhere above ~37 minutes, and Azure reports hitting it as "Quota exceeded"
+  — the same words as an exhausted allowance, which is what misled me.
+  **Consequences:** a long read must be CHUNKED, not sent whole (unbuilt; the
+  09-14 read stays en-GB until it is). Never read 1007 as "the month is gone"
+  without probing with a short utterance first — that probe costs seconds and
+  settles it. S0 costs ~$1.32/audio hour; F0 is a $0 SKU and never draws on an
+  Azure free-account credit, so a trial credit does nothing until the resource's
+  pricing tier is changed. The wait for continuous
+  recognition scales with the audio and a run that does not finish RAISES —
+  a fixed 600s ceiling once made an 84-minute read look like a successful
+  assessment of nothing, and the empty result was written over good scores.
+  Uploads audio to Azure; no-retention
+  terms verified 2026-08. Verified 2026-09-09 on the F0 free tier from the
+  cloud (`scripts/azure-check.py`, report in `logs/azure-check.json`):
+  scripted assessment, completeness, IPA phonemes and prosody all work.
+  The key also lives as `AZURE_SPEECH_KEY`/`AZURE_SPEECH_REGION` environment
+  variables of the Default Cloud Environment; the Mac still needs them in
+  its env file for the recording loop.
+- **Feedback rules:** telemetry is FORMATIVE only — nothing feeds
+  tracking.tsv. Patterns in practice transcripts follow the observation-log
+  discipline (2+ occurrences → PATTERN, production cards, shared 25/wk cap).
+  ASR suspicion is a screen, not a verdict — have the tutor confirm the top
+  suspects monthly. Session-start coach check: read new `logs/practice/`
+  files; the Friday review digests the week.
+
+## Season (the sport frame) — added 2026-09-09 audit
+
+- `docs/TARGET.md` — the race and the 12-week season: baseline (week 0),
+  time trials weeks 5/10/12, road race in week 12 (30-min conversation with
+  a stranger, comprehensibility ≤3/9), targets = baseline + one noise
+  threshold per domain with absolute floors. Read it before any plan talk.
+- `scripts/dial.py` — mechanical dial recommendation (profile → dial,
+  noise thresholds, held/moved/abandoned). Run at every time-trial
+  week-close; log to `logs/dial-log.tsv`; overrides go in the `reason`
+  column. PRE-SEASON until tracking.tsv has a row. Levers change only at
+  time trials ≥ 4 weeks apart (weeks 5 and 10); the week-12 row is a
+  MEASUREMENT. DECODE is never set mechanically (low dictation is a flag;
+  the authentic-audio check decides, by override).
+- `scripts/weekly-rollup.py` — Friday training log → `logs/weekly.tsv`
+  (SRS days/reviews from Anki stats, recordings + wpm/filler from
+  logs/practice, dial, floor check). Self-report via
+  `--set conversations=N human_conversations=N listening_days=N notes="..."`
+  (a total without the human split leaves floor_ok "partial"). Load ≠ ability.
+- `scripts/build-progress.py` → `progress.html` — the Season Board (pace
+  chart). Rebuild after every diagnostic and every Friday review; publish
+  the wrapper-stripped copy to the existing artifact URL:
+  https://claude.ai/code/artifact/43e3b4e1-75f6-45d4-b1e5-ba4b04a0c1ef
+- **Stages** (`logs/stage.json`, `docs/COACH.md`): 1 = SRS + one recorded
+  page a day (floors: recorded pages 5, SRS days 5); 2 adds one AI
+  conversation + listening; 3 = the full runbook. Stage 1 since 2026-09-10
+  at the user's request. The readout, the weekly rollup and the Hub's Today
+  tab follow the stage; promotion is proposed by the Friday review and
+  confirmed by the user in chat. Not a lever.
+- `scripts/check.sh` — one command: jsdom suite + all Python self-tests.
+  Run before committing tooling changes.
+- Friday Routine (trig_01Quw9v6zvapu6kkvperUVPL) now: pull → digest →
+  rollup → dial → rebuild board → republish → push → short reply asking for
+  the two self-report numbers.
+- Calendar events for the four fixed sessions remain user-gated (never
+  created without explicit confirmation).
+
+## The Hub (sensor layer) — added 2026-09-09
+
+Intervals.icu is the user's hub for running/gym/anthropometry; `docs/HUB.md`
+is the same architecture for English. Read it before touching ingestion.
+
+- `hub.html` → artifact https://claude.ai/code/artifact/81ce98f7-d1a4-4904-b268-84245e8fabe9
+  (capabilities `db` + `sample`; republish the stripped copy at that URL,
+  never as a new artifact — the database belongs to the URL). Tabs: Talk (AI
+  voice conversation under the standing brief; transcript + telemetry +
+  harvest → `sessions/<id>`), Log (one-tap check-ins → `days/<date>`), Today
+  (prescription, floors, morning readout), Week. `meta/config` holds dial,
+  topic, crutch words, baseline date.
+- **Pulling the Hub from the cloud** (any session, and the Friday Routine):
+  Artifact `read_db` on collections `days` and `sessions` with `out_dir`,
+  then `python3 scripts/hub-fold.py <dump>` → `logs/hub/`. The diagnostic
+  artifact (823a99e1…) now stores each saved run in its own DB, collection
+  `runs` (field `tsv` is the tracking row) — pull it before appending to
+  `tracking.tsv`; the paste path still works.
+- **Hub writes need a version (2026-09-12, resolved 2026-09-13):** the artifact runtime
+  rejects `write_db` set/update/delete on an EXISTING document unless the call carries
+  `if_version` (read the doc first, resend with the version `read_db` returned). Older
+  Artifact tools have no such parameter and simply cannot refresh `meta/*`; container
+  2.1.270 has it. **So the Hub writes belong in the same FRESH session that runs
+  `cloud-sync.py`**, not in the long-running coach session, whose container may be older.
+  If a session cannot write: say so in the reply rather than reporting the Hub refreshed,
+  and leave the documents alone — never delete and recreate them to get around it (delete
+  needs the version too, and the page's history belongs to the URL). git stays the source
+  of truth meanwhile.
+- **Morning check** ("how is my recovery?" for English): `python3
+  scripts/daily-readout.py` — mechanical readout from git; add judgement,
+  never a score. The Hub's readout button is the self-serve version.
+- `scripts/weekly-rollup.py` now takes conversations, listening days and
+  talk minutes from sensors (hub + `logs/listening/daily.json`); `--set`
+  still overrides in writing. SRS days fall back to check-ins only when no
+  Anki export covers the week.
+- **Mac nightly job** (`scripts/install-automation.sh`, 21:40, LaunchAgent):
+  `coach-sync.sh --unattended` = pull → practice ingest → Anki (the job opens
+  Anki itself when closed: push cards, sync, stats, quit; `anki-revlog.py`
+  direct read only if it cannot start — never read the collection while Anki
+  runs) → `listening-pull.py` (AntennaPod → gpodder) →
+  optional `elevenlabs-pull.py` → `koreader-pull.py` → Kindle if mounted → `intervals-push.py`
+  (custom wellness fields `Eng*`, idempotent merge) → one commit, push,
+  never force. Secrets in `~/.config/english-runbook/env`, never in git.
+- **gpodder from the cloud:** `scripts/listening-pull.py` runs here too when
+  `GPODDER_USER` / `GPODDER_PASS` are set as environment variables of this
+  CCR environment (claude.ai environment settings — the only persistent,
+  private place the cloud has; storing them in git or in an artifact store
+  is refused). If set, every Routine runs the pull and commits
+  `logs/listening/`; if not, the Mac's nightly job is the only listening
+  sensor. Credentials never go into git, the Hub store, or chat.
+- Sensor data is load or harvest: `logs/hub`, `logs/listening`,
+  `logs/ai-sessions`, Intervals.icu fields never feed `tracking.tsv`.
+  Transcripts feed `observations.md` under the 2-occurrence rule.
+
+## The recording loop — added 2026-09-09
+
+A recording landing in the `EnglishPractice/Recordings` Drive folder (any
+subfolder of `EnglishPractice` is scanned; the watcher lists each subfolder) is the trigger;
+everything after it is automated (`docs/PRACTICE.md`). Read that file before
+touching `practice-*.py`, the ledger, the cards queue or the passages.
+
+- Kinds from the filename: `eng read <id>` (read-aloud, scored SCRIPTED
+  against `passages/passages.json`; `A00` is the weekly anchor, Mondays),
+  `eng ai`, `eng 432`, `eng debrief`, `eng drill`, else `free`.
+- Mac: `com.english.recording` LaunchAgent (WatchPaths on the folder) →
+  `coach-sync.sh --on-recording` → `practice-ingest.py` (Whisper + Azure PA,
+  scripted for reads) → `practice-review.py` (checklist per kind → `.review.json/.md`,
+  `logs/pronunciation-ledger.json`, `cards/queue.tsv`, `drills/latest.*`;
+  harvest via `claude -p`, else left `pending`) → `anki-push-cards.py`
+  (AnkiConnect, 25/week cap, dedupe by front) → commit + push.
+- Cloud (daily Routine 18:30 UTC + Friday): finish pending harvests from the
+  transcripts, queue cards from Hub Talk harvests, then `write_db` on the Hub:
+  `meta/drills` ← `drills/latest.json`, `meta/ledger` ← `logs/pronunciation-ledger.json`
+  (the Read tab shows the drill and the anchor trend). `meta/passages` ← `passages/passages.json`
+  whenever the passages change.
+- The checklist: fluency for every kind; pronunciation = scripted Azure for
+  reads (confusion classes th, b/v, i/ii, j/y, s/z, -ed, schwa, s-cluster, h,
+  cat/cut), unscripted screen otherwise; grammar/vocabulary harvest only for
+  conversation kinds (a read-aloud's grammar is the text's). Words flagged on
+  2+ recordings become "Say it (pronunciation)" cards. Stage 1 = reading
+  daily; stage 2 adds recorded conversations once reading holds ~3 weeks.
+- Never a score: the anchor series is formative; nothing feeds tracking.tsv.
+  The daily read-aloud entered the plan in pre-season (no lever spent).
+- **The book / bookshelf** (2026-09-10): the Drive folder
+  `EnglishPractice/library/` holds the EPUBs (`Author__Title.epub`) and the
+  processed files. `scripts/library-sync.py` (Mac, nightly + before each
+  ingest) imports new books via `scripts/passage-import.py` →
+  `library/<slug>.json` (gitignored — copyrighted; mirrored to Drive) +
+  `<slug>.hub.json` in Drive, which the Hub's Read tab imports itself
+  ("Import a book…" → `book/*`, `meta/book`; text never crosses a cloud
+  session). The Read tab serves passages in order via `meta/config.book_next`;
+  the ingest's passage detection reads `library/`. Current book: Arendt, The
+  Origins of Totalitarianism, 1433 passages (already in the Hub).
+
+## Repo conventions
+
+- Branch: `claude/adult-language-learning-gnk7i1`. Commit and push after
+  meaningful changes; no PRs unless asked.
+- `diagnostic.html` and `routine.html` are standalone pages (full head).
+  Their published artifacts are wrapper-stripped copies — republish via the
+  existing artifact URLs, never as new artifacts.
+- Tests: `node scripts/test.js` (jsdom; non-zero exit on failure). Run
+  before committing any change to `diagnostic.html`. Changing items,
+  scoring keys, wordlists, or thresholds is COMPARABILITY-BREAKING: bump
+  the form version in `docs/METHOD.md` and warn the user that tracking
+  history resets.

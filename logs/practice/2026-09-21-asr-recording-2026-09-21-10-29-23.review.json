@@ -1,0 +1,687 @@
+{
+ "id": "2026-09-21-asr-recording-2026-09-21-10-29-23",
+ "source": "ASR Recording - 2026_09_21_10_29_23.mp3",
+ "recorded": "2026-09-21 09:58",
+ "kind": "read",
+ "passage": "B110",
+ "anchor": false,
+ "reviewed": "2026-09-21T10:03:57Z",
+ "fluency": {
+  "duration_s": 472.6,
+  "wpm": 118.2,
+  "words": 931,
+  "filler_pct": 0.0,
+  "speech_rate_syll_s": 3.68,
+  "articulation_rate_syll_s": 4.61,
+  "avg_syllable_s": 0.217,
+  "f0_median_hz": 138.8,
+  "f0_range_semitones": 8.4,
+  "pause_count": 117,
+  "phonation_ratio": 0.8,
+  "mean_pause_s": 0.82
+ },
+ "pronunciation": {
+  "source": "azure",
+  "scripted": true,
+  "scores": {
+   "accuracy": 94.4,
+   "fluency": 94.2,
+   "completeness": 95.8,
+   "prosody": 84.8,
+   "pron": 90.7
+  },
+  "flagged": [
+   {
+    "word": "at",
+    "accuracy": 80.0,
+    "error": "None"
+   },
+   {
+    "word": "to",
+    "accuracy": 91.0,
+    "error": "None"
+   },
+   {
+    "word": "see",
+    "accuracy": 54.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "limited",
+    "accuracy": 63.0,
+    "error": "None"
+   },
+   {
+    "word": "them",
+    "accuracy": 73.0,
+    "error": "None"
+   },
+   {
+    "word": "the",
+    "accuracy": 88.0,
+    "error": "None"
+   },
+   {
+    "word": "equivocalities",
+    "accuracy": 62.0,
+    "error": "None"
+   },
+   {
+    "word": "prerequisite",
+    "accuracy": 65.0,
+    "error": "None"
+   },
+   {
+    "word": "homogeneity",
+    "accuracy": 62.0,
+    "error": "None"
+   },
+   {
+    "word": "edicts",
+    "accuracy": 58.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "edict",
+    "accuracy": 60.0,
+    "error": "None"
+   },
+   {
+    "word": "breakdown",
+    "accuracy": 88.0,
+    "error": "None"
+   },
+   {
+    "word": "and\\_privileges",
+    "accuracy": 91.0,
+    "error": "None"
+   },
+   {
+    "word": "abolished",
+    "accuracy": 60.0,
+    "error": "None"
+   },
+   {
+    "word": "depended",
+    "accuracy": 65.0,
+    "error": "None"
+   },
+   {
+    "word": "upon",
+    "accuracy": 63.0,
+    "error": "None"
+   },
+   {
+    "word": "independent",
+    "accuracy": 94.0,
+    "error": "None"
+   },
+   {
+    "word": "represent",
+    "accuracy": 97.0,
+    "error": "None"
+   },
+   {
+    "word": "age-old",
+    "accuracy": 85.0,
+    "error": "None"
+   },
+   {
+    "word": "nobility—-to",
+    "accuracy": 85.0,
+    "error": "None"
+   },
+   {
+    "word": "matters—would",
+    "accuracy": 40.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "interest",
+    "accuracy": 97.0,
+    "error": "None"
+   },
+   {
+    "word": "assimilated",
+    "accuracy": 88.0,
+    "error": "None"
+   },
+   {
+    "word": "credit",
+    "accuracy": 70.0,
+    "error": "None"
+   },
+   {
+    "word": "nineteenth",
+    "accuracy": 94.0,
+    "error": "None"
+   },
+   {
+    "word": "ever-present",
+    "accuracy": 69.0,
+    "error": "None"
+   },
+   {
+    "word": "inequalities",
+    "accuracy": 46.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "destruction",
+    "accuracy": 91.0,
+    "error": "None"
+   },
+   {
+    "word": "abolition",
+    "accuracy": 85.0,
+    "error": "None"
+   },
+   {
+    "word": "oppressed",
+    "accuracy": 43.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "classes",
+    "accuracy": 91.0,
+    "error": "None"
+   },
+   {
+    "word": "their",
+    "accuracy": 91.0,
+    "error": "None"
+   },
+   {
+    "word": "to",
+    "accuracy": 97.0,
+    "error": "None"
+   },
+   {
+    "word": "coincided",
+    "accuracy": 55.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "society",
+    "accuracy": 94.0,
+    "error": "None"
+   },
+   {
+    "word": "efficiently",
+    "accuracy": 94.0,
+    "error": "None"
+   },
+   {
+    "word": "jacobins",
+    "accuracy": 68.0,
+    "error": "None"
+   },
+   {
+    "word": "based",
+    "accuracy": 97.0,
+    "error": "None"
+   },
+   {
+    "word": "republics",
+    "accuracy": 85.0,
+    "error": "None"
+   },
+   {
+    "word": "granted",
+    "accuracy": 97.0,
+    "error": "None"
+   },
+   {
+    "word": "during",
+    "accuracy": 94.0,
+    "error": "None"
+   },
+   {
+    "word": "cighteenth",
+    "accuracy": 5.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "centuries",
+    "accuracy": 88.0,
+    "error": "None"
+   },
+   {
+    "word": "court",
+    "accuracy": 63.0,
+    "error": "None"
+   },
+   {
+    "word": "wherever",
+    "accuracy": 68.0,
+    "error": "None"
+   },
+   {
+    "word": "liked",
+    "accuracy": 88.0,
+    "error": "None"
+   },
+   {
+    "word": "sovereign",
+    "accuracy": 62.0,
+    "error": "None"
+   },
+   {
+    "word": "to",
+    "accuracy": 94.0,
+    "error": "None"
+   },
+   {
+    "word": "authorities",
+    "accuracy": 97.0,
+    "error": "None"
+   },
+   {
+    "word": "characteristically",
+    "accuracy": 73.0,
+    "error": "None"
+   },
+   {
+    "word": "called",
+    "accuracy": 91.0,
+    "error": "None"
+   },
+   {
+    "word": "generalprivilegierte",
+    "accuracy": 59.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "than",
+    "accuracy": 91.0,
+    "error": "None"
+   },
+   {
+    "word": "their",
+    "accuracy": 88.0,
+    "error": "None"
+   },
+   {
+    "word": "but",
+    "accuracy": 97.0,
+    "error": "None"
+   },
+   {
+    "word": "state",
+    "accuracy": 7.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "may",
+    "accuracy": 80.0,
+    "error": "None"
+   },
+   {
+    "word": "such",
+    "accuracy": 53.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "hierarchy",
+    "accuracy": 6.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "continent",
+    "accuracy": 73.0,
+    "error": "None"
+   },
+   {
+    "word": "permitted",
+    "accuracy": 49.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "in",
+    "accuracy": 88.0,
+    "error": "None"
+   },
+   {
+    "word": "almost",
+    "accuracy": 4.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "classes",
+    "accuracy": 28.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "granted",
+    "accuracy": 63.0,
+    "error": "None"
+   },
+   {
+    "word": "than",
+    "accuracy": 94.0,
+    "error": "None"
+   },
+   {
+    "word": "their",
+    "accuracy": 36.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "was",
+    "accuracy": 76.0,
+    "error": "None"
+   },
+   {
+    "word": "them",
+    "accuracy": 45.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "certain",
+    "accuracy": 32.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "its",
+    "accuracy": 14.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "not",
+    "accuracy": 97.0,
+    "error": "None"
+   },
+   {
+    "word": "need",
+    "accuracy": 73.0,
+    "error": "None"
+   },
+   {
+    "word": "into",
+    "accuracy": 39.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "nation-state",
+    "accuracy": 49.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "the",
+    "accuracy": 80.0,
+    "error": "None"
+   },
+   {
+    "word": "extension",
+    "accuracy": 42.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "continent",
+    "accuracy": 45.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "series",
+    "accuracy": 1.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "credit",
+    "accuracy": 49.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "and",
+    "accuracy": 94.0,
+    "error": "None"
+   },
+   {
+    "word": "them",
+    "accuracy": 54.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "had",
+    "accuracy": 22.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "became",
+    "accuracy": 14.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "had",
+    "accuracy": 94.0,
+    "error": "None"
+   },
+   {
+    "word": "century",
+    "accuracy": 91.0,
+    "error": "None"
+   },
+   {
+    "word": "completely",
+    "accuracy": 22.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "and",
+    "accuracy": 80.0,
+    "error": "None"
+   },
+   {
+    "word": "premise",
+    "accuracy": 14.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "state’s",
+    "accuracy": 3.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "in",
+    "accuracy": 80.0,
+    "error": "None"
+   },
+   {
+    "word": "the",
+    "accuracy": 85.0,
+    "error": "None"
+   },
+   {
+    "word": "equality",
+    "accuracy": 3.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "them",
+    "accuracy": 51.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "forerunners",
+    "accuracy": 10.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "certain",
+    "accuracy": 6.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "for",
+    "accuracy": 43.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "neighbors",
+    "accuracy": 9.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "part",
+    "accuracy": 91.0,
+    "error": "None"
+   },
+   {
+    "word": "expansion",
+    "accuracy": 36.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "made",
+    "accuracy": 94.0,
+    "error": "None"
+   },
+   {
+    "word": "liked",
+    "accuracy": 91.0,
+    "error": "None"
+   },
+   {
+    "word": "privilege",
+    "accuracy": 4.0,
+    "error": "Mispronunciation"
+   },
+   {
+    "word": "its",
+    "accuracy": 91.0,
+    "error": "None"
+   },
+   {
+    "word": "citizenship",
+    "accuracy": 24.0,
+    "error": "Mispronunciation"
+   }
+  ],
+  "classes": {
+   "s-cluster": {
+    "n": 2,
+    "words": [
+     "state",
+     "state’s"
+    ]
+   },
+   "h": {
+    "n": 4,
+    "words": [
+     "hierarchy",
+     "homogeneity",
+     "had"
+    ]
+   },
+   "b/v": {
+    "n": 6,
+    "words": [
+     "neighbors",
+     "privilege",
+     "abolished",
+     "ever-present",
+     "jacobins",
+     "republics"
+    ]
+   },
+   "i/ii": {
+    "n": 23,
+    "words": [
+     "see",
+     "limited",
+     "equivocalities",
+     "prerequisite",
+     "homogeneity",
+     "edicts",
+     "edict",
+     "depended",
+     "nobility—-to",
+     "assimilated",
+     "credit",
+     "inequalities",
+     "classes",
+     "coincided",
+     "efficiently",
+     "jacobins",
+     "centuries",
+     "into",
+     "the",
+     "extension",
+     "century",
+     "its"
+    ]
+   },
+   "schwa": {
+    "n": 18,
+    "words": [
+     "them",
+     "homogeneity",
+     "and\\_privileges",
+     "nobility—-to",
+     "ever-present",
+     "inequalities",
+     "destruction",
+     "abolition",
+     "to",
+     "jacobins",
+     "authorities",
+     "than",
+     "was",
+     "certain",
+     "continent",
+     "and"
+    ]
+   },
+   "th": {
+    "n": 5,
+    "words": [
+     "the",
+     "their",
+     "than",
+     "them"
+    ]
+   },
+   "s/z": {
+    "n": 9,
+    "words": [
+     "prerequisite",
+     "inequalities",
+     "oppressed",
+     "classes",
+     "society",
+     "centuries",
+     "nation-state",
+     "its"
+    ]
+   },
+   "-ed": {
+    "n": 9,
+    "words": [
+     "depended",
+     "oppressed",
+     "based",
+     "granted",
+     "liked",
+     "called",
+     "permitted"
+    ]
+   },
+   "cat/cut": {
+    "n": 4,
+    "words": [
+     "upon",
+     "such",
+     "granted",
+     "had"
+    ]
+   }
+  },
+  "locale": "en-US",
+  "word_count": 941
+ },
+ "harvest": null,
+ "cards_added": 23,
+ "flags": [],
+ "passage_overlap": 0.93,
+ "void": false
+}
